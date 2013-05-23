@@ -1,12 +1,15 @@
 Using The Dojo Toolkit with TypeScript 0.9
+==========================================
 
 
 I. Dojo type definitions
+------------------------
 
 Common types used in Dojo are defined in the file "dojo_types.ts".  You don't normally need to reference this file, since all other Dojo definition files reference it.  You need it only if you are writing your own module files to compile into Dojo-style modules.
 
 
 II. Referencing dojo.ts
+-----------------------
 
 Basic Dojo modules are defined in the file "dojo.ts".  It contains most of the core functionalities.
 
@@ -16,11 +19,13 @@ To use Dojo, include the following reference in the first lines of your TypeScri
 
 
 III. TypeScript setup
+---------------------
 
 Your TypeScript environment must be setup to compile using AMD-style modules.  In Visual Studio, you set "Use the AMD module" to true under Tools-Options-Web Essentials-TypeScript.  When using the command line compiler, use the "--module amd" flag.
 
 
 IV. Using Dojo Namespace-type modules
+-------------------------------------
 
 If the Dojo module is namespace-type (i.e. not newable or directly callable), just "import" it:
 
@@ -37,6 +42,7 @@ compiles into:
 
 
 V. Using Directly-callable Dojo modules
+---------------------------------------
 
 Starting from TypeScript version 0.9 (with generics support), modules are strictly namespaces and can no longer be directly callable.
 
@@ -60,6 +66,7 @@ The type parameter passed to the "require" call are usually named by capitalizin
 
 
 VI. Using Class-type Dojo modules
+---------------------------------
 
 Starting from TypeScript version 0.9 (with generics support), modules are strictly namespaces and can no longer be newable.
 
@@ -81,6 +88,7 @@ When using a class-type (i.e. newable) Dojo module, the type parameter passed to
 
 
 VII. Defining Dojo modules
+--------------------------
 
 You can define modules to be used with Dojo in TypeScript.  For example, the following:
 
@@ -100,3 +108,7 @@ compiles to:
         var retval = { ... };
         return retval;
     });
+
+The "export = ..." statement is necessary because TypeScript defaults to CommonJS-style AMD modules, which means attaching exported functions to the "exports" object but does not return it. This will cause errors when running the actual JavaScript with Dojo.  Perhaps in the future TypeScript will add a feature to generate RequireJS-style AMD modules.
+
+Using "export = ..." will also cause TypeScript to load the proper object type for the module.
