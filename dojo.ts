@@ -207,7 +207,7 @@ declare class DojoAdapterRegistry
 	register(name: string, check: GenericFunctionReturning<boolean>, wrap: GenericAction, directReturn?: boolean, override?: boolean): void;
 	unregister(name: string): boolean;
 }
-interface DojoAdapterRegistry
+interface IDojoAdapterRegistry
 {
 	new (returnWrappers?: boolean): DojoAdapterRegistry;
 }
