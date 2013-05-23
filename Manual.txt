@@ -1,0 +1,102 @@
+Using The Dojo Toolkit with TypeScript 0.9
+
+
+I. Dojo type definitions
+
+Common types used in Dojo are defined in the file "dojo_types.ts".  You don't normally need to reference this file, since all other Dojo definition files reference it.  You need it only if you are writing your own module files to compile into Dojo-style modules.
+
+
+II. Referencing dojo.ts
+
+Basic Dojo modules are defined in the file "dojo.ts".  It contains most of the core functionalities.
+
+To use Dojo, include the following reference in the first lines of your TypeScript file:
+
+    /// <reference path="dojo.ts"/>
+
+
+III. TypeScript setup
+
+Your TypeScript environment must be setup to compile using AMD-style modules.  In Visual Studio, you set "Use the AMD module" to true under Tools-Options-Web Essentials-TypeScript.  When using the command line compiler, use the "--module amd" flag.
+
+
+IV. Using Dojo Namespace-type modules
+
+If the Dojo module is namespace-type (i.e. not newable or directly callable), just "import" it:
+
+    /// <reference path="dojo.ts"/>
+    import array = module("dojo/_base/array");
+    array.forEach(items, (item, index) => console.log(index + ": " + item));
+
+compiles into:
+
+    define(["require", "exports", "dojo/_base/array"], function(require, exports, __array__) {
+        var array = __array__;
+        array.forEach(items, function(item, index) { console.log(index + ": " + item) });
+    });
+
+
+V. Using Directly-callable Dojo modules
+
+Starting from TypeScript version 0.9 (with generics support), modules are strictly namespaces and can no longer be directly callable.
+
+When using this type of Dojo modules, use the following syntax:
+
+    /// <reference path="dojo.ts"/>
+    /// <amd-dependency path="dojo/ready"/>
+    var ready = require<DojoReady>("dojo/ready");
+    ready(() => { ... });
+
+compiles into:
+
+    define(["require", "exports", "dojo/ready"], function(require, exports) {
+        var ready = require("dojo/ready");
+        ready(function() { ... });
+    });
+
+The "/// <amd-dependency ... />" tag is an undocumented feature of TypeScript 0.9 to automatically add new AMD dependencies.
+
+The type parameter passed to the "require" call are usually named by capitalizing each section of the Dojo module and concatenating them together to form a single word.  For example, "dojo/ready" will be DojoReady, "dojo/_base/declare" will be DojoBaseDeclare etc.
+
+
+VI. Using Class-type Dojo modules
+
+Starting from TypeScript version 0.9 (with generics support), modules are strictly namespaces and can no longer be newable.
+
+When using this type of Dojo modules, use the following syntax:
+
+    /// <reference path="dojo.ts"/>
+    /// <amd-dependency path="dojo/store/Memory"/>
+    var Memory = require<IDojoStoreMemory>("dojo/store/Memory");
+    var store = new Memory({ data: ... });
+
+compiles into:
+
+    define(["require", "exports", "dojo/store/Memory"], function(require, exports) {
+        var Memory = require("dojo/store/Memory");
+        var store = new Memory({ data: ... });
+    });
+
+When using a class-type (i.e. newable) Dojo module, the type parameter passed to the "require" call is a factory type and should have the letter "I" (for instantiate) prefixing the actual class name.  For instance, the class type in the example above is "DojoStoreMemory", so the factory type name is IDojoStoreMemory.
+
+
+VII. Defining Dojo modules
+
+You can define modules to be used with Dojo in TypeScript.  For example, the following:
+
+    /// <reference path="dojo.ts"/>
+    import array = module("dojo/_base/array");
+        :
+        :
+    var retval = { ... };
+    export = retval;
+
+compiles to:
+
+    define(["require", "exports", "dojo/_base/array"], function(require, exports, __array__) {
+        var array = __array__;
+            :
+            :
+        var retval = { ... };
+        return retval;
+    });
