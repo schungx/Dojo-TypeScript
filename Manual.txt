@@ -60,9 +60,9 @@ compiles into:
         ready(function() { ... });
     });
 
-The "/// <amd-dependency ... />" tag is an undocumented feature of TypeScript 0.9 to automatically add new AMD dependencies.
+The "/// <amd-dependency ... />" tag is an undocumented feature of TypeScript 0.9 to automatically add new AMD dependencies.  It must be among the first lines of the file.
 
-The type parameter passed to the "require" call are usually named by capitalizing each section of the Dojo module and concatenating them together to form a single word.  For example, "dojo/ready" will be DojoReady, "dojo/_base/declare" will be DojoBaseDeclare etc.
+Notice that the modules loaded by "amd-dependency" does not have the corresponding parameter matching it.  The local variable must be created with a subsequent "require" call as shown.  The type parameter passed to the "require" call are usually named by capitalizing each section of the Dojo module and concatenating them together to form a single word.  For example, "dojo/ready" will be DojoReady, "dojo/_base/declare" will be DojoBaseDeclare etc.
 
 
 VI. Using Class-type Dojo modules
