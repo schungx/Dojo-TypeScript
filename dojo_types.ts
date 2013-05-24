@@ -31,3 +31,4 @@ declare function require<T>(depends: string[], func: (...v_args: any[]) => T): T
 
 declare function define<T>(id: string, depends: string[], func: (... v_args: any[]) => T): T;
 declare function define<T>(depends: string[], func: (...v_args: any[]) => T): T;
+declare function define(obj: Object);
