@@ -4,7 +4,7 @@
 
 interface DojoReady
 {
-  (priority: number, context: Object, callback: GenericBlankFunction): void;
+	(priority: number, context: Object, callback: GenericBlankFunction): void;
 	(context: Object, callback: GenericBlankFunction): void;
 	(callback: GenericBlankFunction): void;
 }
@@ -62,7 +62,139 @@ declare class DojoBaseColor
 	g: number;
 	b: number;
 
-	named: { [name: string]: number[]; }
+	named: {
+		"aliceblue": number[];
+		"antiquewhite": number[];
+		"aquamarine": number[];
+		"azure": number[];
+		"beige": number[];
+		"bisque": number[];
+		"blanchedalmond": number[];
+		"blueviolet": number[];
+		"brown": number[];
+		"burlywood": number[];
+		"cadetblue": number[];
+		"chartreuse": number[];
+		"chocolate": number[];
+		"coral": number[];
+		"cornflowerblue": number[];
+		"cornsilk": number[];
+		"crimson": number[];
+		"cyan": number[];
+		"darkblue": number[];
+		"darkcyan": number[];
+		"darkgoldenrod": number[];
+		"darkgray": number[];
+		"darkgreen": number[];
+		"darkgrey": number[];
+		"darkkhaki": number[];
+		"darkmagenta": number[];
+		"darkolivegreen": number[];
+		"darkorange": number[];
+		"darkorchid": number[];
+		"darkred": number[];
+		"darksalmon": number[];
+		"darkseagreen": number[];
+		"darkslateblue": number[];
+		"darkslategray": number[];
+		"darkslategrey": number[];
+		"darkturquoise": number[];
+		"darkviolet": number[];
+		"deeppink": number[];
+		"deepskyblue": number[];
+		"dimgray": number[];
+		"dimgrey": number[];
+		"dodgerblue": number[];
+		"firebrick": number[];
+		"floralwhite": number[];
+		"forestgreen": number[];
+		"gainsboro": number[];
+		"ghostwhite": number[];
+		"gold": number[];
+		"goldenrod": number[];
+		"greenyellow": number[];
+		"grey": number[];
+		"honeydew": number[];
+		"hotpink": number[];
+		"indianred": number[];
+		"indigo": number[];
+		"ivory": number[];
+		"khaki": number[];
+		"lavender": number[];
+		"lavenderblush": number[];
+		"lawngreen": number[];
+		"lemonchiffon": number[];
+		"lightblue": number[];
+		"lightcoral": number[];
+		"lightcyan": number[];
+		"lightgoldenrodyellow": number[];
+		"lightgray": number[];
+		"lightgreen": number[];
+		"lightgrey": number[];
+		"lightpink": number[];
+		"lightsalmon": number[];
+		"lightseagreen": number[];
+		"lightskyblue": number[];
+		"lightslategray": number[];
+		"lightslategrey": number[];
+		"lightsteelblue": number[];
+		"lightyellow": number[];
+		"limegreen": number[];
+		"linen": number[];
+		"magenta": number[];
+		"mediumaquamarine": number[];
+		"mediumblue": number[];
+		"mediumorchid": number[];
+		"mediumpurple": number[];
+		"mediumseagreen": number[];
+		"mediumslateblue": number[];
+		"mediumspringgreen": number[];
+		"mediumturquoise": number[];
+		"mediumvioletred": number[];
+		"midnightblue": number[];
+		"mintcream": number[];
+		"mistyrose": number[];
+		"moccasin": number[];
+		"navajowhite": number[];
+		"oldlace": number[];
+		"olivedrab": number[];
+		"orange": number[];
+		"orangered": number[];
+		"orchid": number[];
+		"palegoldenrod": number[];
+		"palegreen": number[];
+		"paleturquoise": number[];
+		"palevioletred": number[];
+		"papayawhip": number[];
+		"peachpuff": number[];
+		"peru": number[];
+		"pink": number[];
+		"plum": number[];
+		"powderblue": number[];
+		"rosybrown": number[];
+		"royalblue": number[];
+		"saddlebrown": number[];
+		"salmon": number[];
+		"sandybrown": number[];
+		"seagreen": number[];
+		"seashell": number[];
+		"sienna": number[];
+		"skyblue": number[];
+		"slateblue": number[];
+		"slategray": number[];
+		"slategrey": number[];
+		"snow": number[];
+		"springgreen": number[];
+		"steelblue": number[];
+		"tan": number[];
+		"thistle": number[];
+		"tomato": number[];
+		"turquoise": number[];
+		"violet": number[];
+		"wheat": number[];
+		"whitesmoke": number[];
+		"yellowgreen": number[];
+	}
 }
 interface IDojoBaseColor
 {
@@ -120,45 +252,47 @@ interface DojoBaseDeclare
 
 interface DojoEasingFunction { (value: number): number; }
 
+interface DojoAnimationBaseCreateOptions
+{
+	node: any;
+	duration?: number;
+	easing?: DojoEasingFunction;
+}
+interface DojoAnimationCreateOptions extends DojoAnimationBaseCreateOptions
+{
+	properties: { [style: string]: Object; };
+}
+
+declare class DojoAnimation extends DojoEvented
+{
+	constructor(args?: Object);
+
+	duration: number;
+	curve: any;
+	easing: DojoEasingFunction;
+	repeat: number;
+	rate: number;
+	delay: number;
+
+	play(delay?: number, goToStart?: boolean): DojoAnimation;
+	pause(): DojoAnimation;
+	gotoPercent(percent: number, andPlay?: boolean): DojoAnimation;
+	stop(goToEnd?:boolean): DojoAnimation;
+	status(): string;
+}
+
 declare module "dojo/_base/fx"
 {
-	export class Animation extends DojoEvented
-	{
-		constructor(args?: Object);
-
-		duration: number;
-		curve: any;
-		easing: DojoEasingFunction;
-		repeat: number;
-		rate: number;
-		delay: number;
-
-		play(delay?: number, goToStart?: boolean): Animation;
-		pause(): Animation;
-		gotoPercent(percent: number, andPlay?: boolean): Animation;
-		stop(goToEnd?:boolean): Animation;
-		status(): string;
-	}
-
 	export class _Line
 	{
 	}
 
-	export function anim(nodeId: string, properties: Object, duration?: number, easing?: DojoEasingFunction, onEnd?: GenericBlankFunction, delay?: number): Animation;
-	export function anim(node: HTMLElement, properties: Object, duration?: number, easing?: DojoEasingFunction, onEnd?: GenericBlankFunction, delay?: number): Animation;
+	export function anim(nodeId: string, properties: Object, duration?: number, easing?: DojoEasingFunction, onEnd?: GenericBlankFunction, delay?: number): DojoAnimation;
+	export function anim(node: HTMLElement, properties: Object, duration?: number, easing?: DojoEasingFunction, onEnd?: GenericBlankFunction, delay?: number): DojoAnimation;
 
-	export interface AnimationBaseOptions {
-		node: any;
-		duration?: number;
-		easing?: DojoEasingFunction;
-	}
-	export interface AnimationOptions extends AnimationBaseOptions {
-		properties: { [style: string]: Object; };
-	}
-
-	export function animateProperty(args: AnimationOptions): Animation;
-	export function fadeIn(args: AnimationBaseOptions): Animation;
-	export function fadeOut(args: AnimationBaseOptions): Animation;
+	export function animateProperty(args: DojoAnimationCreateOptions): DojoAnimation;
+	export function fadeIn(args: DojoAnimationBaseCreateOptions): DojoAnimation;
+	export function fadeOut(args: DojoAnimationBaseCreateOptions): DojoAnimation;
 }
 
 // dojo/_base/lang
@@ -472,49 +606,54 @@ declare module "dojo/dom-form"
 
 // dojo/dom-geometry
 
+interface DojoPoint
+{
+	x: number;
+	y: number;
+}
+interface DojoSizeWidthHeight
+{
+	w: number;
+	h: number;
+}
+interface DojoBorderBox extends DojoPoint
+{
+	w: number;
+	h: number;
+}
+interface DojoPositionLeftTopWidthHeight extends DojoSizeWidthHeight
+{
+	l: number;
+	t: number;
+}
+interface DojoPositionLeftTopRightBottomWidthHeight extends DojoPositionLeftTopWidthHeight
+{
+	r: number;
+	b: number;
+}
+
 declare module "dojo/dom-geometry"
 {
-	export interface Point
-	{
-		x: number;
-		y: number;
-	}
-	export interface WidthHeight
-	{
-		w: number;
-		h: number;
-	}
-	export interface LeftTopWidthHeight extends WidthHeight
-	{
-		l: number;
-		t: number;
-	}
-	export interface LeftTopRightBottomWidthHeight extends LeftTopWidthHeight
-	{
-		r: number;
-		b: number;
-	}
-
 	export var boxModel: string;
 
 	export function docScroll(doc?: HTMLDocument): { node: HTMLElement; x: number; y: number; };
 	export function fixIeBiDiScrollLeft(scrollLeft: number, doc?: HTMLDocument): number;
-	export function getBorderExtents(node: HTMLElement, computedStyle?: Object): LeftTopRightBottomWidthHeight;
-	export function getContentBox(node: HTMLElement, computedStyle?: Object): LeftTopWidthHeight;
-	export function getIeDocumentElementOffset(doc?: HTMLDocument): Point;
-	export function getMarginBox(node: HTMLElement, computedStyle?: Object): LeftTopWidthHeight;
-	export function getMarginExtents(node: HTMLElement, computedStyle?: Object): LeftTopWidthHeight;
-	export function getMarginSize(node: HTMLElement, computedStyle?: Object): WidthHeight;
-	export function getPadBorderExtents(node: HTMLElement, computedStyle?: Object): LeftTopRightBottomWidthHeight;
-	export function getPadExtents(node: HTMLElement, computedStyle?: Object): LeftTopRightBottomWidthHeight;
+	export function getBorderExtents(node: HTMLElement, computedStyle?: Object): DojoPositionLeftTopRightBottomWidthHeight;
+	export function getContentBox(node: HTMLElement, computedStyle?: Object): DojoPositionLeftTopWidthHeight;
+	export function getIeDocumentElementOffset(doc?: HTMLDocument): DojoPoint;
+	export function getMarginBox(node: HTMLElement, computedStyle?: Object): DojoPositionLeftTopWidthHeight;
+	export function getMarginExtents(node: HTMLElement, computedStyle?: Object): DojoPositionLeftTopWidthHeight;
+	export function getMarginSize(node: HTMLElement, computedStyle?: Object): DojoSizeWidthHeight;
+	export function getPadBorderExtents(node: HTMLElement, computedStyle?: Object): DojoPositionLeftTopRightBottomWidthHeight;
+	export function getPadExtents(node: HTMLElement, computedStyle?: Object): DojoPositionLeftTopRightBottomWidthHeight;
 	export function isBodyLtr(doc?: HTMLDocument): boolean;
 	export function normalizeEvent(event: { pageX?: number; pageY?: number; offsetX?: number; offsetY?: number; layerX?: number; layerY?: number; }): void;
 
-	export function position(node: HTMLElement, includeScroll?: boolean): LeftTopWidthHeight;
-	export function position(node: string, includeScroll?: boolean): LeftTopWidthHeight;
+	export function position(node: HTMLElement, includeScroll?: boolean): DojoPositionLeftTopWidthHeight;
+	export function position(node: string, includeScroll?: boolean): DojoPositionLeftTopWidthHeight;
 
-	export function setContentSize(node: HTMLElement, box: WidthHeight, computedStyle?: Object): void;
-	export function setMarginBox(node: HTMLElement, box: WidthHeight, computedStyle?: Object): void;
+	export function setContentSize(node: HTMLElement, box: DojoSizeWidthHeight, computedStyle?: Object): void;
+	export function setMarginBox(node: HTMLElement, box: DojoSizeWidthHeight, computedStyle?: Object): void;
 }
 
 // dojo/dom-prop
@@ -559,6 +698,244 @@ interface IDojoEvented
 	new (): DojoEvented;
 }
 
+// dojo/fx
+
+interface DojoSlideAnimationCreateOptions extends DojoAnimationCreateOptions
+{
+	top: string;
+	left: string;
+}
+interface DojoAutoSlideAnimationCreateOptions extends DojoSlideAnimationCreateOptions
+{
+	auto: any;
+}
+declare module "dojo/fx"
+{
+	export function chain(animations: DojoAnimation[]): DojoAnimation;
+	export function combine(animations: DojoAnimation[]): DojoAnimation;
+	export function slideTo(args: DojoSlideAnimationCreateOptions): DojoAnimation;
+	export var Toggler: new (args: DojoFxTogglerCreateOptions) => DojoFxToggler;
+	export function wipeIn(args: DojoAnimationCreateOptions): DojoAnimation;
+	export function wipeOut(args: DojoAnimationCreateOptions): DojoAnimation;
+}
+
+// dojo/fx/easing
+
+declare module "dojo/fx/easing"
+{
+	export function backIn(n: number): number;
+	export function backInOut(n: number): number;
+	export function backOut(n: number): number;
+	export function bounceIn(n: number): number;
+	export function bounceInOut(n: number): number;
+	export function bounceOut(n: number): number;
+	export function circIn(n: number): number;
+	export function circInOut(n: number): number;
+	export function circOut(n: number): number;
+	export function cubicIn(n: number): number;
+	export function cubicInOut(n: number): number;
+	export function cubicOut(n: number): number;
+	export function elasticIn(n: number): number;
+	export function elasticInOut(n: number): number;
+	export function elasticOut(n: number): number;
+	export function expoIn(n: number): number;
+	export function expoInOut(n: number): number;
+	export function expoOut(n: number): number;
+	export function linearIn(n: number): number;
+	export function linearInOut(n: number): number;
+	export function linearOut(n: number): number;
+	export function quadIn(n: number): number;
+	export function quadInOut(n: number): number;
+	export function quadOut(n: number): number;
+	export function quartIn(n: number): number;
+	export function quartInOut(n: number): number;
+	export function quartOut(n: number): number;
+	export function quintIn(n: number): number;
+	export function quintInOut(n: number): number;
+	export function quintOut(n: number): number;
+	export function sineIn(n: number): number;
+	export function sineInOut(n: number): number;
+	export function sineOut(n: number): number;
+}
+
+// dojo/fx/Toggler
+
+interface DojoFxTogglerCreateOptions
+{
+	node: any;
+	showDuration?: number;
+	showFunc?: (args: DojoAnimationBaseCreateOptions) => DojoAnimation;
+	hideDuration?: number;
+	hideFuc?: (args: DojoAnimationBaseCreateOptions) => DojoAnimation;
+}
+declare class DojoFxToggler
+{
+	constructor(args: DojoFxTogglerCreateOptions);
+
+	hideDuration: number;
+	node: HTMLElement;
+	showDuration: number;
+
+	hide(delay?: number): DojoAnimation;
+	hideFunc(args?: { node: any; duration?: number; easing: DojoEasingFunction; }): DojoAnimation;
+	show(delay?: number): DojoAnimation;
+	showFunc(args?: { node: any; duration?: number; easing: DojoEasingFunction; }): DojoAnimation;
+}
+interface IDojoFxToggler
+{
+	new (args: DojoFxTogglerCreateOptions): DojoFxToggler;
+}
+
+// dojo/has
+
+interface DojoHas
+{
+	(feature: string): boolean;
+	(feature: number): boolean;
+
+	add(feature: string, test: (global: Object, doc: Document, element: Object) => boolean, now?: boolean, force?: boolean): void;
+	add(feature: number, test: (global: Object, doc: Document, element: Object) => boolean, now?: boolean, force?: boolean): void;
+	clearElement(element: Object): void;
+	load<T>(id: string, parentRequire: Function, loaded: (m: T) => void ): void;
+	normalize(id: number, toAbsMid: (id: number) => number): void;
+}
+
+// dojo/hash
+
+interface DojoHash
+{
+	(hash?: string, replace?: boolean): string;
+}
+
+// dojo/html
+
+declare module "dojo/html"
+{
+	export interface _ContentSetterOptions
+	{
+		cleanContent?: boolean;
+		extractContent?: boolean;
+		parseContent?: boolean;
+		parserScope?: string;
+		startup?: boolean;
+
+		onBegin(): void;
+		onContentError(err: any): string;
+		onEnd(): void;
+	}
+
+	export class _ContentSetter
+	{
+		constructor(params: _ContentSetterOptions, node: string);
+		constructor(params: _ContentSetterOptions, node: HTMLElement);
+
+		node: HTMLElement;
+		content: any;
+		cleanContent: boolean;
+		extractContent: boolean;
+		parseContent: boolean;
+		parserScope: string;
+		startup: boolean;
+
+		empty(): void;
+		
+		set(cont: string, params?: Object): void;
+		set(cont: HTMLElement, params?: Object): void;
+		set(cont: NodeList, params?: Object): void;
+		set(cont: DojoNodeList, params?: Object): void;
+		set(cont: HTMLElement[], params?: Object): void;
+
+		setContent(): void;
+		tearDown(): void;
+
+		// Events
+		onBegin(): void;
+		onContentError(err: any): string;
+		onEnd(): void;
+		onExecError(err: any): string;
+	}
+	
+	export function set(node: HTMLElement, content: string, params?: _ContentSetterOptions): void;
+	export function set(node: HTMLElement, content: HTMLElement, params?: _ContentSetterOptions): void;
+	export function set(node: HTMLElement, content: NodeList, params?: _ContentSetterOptions): void;
+	export function set(node: HTMLElement, content: DojoNodeList, params?: _ContentSetterOptions): void;
+	export function set(node: HTMLElement, content: HTMLElement[], params?: _ContentSetterOptions): void;
+}
+
+// dojo/io-query
+
+declare module "dojo/io-query"
+{
+	export function objectToQuery(map: { [name: string]: any; }): string;
+	export function queryToObject(str: string): { [name: string]: any; };
+}
+
+// dojo/keys
+
+declare module "dojo/keys"
+{
+	export var BACKSPACE: number;
+	export var TAB: number;
+	export var CLEAR: number;
+	export var ENTER: number;
+	export var SHIFT: number;
+	export var CTRL: number;
+	export var ALT: number;
+	export var META: number;
+	export var PAUSE: number;
+	export var CAPS_LOCK: number;
+	export var ESCAPE: number;
+	export var SPACE: number;
+	export var PAGE_UP: number;
+	export var PAGE_DOWN: number;
+	export var END: number;
+	export var HOME: number;
+	export var LEFT_ARROW: number;
+	export var UP_ARROW: number;
+	export var RIGHT_ARROW: number;
+	export var DOWN_ARROW: number;
+	export var INSERT: number;
+	export var DELETE: number;
+	export var HELP: number;
+	export var LEFT_WINDOW: number;
+	export var RIGHT_WINDOW: number;
+	export var SELECT: number;
+	export var NUMPAD_0: number;
+	export var NUMPAD_1: number;
+	export var NUMPAD_2: number;
+	export var NUMPAD_3: number;
+	export var NUMPAD_4: number;
+	export var NUMPAD_5: number;
+	export var NUMPAD_6: number;
+	export var NUMPAD_7: number;
+	export var NUMPAD_8: number;
+	export var NUMPAD_9: number;
+	export var NUMPAD_MULTIPLY: number;
+	export var NUMPAD_PLUS: number;
+	export var NUMPAD_ENTER: number;
+	export var NUMPAD_MINUS: number;
+	export var NUMPAD_PERIOD: number;
+	export var NUMPAD_DIVIDE: number;
+	export var F1: number;
+	export var F2: number;
+	export var F3: number;
+	export var F4: number;
+	export var F5: number;
+	export var F6: number;
+	export var F7: number;
+	export var F8: number;
+	export var F9: number;
+	export var F10: number;
+	export var F11: number;
+	export var F12: number;
+	export var F13: number;
+	export var F14: number;
+	export var F15: number;
+	export var NUM_LOCK: number;
+	export var SCROLL_LOCK: number;
+	export var copyKey: number;
+}
+
 // dojo/json
 
 declare module "dojo/json"
@@ -567,6 +944,289 @@ declare module "dojo/json"
 
 	export function stringify(obj: any, replacer?: any[], space?: boolean): string;
 	export function stringify(obj: any, replacer?: (key: string, value: string) => any, space?: boolean): string;
+}
+
+// dojo/mouse
+
+declare module "dojo/mouse"
+{
+	export var enter: DojoExtensionEvent;
+	export var leave: DojoExtensionEvent;
+
+	export function isLeft(event: MouseEvent): boolean;
+	export function isMiddle(event: MouseEvent): boolean;
+	export function isRight(event: MouseEvent): boolean;
+}
+
+// dojo/NodeList
+
+interface DojoAutoAnimationCreateOptions extends DojoAnimationCreateOptions
+{
+	auto: any;
+}
+interface DojoAutoAnimationBaseCreateOptions extends DojoAnimationBaseCreateOptions
+{
+	auto: any;
+}
+declare class DojoNodeList
+{
+	constructor(node: HTMLElement);
+	constructor(nodes: HTMLElement[]);
+	constructor(nodes: NodeList);
+	constructor(nodes: DojoNodeList);
+
+	addClass(className: string): DojoNodeList;
+	addClass(classNames: string[]): DojoNodeList;
+	//addClassFx(cssClass, args);			// May require dojox.fx
+
+	addContent(content: string, position?: string): DojoNodeList;
+	addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: string): DojoNodeList;
+	addContent(content: HTMLElement, position?: string): DojoNodeList;
+	addContent(content: HTMLElement[], position?: string): DojoNodeList;
+	addContent(content: DojoNodeList, position?: string): DojoNodeList;
+	addContent(content: NodeList, position?: string): DojoNodeList;
+	addContent(content: string, position?: number): DojoNodeList;
+	addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: number): DojoNodeList;
+	addContent(content: HTMLElement, position?: number): DojoNodeList;
+	addContent(content: HTMLElement[], position?: number): DojoNodeList;
+	addContent(content: DojoNodeList, position?: number): DojoNodeList;
+	addContent(content: NodeList, position?: number): DojoNodeList;
+
+	adopt(query: string, position?: string): DojoNodeList;
+	adopt(node: HTMLElement, position?: string): DojoNodeList;
+	adopt(list: HTMLElement[], position?: string): DojoNodeList;
+	adopt(list: NodeList, position?: string): DojoNodeList;
+	adopt(list: DojoNodeList, position?: string): DojoNodeList;
+	adopt(query: string, position?: number): DojoNodeList;
+	adopt(node: HTMLElement, position?: number): DojoNodeList;
+	adopt(list: HTMLElement[], position?: number): DojoNodeList;
+	adopt(list: NodeList, position?: number): DojoNodeList;
+	adopt(list: DojoNodeList, position?: number): DojoNodeList;
+
+	after(content: string): DojoNodeList;
+	after(content: Object): DojoNodeList;
+	after(content: HTMLElement): DojoNodeList;
+	after(content: HTMLElement[]): DojoNodeList;
+	after(content: DojoNodeList): DojoNodeList;
+	after(content: NodeList): DojoNodeList;
+
+	andSelf(): DojoNodeList;
+	anim(properties: { [property: string]: any; }, duration?: number, easing?: DojoEasingFunction, onEnd?: GenericBlankFunction, delay?: number): DojoAnimation;
+
+	animateProperty(args: DojoAnimationCreateOptions): DojoAnimation;
+	animateProperty(args: DojoAutoAnimationCreateOptions): DojoNodeList;
+
+	append(content: string): DojoNodeList;
+	append(content: Object): DojoNodeList;
+	append(content: HTMLElement): DojoNodeList;
+	append(content: HTMLElement[]): DojoNodeList;
+	append(content: DojoNodeList): DojoNodeList;
+	append(content: NodeList): DojoNodeList;
+
+	appendTo(query: string): DojoNodeList;
+	at(...index: number[]): DojoNodeList;
+
+	attr(property: string): string[];
+	attr(property: string, value: string): DojoNodeList;
+
+	before(content: string): DojoNodeList;
+	before(content: Object): DojoNodeList;
+	before(content: HTMLElement): DojoNodeList;
+	before(content: HTMLElement[]): DojoNodeList;
+	before(content: DojoNodeList): DojoNodeList;
+	before(content: NodeList): DojoNodeList;
+
+	children(query?: string): DojoNodeList;
+	clone(): DojoNodeList;
+
+	closest(query: string): HTMLElement;
+	closest(query: string, rootId: string): HTMLElement;
+	closest(query: string, root: Object): HTMLElement;
+
+	concat(...items: HTMLElement[]): DojoNodeList;
+
+	connect(methodName: string, funcName: string): DojoNodeList;
+	connect(methodName: string, func: GenericFunction): DojoNodeList;
+	connect(methodName: string, obj: Object, funcName: string): DojoNodeList;
+
+	data(key: { [prop: string]: any; }): DojoNodeList;
+	data(key: string): any;
+	data(key: string, value: any): DojoNodeList;
+
+	delegate(selector: string, eventName: string, listener: EventListener): DojoNodeList;
+	dtl(template: string, context?: Object): DojoNodeList;
+	empty(): DojoNodeList;
+	end(): DojoNodeList;
+	even(): DojoNodeList;
+	every(callback: (node: HTMLElement, index: number, list: DojoNodeList) => boolean, thisObject?: Object): boolean;
+
+	fadeIn(args?: DojoAutoAnimationBaseCreateOptions): DojoNodeList;
+	fadeIn(args?: DojoAnimationBaseCreateOptions): DojoAnimation;
+
+	fadeOut(args?: DojoAutoAnimationBaseCreateOptions): DojoNodeList;
+	fadeOut(args?: DojoAnimationBaseCreateOptions): DojoAnimation;
+
+	filter(filter: string): DojoNodeList;
+	filter(filter: (item: HTMLElement, index: number, list: DojoNodeList) => boolean): DojoNodeList;
+
+	first(): DojoNodeList;
+	forEach(callback: (item: HTMLElement, index: number, list: DojoNodeList) => void , thisObject?: Object): DojoNodeList;
+
+	html(): string;
+	html(content: string): DojoNodeList;
+	html(content: HTMLElement): DojoNodeList;
+	html(content: HTMLElement[]): DojoNodeList;
+	html(content: NodeList): DojoNodeList;
+	html(content: DojoNodeList): DojoNodeList;
+
+	indexOf(value: HTMLElement, fromIndex?: number): number;
+
+	innerHTML(): string;
+	innerHTML(content: string): DojoNodeList;
+	innerHTML(content: HTMLElement): DojoNodeList;
+	innerHTML(content: HTMLElement[]): DojoNodeList;
+	innerHTML(content: NodeList): DojoNodeList;
+	innerHTML(content: DojoNodeList): DojoNodeList;
+
+	insertAfter(query: string): DojoNodeList;
+	insertBefore(query: string): DojoNodeList;
+	instantiate(declaredClass: string, properties?: Object): DojoNodeList;
+	last(): DojoNodeList;
+	lastIndexOf(value: HTMLElement, fromIndex?: number): number;
+	map(func: (item: HTMLElement, index: number, list: DojoNodeList) => HTMLElement, thisObject?: Object): DojoNodeList;
+	marginBox(): DojoPositionLeftTopWidthHeight;
+	next(query?: string): DojoNodeList;
+	nextAll(query?: string): DojoNodeList;
+	odd(): DojoNodeList;
+
+	on(name: string, listener: EventListener): DojoNodeList;
+	on(type: DojoExtensionEvent, listener: EventListener): DojoNodeList;
+
+	orphan(filter?: string): DojoNodeList;
+	parent(query?: string): DojoNodeList;
+	parents(query?: string): DojoNodeList;
+
+	place(query: string, position?: string): DojoNodeList;
+	place(node: HTMLElement, position?: string): DojoNodeList;
+	place(query: string, position?: number): DojoNodeList;
+	place(node: HTMLElement, position?: number): DojoNodeList;
+
+	position(): DojoBorderBox;
+
+	prepend(content: string): DojoNodeList;
+	prepend(content: Object): DojoNodeList;
+	prepend(content: HTMLElement): DojoNodeList;
+	prepend(content: HTMLElement[]): DojoNodeList;
+	prepend(content: DojoNodeList): DojoNodeList;
+	prepend(content: NodeList): DojoNodeList;
+
+	prependTo(query: string): DojoNodeList;
+	prev(query?: string): DojoNodeList;
+	prevAll(query?: string): DojoNodeList;
+	query(query: string): DojoNodeList;
+	remove(filter?: string): DojoNodeList;
+	removeAttr(name: string): DojoNodeList;
+
+	removeClass(className?: string): DojoNodeList;
+	removeClass(classNames?: string[]): DojoNodeList;
+	//removeClassFx(cssClass, args);			// May require dojox.fx
+	removeData(key?: string): DojoNodeList;
+	replaceAll(query: string): DojoNodeList;
+
+	replaceClass(addClass: string, removeClass?: string): DojoNodeList;
+	replaceClass(addClass: string, removeClasses?: string[]): DojoNodeList;
+	replaceClass(addClasses: string[], removeClass?: string): DojoNodeList;
+	replaceClass(addClasses: string[], removeClasses?: string[]): DojoNodeList;
+
+	replaceWith(content: string): DojoNodeList;
+	replaceWith(content: Object): DojoNodeList;
+	replaceWith(content: HTMLElement): DojoNodeList;
+	replaceWith(content: HTMLElement[]): DojoNodeList;
+	replaceWith(content: DojoNodeList): DojoNodeList;
+	replaceWith(content: NodeList): DojoNodeList;
+
+	siblings(query?: string): DojoNodeList;
+	slice(begin: number, end?: number): DojoNodeList;
+
+	slideTo(args: DojoSlideAnimationCreateOptions): DojoAnimation;
+	slideTo(args: DojoAutoSlideAnimationCreateOptions): DojoNodeList;
+
+	some(callback: (node: HTMLElement, index: number, list: DojoNodeList) => boolean, thisObject?: Object): boolean;
+	splice(index: number, howmany?: number, ...items: HTMLElement[]): DojoNodeList;
+
+	style(property: string): string[];
+	style(property: string, value: string): DojoNodeList;
+
+	text(): string;
+	text(value: string): DojoNodeList;
+
+	toggleClass(className: string, condition?: boolean): DojoNodeList;
+	//toggleClassFx(cssClass, force, args);			// May require dojox.fx
+
+	val(): string;
+	val(): string[];
+	val(value: string): DojoNodeList;
+	val(value: string[]): DojoNodeList;
+
+	wipeIn(args: DojoAnimationCreateOptions): DojoAnimation;
+	wipeIn(args: DojoAutoAnimationCreateOptions): DojoNodeList;
+	
+	wipeOut(args: DojoAnimationCreateOptions): DojoAnimation;
+	wipeOut(args: DojoAutoAnimationCreateOptions): DojoNodeList;
+
+	wrap(html: string): DojoNodeList;
+	wrap(node: HTMLElement): DojoNodeList;
+
+	wrapAll(html: string): DojoNodeList;
+	wrapAll(node: HTMLElement): DojoNodeList;
+
+	wrapInner(html: string): DojoNodeList;
+	wrapInner(node: HTMLElement): DojoNodeList;
+}
+interface IDojoNodeList
+{
+	new (node: HTMLElement): DojoNodeList;
+	new (nodes: HTMLElement[]): DojoNodeList;
+	new (nodes: NodeList): DojoNodeList;
+	new (nodes: DojoNodeList): DojoNodeList;
+}
+
+// dojo/NodeList-???
+
+declare module "dojo/NodeList-data" { }
+declare module "dojo/NodeList-dom" { }
+declare module "dojo/NodeList-fx" { }
+declare module "dojo/NodeList-html" { }
+declare module "dojo/NodeList-manipulate" { }
+declare module "dojo/NodeList-traverse" { }
+
+// dojo/number
+
+declare module "dojo/number"
+{
+	export function format(value: string, options?: {
+		pattern?: string;
+		type?: string;
+		locale?: string;
+		round?: number;
+		fractional?: boolean;
+		places?: number;
+	}): string;
+	export function parse(expression: string, options?: {
+		pattern?: string;
+		type?: string;
+		locale?: string;
+		strict?: boolean;
+		fractional?: boolean;
+	}): number;
+	export function regexp(options?: {
+		pattern?: string;
+		type?: string;
+		locale?: string;
+		strict?: boolean;
+		places?: number;
+	}): RegExp;
+	export function round(value: number, places?: number, increment?: number): number;
 }
 
 // dojo/on
@@ -594,6 +1254,52 @@ interface DojoOn
 	once(target: HTMLElement, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): void;
 	once(target: Object, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): void;
 }
+
+// dojo/parser
+
+declare module "dojo/parser" 
+{
+	export interface _ParseOptions
+	{
+		noStart?: boolean;
+		rootNode?: HTMLElement;
+		template?: boolean;
+		inherited?: Object;
+		scope?: string;
+		propsThis?: Object;
+		contextRequire?: Function;
+	}
+
+	export function parse(rootNode?: HTMLElement, options?: _ParseOptions): DijitWidgetObject[];
+	export function scan(root?: HTMLElement, options?: _ParseOptions): DojoPromise<HTMLElement[]>;
+	export function instantiate(nodes: HTMLElement[], mixin?: Object, options?: _ParseOptions): DijitWidgetObject[];
+	export function construct(ctor: { (params?: DijitWidgetCreateOptions): DijitWidgetObject; }, node: HTMLElement, mixin?: Object, options?: _ParseOptions, scripts?: HTMLElement[], inherited?: Object): DijitWidgetObject;
+}
+
+// dojo/query
+
+interface DojoQuery
+{
+	(selector: string, contextId?: string): DojoNodeList;
+	(selector: string, context?: Object): DojoNodeList;
+
+	NodeList: IDojoNodeList;
+}
+
+// dojo/regexp
+
+declare module "dojo/regexp"
+{
+	export function buildGroupRE(arr: any, re: (item: any) => RegExp, nonCapture?: boolean): RegExp;
+	export function buildGroupRE(arr: any[], re: (item: any) => RegExp, nonCapture?: boolean): RegExp;
+
+	export function escapeString(str: string, except?: string): string;
+	export function group(expression: string, nonCapture?: boolean): string;
+}
+
+// dojo/sniff
+
+interface DojoSniff extends DojoHas { }
 
 // dojo/topic
 
@@ -655,4 +1361,43 @@ declare class DojoStateful
 interface IDojoStateful
 {
 	new (): DojoStateful;
+}
+
+// dojo/string
+
+declare module "dojo/string"
+{
+	export function pad(text: string, size: number, ch?: string, end?: boolean): string;
+	export function rep(str: string, num: number): string;
+
+	export function substitute(template: string, map: { [text: string]: string; }, transform?: (value: any, key: string) => string, thisObject?: Object): string;
+	export function substitute(template: string, map: string[], transform?: (value: any, key: string) => string, thisObject?: Object): string;
+
+	export function trim(str: string): string;
+}
+
+// Widgets
+
+declare class DijitWidgetObject extends DojoStateful
+{
+	constructor(params?: DijitWidgetCreateOptions, srcNodeRef?: HTMLElement);
+	constructor(params?: DijitWidgetCreateOptions, srcNodeRefId?: string);
+}
+
+interface DijitWidgetCreateOptions
+{
+	baseClass?: string;
+	class?: string;
+	containerNode?: HTMLElement;
+	dir?: string;
+	domNode?: HTMLElement;
+	focused?: boolean;
+	id?: string;
+	lang?: string;
+	ownerDocument?: HTMLDocument;
+	postMixInProperties?: string;
+	srcNodeRef?: HTMLElement;
+	style?: { [style: string]: string; };
+	title?: string;
+	tooltip?: string;
 }
