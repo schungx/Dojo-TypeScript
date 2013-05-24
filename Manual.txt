@@ -29,16 +29,16 @@ IV. Using Dojo Namespace-type modules
 
 If the Dojo module is namespace-type (i.e. not newable or directly callable), just "import" it:
 
-    /// <reference path="dojo.ts"/>
-    import array = module("dojo/_base/array");
-    array.forEach(items, (item, index) => console.log(index + ": " + item));
+	/// <reference path="dojo.ts"/>
+	import array = module("dojo/_base/array");
+	array.forEach(items, (item, index) => console.log(index + ": " + item));
 
 compiles into:
 
-    define(["require", "exports", "dojo/_base/array"], function(require, exports, __array__) {
-        var array = __array__;
-        array.forEach(items, function(item, index) { console.log(index + ": " + item) });
-    });
+	define(["require", "exports", "dojo/_base/array"], function(require, exports, __array__) {
+		var array = __array__;
+		array.forEach(items, function(item, index) { console.log(index + ": " + item) });
+	});
 
 
 V. Using Directly-callable Dojo modules
@@ -48,17 +48,17 @@ Starting from TypeScript version 0.9 (with generics support), modules are strict
 
 When using this type of Dojo modules, use the following syntax:
 
-    /// <reference path="dojo.ts"/>
-    /// <amd-dependency path="dojo/ready"/>
-    var ready = require<DojoReady>("dojo/ready");
-    ready(() => { ... });
+	/// <reference path="dojo.ts"/>
+	/// <amd-dependency path="dojo/ready"/>
+	var ready = require<DojoReady>("dojo/ready");
+	ready(() => { ... });
 
 compiles into:
 
-    define(["require", "exports", "dojo/ready"], function(require, exports) {
-        var ready = require("dojo/ready");
-        ready(function() { ... });
-    });
+	define(["require", "exports", "dojo/ready"], function(require, exports) {
+		var ready = require("dojo/ready");
+		ready(function() { ... });
+	});
 
 The "/// <amd-dependency ... />" tag is an undocumented feature of TypeScript 0.9 to automatically add new AMD dependencies.  It must be among the first lines of the file.
 
@@ -72,17 +72,17 @@ Starting from TypeScript version 0.9 (with generics support), modules are strict
 
 When using this type of Dojo modules, use the following syntax:
 
-    /// <reference path="dojo.ts"/>
-    /// <amd-dependency path="dojo/store/Memory"/>
-    var Memory = require<IDojoStoreMemory>("dojo/store/Memory");
-    var store = new Memory({ data: ... });
+	/// <reference path="dojo.ts"/>
+	/// <amd-dependency path="dojo/store/Memory"/>
+	var Memory = require<IDojoStoreMemory>("dojo/store/Memory");
+	var store = new Memory({ data: ... });
 
 compiles into:
 
-    define(["require", "exports", "dojo/store/Memory"], function(require, exports) {
-        var Memory = require("dojo/store/Memory");
-        var store = new Memory({ data: ... });
-    });
+	define(["require", "exports", "dojo/store/Memory"], function(require, exports) {
+		var Memory = require("dojo/store/Memory");
+		var store = new Memory({ data: ... });
+	});
 
 When using a class-type (i.e. newable) Dojo module, the type parameter passed to the "require" call is a factory type and should have the letter "I" (for instantiate) prefixing the actual class name.  For instance, the class type in the example above is "DojoStoreMemory", so the factory type name is IDojoStoreMemory.
 
@@ -92,23 +92,48 @@ VII. Defining Dojo modules
 
 You can define modules to be used with Dojo in TypeScript.  For example, the following:
 
-    /// <reference path="dojo.ts"/>
-    import array = module("dojo/_base/array");
-        :
-        :
-    var retval = { ... };
-    export = retval;
+	/// <reference path="dojo.ts"/>
+	import array = module("dojo/_base/array");
+		:
+		:
+	var retval = { ... };
+	export = retval;
 
 compiles to:
 
-    define(["require", "exports", "dojo/_base/array"], function(require, exports, __array__) {
-        var array = __array__;
-            :
-            :
-        var retval = { ... };
-        return retval;
-    });
+	define(["require", "exports", "dojo/_base/array"], function(require, exports, __array__) {
+		var array = __array__;
+			:
+			:
+		var retval = { ... };
+		return retval;
+	});
 
 The "export = ..." statement is necessary because TypeScript defaults to CommonJS-style AMD modules, which means attaching exported functions to the "exports" object but does not return it. This will cause errors when running the actual JavaScript with Dojo.  Perhaps in the future TypeScript will add a feature to generate RequireJS-style AMD modules.
 
 Using "export = ..." will also cause TypeScript to load the proper object type for the module.
+
+
+VIII. Using dojo/NodeList
+-------------------------
+
+dojo/NodeList can use a number of mixin's (e.g. dojo/NodeList-dom, dojo/NodeList-html).  After requiring these mixin's, there is no need to explicitly use the returned type constructor, as the original dojo/NodeList will already contain these features.  Therefore, all the methods defined in mixin's have been added to the dojo/NodeList definition itself.
+
+In actual usage, the following is sufficient:
+
+	/// <reference path="dojo.ts"/>
+	/// <amd-dependency path="dojo/NodeList"/>
+	/// <amd-dependency path="dojo/NodeList-dom"/>
+
+	var NodeList = require<IDojoNodeList>("dojo/NodeList");
+		:
+	<< you can use methods defined in dojo/NodeList-dom >>
+		:
+
+It compiles to:
+
+	define(["require", "exports", "dojo/NodeList", "dojo/NodeList-dom"], function(require, exports) {
+		var NodeList = require("dojo/NodeList");
+			:
+			:
+	});
