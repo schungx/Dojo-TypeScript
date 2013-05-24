@@ -4,7 +4,7 @@
 
 declare class DojoStore
 {
-  idProperty: string;
+	idProperty: string;
 	queryEngine(query: string, options?: DojoStoreApiStoreQueryOptions): (data: any[]) => any[];
 	queryEngine(query: Object, options?: DojoStoreApiStoreQueryOptions): (data: any[]) => any[];
 	queryEngine(query: RegExp, options?: DojoStoreApiStoreQueryOptions): (data: any[]) => any[];
@@ -24,11 +24,11 @@ declare class DojoStore
 	remove(id: number): boolean;
 	transaction(): DojoStoreApiStoreTransaction;
 
-	PutDirectives: { new (): DojoStoreApiStorePutDirectives; };
-	QueryOptions: { new (): DojoStoreApiStoreQueryOptions; };
-	QueryResults: { new (): DojoStoreApiStoreQueryResults; };
-	SortInformation: { new (): DojoStoreApiStoreSortInformation; };
-	Transaction: { new (): DojoStoreApiStoreTransaction; };
+	PutDirectives: new ()=> DojoStoreApiStorePutDirectives;
+	QueryOptions: new ()=> DojoStoreApiStoreQueryOptions;
+	QueryResults: new ()=> DojoStoreApiStoreQueryResults;
+	SortInformation: new ()=> DojoStoreApiStoreSortInformation;
+	Transaction: new ()=> DojoStoreApiStoreTransaction;
 }
 
 // dojo/store/Observable
