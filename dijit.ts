@@ -1,10 +1,7 @@
 /// <reference path="dojo.ts"/>
 
-declare class DijitWidgetBase extends DojoStateful
+declare class DijitWidgetBase extends DijitWidgetObject
 {
-  constructor(params?: Object, srcNodeRef?: HTMLElement);
-	constructor(params?: Object, srcNodeRefId?: string);
-
 	baseClass: string;
 	class: string;
 	containerNode: HTMLElement;
