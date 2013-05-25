@@ -18,7 +18,7 @@ interface GenericAction { (...v_args: any[]): void; }
 interface GenericFunction { (...v_args: any[]): any; }
 interface GenericFunctionReturning<T> { (...v_args: any[]): T; }
 
-interface DojoExtensionEvent { (...v_args: any[]): void; }
+interface DojoExtensionEvent { (node: HTMLElement, listener: EventListener): DojoHandle; }
 
 interface ArrayLoopCallback<T> { (item: T, index?: number, array?: T[]): void; }
 interface ArrayPredicateCallback<T> { (item: T, index?: number, array?: T[]): boolean; }
