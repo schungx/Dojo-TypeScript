@@ -1376,6 +1376,43 @@ declare module "dojo/string"
 	export function trim(str: string): string;
 }
 
+// dojo/touch
+
+declare module "dojo/touch"
+{
+	export function cancel(node: HTMLElement, listener: EventListener): DojoHandle;
+	export function enter(node: HTMLElement, listener: EventListener): DojoHandle;
+	export function leave(node: HTMLElement, listener: EventListener): DojoHandle;
+	export function move(node: HTMLElement, listener: EventListener): DojoHandle;
+	export function out(node: HTMLElement, listener: EventListener): DojoHandle;
+	export function over(node: HTMLElement, listener: EventListener): DojoHandle;
+	export function press(node: HTMLElement, listener: EventListener): DojoHandle;
+	export function release(node: HTMLElement, listener: EventListener): DojoHandle;
+}
+
+// dojo/uacss
+
+interface DojoUacss extends DojoHas { }
+
+// dojo/when
+
+interface DojoWhen
+{
+	<T>(value: T): DojoPromise<T>;
+	<T, V>(value: T, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): V;
+	<T>(promise: DojoPromise<T>): DojoPromise<T>;
+	<T, V>(promise: DojoPromise<T>, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): DojoPromise<V>;
+}
+
+// dojo/window
+
+declare module "dojo/window"
+{
+	export function get(doc: HTMLDocument): Window;
+	export function getBox(doc: HTMLDocument): DojoPositionLeftTopWidthHeight;
+	export function scrollIntoView(node: HTMLElement, pos?:Object): void;
+}
+
 // Widgets
 
 declare class DijitWidgetObject extends DojoStateful
