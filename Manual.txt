@@ -188,3 +188,27 @@ It compiles to:
 			:
 			:
 	});
+
+
+IX. Other TypeScript definition files
+-------------------------------------
+
+The file "dojo.ts" contains definitions for most of Dojo, but some
+subsystems are split into separate definition files in order to
+improve compilation speed and checking speed in Visual Studio.
+
+Similarly, "dijit.ts" only contains base widget definitions. Other
+widgets are defined in separate, grouped definition files.
+
+When these other definitions are needed, you must put in additional
+"/// <reference path="..." />" lines to pull in the relevant
+definition files.
+
+The complete list of definition files is as follows:
+
+	dojo.ts            - Core Dojo
+	dojo_store.ts      - dojo/store modules
+	dojo_data.ts       - Legacy dojo/data modules
+	
+	dijit.ts           - Basic widget definitions
+	dijit_menu.ts      - dijit/Menu modules
