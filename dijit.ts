@@ -1,6 +1,10 @@
+/************************************************************************/
+/* Define Dojo widgets                                                  */
+/************************************************************************/
+
 /// <reference path="dojo.ts"/>
 
-declare class DijitWidgetBase extends DijitWidgetObject
+declare class DijitWidgetBase extends _DijitWidget
 {
 	baseClass: string;
 	class: string;
