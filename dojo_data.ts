@@ -1,10 +1,14 @@
+/************************************************************************/
+/* Define dojo/data package                                             */
+/************************************************************************/
+
 /// <reference path="dojo.ts"/>
 
 // dojo/data/api
 
-interface DojoDataApiRequest extends DojoDataRequestArgs
+interface DojoDataRequest extends _DojoDataRequestArgs
 {
-  abort(): void;
+	abort(): void;
 }
 
 // dojo/data
@@ -31,7 +35,7 @@ declare class DojoDataItemFileReadStore extends DojoDataStore implements DojoDat
 	url: string;
 	urlPreventCache: boolean;
 
-	close(request: DojoDataApiRequest): void;
+	close(request: DojoDataRequest): void;
 	containsValue(item: Object, attribute: string, value: any): boolean;
 	fetchItemByIdentity(keywordArgs: {
 		identity: Object;
@@ -39,7 +43,7 @@ declare class DojoDataItemFileReadStore extends DojoDataStore implements DojoDat
 		onError?: (error: Object) => void;
 		scope?: Object;
 	}): Object;
-	filter(requestArgs: DojoDataRequestArgs, arrayOfItems: Object[], findCallback: (item: Object) => void ): void;
+	filter(requestArgs: _DojoDataRequestArgs, arrayOfItems: Object[], findCallback: (item: Object) => void ): void;
 	getAttributes(item: Object): string[];
 	getFeatures(): { [feature: string]: boolean; };
 	getIdentity(item: Object): Object;
@@ -59,15 +63,11 @@ declare class DojoDataItemFileReadStore extends DojoDataStore implements DojoDat
 	}): void;
 
 	// dojo/data/util/simpleFetch
-	fetch(keywordArgs: DojoDataRequestArgs): DojoDataApiRequest;
+	fetch(keywordArgs: _DojoDataRequestArgs): DojoDataRequest;
 }
-interface IDojoDataItemFileReadStore
+declare module "dojo/data/ItemFileReadStore"
 {
-	new (keywordParameters: {
-		url?: string;
-		data?: Object;
-		typeMap?: Object;
-	}): DojoDataItemFileReadStore;
+	export = DojoDataItemFileReadStore;
 }
 
 // dojo/data/ItemFileWriteStore
@@ -89,13 +89,9 @@ declare class DojoDataItemFileWriteStore extends DojoDataItemFileReadStore
 	setValues(item: Object, attribute: string, values: any[]): boolean;
 	unsetAttribute(item: Object, attribute: string): boolean;
 }
-interface IDojoDataItemFileWriteStore
+declare module "dojo/data/ItemFileWriteStore"
 {
-	new (keywordParameters: {
-		url?: string;
-		data?: Object;
-		typeMap?: Object;
-	}): DojoDataItemFileWriteStore;
+	export = DojoDataItemFileWriteStore;
 }
 
 // dojo/data/ObjectStore
@@ -109,12 +105,12 @@ declare class DojoDataObjectStore extends DojoEvented implements DojoDataUtilSim
 	});
 
 	labelProperty: string;
-	objectStore: DojoStore;
+	objectStore: Object;		// Should be DojoStore, but needs to pull in dojo_store.ts, so don't do it
 
 	changing(object: Object, _deleting: boolean): void;
 
 	// Read
-	close(request: DojoDataApiRequest): void;
+	close(request: DojoDataRequest): void;
 	containsValue(item: Object, attribute: string, value: any): boolean;
 	fetchItemByIdentity(keywordArgs: {
 		identity: Object;
@@ -122,7 +118,7 @@ declare class DojoDataObjectStore extends DojoEvented implements DojoDataUtilSim
 		onError?: (error: Object) => void;
 		scope?: Object;
 	}): Object;
-	filter(requestArgs: DojoDataRequestArgs, arrayOfItems: Object[], findCallback: (item: Object) => void ): void;
+	filter(requestArgs: _DojoDataRequestArgs, arrayOfItems: Object[], findCallback: (item: Object) => void ): void;
 	getAttributes(item: Object): string[];
 	getFeatures(): { [feature: string]: boolean; };
 	getIdentity(item: Object): Object;
@@ -142,7 +138,7 @@ declare class DojoDataObjectStore extends DojoEvented implements DojoDataUtilSim
 	}): void;
 
 	// dojo/data/util/simpleFetch
-	fetch(keywordArgs: DojoDataRequestArgs): DojoDataApiRequest;
+	fetch(keywordArgs: _DojoDataRequestArgs): DojoDataRequest;
 
 	// Write
 	deleteItem(item: Object): boolean;
@@ -169,25 +165,21 @@ declare class DojoDataObjectStore extends DojoEvented implements DojoDataUtilSim
 	onFetch(results: Object): void;
 	onSet(item: Object, attribute: string, oldValue: any, newValue: any): void;
 }
-interface IDojoDataObjectStore
+declare module "dojo/data/ObjectStore"
 {
-	new (keywordParameters: {
-		url?: string;
-		data?: Object;
-		typeMap?: Object;
-	}): DojoDataObjectStore;
+	export = DojoDataObjectStore;
 }
 
 // dojo/data/util/simpleFetch
 
-interface DojoDataRequestArgs
+interface _DojoDataRequestArgs
 {
 	query?: any;
 	queryOptions?: { ignoreCase?: boolean; deep?: boolean; };
-	onBegin?: (size: number, request: DojoDataApiRequest) => void;
-	onItem?: (item: any, request: DojoDataApiRequest) => void;
-	onComplete?: (items: any[], request: DojoDataApiRequest) => void;
-	onError?: (errorData: Object, request: DojoDataApiRequest) => void;
+	onBegin?: (size: number, request: DojoDataRequest) => void;
+	onItem?: (item: any, request: DojoDataRequest) => void;
+	onComplete?: (items: any[], request: DojoDataRequest) => void;
+	onError?: (errorData: Object, request: DojoDataRequest) => void;
 	scope?: Object;
 	start?: number;
 	count?: number;
@@ -195,7 +187,7 @@ interface DojoDataRequestArgs
 }
 interface DojoDataUtilSimpleFetch
 {
-	fetch(keywordArgs: DojoDataRequestArgs): DojoDataApiRequest;
+	fetch(keywordArgs: _DojoDataRequestArgs): DojoDataRequest;
 }
 
 // dojo/data/util/filter
