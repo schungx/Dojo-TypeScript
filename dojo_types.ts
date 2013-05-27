@@ -1,4 +1,8 @@
-// Types
+/************************************************************************/
+/* Define Dojo standard types                                           */
+/************************************************************************/
+
+// Dojo handles
 
 interface GenericHandle
 {
@@ -13,22 +17,24 @@ interface DojoPausableHandle extends DojoHandle
 	resume(): void;
 }
 
+// Common callback function types
+
 interface GenericBlankFunction { (): void; }
-interface GenericAction { (...v_args: any[]): void; }
-interface GenericFunction { (...v_args: any[]): any; }
-interface GenericFunctionReturning<T> { (...v_args: any[]): T; }
+interface GenericAction { (...args: any[]): void; }
+interface GenericFunction { (...args: any[]): any; }
+interface GenericFunctionReturning<T> { (...args: any[]): T; }
 
 interface DojoExtensionEvent { (node: HTMLElement, listener: EventListener): DojoHandle; }
 
-interface ArrayLoopCallback<T> { (item: T, index?: number, array?: T[]): void; }
-interface ArrayPredicateCallback<T> { (item: T, index?: number, array?: T[]): boolean; }
-interface ArrayTransformCallback<T, V> { (item: T, index?: number, array?: T[]): V; }
+interface ArrayLoopCallback<T> { (item: T, index: number, array: T[]): void; }
+interface ArrayPredicateCallback<T> { (item: T, index: number, array: T[]): boolean; }
+interface ArrayTransformCallback<T, V> { (item: T, index: number, array: T[]): V; }
 
 // AMD definitions
 
 declare function require<T>(depends: string): T;
-declare function require<T>(depends: string[], func: (...v_args: any[]) => T): T;
+declare function require<T>(depends: string[], callback: GenericFunctionReturning<T>): T;
 
-declare function define<T>(id: string, depends: string[], func: (... v_args: any[]) => T): T;
-declare function define<T>(depends: string[], func: (...v_args: any[]) => T): T;
+declare function define<T>(id: string, depends: string[], callback: GenericFunctionReturning<T>): T;
+declare function define<T>(depends: string[], callback: GenericFunctionReturning<T>): T;
 declare function define(obj: Object);
