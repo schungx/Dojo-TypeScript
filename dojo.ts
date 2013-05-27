@@ -1,19 +1,27 @@
+/************************************************************************/
+/* Define core Dojo features                                            */
+/************************************************************************/
+
 /// <reference path="dojo_types.ts"/>
 
 // dojo/ready
 
-interface DojoReady
+declare module "dojo/ready"
 {
-	(priority: number, context: Object, callback: GenericBlankFunction): void;
-	(context: Object, callback: GenericBlankFunction): void;
-	(callback: GenericBlankFunction): void;
+	function ready(priority: number, context: Object, callback: GenericBlankFunction): void;
+	function ready(context: Object, callback: GenericBlankFunction): void;
+	function ready(callback: GenericBlankFunction): void;
+
+	export = ready;
 }
 
 // dojo/domReady
 
-interface DojoDomReady
+declare module "dojo/domReady"
 {
-	(callback: GenericBlankFunction): void;
+	function domReady(callback: GenericBlankFunction): void;
+
+	export = domReady;
 }
 
 // dojo/_base/array
@@ -50,158 +58,156 @@ declare module "dojo/_base/array"
 
 // dojo/_base/Color
 
-declare class DojoBaseColor
+declare module "dojo/_base/Color"
 {
-	constructor();
-	constructor(colors: any[]);
-	constructor(color: string);
-	constructor(color: Object);
+	class Color
+	{
+		constructor();
+		constructor(colors: any[]);
+		constructor(color: string);
+		constructor(color: Object);
 
-	a: number;
-	r: number;
-	g: number;
-	b: number;
+		a: number;
+		r: number;
+		g: number;
+		b: number;
 
-	named: {
-		"aliceblue": number[];
-		"antiquewhite": number[];
-		"aquamarine": number[];
-		"azure": number[];
-		"beige": number[];
-		"bisque": number[];
-		"blanchedalmond": number[];
-		"blueviolet": number[];
-		"brown": number[];
-		"burlywood": number[];
-		"cadetblue": number[];
-		"chartreuse": number[];
-		"chocolate": number[];
-		"coral": number[];
-		"cornflowerblue": number[];
-		"cornsilk": number[];
-		"crimson": number[];
-		"cyan": number[];
-		"darkblue": number[];
-		"darkcyan": number[];
-		"darkgoldenrod": number[];
-		"darkgray": number[];
-		"darkgreen": number[];
-		"darkgrey": number[];
-		"darkkhaki": number[];
-		"darkmagenta": number[];
-		"darkolivegreen": number[];
-		"darkorange": number[];
-		"darkorchid": number[];
-		"darkred": number[];
-		"darksalmon": number[];
-		"darkseagreen": number[];
-		"darkslateblue": number[];
-		"darkslategray": number[];
-		"darkslategrey": number[];
-		"darkturquoise": number[];
-		"darkviolet": number[];
-		"deeppink": number[];
-		"deepskyblue": number[];
-		"dimgray": number[];
-		"dimgrey": number[];
-		"dodgerblue": number[];
-		"firebrick": number[];
-		"floralwhite": number[];
-		"forestgreen": number[];
-		"gainsboro": number[];
-		"ghostwhite": number[];
-		"gold": number[];
-		"goldenrod": number[];
-		"greenyellow": number[];
-		"grey": number[];
-		"honeydew": number[];
-		"hotpink": number[];
-		"indianred": number[];
-		"indigo": number[];
-		"ivory": number[];
-		"khaki": number[];
-		"lavender": number[];
-		"lavenderblush": number[];
-		"lawngreen": number[];
-		"lemonchiffon": number[];
-		"lightblue": number[];
-		"lightcoral": number[];
-		"lightcyan": number[];
-		"lightgoldenrodyellow": number[];
-		"lightgray": number[];
-		"lightgreen": number[];
-		"lightgrey": number[];
-		"lightpink": number[];
-		"lightsalmon": number[];
-		"lightseagreen": number[];
-		"lightskyblue": number[];
-		"lightslategray": number[];
-		"lightslategrey": number[];
-		"lightsteelblue": number[];
-		"lightyellow": number[];
-		"limegreen": number[];
-		"linen": number[];
-		"magenta": number[];
-		"mediumaquamarine": number[];
-		"mediumblue": number[];
-		"mediumorchid": number[];
-		"mediumpurple": number[];
-		"mediumseagreen": number[];
-		"mediumslateblue": number[];
-		"mediumspringgreen": number[];
-		"mediumturquoise": number[];
-		"mediumvioletred": number[];
-		"midnightblue": number[];
-		"mintcream": number[];
-		"mistyrose": number[];
-		"moccasin": number[];
-		"navajowhite": number[];
-		"oldlace": number[];
-		"olivedrab": number[];
-		"orange": number[];
-		"orangered": number[];
-		"orchid": number[];
-		"palegoldenrod": number[];
-		"palegreen": number[];
-		"paleturquoise": number[];
-		"palevioletred": number[];
-		"papayawhip": number[];
-		"peachpuff": number[];
-		"peru": number[];
-		"pink": number[];
-		"plum": number[];
-		"powderblue": number[];
-		"rosybrown": number[];
-		"royalblue": number[];
-		"saddlebrown": number[];
-		"salmon": number[];
-		"sandybrown": number[];
-		"seagreen": number[];
-		"seashell": number[];
-		"sienna": number[];
-		"skyblue": number[];
-		"slateblue": number[];
-		"slategray": number[];
-		"slategrey": number[];
-		"snow": number[];
-		"springgreen": number[];
-		"steelblue": number[];
-		"tan": number[];
-		"thistle": number[];
-		"tomato": number[];
-		"turquoise": number[];
-		"violet": number[];
-		"wheat": number[];
-		"whitesmoke": number[];
-		"yellowgreen": number[];
+		named: {
+			"aliceblue": number[];
+			"antiquewhite": number[];
+			"aquamarine": number[];
+			"azure": number[];
+			"beige": number[];
+			"bisque": number[];
+			"blanchedalmond": number[];
+			"blueviolet": number[];
+			"brown": number[];
+			"burlywood": number[];
+			"cadetblue": number[];
+			"chartreuse": number[];
+			"chocolate": number[];
+			"coral": number[];
+			"cornflowerblue": number[];
+			"cornsilk": number[];
+			"crimson": number[];
+			"cyan": number[];
+			"darkblue": number[];
+			"darkcyan": number[];
+			"darkgoldenrod": number[];
+			"darkgray": number[];
+			"darkgreen": number[];
+			"darkgrey": number[];
+			"darkkhaki": number[];
+			"darkmagenta": number[];
+			"darkolivegreen": number[];
+			"darkorange": number[];
+			"darkorchid": number[];
+			"darkred": number[];
+			"darksalmon": number[];
+			"darkseagreen": number[];
+			"darkslateblue": number[];
+			"darkslategray": number[];
+			"darkslategrey": number[];
+			"darkturquoise": number[];
+			"darkviolet": number[];
+			"deeppink": number[];
+			"deepskyblue": number[];
+			"dimgray": number[];
+			"dimgrey": number[];
+			"dodgerblue": number[];
+			"firebrick": number[];
+			"floralwhite": number[];
+			"forestgreen": number[];
+			"gainsboro": number[];
+			"ghostwhite": number[];
+			"gold": number[];
+			"goldenrod": number[];
+			"greenyellow": number[];
+			"grey": number[];
+			"honeydew": number[];
+			"hotpink": number[];
+			"indianred": number[];
+			"indigo": number[];
+			"ivory": number[];
+			"khaki": number[];
+			"lavender": number[];
+			"lavenderblush": number[];
+			"lawngreen": number[];
+			"lemonchiffon": number[];
+			"lightblue": number[];
+			"lightcoral": number[];
+			"lightcyan": number[];
+			"lightgoldenrodyellow": number[];
+			"lightgray": number[];
+			"lightgreen": number[];
+			"lightgrey": number[];
+			"lightpink": number[];
+			"lightsalmon": number[];
+			"lightseagreen": number[];
+			"lightskyblue": number[];
+			"lightslategray": number[];
+			"lightslategrey": number[];
+			"lightsteelblue": number[];
+			"lightyellow": number[];
+			"limegreen": number[];
+			"linen": number[];
+			"magenta": number[];
+			"mediumaquamarine": number[];
+			"mediumblue": number[];
+			"mediumorchid": number[];
+			"mediumpurple": number[];
+			"mediumseagreen": number[];
+			"mediumslateblue": number[];
+			"mediumspringgreen": number[];
+			"mediumturquoise": number[];
+			"mediumvioletred": number[];
+			"midnightblue": number[];
+			"mintcream": number[];
+			"mistyrose": number[];
+			"moccasin": number[];
+			"navajowhite": number[];
+			"oldlace": number[];
+			"olivedrab": number[];
+			"orange": number[];
+			"orangered": number[];
+			"orchid": number[];
+			"palegoldenrod": number[];
+			"palegreen": number[];
+			"paleturquoise": number[];
+			"palevioletred": number[];
+			"papayawhip": number[];
+			"peachpuff": number[];
+			"peru": number[];
+			"pink": number[];
+			"plum": number[];
+			"powderblue": number[];
+			"rosybrown": number[];
+			"royalblue": number[];
+			"saddlebrown": number[];
+			"salmon": number[];
+			"sandybrown": number[];
+			"seagreen": number[];
+			"seashell": number[];
+			"sienna": number[];
+			"skyblue": number[];
+			"slateblue": number[];
+			"slategray": number[];
+			"slategrey": number[];
+			"snow": number[];
+			"springgreen": number[];
+			"steelblue": number[];
+			"tan": number[];
+			"thistle": number[];
+			"tomato": number[];
+			"turquoise": number[];
+			"violet": number[];
+			"wheat": number[];
+			"whitesmoke": number[];
+			"yellowgreen": number[];
+		}
 	}
-}
-interface IDojoBaseColor
-{
-	new (): DojoBaseColor;
-	new (colors: any[]): DojoBaseColor;
-	new (color: string): DojoBaseColor;
-	new (color: Object): DojoBaseColor;
+
+	export = Color;
 }
 
 // dojo/_base/config
@@ -233,19 +239,24 @@ declare module "dojo/_base/config"
 
 // dojo/_base/declare
 
-interface DojoBaseDeclareConfig
+declare module "dojo/_base/declare"
 {
-	constructor: GenericAction;
-	destroy: GenericBlankFunction;
-}
-interface DojoBaseDeclare
-{
-	(className: string, superclass: Function, props: DojoBaseDeclareConfig): Function;
-	(className: string, superclasses: Function[], props: DojoBaseDeclareConfig): Function;
-	(superclass: Function, props: DojoBaseDeclareConfig): Function;
-	(superclasses: Function[], props: DojoBaseDeclareConfig): Function;
+	interface _DeclareOptions
+	{
+		constructor: GenericAction;
+		destroy: GenericBlankFunction;
+	}
 
-	safeMixin<T extends Object>(dest: T, source: Object): T;
+	var declare: {
+		(className: string, superclass: Function, props: _DeclareOptions): Function;
+		(className: string, superclasses: Function[], props: _DeclareOptions): Function;
+		(superclass: Function, props: _DeclareOptions): Function;
+		(superclasses: Function[], props: _DeclareOptions): Function;
+
+		safeMixin<T extends Object>(dest: T, source: Object): T;
+	};
+
+	export = declare;
 }
 
 // dojo/_base/fx
@@ -258,7 +269,7 @@ interface DojoAnimationBaseCreateOptions
 	duration?: number;
 	easing?: DojoEasingFunction;
 }
-interface DojoAnimationCreateOptions extends DojoAnimationBaseCreateOptions
+interface _DojoAnimationCreateOptions extends DojoAnimationBaseCreateOptions
 {
 	properties: { [style: string]: Object; };
 }
@@ -290,7 +301,7 @@ declare module "dojo/_base/fx"
 	export function anim(nodeId: string, properties: Object, duration?: number, easing?: DojoEasingFunction, onEnd?: GenericBlankFunction, delay?: number): DojoAnimation;
 	export function anim(node: HTMLElement, properties: Object, duration?: number, easing?: DojoEasingFunction, onEnd?: GenericBlankFunction, delay?: number): DojoAnimation;
 
-	export function animateProperty(args: DojoAnimationCreateOptions): DojoAnimation;
+	export function animateProperty(args: _DojoAnimationCreateOptions): DojoAnimation;
 	export function fadeIn(args: DojoAnimationBaseCreateOptions): DojoAnimation;
 	export function fadeOut(args: DojoAnimationBaseCreateOptions): DojoAnimation;
 }
@@ -330,20 +341,21 @@ declare module "dojo/_base/lang"
 
 // dojo/AdapterRegistry
 
-declare class DojoAdapterRegistry
+declare module "dojo/AdapterRegistry"
 {
-	constructor(returnWrappers?: boolean);
+	class DojoAdapterRegistry
+	{
+		constructor(returnWrappers?: boolean);
 
-	pairs: any[];
-	returnWrappers: boolean;
+		pairs: any[];
+		returnWrappers: boolean;
 
-	match(...args: Object[]): void;
-	register(name: string, check: GenericFunctionReturning<boolean>, wrap: GenericAction, directReturn?: boolean, override?: boolean): void;
-	unregister(name: string): boolean;
-}
-interface IDojoAdapterRegistry
-{
-	new (returnWrappers?: boolean): DojoAdapterRegistry;
+		match(...args: Object[]): void;
+		register(name: string, check: GenericFunctionReturning<boolean>, wrap: GenericAction, directReturn?: boolean, override?: boolean): void;
+		unregister(name: string): boolean;
+	}
+
+	export = DojoAdapterRegistry;
 }
 
 // dojo/aspect 
@@ -388,23 +400,31 @@ declare module "dojo/cldr/supplemental"
 
 // dojo/cookie
 
-interface DojoCookie
+declare module "dojo/cookie"
 {
-	(name: string, value?: string, props?: {
+	interface _CookieOptions
+	{
 		expires?: any;
 		path?: string;
 		domain?: string;
 		secure?: boolean;
-	}): void;
+	}
 
-	isSupported(): boolean;
+	var cookie: {
+		(name: string): string;
+		(name: string, value: string, props?: _CookieOptions): void;
+
+		isSupported(): boolean;
+	};
+
+	export = cookie;
 }
 
 // dojo/currency
 
 declare module "dojo/currency"
 {
-	export interface _FormatOptions
+	interface _FormatOptions
 	{
 		currency?: string;
 		fractional?: boolean;
@@ -419,7 +439,7 @@ declare module "dojo/currency"
 	
 	export function format(value: number, options?:_FormatOptions): string;
 	export function parse(expression: string, options?: _FormatOptions): number;
-	//export function regexp(options?: _FormatOptions): number;
+	export function regexp(options?: _FormatOptions): RegExp;
 }
 
 // dojo/date
@@ -446,7 +466,7 @@ declare module "dojo/date/stamp"
 
 declare module "dojo/date/locale"
 {
-	export interface _FormatOptions
+	interface _FormatOptions
 	{
 		selector?: string;
 		formatLength?: string;
@@ -485,9 +505,9 @@ declare class DojoDeferred<T>
 	resolve(value: T, strict?: boolean): DojoPromise<T>;
 	then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): DojoPromise<V>;
 }
-interface IDojoDeferred<T>
+declare module "dojo/Deferred"
 {
-	new (canceler?: (reason: any) => void ): DojoDeferred<T>;
+	export = DojoDeferred;
 }
 
 // dojo/dom
@@ -693,19 +713,19 @@ declare class DojoEvented
 	on(type: string, listener: EventListener): DojoHandle;
 	on(type: DojoExtensionEvent, listener: EventListener): DojoHandle;
 }
-interface IDojoEvented
+declare module "dojo/Evented"
 {
-	new (): DojoEvented;
+	export = DojoEvented;
 }
 
 // dojo/fx
 
-interface DojoSlideAnimationCreateOptions extends DojoAnimationCreateOptions
+interface _DojoSlideAnimationCreateOptions extends _DojoAnimationCreateOptions
 {
 	top: string;
 	left: string;
 }
-interface DojoAutoSlideAnimationCreateOptions extends DojoSlideAnimationCreateOptions
+interface DojoAutoSlideAnimationCreateOptions extends _DojoSlideAnimationCreateOptions
 {
 	auto: any;
 }
@@ -713,10 +733,10 @@ declare module "dojo/fx"
 {
 	export function chain(animations: DojoAnimation[]): DojoAnimation;
 	export function combine(animations: DojoAnimation[]): DojoAnimation;
-	export function slideTo(args: DojoSlideAnimationCreateOptions): DojoAnimation;
-	export var Toggler: new (args: DojoFxTogglerCreateOptions) => DojoFxToggler;
-	export function wipeIn(args: DojoAnimationCreateOptions): DojoAnimation;
-	export function wipeOut(args: DojoAnimationCreateOptions): DojoAnimation;
+	export function slideTo(args: _DojoSlideAnimationCreateOptions): DojoAnimation;
+	export var Toggler: new (args: _DojoFxTogglerCreateOptions) => DojoFxToggler;
+	export function wipeIn(args: _DojoAnimationCreateOptions): DojoAnimation;
+	export function wipeOut(args: _DojoAnimationCreateOptions): DojoAnimation;
 }
 
 // dojo/fx/easing
@@ -760,7 +780,7 @@ declare module "dojo/fx/easing"
 
 // dojo/fx/Toggler
 
-interface DojoFxTogglerCreateOptions
+interface _DojoFxTogglerCreateOptions
 {
 	node: any;
 	showDuration?: number;
@@ -768,27 +788,27 @@ interface DojoFxTogglerCreateOptions
 	hideDuration?: number;
 	hideFuc?: (args: DojoAnimationBaseCreateOptions) => DojoAnimation;
 }
-declare class DojoFxToggler
+declare module "dojo/fx/Toggler"
 {
-	constructor(args: DojoFxTogglerCreateOptions);
+	class Toggler
+	{
+		constructor(args: _DojoFxTogglerCreateOptions);
 
-	hideDuration: number;
-	node: HTMLElement;
-	showDuration: number;
+		hideDuration: number;
+		node: HTMLElement;
+		showDuration: number;
 
-	hide(delay?: number): DojoAnimation;
-	hideFunc(args?: { node: any; duration?: number; easing: DojoEasingFunction; }): DojoAnimation;
-	show(delay?: number): DojoAnimation;
-	showFunc(args?: { node: any; duration?: number; easing: DojoEasingFunction; }): DojoAnimation;
-}
-interface IDojoFxToggler
-{
-	new (args: DojoFxTogglerCreateOptions): DojoFxToggler;
+		hide(delay?: number): DojoAnimation;
+		hideFunc(args?: { node: any; duration?: number; easing: DojoEasingFunction; }): DojoAnimation;
+		show(delay?: number): DojoAnimation;
+		showFunc(args?: { node: any; duration?: number; easing: DojoEasingFunction; }): DojoAnimation;
+	}
+	export = Toggler;
 }
 
 // dojo/has
 
-interface DojoHas
+interface _DojoHas
 {
 	(feature: string): boolean;
 	(feature: number): boolean;
@@ -799,19 +819,25 @@ interface DojoHas
 	load<T>(id: string, parentRequire: Function, loaded: (m: T) => void ): void;
 	normalize(id: number, toAbsMid: (id: number) => number): void;
 }
+declare module "dojo/has"
+{
+	export = _DojoHas;
+}
 
 // dojo/hash
 
-interface DojoHash
+declare module "dojo/hash"
 {
-	(hash?: string, replace?: boolean): string;
+	function hash(hash?: string, replace?: boolean): string;
+
+	export = hash;
 }
 
 // dojo/html
 
 declare module "dojo/html"
 {
-	export interface _ContentSetterOptions
+	interface _ContentSetterOptions
 	{
 		cleanContent?: boolean;
 		extractContent?: boolean;
@@ -960,7 +986,7 @@ declare module "dojo/mouse"
 
 // dojo/NodeList
 
-interface DojoAutoAnimationCreateOptions extends DojoAnimationCreateOptions
+interface DojoAutoAnimationCreateOptions extends _DojoAnimationCreateOptions
 {
 	auto: any;
 }
@@ -1013,7 +1039,7 @@ declare class DojoNodeList
 	andSelf(): DojoNodeList;
 	anim(properties: { [property: string]: any; }, duration?: number, easing?: DojoEasingFunction, onEnd?: GenericBlankFunction, delay?: number): DojoAnimation;
 
-	animateProperty(args: DojoAnimationCreateOptions): DojoAnimation;
+	animateProperty(args: _DojoAnimationCreateOptions): DojoAnimation;
 	animateProperty(args: DojoAutoAnimationCreateOptions): DojoNodeList;
 
 	append(content: string): DojoNodeList;
@@ -1148,7 +1174,7 @@ declare class DojoNodeList
 	siblings(query?: string): DojoNodeList;
 	slice(begin: number, end?: number): DojoNodeList;
 
-	slideTo(args: DojoSlideAnimationCreateOptions): DojoAnimation;
+	slideTo(args: _DojoSlideAnimationCreateOptions): DojoAnimation;
 	slideTo(args: DojoAutoSlideAnimationCreateOptions): DojoNodeList;
 
 	some(callback: (node: HTMLElement, index: number, list: DojoNodeList) => boolean, thisObject?: Object): boolean;
@@ -1168,10 +1194,10 @@ declare class DojoNodeList
 	val(value: string): DojoNodeList;
 	val(value: string[]): DojoNodeList;
 
-	wipeIn(args: DojoAnimationCreateOptions): DojoAnimation;
+	wipeIn(args: _DojoAnimationCreateOptions): DojoAnimation;
 	wipeIn(args: DojoAutoAnimationCreateOptions): DojoNodeList;
 	
-	wipeOut(args: DojoAnimationCreateOptions): DojoAnimation;
+	wipeOut(args: _DojoAnimationCreateOptions): DojoAnimation;
 	wipeOut(args: DojoAutoAnimationCreateOptions): DojoNodeList;
 
 	wrap(html: string): DojoNodeList;
@@ -1183,22 +1209,31 @@ declare class DojoNodeList
 	wrapInner(html: string): DojoNodeList;
 	wrapInner(node: HTMLElement): DojoNodeList;
 }
-interface IDojoNodeList
+declare module "dojo/NodeList"
 {
-	new (node: HTMLElement): DojoNodeList;
-	new (nodes: HTMLElement[]): DojoNodeList;
-	new (nodes: NodeList): DojoNodeList;
-	new (nodes: DojoNodeList): DojoNodeList;
+	export = DojoNodeList;
 }
 
 // dojo/NodeList-???
 
-declare module "dojo/NodeList-data" { }
-declare module "dojo/NodeList-dom" { }
-declare module "dojo/NodeList-fx" { }
-declare module "dojo/NodeList-html" { }
-declare module "dojo/NodeList-manipulate" { }
-declare module "dojo/NodeList-traverse" { }
+declare module "dojo/NodeList-data" {
+	export = DojoNodeList;
+}
+declare module "dojo/NodeList-dom" { 
+	export = DojoNodeList;
+}
+declare module "dojo/NodeList-fx" {
+	export = DojoNodeList;
+}
+declare module "dojo/NodeList-html" {
+	export = DojoNodeList;
+}
+declare module "dojo/NodeList-manipulate" {
+	export = DojoNodeList;
+}
+declare module "dojo/NodeList-traverse" {
+	export = DojoNodeList;
+}
 
 // dojo/number
 
@@ -1231,35 +1266,39 @@ declare module "dojo/number"
 
 // dojo/on
 
-interface DojoOn
+declare module "dojo/on"
 {
-	(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): DojoHandle;
-	(target: Object, type: string, listener: EventListener, dontFix?: boolean): DojoHandle;
-	(target: HTMLElement, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): DojoHandle;
-	(target: Object, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): DojoHandle;
+	var on: {
+		(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): DojoHandle;
+		(target: Object, type: string, listener: EventListener, dontFix?: boolean): DojoHandle;
+		(target: HTMLElement, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): DojoHandle;
+		(target: Object, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): DojoHandle;
 
-	emit(target: Object, type: string, event: { bubbles?: boolean; cancelable?: boolean; }): void;
-	emit(target: Object, type: DojoExtensionEvent, event: { bubbles?: boolean; cancelable?: boolean; }): void;
+		emit(target: Object, type: string, event: { bubbles?: boolean; cancelable?: boolean; }): void;
+		emit(target: Object, type: DojoExtensionEvent, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 
-	selector(cssSelector: string, event: string, children?: boolean): DojoExtensionEvent;
-	selector(cssSelector: string, event: DojoExtensionEvent, children?: boolean): DojoExtensionEvent;
+		selector(cssSelector: string, event: string, children?: boolean): DojoExtensionEvent;
+		selector(cssSelector: string, event: DojoExtensionEvent, children?: boolean): DojoExtensionEvent;
 
-	pausable(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): DojoPausableHandle;
-	pausable(target: Object, type: string, listener: EventListener, dontFix?: boolean): DojoPausableHandle;
-	pausable(target: HTMLElement, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): DojoPausableHandle;
-	pausable(target: Object, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): DojoPausableHandle;
+		pausable(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): DojoPausableHandle;
+		pausable(target: Object, type: string, listener: EventListener, dontFix?: boolean): DojoPausableHandle;
+		pausable(target: HTMLElement, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): DojoPausableHandle;
+		pausable(target: Object, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): DojoPausableHandle;
 
-	once(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): void;
-	once(target: Object, type: string, listener: EventListener, dontFix?: boolean): void;
-	once(target: HTMLElement, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): void;
-	once(target: Object, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): void;
+		once(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): void;
+		once(target: Object, type: string, listener: EventListener, dontFix?: boolean): void;
+		once(target: HTMLElement, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): void;
+		once(target: Object, type: DojoExtensionEvent, listener: EventListener, dontFix?: boolean): void;
+	};
+
+	export = on;
 }
 
 // dojo/parser
 
 declare module "dojo/parser" 
 {
-	export interface _ParseOptions
+	interface _ParseOptions
 	{
 		noStart?: boolean;
 		rootNode?: HTMLElement;
@@ -1270,20 +1309,24 @@ declare module "dojo/parser"
 		contextRequire?: Function;
 	}
 
-	export function parse(rootNode?: HTMLElement, options?: _ParseOptions): DijitWidgetObject[];
+	export function parse(rootNode?: HTMLElement, options?: _ParseOptions): _DijitWidget[];
 	export function scan(root?: HTMLElement, options?: _ParseOptions): DojoPromise<HTMLElement[]>;
-	export function instantiate(nodes: HTMLElement[], mixin?: Object, options?: _ParseOptions): DijitWidgetObject[];
-	export function construct(ctor: { (params?: DijitWidgetCreateOptions): DijitWidgetObject; }, node: HTMLElement, mixin?: Object, options?: _ParseOptions, scripts?: HTMLElement[], inherited?: Object): DijitWidgetObject;
+	export function instantiate(nodes: HTMLElement[], mixin?: Object, options?: _ParseOptions): _DijitWidget[];
+	export function construct(ctor: { (params?: _DijitWidgetCreateOptions): _DijitWidget; }, node: HTMLElement, mixin?: Object, options?: _ParseOptions, scripts?: HTMLElement[], inherited?: Object): _DijitWidget;
 }
 
 // dojo/query
 
-interface DojoQuery
+declare module "dojo/query"
 {
-	(selector: string, contextId?: string): DojoNodeList;
-	(selector: string, context?: Object): DojoNodeList;
+	var query: {
+		(selector: string, contextId?: string): DojoNodeList;
+		(selector: string, context?: Object): DojoNodeList;
 
-	NodeList: IDojoNodeList;
+		NodeList: DojoNodeList;
+	};
+
+	export = query;
 }
 
 // dojo/regexp
@@ -1299,7 +1342,11 @@ declare module "dojo/regexp"
 
 // dojo/sniff
 
-interface DojoSniff extends DojoHas { }
+declare module "dojo/sniff"
+{
+	var sniff: _DojoHas;
+	export = sniff;
+}
 
 // dojo/topic
 
@@ -1326,27 +1373,31 @@ declare class DojoPromise<T>
 	trace(): DojoPromise<T>;
 	traceRejected(): DojoPromise<T>;
 }
-interface IDojoPromise<T>
+declare module "dojo/promise/Promise"
 {
-	new (): DojoPromise<T>;
+	export = DojoPromise;
 }
 
 // dojo/promise/all
 
-interface DojoPromiseAll<T>
+declare module "dojo/promise/all"
 {
-	(promises: DojoPromise<T>[]): DojoPromise<T[]>;
-	(promises: { [name: string]: DojoPromise<T>; }): DojoPromise<{ [name: string]: T;}>;
-	(promises: any): DojoPromise<T>;
+	function all<T>(promises: DojoPromise<T>[]): DojoPromise<T[]>;
+	function all<T>(promises: { [name: string]: DojoPromise<T>; }): DojoPromise<{ [name: string]: T;}>;
+	function all<T>(promises: any): DojoPromise<T>;
+
+	export = all;
 }
 
 // dojo/promise/first
 
-interface DojoPromiseFirst<T>
+declare module "dojo/promise/first"
 {
-	(promises: DojoPromise<T>[]): DojoPromise<T>;
-	(promises: { [name: string]: DojoPromise<T>; }): DojoPromise<T>;
-	(promises: any): DojoPromise<T>;
+	function first<T>(promises: DojoPromise<T>[]): DojoPromise<T>;
+	function first<T>(promises: { [name: string]: DojoPromise<T>; }): DojoPromise<T>;
+	function first<T>(promises: any): DojoPromise<T>;
+
+	export = first;
 }
 
 // dojo/Stateful
@@ -1358,9 +1409,9 @@ declare class DojoStateful
 	set (values: { [prop: string]: any; }): void;
 	watch(name: string, callback: (prop: string, oldvalue: any, newvalue: any) => void ): { unwatch: () => void; };
 }
-interface IDojoStateful
+declare module "dojo/Stateful"
 {
-	new (): DojoStateful;
+	export = DojoStateful;
 }
 
 // dojo/string
@@ -1392,16 +1443,22 @@ declare module "dojo/touch"
 
 // dojo/uacss
 
-interface DojoUacss extends DojoHas { }
+declare module "dojo/uacss"
+{
+	var uacss: _DojoHas;
+	export = uacss;
+}
 
 // dojo/when
 
-interface DojoWhen
+declare module "dojo/when"
 {
-	<T>(value: T): DojoPromise<T>;
-	<T, V>(value: T, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): V;
-	<T>(promise: DojoPromise<T>): DojoPromise<T>;
-	<T, V>(promise: DojoPromise<T>, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): DojoPromise<V>;
+	function when<T>(value: T): DojoPromise<T>;
+	function when<T, V>(value: T, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): V;
+	function when<T>(promise: DojoPromise<T>): DojoPromise<T>;
+	function when<T, V>(promise: DojoPromise<T>, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): DojoPromise<V>;
+
+	export = when;
 }
 
 // dojo/window
@@ -1415,13 +1472,7 @@ declare module "dojo/window"
 
 // Widgets
 
-declare class DijitWidgetObject extends DojoStateful
-{
-	constructor(params?: DijitWidgetCreateOptions, srcNodeRef?: HTMLElement);
-	constructor(params?: DijitWidgetCreateOptions, srcNodeRefId?: string);
-}
-
-interface DijitWidgetCreateOptions
+interface _DijitWidgetCreateOptions
 {
 	baseClass?: string;
 	class?: string;
@@ -1437,4 +1488,9 @@ interface DijitWidgetCreateOptions
 	style?: { [style: string]: string; };
 	title?: string;
 	tooltip?: string;
+}
+declare class _DijitWidget extends DojoStateful
+{
+	constructor(params?: _DijitWidgetCreateOptions, srcNodeRef?: HTMLElement);
+	constructor(params?: _DijitWidgetCreateOptions, srcNodeRefId?: string);
 }
