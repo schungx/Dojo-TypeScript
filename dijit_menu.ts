@@ -1,11 +1,17 @@
+/************************************************************************/
+/* Define menu widgets                                                  */
+/************************************************************************/
+
 /// <reference path="dijit.ts"/>
+
+// dijit/MenuBase
 
 declare class DijitMenuBase extends DijitWidget implements DijitTemplatedMixin, DijitKeyNavContainer, DijitCssStateMixin
 {
-  activated: boolean;
+	activated: boolean;
 	autoFocus: boolean;
 	childSelector(node: HTMLElement): void;
-	parentMenu: DijitMenu;
+	parentMenu: DijitMenuBase;
 	passivePopupDelay: number;
 	popupDelay: number;
 	selected: DijitMenuItem;
@@ -45,10 +51,16 @@ declare class DijitMenuBase extends DijitWidget implements DijitTemplatedMixin, 
 	cssStateNodes: { [attachPoint: string]: string; };
 	hovering: boolean;
 }
+declare module "dijit/MenuBase" { export = DijitMenuBase; }
+
+// dijit/DropDownMenu
 
 declare class DijitDropDownMenu extends DijitMenuBase
 {
 }
+declare module "dijit/DropDownMenu" { export = DijitDropDownMenu; }
+
+// dijit/Menu
 
 declare class DijitMenu extends DijitDropDownMenu
 {
@@ -66,11 +78,9 @@ declare class DijitMenu extends DijitDropDownMenu
 	unBindDomNode(nodeId: string): void;
 	unBindDomNode(node: HTMLElement): void;
 }
-interface IDijitMenu
-{
-	new (params?: Object, srcNodeRef?: HTMLElement): DijitMenu;
-	new (params?: Object, srcNodeRefId?: string): DijitMenu;
-}
+declare module "dijit/Menu" { export = DijitMenu; }
+
+// dijit/MenuItem
 
 declare class DijitMenuItem extends DijitWidget implements DijitTemplatedMixin, DijitContainer, DijitCssStateMixin
 {
@@ -101,11 +111,9 @@ declare class DijitMenuItem extends DijitWidget implements DijitTemplatedMixin, 
 	cssStateNodes: { [attachPoint: string]: string; };
 	hovering: boolean;
 }
-interface IDijitMenuItem
-{
-	new (params?: Object, srcNodeRef?: HTMLElement): DijitMenuItem;
-	new (params?: Object, srcNodeRefId?: string): DijitMenuItem;
-}
+declare module "dijit/MenuItem" { export = DijitMenuItem; }
+
+// dijit/MenuSeparator
 
 declare class DijitMenuSeparator extends DijitWidgetBase implements DijitTemplatedMixin, DijitContained
 {
@@ -121,8 +129,4 @@ declare class DijitMenuSeparator extends DijitWidgetBase implements DijitTemplat
 	getNextSibling(): DijitWidgetBase;
 	getPreviousSibling(): DijitWidgetBase;
 }
-interface IDijitMenuSeparator
-{
-	new (params?: Object, srcNodeRef?: HTMLElement): DijitMenuSeparator;
-	new (params?: Object, srcNodeRefId?: string): DijitMenuSeparator;
-}
+declare module "dijit/MenuSeparator" { export = DijitMenuSeparator; }
