@@ -19,21 +19,21 @@ look exactly like a regular Dojo AMD-style module and are loaded
 automatically when "required".
 
 
-II. Dojo type definitions and referencing dojo.ts
--------------------------------------------------
+II. Dojo type definitions and referencing dojo.d.ts
+---------------------------------------------------
 
-Common types used in Dojo are defined in the file "dojo_types.ts".  You
-don't normally need to reference this file, since all other Dojo
+Common types used in Dojo are defined in the file "dojo.types.d.ts".
+You don't normally need to reference this file, since all other Dojo
 definition files reference it.  You need it only if you are writing
 your own module files to compile into Dojo-style modules.
 
-Basic Dojo modules are defined in the file "dojo.ts".  It contains most
+Basic Dojo modules are defined in the file "dojo.d.ts".  It contains most
 of the core functionalities.
 
 To use Dojo, include the following reference in the first lines of your
 TypeScript file:
 
-	/// <reference path="dojo.ts"/>
+	/// <reference path="dojo.d.ts"/>
 
 
 III. TypeScript setup
@@ -158,11 +158,11 @@ to hold it.
 VII. Other TypeScript definition files
 --------------------------------------
 
-The file "dojo.ts" contains definitions for most of Dojo, but some
+The file "dojo.d.ts" contains definitions for most of Dojo, but some
 subsystems are split into separate definition files in order to
 improve compilation speed and checking speed in Visual Studio.
 
-Similarly, "dijit.ts" only contains base widget definitions. Other
+Similarly, "dijit.d.ts" only contains base widget definitions. Other
 widgets are defined in separate, grouped definition files.
 
 When these other definitions are needed, you must put in additional
@@ -171,9 +171,9 @@ definition files.
 
 The complete list of definition files is as follows:
 
-	dojo.ts            - Core Dojo
-	dojo_store.ts      - dojo/store modules
-	dojo_data.ts       - Legacy dojo/data modules
+	dojo.d.ts            - Core Dojo
+	dojo.store.d.ts      - dojo/store modules
+	dojo.data.d.ts       - Legacy dojo/data modules
 	
-	dijit.ts           - Basic widget definitions
-	dijit_menu.ts      - dijit/Menu modules
+	dijit.d.ts           - Basic widget definitions
+	dijit.menu.d.ts      - dijit/Menu modules
