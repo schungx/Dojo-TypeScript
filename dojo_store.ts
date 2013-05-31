@@ -2,178 +2,183 @@
 /* Define dojo/store package                                            */
 /************************************************************************/
 
-/// <reference path="dojo_types.ts"/>
+/// <reference path="dojo.types.d.ts"/>
 
-// dojo/store/api/Store
-
-declare class DojoStore
+declare module Dojo.Store
 {
-	idProperty: string;
-	queryEngine(query: string, options?: _DojoStoreQueryOptions): (data: any[]) => any[];
-	queryEngine(query: Object, options?: _DojoStoreQueryOptions): (data: any[]) => any[];
-	queryEngine(query: RegExp, options?: _DojoStoreQueryOptions): (data: any[]) => any[];
-	queryEngine(query: (item: Object) => boolean, options?: _DojoStoreQueryOptions): (data: any[]) => any[];
+	// dojo/store/api/Store
 
-	add(object: Object, directives?: _DojoStorePutDirectives): number;
-	get(id: number): Object;
-	getChildren(parent: Object, options?: _DojoStoreQueryOptions): DojoStoreQueryResults;
-	getIdentity(object: Object): number;
-	getMetadata(object: Object): Object;
-	put(object: Object, directives?: _DojoStorePutDirectives): number;
+	export class Store
+	{
+		idProperty: string;
+		queryEngine(query: string, options?: QueryOptions): (data: any[]) => any[];
+		queryEngine(query: Object, options?: QueryOptions): (data: any[]) => any[];
+		queryEngine(query: RegExp, options?: QueryOptions): (data: any[]) => any[];
+		queryEngine(query: (item: Object) => boolean, options?: QueryOptions): (data: any[]) => any[];
 
-	query(query: string, options?: _DojoStoreQueryOptions): DojoStoreQueryResults;
-	query(query: Object, options?: _DojoStoreQueryOptions): DojoStoreQueryResults;
-	query(query: (item: Object) => boolean, options?: _DojoStoreQueryOptions): DojoStoreQueryResults;
+		add(object: Object, directives?: PutDirectives): number;
+		get(id: number): Object;
+		getChildren(parent: Object, options?: QueryOptions): QueryResults;
+		getIdentity(object: Object): number;
+		getMetadata(object: Object): Object;
+		put(object: Object, directives?: PutDirectives): number;
 
-	remove(id: number): boolean;
-	transaction(): DojoStoreTransaction;
+		query(query: string, options?: QueryOptions): QueryResults;
+		query(query: Object, options?: QueryOptions): QueryResults;
+		query(query: (item: Object) => boolean, options?: QueryOptions): QueryResults;
 
-	PutDirectives: new ()=> _DojoStorePutDirectives;
-	QueryOptions: new ()=> _DojoStoreQueryOptions;
-	QueryResults: new ()=> DojoStoreQueryResults;
-	SortInformation: new ()=> _DojoStoreSortInformation;
-	Transaction: new ()=> DojoStoreTransaction;
+		remove(id: number): boolean;
+		transaction(): Transaction;
+
+		PutDirectives: new ()=> PutDirectives;
+		QueryOptions: new ()=> QueryOptions;
+		QueryResults: new ()=> QueryResults;
+		SortInformation: new ()=> SortInformation;
+		Transaction: new ()=> Transaction;
+	}
+
+	// dojo/store/Observable
+
+	export class Observable
+	{
+		constructor(store: Store);
+	}
+
+	// dojo/store/api/Store.PutDirectives
+
+	export interface PutDirectives
+	{
+		id?: number;
+		before?: Object;
+		parent?: Object;
+		overwrite?: boolean;
+	}
+
+	// dojo/store/api/Store.QueryOptions
+
+	export interface QueryOptions
+	{
+		start?: number;
+		count?: number;
+		sort?: SortInformation[];
+	}
+
+	// dojo/store/api/Store.QueryResults
+
+	export interface QueryResults
+	{
+		total: number;
+
+		filter(callback: (item: Object) => void , thisObject?: Object): QueryResults;
+		forEach(callback: (item: Object) => void , thisObject?: Object): QueryResults;
+		map(callback: (item: Object) => any, thisObject?: Object): QueryResults;
+		then(callback: (items: Object[]) => void , errorHandler: (error: Object) => void ): QueryResults;
+
+		observe? (listener: (object: Object, removedFrom: number, insertedInto: number) => void , includeAllUpdates?: boolean): { cancel(): void; };
+	}
+
+	// dojo/store/api/Store.SortInformation
+
+	export interface SortInformation
+	{
+		attribute: string;
+		descending?: boolean;
+	}
+
+	// dojo/store/api/Store.Transaction
+
+	export interface Transaction
+	{
+		abort(callback?: Function, thisObject?: Object): void;
+		commit(): void;
+	}
+
+	// dojo/store/Memory
+
+	interface MemoryStoreCreateOptions
+	{
+		data?: any[];
+		idProperty?: string;
+	}
+	export class Memory extends Store.Store implements MemoryStoreCreateOptions
+	{
+		constructor(options: MemoryStoreCreateOptions);
+
+		data: any[];
+		idProperty: string;
+		index: { [id: string]: number; };
+	}
+
+	// dojo/store/DataStore
+
+	export interface DataStoreCreateOptions
+	{
+		idProperty?: string;
+		store?: Object;		// Should be DojoDataStore, but needs to pull in dojo_data.ts and dojo.ts, so don't do it
+		target?: string;
+	}
+	export class DataStore extends Store.Store implements DataStoreCreateOptions
+	{
+		constructor(options: DataStoreCreateOptions);
+
+		idProperty: string;
+		store: Object;
+		target: string;
+	}
+
+	// dojo/store/JsonRest
+
+	export interface JsonRestStoreCreateOptions
+	{
+		accepts?: string;
+		ascendingPrefix?: string;
+		descendingPrefix?: string;
+		headers?: { [header: string]: string; };
+		idProperty?: string;
+		queryEngine(query: any, options?: QueryOptions): (data: any[]) => any[];
+		target?: string;
+	}
+	export class JsonRest extends Store.Store implements JsonRestStoreCreateOptions
+	{
+		constructor(options: JsonRestStoreCreateOptions);
+
+		accepts: string;
+		ascendingPrefix: string;
+		descendingPrefix: string;
+		headers: { [header: string]: string; };
+		idProperty: string;
+		queryEngine(query: string, options?: QueryOptions): (data: any[]) => any[];
+		queryEngine(query: Object, options?: QueryOptions): (data: any[]) => any[];
+		queryEngine(query: RegExp, options?: QueryOptions): (data: any[]) => any[];
+		queryEngine(query: (item: Object) => boolean, options?: QueryOptions): (data: any[]) => any[];
+		target: string;
+	}
 }
 
-// dojo/store/Observable
 
-declare class DojoStoreObservable
+// Module definitions
+
+declare module "dojo/store/Memory" 
 {
-	constructor(store: DojoStore);
-}
-declare module "dojo/store/Observable"
-{
-	export = DojoStoreObservable;
-}
-
-// dojo/store/api/Store.PutDirectives
-
-interface _DojoStorePutDirectives
-{
-	id?: number;
-	before?: Object;
-	parent?: Object;
-	overwrite?: boolean;
-}
-
-// dojo/store/api/Store.QueryOptions
-
-interface _DojoStoreQueryOptions
-{
-	start?: number;
-	count?: number;
-	sort?: _DojoStoreSortInformation[];
-}
-
-// dojo/store/api/Store.QueryResults
-
-interface DojoStoreQueryResults
-{
-	total: number;
-
-	filter(callback: (item: Object) => void , thisObject?: Object): DojoStoreQueryResults;
-	forEach(callback: (item: Object) => void , thisObject?: Object): DojoStoreQueryResults;
-	map(callback: (item: Object) => any, thisObject?: Object): DojoStoreQueryResults;
-	then(callback: (items: Object[]) => void , errorHandler: (error: Object) => void ): DojoStoreQueryResults;
-
-	observe? (listener: (object: Object, removedFrom: number, insertedInto: number) => void , includeAllUpdates?: boolean): { cancel(): void; };
-}
-
-// dojo/store/api/Store.SortInformation
-
-interface _DojoStoreSortInformation
-{
-	attribute: string;
-	descending?: boolean;
-}
-
-// dojo/store/api/Store.Transaction
-
-interface DojoStoreTransaction
-{
-	abort(callback?: Function, thisObject?: Object): void;
-	commit(): void;
-}
-
-// dojo/store/Memory
-
-interface _DojoStoreMemoryCreateOptions
-{
-	data?: any[];
-	idProperty?: string;
-}
-declare class DojoStoreMemory extends DojoStore implements _DojoStoreMemoryCreateOptions
-{
-	constructor(options: _DojoStoreMemoryCreateOptions);
-
-	data: any[];
-	idProperty: string;
-	index: { [id: string]: number; };
-}
-declare module "dojo/store/Memory"
-{
-	export = DojoStoreMemory;
-};
-
-// dojo/store/DataStore
-
-interface _DojoStoreDataStoreCreateOptions
-{
-	idProperty?: string;
-	store?: Object;		// Should be DojoDataStore, but needs to pull in dojo_data.ts and dojo.ts, so don't do it
-	target?: string;
-}
-declare class DojoStoreDataStore extends DojoStore implements _DojoStoreDataStoreCreateOptions
-{
-	constructor(options: _DojoStoreDataStoreCreateOptions);
-
-	idProperty: string;
-	store: Object;
-	target: string;
+	var Memory: Dojo.Store.Memory;
+	export = Memory;
 }
 declare module "dojo/store/DataStore"
 {
-	export = DojoStoreDataStore;
+	var DataStore: Dojo.Store.DataStore;
+	export = DataStore;
 }
-
-// dojo/store/JsonRest
-
-interface _DojoStoreJsonRestCreateOptions
-{
-	accepts?: string;
-	ascendingPrefix?: string;
-	descendingPrefix?: string;
-	headers?: { [header: string]: string; };
-	idProperty?: string;
-	queryEngine(query: any, options?: _DojoStoreQueryOptions): (data: any[]) => any[];
-	target?: string;
-}
-declare class DojoStoreJsonRest extends DojoStore implements _DojoStoreJsonRestCreateOptions
-{
-	constructor(options: _DojoStoreJsonRestCreateOptions);
-
-	accepts: string;
-	ascendingPrefix: string;
-	descendingPrefix: string;
-	headers: { [header: string]: string; };
-	idProperty: string;
-	queryEngine(query: string, options?: _DojoStoreQueryOptions): (data: any[]) => any[];
-	queryEngine(query: Object, options?: _DojoStoreQueryOptions): (data: any[]) => any[];
-	queryEngine(query: RegExp, options?: _DojoStoreQueryOptions): (data: any[]) => any[];
-	queryEngine(query: (item: Object) => boolean, options?: _DojoStoreQueryOptions): (data: any[]) => any[];
-	target: string;
-}
-
 declare module "dojo/store/JsonRest"
 {
-	export = DojoStoreJsonRest;
+	var JsonRest: Dojo.Store.JsonRest;
+	export = JsonRest;
 }
 
 // dojo/store/Observable
 
 declare module "dojo/store/Observable"
 {
-	function Observable(store: DojoStore): DojoStore;
+	function Observable(store: Dojo.Store.Store): Dojo.Store.Store;
 
 	export = Observable;
 }
@@ -182,7 +187,7 @@ declare module "dojo/store/Observable"
 
 declare module "dojo/store/Cache"
 {
-	function Cache(masterStore: DojoStore, cachingStore: DojoStore, options?: { isLoaded?: (item: any) => bool; }): DojoStore;
+	function Cache(masterStore: Dojo.Store.Store, cachingStore: Dojo.Store.Store, options?: { isLoaded?: (item: any) => bool; }): Dojo.Store.Store;
 
 	export = Cache;
 }
