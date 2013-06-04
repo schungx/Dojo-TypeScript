@@ -8,7 +8,7 @@ declare module Dijit
 {
 	// dijit/MenuBase
 
-	export class MenuBase extends Widget implements TemplatedMixin, KeyNavContainer, CssStateMixin
+	export class MenuBase extends Widget implements _TemplatedMixin, _KeyNavContainer, _CssStateMixin
 	{
 		activated: boolean;
 		autoFocus: boolean;
@@ -23,7 +23,7 @@ declare module Dijit
 		onItemHover(item: MenuItem): void;
 		onItemUnhover(item: MenuItem): void;
 
-		onKeyboardSearch(item: WidgetBase, event: Event, searchString: string, numMatches: number): void;
+		onKeyboardSearch(item: _WidgetBase, event: Event, searchString: string, numMatches: number): void;
 		onKeyboardSearch(item: MenuItem, event: Event, searchString: string, numMatches: number): void;
 
 		// dijit/_TemplatedMixin
@@ -39,14 +39,14 @@ declare module Dijit
 		tabIndex: string;
 
 		focus(): void;
-		focusChild(widget: WidgetBase, last: boolean): void;
+		focusChild(widget: _WidgetBase, last: boolean): void;
 		focusFirstChild(): void;
 		focusLastChild(): void;
 
-		addChild(widget: WidgetBase, insertIndex?: number): void;
-		getIndexOfChild(child: WidgetBase): number;
+		addChild(widget: _WidgetBase, insertIndex?: number): void;
+		getIndexOfChild(child: _WidgetBase): number;
 		hasChildren(): boolean;
-		removeChild(widget: WidgetBase): void;
+		removeChild(widget: _WidgetBase): void;
 		removeChild(widget: number): void;
 
 		// dijit/_CssStateMixin
@@ -82,7 +82,7 @@ declare module Dijit
 
 	// dijit/MenuItem
 
-	export class MenuItem extends Widget implements TemplatedMixin, Container, CssStateMixin
+	export class MenuItem extends Widget implements _TemplatedMixin, _Container, _CssStateMixin
 	{
 		accelKey: string;
 		disabled: boolean;
@@ -100,10 +100,10 @@ declare module Dijit
 		getCachedTemplate(templateString: string, alwaysUseString: boolean, doc?: HTMLDocument): any;
 
 		// dijit/_Container
-		addChild(widget: WidgetBase, insertIndex?: number): void;
-		getIndexOfChild(child: WidgetBase): number;
+		addChild(widget: _WidgetBase, insertIndex?: number): void;
+		getIndexOfChild(child: _WidgetBase): number;
 		hasChildren(): boolean;
-		removeChild(widget: WidgetBase): void;
+		removeChild(widget: _WidgetBase): void;
 		removeChild(widget: number): void;
 
 		// dijit/_CssStateMixin
@@ -114,7 +114,7 @@ declare module Dijit
 
 	// dijit/MenuSeparator
 
-	export class MenuSeparator extends WidgetBase implements TemplatedMixin, Contained
+	export class MenuSeparator extends _WidgetBase implements _TemplatedMixin, _Contained
 	{
 		// dijit/_TemplatedMixin
 		attachScope: Object;
@@ -125,8 +125,8 @@ declare module Dijit
 
 		// dijit/_Contained
 		getIndexInParent(): number;
-		getNextSibling(): WidgetBase;
-		getPreviousSibling(): WidgetBase;
+		getNextSibling(): _WidgetBase;
+		getPreviousSibling(): _WidgetBase;
 	}
 }
 
