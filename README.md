@@ -1,5 +1,5 @@
-Using Dojo 1.7+ with TypeScript 0.9+
-====================================
+Using Dojo (AMD-style) with TypeScript
+======================================
 
 This project is an attempt to use the Dojo Toolkit (version 1.7 or higher in the new AMD style) with Microsoft's TypeScript (version 0.9 and up with generics support).
 
