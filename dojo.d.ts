@@ -218,7 +218,7 @@ declare module "dojo/_base/config"
 	export var addOnLoad: Object;	// TODO
 	export var afterOnLoad: string;
 	export var baseUrl: string;
-	export var callback: Dojo.Function;
+	export var callback: Function;
 	export var debugContainerId: string;
 	export var debugHeight: number;
 	export var defaultDuration: number;
@@ -240,19 +240,25 @@ declare module "dojo/_base/config"
 
 // dojo/_base/declare
 
+declare module Dojo
+{
+	export module Declare
+	{
+		export interface _DeclareOptions
+		{
+			constructor: Dojo.Action;
+			destroy: Dojo.BlankFunction;
+		}
+	}
+}
+
 declare module "dojo/_base/declare"
 {
-	interface _DeclareOptions
-	{
-		constructor: Dojo.Action;
-		destroy: Dojo.BlankFunction;
-	}
-
 	var declare: {
-		(className: string, superclass: Function, props: _DeclareOptions): Function;
-		(className: string, superclasses: Function[], props: _DeclareOptions): Function;
-		(superclass: Function, props: _DeclareOptions): Function;
-		(superclasses: Function[], props: _DeclareOptions): Function;
+		(className: string, superclass: Function, props: Dojo.Declare._DeclareOptions): Function;
+		(className: string, superclasses: Function[], props: Dojo.Declare._DeclareOptions): Function;
+		(superclass: Function, props: Dojo.Declare._DeclareOptions): Function;
+		(superclasses: Function[], props: Dojo.Declare._DeclareOptions): Function;
 
 		safeMixin<T extends Object>(dest: T, source: Object): T;
 	};
@@ -323,13 +329,13 @@ declare module "dojo/_base/lang"
 	export function extend<T extends Object>(ctor: T, ...props: Object[]): T;
 	export function getObject(path: string, create?: boolean): Object;
 
-	export function hitch<F extends Dojo.Function>(scope: Object, method: F): F;
-	export function hitch(scope: Object, method: string): Dojo.Function;
+	export function hitch<F extends Function>(scope: Object, method: F): F;
+	export function hitch(scope: Object, method: string): Function;
 
 	export function mixin<T extends Object>(dest: T, ...sources: Object[]): T;
 
-	export function partial<F extends Dojo.Function>(method: F, ...v_args: any[]): F;
-	export function partial(method: string, ...v_args: any[]): Dojo.Function;
+	export function partial<F extends Function>(method: F, ...v_args: any[]): F;
+	export function partial(method: string, ...v_args: any[]): Function;
 
 	export function replace(tmpl: string, map: Object, pattern?: string): string;
 	export function replace(tmpl: string, map: string[], pattern?: string): string;
@@ -369,8 +375,10 @@ declare module "dojo/AdapterRegistry"
 
 declare module "dojo/aspect"
 {
-	export function after(target: Object, methodName: string, advice: (x: any) => any, receiveArguments?: boolean): Dojo.RemovableHandle;
-	export function around(target: Object, methodName: string, advice: (fn: Function) => Dojo.Function): Dojo.RemovableHandle;
+	export function after(target: Object, methodName: string, advice: (x: any) => any): Dojo.RemovableHandle;
+	export function after(target: Object, methodName: string, advice: Function, receiveArguments: boolean): Dojo.RemovableHandle;
+
+	export function around(target: Object, methodName: string, advice: (fn: Function) => Function): Dojo.RemovableHandle;
 	export function before(target: Object, methodName: string, advice: Dojo.FunctionReturning<any[]>): Dojo.RemovableHandle;
 }
 
@@ -407,19 +415,25 @@ declare module "dojo/cldr/supplemental"
 
 // dojo/cookie
 
+declare module Dojo
+{
+	export module Cookie
+	{
+		export interface _CookieOptions
+		{
+			expires?: any;
+			path?: string;
+			domain?: string;
+			secure?: boolean;
+		}
+	}
+}
+
 declare module "dojo/cookie"
 {
-	interface _CookieOptions
-	{
-		expires?: any;
-		path?: string;
-		domain?: string;
-		secure?: boolean;
-	}
-
 	var cookie: {
 		(name: string): string;
-		(name: string, value: string, props?: _CookieOptions): void;
+		(name: string, value: string, props?: Dojo.Cookie._CookieOptions): void;
 
 		isSupported(): boolean;
 	};
@@ -496,25 +510,30 @@ declare module "dojo/date/locale"
 
 // dojo/Deferred
 
-declare class DojoDeferred<T>
+declare module Dojo
 {
-	constructor(canceler?: (reason: any) => void );
+	export class Deferred<T>
+	{
+		constructor(canceler?: (reason: any) => void );
 
-	promise: DojoPromise<T>;
+		promise: Dojo.Promise<T>;
 
-	cancel(reason: any, strict?: boolean): any;
-	isCanceled(): boolean;
-	isFulfilled(): boolean;
-	isRejected(): boolean;
-	isResolved(): boolean;
-	progress(update: any, strict?: boolean): DojoPromise<T>;
-	reject(reason: any, strict?: boolean): DojoPromise<T>;
-	resolve(value: T, strict?: boolean): DojoPromise<T>;
-	then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): DojoPromise<V>;
+		cancel(reason: any, strict?: boolean): any;
+		isCanceled(): boolean;
+		isFulfilled(): boolean;
+		isRejected(): boolean;
+		isResolved(): boolean;
+		progress(update: any, strict?: boolean): Dojo.Promise<T>;
+		reject(reason: any, strict?: boolean): Dojo.Promise<T>;
+		resolve(value: T, strict?: boolean): Dojo.Promise<T>;
+		then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): Dojo.Promise<V>;
+	}
 }
 declare module "dojo/Deferred"
 {
-	export = DojoDeferred;
+	// TODO: TypeScript can export generic types yet
+	var deferred: Dojo.Deferred<any>;
+	export = deferred;
 }
 
 // dojo/dom
@@ -720,9 +739,71 @@ declare module Dojo
 {
 	export class Evented
 	{
+
 		emit(type: string, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 		emit(type: Dojo.ExtensionEvent, event: { bubbles?: boolean; cancelable?: boolean; }): void;
-		on(type: string, listener: EventListener): Dojo.RemovableHandle;
+
+		on(type: string, listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "abort", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "afterprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "beforeprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "blur", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "canplay", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "canplaythrough", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "change", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "click", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "contextmenu", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dblclick", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "drag", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragend", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragenter", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragleave", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragover", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragstart", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "drop", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "durationchange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "emptied", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "ended", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "focus", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "hashchange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "input", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "keydown", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "keypress", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "keyup", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "load", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "loadeddata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "loadedmetadata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "loadstart", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "message", listener: (ev: MessageEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mousedown", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mousemove", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mouseout", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mouseover", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mouseup", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "offline", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "online", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "pause", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "play", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "playing", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "progress", listener: (ev: any) => boolean): Dojo.RemovableHandle;
+		on(type: "ratechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "readystatechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "reset", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "resize", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "scroll", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "seeked", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "seeking", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "select", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "stalled", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "storage", listener: (ev: StorageEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "submit", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "suspend", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "timeupdate", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "unload", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "volumechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "waiting", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: Dojo.ExtensionEvent, listener: EventListener): Dojo.RemovableHandle;
 	}
 }
@@ -900,7 +981,7 @@ declare module "dojo/html"
 		set(cont: string, params?: Object): void;
 		set(cont: HTMLElement, params?: Object): void;
 		set(cont: NodeList, params?: Object): void;
-		set(cont: DojoNodeList, params?: Object): void;
+		set(cont: Dojo.NodeList, params?: Object): void;
 		set(cont: HTMLElement[], params?: Object): void;
 
 		setContent(): void;
@@ -916,7 +997,7 @@ declare module "dojo/html"
 	export function set(node: HTMLElement, content: string, params?: _ContentSetterOptions): void;
 	export function set(node: HTMLElement, content: HTMLElement, params?: _ContentSetterOptions): void;
 	export function set(node: HTMLElement, content: NodeList, params?: _ContentSetterOptions): void;
-	export function set(node: HTMLElement, content: DojoNodeList, params?: _ContentSetterOptions): void;
+	export function set(node: HTMLElement, content: Dojo.NodeList, params?: _ContentSetterOptions): void;
 	export function set(node: HTMLElement, content: HTMLElement[], params?: _ContentSetterOptions): void;
 }
 
@@ -1031,247 +1112,375 @@ declare module Dojo
 			auto: any;
 		}
 	}
-}
 
-declare class DojoNodeList
-{
-	constructor(node: HTMLElement);
-	constructor(nodes: HTMLElement[]);
-	constructor(nodes: NodeList);
-	constructor(nodes: DojoNodeList);
+	export class NodeList
+	{
+		constructor(node: HTMLElement);
+		constructor(nodes: HTMLElement[]);
+		//constructor(nodes: NodeList);
+		constructor(nodes: Dojo.NodeList);
 
-	addClass(className: string): DojoNodeList;
-	addClass(classNames: string[]): DojoNodeList;
-	//addClassFx(cssClass, args);			// May require dojox.fx
+		addClass(className: string): Dojo.NodeList;
+		addClass(classNames: string[]): Dojo.NodeList;
+		//addClassFx(cssClass, args);			// May require dojox.fx
 
-	addContent(content: string, position?: string): DojoNodeList;
-	addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: string): DojoNodeList;
-	addContent(content: HTMLElement, position?: string): DojoNodeList;
-	addContent(content: HTMLElement[], position?: string): DojoNodeList;
-	addContent(content: DojoNodeList, position?: string): DojoNodeList;
-	addContent(content: NodeList, position?: string): DojoNodeList;
-	addContent(content: string, position?: number): DojoNodeList;
-	addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: number): DojoNodeList;
-	addContent(content: HTMLElement, position?: number): DojoNodeList;
-	addContent(content: HTMLElement[], position?: number): DojoNodeList;
-	addContent(content: DojoNodeList, position?: number): DojoNodeList;
-	addContent(content: NodeList, position?: number): DojoNodeList;
+		addContent(content: string, position?: string): Dojo.NodeList;
+		addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: string): Dojo.NodeList;
+		addContent(content: HTMLElement, position?: string): Dojo.NodeList;
+		addContent(content: HTMLElement[], position?: string): Dojo.NodeList;
+		addContent(content: Dojo.NodeList, position?: string): Dojo.NodeList;
+		//addContent(content: NodeList, position?: string): Dojo.NodeList;
+		addContent(content: string, position?: number): Dojo.NodeList;
+		addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: number): Dojo.NodeList;
+		addContent(content: HTMLElement, position?: number): Dojo.NodeList;
+		addContent(content: HTMLElement[], position?: number): Dojo.NodeList;
+		addContent(content: Dojo.NodeList, position?: number): Dojo.NodeList;
+		//addContent(content: NodeList, position?: number): Dojo.NodeList;
 
-	adopt(query: string, position?: string): DojoNodeList;
-	adopt(node: HTMLElement, position?: string): DojoNodeList;
-	adopt(list: HTMLElement[], position?: string): DojoNodeList;
-	adopt(list: NodeList, position?: string): DojoNodeList;
-	adopt(list: DojoNodeList, position?: string): DojoNodeList;
-	adopt(query: string, position?: number): DojoNodeList;
-	adopt(node: HTMLElement, position?: number): DojoNodeList;
-	adopt(list: HTMLElement[], position?: number): DojoNodeList;
-	adopt(list: NodeList, position?: number): DojoNodeList;
-	adopt(list: DojoNodeList, position?: number): DojoNodeList;
+		adopt(query: string, position?: string): Dojo.NodeList;
+		adopt(node: HTMLElement, position?: string): Dojo.NodeList;
+		adopt(list: HTMLElement[], position?: string): Dojo.NodeList;
+		//adopt(list: NodeList, position?: string): Dojo.NodeList;
+		adopt(list: Dojo.NodeList, position?: string): Dojo.NodeList;
+		adopt(query: string, position?: number): Dojo.NodeList;
+		adopt(node: HTMLElement, position?: number): Dojo.NodeList;
+		adopt(list: HTMLElement[], position?: number): Dojo.NodeList;
+		//adopt(list: NodeList, position?: number): Dojo.NodeList;
+		adopt(list: Dojo.NodeList, position?: number): Dojo.NodeList;
 
-	after(content: string): DojoNodeList;
-	after(content: Object): DojoNodeList;
-	after(content: HTMLElement): DojoNodeList;
-	after(content: HTMLElement[]): DojoNodeList;
-	after(content: DojoNodeList): DojoNodeList;
-	after(content: NodeList): DojoNodeList;
+		after(content: string): Dojo.NodeList;
+		after(content: Object): Dojo.NodeList;
+		after(content: HTMLElement): Dojo.NodeList;
+		after(content: HTMLElement[]): Dojo.NodeList;
+		after(content: Dojo.NodeList): Dojo.NodeList;
+		//after(content: NodeList): Dojo.NodeList;
 
-	andSelf(): DojoNodeList;
-	anim(properties: { [property: string]: any; }, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.BlankFunction, delay?: number): Dojo.Animation;
+		andSelf(): Dojo.NodeList;
+		anim(properties: { [property: string]: any; }, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.BlankFunction, delay?: number): Dojo.Animation;
 
-	animateProperty(args: Dojo.Fx.CreateOptions): Dojo.Animation;
-	animateProperty(args: Dojo.Fx.AutoCreateOptions): DojoNodeList;
+		animateProperty(args: Dojo.Fx.CreateOptions): Dojo.Animation;
+		animateProperty(args: Dojo.Fx.AutoCreateOptions): Dojo.NodeList;
 
-	append(content: string): DojoNodeList;
-	append(content: Object): DojoNodeList;
-	append(content: HTMLElement): DojoNodeList;
-	append(content: HTMLElement[]): DojoNodeList;
-	append(content: DojoNodeList): DojoNodeList;
-	append(content: NodeList): DojoNodeList;
+		append(content: string): Dojo.NodeList;
+		append(content: Object): Dojo.NodeList;
+		append(content: HTMLElement): Dojo.NodeList;
+		append(content: HTMLElement[]): Dojo.NodeList;
+		append(content: Dojo.NodeList): Dojo.NodeList;
+		//append(content: NodeList): Dojo.NodeList;
 
-	appendTo(query: string): DojoNodeList;
-	at(...index: number[]): DojoNodeList;
+		appendTo(query: string): Dojo.NodeList;
+		at(...index: number[]): Dojo.NodeList;
 
-	attr(property: string): string[];
-	attr(property: string, value: string): DojoNodeList;
+		attr(property: string): string[];
+		attr(property: string, value: string): Dojo.NodeList;
 
-	before(content: string): DojoNodeList;
-	before(content: Object): DojoNodeList;
-	before(content: HTMLElement): DojoNodeList;
-	before(content: HTMLElement[]): DojoNodeList;
-	before(content: DojoNodeList): DojoNodeList;
-	before(content: NodeList): DojoNodeList;
+		before(content: string): Dojo.NodeList;
+		before(content: Object): Dojo.NodeList;
+		before(content: HTMLElement): Dojo.NodeList;
+		before(content: HTMLElement[]): Dojo.NodeList;
+		before(content: Dojo.NodeList): Dojo.NodeList;
+		//before(content: NodeList): Dojo.NodeList;
 
-	children(query?: string): DojoNodeList;
-	clone(): DojoNodeList;
+		children(query?: string): Dojo.NodeList;
+		clone(): Dojo.NodeList;
 
-	closest(query: string): HTMLElement;
-	closest(query: string, rootId: string): HTMLElement;
-	closest(query: string, root: Object): HTMLElement;
+		closest(query: string): HTMLElement;
+		closest(query: string, rootId: string): HTMLElement;
+		closest(query: string, root: Object): HTMLElement;
 
-	concat(...items: HTMLElement[]): DojoNodeList;
+		concat(...items: HTMLElement[]): Dojo.NodeList;
 
-	connect(methodName: string, funcName: string): DojoNodeList;
-	connect(methodName: string, func: Dojo.Function): DojoNodeList;
-	connect(methodName: string, obj: Object, funcName: string): DojoNodeList;
+		connect(methodName: string, funcName: string): Dojo.NodeList;
+		connect(methodName: string, func: Function): Dojo.NodeList;
+		connect(methodName: string, obj: Object, funcName: string): Dojo.NodeList;
 
-	data(key: { [prop: string]: any; }): DojoNodeList;
-	data(key: string): any;
-	data(key: string, value: any): DojoNodeList;
+		data(key: { [prop: string]: any; }): Dojo.NodeList;
+		data(key: string): any;
+		data(key: string, value: any): Dojo.NodeList;
 
-	delegate(selector: string, eventName: string, listener: EventListener): DojoNodeList;
-	dtl(template: string, context?: Object): DojoNodeList;
-	empty(): DojoNodeList;
-	end(): DojoNodeList;
-	even(): DojoNodeList;
-	every(callback: (node: HTMLElement, index: number, list: DojoNodeList) => boolean, thisObject?: Object): boolean;
+		delegate(selector: string, eventName: string, listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "abort", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "afterprint", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "beforeprint", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "blur", listener: (ev: FocusEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "canplay", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "canplaythrough", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "change", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "click", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "contextmenu", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "dblclick", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "drag", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "dragend", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "dragenter", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "dragleave", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "dragover", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "dragstart", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "drop", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "durationchange", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "emptied", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "ended", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "focus", listener: (ev: FocusEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "hashchange", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "input", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "keydown", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "keypress", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "keyup", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "load", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "loadeddata", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "loadedmetadata", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "loadstart", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "message", listener: (ev: MessageEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "mousedown", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "mousemove", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "mouseout", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "mouseover", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "mouseup", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "offline", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "online", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "pause", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "play", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "playing", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "progress", listener: (ev: any) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "ratechange", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "readystatechange", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "reset", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "resize", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "scroll", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "seeked", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "seeking", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "select", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "stalled", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "storage", listener: (ev: StorageEvent) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "submit", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "suspend", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "timeupdate", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "unload", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "volumechange", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: "waiting", listener: (ev: Event) => boolean): Dojo.NodeList;
 
-	fadeIn(args?: Dojo.Fx.AutoBaseCreateOptions): DojoNodeList;
-	fadeIn(args?: Dojo.Fx.BaseCreateOptions): Dojo.Animation;
+		dtl(template: string, context?: Object): Dojo.NodeList;
+		empty(): Dojo.NodeList;
+		end(): Dojo.NodeList;
+		even(): Dojo.NodeList;
+		every(callback: (node: HTMLElement, index: number, list: Dojo.NodeList) => boolean, thisObject?: Object): boolean;
 
-	fadeOut(args?: Dojo.Fx.AutoBaseCreateOptions): DojoNodeList;
-	fadeOut(args?: Dojo.Fx.BaseCreateOptions): Dojo.Animation;
+		fadeIn(args?: Dojo.Fx.AutoBaseCreateOptions): Dojo.NodeList;
+		fadeIn(args?: Dojo.Fx.BaseCreateOptions): Dojo.Animation;
 
-	filter(filter: string): DojoNodeList;
-	filter(filter: (item: HTMLElement, index: number, list: DojoNodeList) => boolean): DojoNodeList;
+		fadeOut(args?: Dojo.Fx.AutoBaseCreateOptions): Dojo.NodeList;
+		fadeOut(args?: Dojo.Fx.BaseCreateOptions): Dojo.Animation;
 
-	first(): DojoNodeList;
-	forEach(callback: (item: HTMLElement, index: number, list: DojoNodeList) => void , thisObject?: Object): DojoNodeList;
+		filter(filter: string): Dojo.NodeList;
+		filter(filter: (item: HTMLElement, index: number, list: Dojo.NodeList) => boolean): Dojo.NodeList;
 
-	html(): string;
-	html(content: string): DojoNodeList;
-	html(content: HTMLElement): DojoNodeList;
-	html(content: HTMLElement[]): DojoNodeList;
-	html(content: NodeList): DojoNodeList;
-	html(content: DojoNodeList): DojoNodeList;
+		first(): Dojo.NodeList;
+		forEach(callback: (item: HTMLElement, index: number, list: Dojo.NodeList) => void , thisObject?: Object): Dojo.NodeList;
 
-	indexOf(value: HTMLElement, fromIndex?: number): number;
+		html(): string;
+		html(content: string): Dojo.NodeList;
+		html(content: HTMLElement): Dojo.NodeList;
+		html(content: HTMLElement[]): Dojo.NodeList;
+		//html(content: NodeList): Dojo.NodeList;
+		html(content: Dojo.NodeList): Dojo.NodeList;
 
-	innerHTML(): string;
-	innerHTML(content: string): DojoNodeList;
-	innerHTML(content: HTMLElement): DojoNodeList;
-	innerHTML(content: HTMLElement[]): DojoNodeList;
-	innerHTML(content: NodeList): DojoNodeList;
-	innerHTML(content: DojoNodeList): DojoNodeList;
+		indexOf(value: HTMLElement, fromIndex?: number): number;
 
-	insertAfter(query: string): DojoNodeList;
-	insertBefore(query: string): DojoNodeList;
-	instantiate(declaredClass: string, properties?: Object): DojoNodeList;
-	last(): DojoNodeList;
-	lastIndexOf(value: HTMLElement, fromIndex?: number): number;
-	map(func: (item: HTMLElement, index: number, list: DojoNodeList) => HTMLElement, thisObject?: Object): DojoNodeList;
-	marginBox(): Dojo.PositionLeftTopWidthHeight;
-	next(query?: string): DojoNodeList;
-	nextAll(query?: string): DojoNodeList;
-	odd(): DojoNodeList;
+		innerHTML(): string;
+		innerHTML(content: string): Dojo.NodeList;
+		innerHTML(content: HTMLElement): Dojo.NodeList;
+		innerHTML(content: HTMLElement[]): Dojo.NodeList;
+		//innerHTML(content: NodeList): Dojo.NodeList;
+		innerHTML(content: Dojo.NodeList): Dojo.NodeList;
 
-	on(name: string, listener: EventListener): DojoNodeList;
-	on(type: Dojo.ExtensionEvent, listener: EventListener): DojoNodeList;
+		insertAfter(query: string): Dojo.NodeList;
+		insertBefore(query: string): Dojo.NodeList;
+		instantiate(declaredClass: string, properties?: Object): Dojo.NodeList;
+		last(): Dojo.NodeList;
+		lastIndexOf(value: HTMLElement, fromIndex?: number): number;
+		map(func: (item: HTMLElement, index: number, list: Dojo.NodeList) => HTMLElement, thisObject?: Object): Dojo.NodeList;
+		marginBox(): Dojo.PositionLeftTopWidthHeight;
+		next(query?: string): Dojo.NodeList;
+		nextAll(query?: string): Dojo.NodeList;
+		odd(): Dojo.NodeList;
 
-	orphan(filter?: string): DojoNodeList;
-	parent(query?: string): DojoNodeList;
-	parents(query?: string): DojoNodeList;
+		on(name: string, listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "abort", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
+		on(name: "afterprint", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "beforeprint", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): Dojo.NodeList;
+		on(name: "blur", listener: (ev: FocusEvent) => boolean): Dojo.NodeList;
+		on(name: "canplay", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "canplaythrough", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "change", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "click", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		on(name: "contextmenu", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		on(name: "dblclick", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		on(name: "drag", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		on(name: "dragend", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		on(name: "dragenter", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		on(name: "dragleave", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		on(name: "dragover", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		on(name: "dragstart", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		on(name: "drop", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
+		on(name: "durationchange", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "emptied", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "ended", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "focus", listener: (ev: FocusEvent) => boolean): Dojo.NodeList;
+		on(name: "hashchange", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "input", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "keydown", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
+		on(name: "keypress", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
+		on(name: "keyup", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
+		on(name: "load", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "loadeddata", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "loadedmetadata", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "loadstart", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "message", listener: (ev: MessageEvent) => boolean): Dojo.NodeList;
+		on(name: "mousedown", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		on(name: "mousemove", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		on(name: "mouseout", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		on(name: "mouseover", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		on(name: "mouseup", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
+		on(name: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): Dojo.NodeList;
+		on(name: "offline", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "online", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "pause", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "play", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "playing", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "progress", listener: (ev: any) => boolean): Dojo.NodeList;
+		on(name: "ratechange", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "readystatechange", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "reset", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "resize", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
+		on(name: "scroll", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
+		on(name: "seeked", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "seeking", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "select", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
+		on(name: "stalled", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "storage", listener: (ev: StorageEvent) => boolean): Dojo.NodeList;
+		on(name: "submit", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "suspend", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "timeupdate", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "unload", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "volumechange", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: "waiting", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(type: Dojo.ExtensionEvent, listener: EventListener): Dojo.NodeList;
 
-	place(query: string, position?: string): DojoNodeList;
-	place(node: HTMLElement, position?: string): DojoNodeList;
-	place(query: string, position?: number): DojoNodeList;
-	place(node: HTMLElement, position?: number): DojoNodeList;
+		orphan(filter?: string): Dojo.NodeList;
+		parent(query?: string): Dojo.NodeList;
+		parents(query?: string): Dojo.NodeList;
 
-	position(): Dojo.BorderBox;
+		place(query: string, position?: string): Dojo.NodeList;
+		place(node: HTMLElement, position?: string): Dojo.NodeList;
+		place(query: string, position?: number): Dojo.NodeList;
+		place(node: HTMLElement, position?: number): Dojo.NodeList;
 
-	prepend(content: string): DojoNodeList;
-	prepend(content: Object): DojoNodeList;
-	prepend(content: HTMLElement): DojoNodeList;
-	prepend(content: HTMLElement[]): DojoNodeList;
-	prepend(content: DojoNodeList): DojoNodeList;
-	prepend(content: NodeList): DojoNodeList;
+		position(): Dojo.BorderBox;
 
-	prependTo(query: string): DojoNodeList;
-	prev(query?: string): DojoNodeList;
-	prevAll(query?: string): DojoNodeList;
-	query(query: string): DojoNodeList;
-	remove(filter?: string): DojoNodeList;
-	removeAttr(name: string): DojoNodeList;
+		prepend(content: string): Dojo.NodeList;
+		prepend(content: Object): Dojo.NodeList;
+		prepend(content: HTMLElement): Dojo.NodeList;
+		prepend(content: HTMLElement[]): Dojo.NodeList;
+		prepend(content: Dojo.NodeList): Dojo.NodeList;
+		//prepend(content: NodeList): Dojo.NodeList;
 
-	removeClass(className?: string): DojoNodeList;
-	removeClass(classNames?: string[]): DojoNodeList;
-	//removeClassFx(cssClass, args);			// May require dojox.fx
-	removeData(key?: string): DojoNodeList;
-	replaceAll(query: string): DojoNodeList;
+		prependTo(query: string): Dojo.NodeList;
+		prev(query?: string): Dojo.NodeList;
+		prevAll(query?: string): Dojo.NodeList;
+		query(query: string): Dojo.NodeList;
+		remove(filter?: string): Dojo.NodeList;
+		removeAttr(name: string): Dojo.NodeList;
 
-	replaceClass(addClass: string, removeClass?: string): DojoNodeList;
-	replaceClass(addClass: string, removeClasses?: string[]): DojoNodeList;
-	replaceClass(addClasses: string[], removeClass?: string): DojoNodeList;
-	replaceClass(addClasses: string[], removeClasses?: string[]): DojoNodeList;
+		removeClass(className?: string): Dojo.NodeList;
+		removeClass(classNames?: string[]): Dojo.NodeList;
+		//removeClassFx(cssClass, args);			// May require dojox.fx
+		removeData(key?: string): Dojo.NodeList;
+		replaceAll(query: string): Dojo.NodeList;
 
-	replaceWith(content: string): DojoNodeList;
-	replaceWith(content: Object): DojoNodeList;
-	replaceWith(content: HTMLElement): DojoNodeList;
-	replaceWith(content: HTMLElement[]): DojoNodeList;
-	replaceWith(content: DojoNodeList): DojoNodeList;
-	replaceWith(content: NodeList): DojoNodeList;
+		replaceClass(addClass: string, removeClass?: string): Dojo.NodeList;
+		replaceClass(addClass: string, removeClasses?: string[]): Dojo.NodeList;
+		replaceClass(addClasses: string[], removeClass?: string): Dojo.NodeList;
+		replaceClass(addClasses: string[], removeClasses?: string[]): Dojo.NodeList;
 
-	siblings(query?: string): DojoNodeList;
-	slice(begin: number, end?: number): DojoNodeList;
+		replaceWith(content: string): Dojo.NodeList;
+		replaceWith(content: Object): Dojo.NodeList;
+		replaceWith(content: HTMLElement): Dojo.NodeList;
+		replaceWith(content: HTMLElement[]): Dojo.NodeList;
+		replaceWith(content: Dojo.NodeList): Dojo.NodeList;
+		//replaceWith(content: NodeList): Dojo.NodeList;
 
-	slideTo(args: Dojo.Fx.SlideCreateOptions): Dojo.Animation;
-	slideTo(args: Dojo.Fx.AutoSlideCreateOptions): DojoNodeList;
+		siblings(query?: string): Dojo.NodeList;
+		slice(begin: number, end?: number): Dojo.NodeList;
 
-	some(callback: (node: HTMLElement, index: number, list: DojoNodeList) => boolean, thisObject?: Object): boolean;
-	splice(index: number, howmany?: number, ...items: HTMLElement[]): DojoNodeList;
+		slideTo(args: Dojo.Fx.SlideCreateOptions): Dojo.Animation;
+		slideTo(args: Dojo.Fx.AutoSlideCreateOptions): Dojo.NodeList;
 
-	style(property: string): string[];
-	style(property: string, value: string): DojoNodeList;
+		some(callback: (node: HTMLElement, index: number, list: Dojo.NodeList) => boolean, thisObject?: Object): boolean;
+		splice(index: number, howmany?: number, ...items: HTMLElement[]): Dojo.NodeList;
 
-	text(): string;
-	text(value: string): DojoNodeList;
+		style(property: string): string[];
+		style(property: string, value: string): Dojo.NodeList;
 
-	toggleClass(className: string, condition?: boolean): DojoNodeList;
-	//toggleClassFx(cssClass, force, args);			// May require dojox.fx
+		text(): string;
+		text(value: string): Dojo.NodeList;
 
-	val(): string;
-	val(): string[];
-	val(value: string): DojoNodeList;
-	val(value: string[]): DojoNodeList;
+		toggleClass(className: string, condition?: boolean): Dojo.NodeList;
+		//toggleClassFx(cssClass, force, args);			// May require dojox.fx
 
-	wipeIn(args: Dojo.Fx.CreateOptions): Dojo.Animation;
-	wipeIn(args: Dojo.Fx.AutoCreateOptions): DojoNodeList;
-	
-	wipeOut(args: Dojo.Fx.CreateOptions): Dojo.Animation;
-	wipeOut(args: Dojo.Fx.AutoCreateOptions): DojoNodeList;
+		val(): string;
+		val(): string[];
+		val(value: string): Dojo.NodeList;
+		val(value: string[]): Dojo.NodeList;
 
-	wrap(html: string): DojoNodeList;
-	wrap(node: HTMLElement): DojoNodeList;
+		wipeIn(args: Dojo.Fx.CreateOptions): Dojo.Animation;
+		wipeIn(args: Dojo.Fx.AutoCreateOptions): Dojo.NodeList;
+		
+		wipeOut(args: Dojo.Fx.CreateOptions): Dojo.Animation;
+		wipeOut(args: Dojo.Fx.AutoCreateOptions): Dojo.NodeList;
 
-	wrapAll(html: string): DojoNodeList;
-	wrapAll(node: HTMLElement): DojoNodeList;
+		wrap(html: string): Dojo.NodeList;
+		wrap(node: HTMLElement): Dojo.NodeList;
 
-	wrapInner(html: string): DojoNodeList;
-	wrapInner(node: HTMLElement): DojoNodeList;
+		wrapAll(html: string): Dojo.NodeList;
+		wrapAll(node: HTMLElement): Dojo.NodeList;
+
+		wrapInner(html: string): Dojo.NodeList;
+		wrapInner(node: HTMLElement): Dojo.NodeList;
+	}
 }
 declare module "dojo/NodeList"
 {
-	export = DojoNodeList;
+	var NodeList: Dojo.NodeList;
+	export = NodeList;
 }
 
 // dojo/NodeList-???
 
 declare module "dojo/NodeList-data" {
-	export = DojoNodeList;
+	var NodeList: Dojo.NodeList;
+	export = NodeList;
 }
 declare module "dojo/NodeList-dom" { 
-	export = DojoNodeList;
+	var NodeList: Dojo.NodeList;
+	export = NodeList;
 }
 declare module "dojo/NodeList-fx" {
-	export = DojoNodeList;
+	var NodeList: Dojo.NodeList;
+	export = NodeList;
 }
 declare module "dojo/NodeList-html" {
-	export = DojoNodeList;
+	var NodeList: Dojo.NodeList;
+	export = NodeList;
 }
 declare module "dojo/NodeList-manipulate" {
-	export = DojoNodeList;
+	var NodeList: Dojo.NodeList;
+	export = NodeList;
 }
 declare module "dojo/NodeList-traverse" {
-	export = DojoNodeList;
+	var NodeList: Dojo.NodeList;
+	export = NodeList;
 }
 
 // dojo/number
@@ -1307,8 +1516,69 @@ declare module "dojo/number"
 
 declare module "dojo/on"
 {
-	var on: {
-		(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): Dojo.RemovableHandle;
+	var on:
+	{
+		(target: HTMLElement, type: string, listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "abort", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "afterprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "beforeprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "blur", listener: (ev: FocusEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "canplay", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "canplaythrough", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "change", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "click", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "contextmenu", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "dblclick", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "drag", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "dragend", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "dragenter", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "dragleave", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "dragover", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "dragstart", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "drop", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "durationchange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "emptied", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "ended", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "focus", listener: (ev: FocusEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "hashchange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "input", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "keydown", listener: (ev: KeyboardEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "keypress", listener: (ev: KeyboardEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "keyup", listener: (ev: KeyboardEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "load", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "loadeddata", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "loadedmetadata", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "loadstart", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "message", listener: (ev: MessageEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "mousedown", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "mousemove", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "mouseout", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "mouseover", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "mouseup", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "mousewheel", listener: (ev: MouseWheelEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "offline", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "online", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "pause", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "play", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "playing", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "progress", listener: (ev: any) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "ratechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "readystatechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "reset", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "resize", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "scroll", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "seeked", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "seeking", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "select", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "stalled", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "storage", listener: (ev: StorageEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "submit", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "suspend", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "timeupdate", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "unload", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "volumechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		(target: HTMLElement, type: "waiting", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		(target: Object, type: string, listener: EventListener, dontFix?: boolean): Dojo.RemovableHandle;
 		(target: HTMLElement, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): Dojo.RemovableHandle;
 		(target: Object, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): Dojo.RemovableHandle;
@@ -1319,12 +1589,131 @@ declare module "dojo/on"
 		selector(cssSelector: string, event: string, children?: boolean): Dojo.ExtensionEvent;
 		selector(cssSelector: string, event: Dojo.ExtensionEvent, children?: boolean): Dojo.ExtensionEvent;
 
-		pausable(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): Dojo.PausableHandle;
+		pausable(target: HTMLElement, type: string, listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "abort", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "afterprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "beforeprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "blur", listener: (ev: FocusEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "canplay", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "canplaythrough", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "change", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "click", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "contextmenu", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "dblclick", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "drag", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "dragend", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "dragenter", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "dragleave", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "dragover", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "dragstart", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "drop", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "durationchange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "emptied", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "ended", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "focus", listener: (ev: FocusEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "hashchange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "input", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "keydown", listener: (ev: KeyboardEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "keypress", listener: (ev: KeyboardEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "keyup", listener: (ev: KeyboardEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "load", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "loadeddata", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "loadedmetadata", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "loadstart", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "message", listener: (ev: MessageEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "mousedown", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "mousemove", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "mouseout", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "mouseover", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "mouseup", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "mousewheel", listener: (ev: MouseWheelEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "offline", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "online", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "pause", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "play", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "playing", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "progress", listener: (ev: any) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "ratechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "readystatechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "reset", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "resize", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "scroll", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "seeked", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "seeking", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "select", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "stalled", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "storage", listener: (ev: StorageEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "submit", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "suspend", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "timeupdate", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "unload", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "volumechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		pausable(target: HTMLElement, type: "waiting", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		pausable(target: Object, type: string, listener: EventListener, dontFix?: boolean): Dojo.PausableHandle;
 		pausable(target: HTMLElement, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): Dojo.PausableHandle;
 		pausable(target: Object, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): Dojo.PausableHandle;
 
 		once(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): void;
+		once(target: HTMLElement, type: "afterprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "beforeprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "blur", listener: (ev: FocusEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "canplay", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "canplaythrough", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "change", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "click", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "contextmenu", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "dblclick", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "drag", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "dragend", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "dragenter", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "dragleave", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "dragover", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "dragstart", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "drop", listener: (ev: DragEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "durationchange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "emptied", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "ended", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "focus", listener: (ev: FocusEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "hashchange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "input", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "keydown", listener: (ev: KeyboardEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "keypress", listener: (ev: KeyboardEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "keyup", listener: (ev: KeyboardEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "load", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "loadeddata", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "loadedmetadata", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "loadstart", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "message", listener: (ev: MessageEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "mousedown", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "mousemove", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "mouseout", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "mouseover", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "mouseup", listener: (ev: MouseEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "mousewheel", listener: (ev: MouseWheelEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "offline", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "online", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "pause", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "play", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "playing", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "progress", listener: (ev: any) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "ratechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "readystatechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "reset", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "resize", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "scroll", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "seeked", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "seeking", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "select", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "stalled", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "storage", listener: (ev: StorageEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "submit", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "suspend", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "timeupdate", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "unload", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "volumechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		once(target: HTMLElement, type: "waiting", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		once(target: Object, type: string, listener: EventListener, dontFix?: boolean): void;
 		once(target: HTMLElement, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): void;
 		once(target: Object, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): void;
@@ -1349,22 +1738,100 @@ declare module "dojo/parser"
 	}
 
 	export function parse(rootNode?: HTMLElement, options?: _ParseOptions): Dijit._Widget[];
-	export function scan(root?: HTMLElement, options?: _ParseOptions): DojoPromise<HTMLElement[]>;
+	export function scan(root?: HTMLElement, options?: _ParseOptions): Dojo.Promise<HTMLElement[]>;
 	export function instantiate(nodes: HTMLElement[], mixin?: Object, options?: _ParseOptions): Dijit._Widget[];
 	export function construct(ctor: { (params?: Dijit.WidgetCreateOptions): Dijit._Widget; }, node: HTMLElement, mixin?: Object, options?: _ParseOptions, scripts?: HTMLElement[], inherited?: Object): Dijit._Widget;
 }
 
+// dojo/promise/Promise
+
+declare module Dojo
+{
+	export class Promise<T>
+	{
+		constructor();
+
+		always(callbackOrErrback?: (value: any) => void ): Dojo.Promise<T>;
+		cancel(reason: any, strict?: boolean): any;
+		isCanceled(): boolean;
+		isFulfilled(): boolean;
+		isRejected(): boolean;
+		isResolved(): boolean;
+		otherwise(errback?: (error: any) => void ): Dojo.Promise<T>;
+		then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): Dojo.Promise<V>;
+		trace(): Dojo.Promise<T>;
+		traceRejected(): Dojo.Promise<T>;
+	}
+}
+declare module "dojo/promise/Promise" 
+{
+	// TODO: TypeScript can export generic types yet
+	var promise: Dojo.Promise<any>;
+	export = promise;
+}
+
+// dojo/promise/all
+
+declare module "dojo/promise/all" 
+{
+	function all<T>(promises: Dojo.Promise<T>[]): Dojo.Promise<T[]>;
+	function all<T>(promises: { [name: string]: Dojo.Promise<T>; }): Dojo.Promise<{ [name: string]: T; }>;
+	function all<T>(promises: any): Dojo.Promise<T>;
+
+	export = all;
+}
+
+// dojo/promise/first
+
+declare module "dojo/promise/first" 
+{
+	function first<T>(promises: Dojo.Promise<T>[]): Dojo.Promise<T>;
+	function first<T>(promises: { [name: string]: Dojo.Promise<T>; }): Dojo.Promise<T>;
+	function first<T>(promises: any): Dojo.Promise<T>;
+
+	export = first;
+}
+
 // dojo/query
 
+declare module Dojo
+{
+	export interface QueryEngine
+	{
+		(selector: string, contextId?: string): Dojo.NodeList;
+		(selector: string, context?: Object): Dojo.NodeList;
+
+		NodeList: Dojo.NodeList;
+	}
+}
 declare module "dojo/query"
 {
-	var query: {
-		(selector: string, contextId?: string): DojoNodeList;
-		(selector: string, context?: Object): DojoNodeList;
-
-		NodeList: DojoNodeList;
-	};
-
+	var query: Dojo.QueryEngine;
+	export = query;
+}
+declare module "dojo/query!css2"
+{
+	var query: Dojo.QueryEngine;
+	export = query;
+}
+declare module "dojo/query!lite"
+{
+	var query: Dojo.QueryEngine;
+	export = query;
+}
+declare module "dojo/query!css2.1"
+{
+	var query: Dojo.QueryEngine;
+	export = query;
+}
+declare module "dojo/query!css3"
+{
+	var query: Dojo.QueryEngine;
+	export = query;
+}
+declare module "dojo/query!acme"
+{
+	var query: Dojo.QueryEngine;
 	export = query;
 }
 
@@ -1379,6 +1846,191 @@ declare module "dojo/regexp"
 	export function group(expression: string, nonCapture?: boolean): string;
 }
 
+// dojo/request
+
+declare module Dojo
+{
+	export module Request
+	{
+		export interface _MethodOptions
+		{
+			method: string;
+		}
+		export interface _BaseOptions
+		{
+			handleAs?: string;
+			data?: Object;
+			query?: Object;
+			timeout?: number;
+			preventCache?: boolean;
+		}
+		export interface _Options extends _BaseOptions //implements _MethodOptions
+		{
+			method: string;
+		}
+
+		export interface RequestObject
+		{
+			(url: string, options?: Dojo.Request._Options): Dojo.Promise<any>;
+
+			get(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+			put? (url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+			post? (url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+			del? (url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+		}
+
+		export module iFrame
+		{
+			export interface _BaseOptions extends Dojo.Request._BaseOptions
+			{
+				form?: HTMLElement;
+			}
+			export interface _Options extends _BaseOptions //implements _MethodOptions
+			{
+				method: string;
+			}
+		}
+
+		export module Node
+		{
+			export interface _BaseOptions extends Dojo.Request._BaseOptions
+			{
+				headers?: Object;
+				user: string;
+				password: string;
+			}
+			export interface _Options extends _BaseOptions //implements _MethodOptions
+			{
+				method: string;
+			}
+		}
+
+		export module Script
+		{
+			export interface _BaseOptions extends Dojo.Request._BaseOptions
+			{
+				frameDoc?: HTMLDocument;
+				jsonp?: string;
+				checkString?: string;
+			}
+			export interface _Options extends _BaseOptions //implements _MethodOptions
+			{
+				method: string;
+			}
+		}
+	}
+}
+
+declare module "dojo/request"
+{
+	var request: Dojo.Request.RequestObject;
+	export = request;
+}
+declare module "dojo/request/xhr"
+{
+	var request: {
+		(url: string, options?: Dojo.Request._Options): Dojo.Promise<any>;
+
+		get(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+		put(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+		post(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+		del(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+	};
+	export = request;
+}
+declare module "dojo/request/node"
+{
+	var request: {
+		(url: string, options?: Dojo.Request.Node._Options): Dojo.Promise<any>;
+
+		get(url: string, options?: Dojo.Request.Node._BaseOptions): Dojo.Promise<any>;
+		put(url: string, options?: Dojo.Request.Node._BaseOptions): Dojo.Promise<any>;
+		post(url: string, options?: Dojo.Request.Node._BaseOptions): Dojo.Promise<any>;
+		del(url: string, options?: Dojo.Request.Node._BaseOptions): Dojo.Promise<any>;
+	};
+	export = request;
+}
+declare module "dojo/request/iframe" 
+{
+	var request: {
+		(url: string, options?: Dojo.Request.iFrame._Options): Dojo.Promise<any>;
+
+		get(url: string, options?: Dojo.Request.iFrame._BaseOptions): Dojo.Promise<any>;
+		post(url: string, options?: Dojo.Request.iFrame._BaseOptions): Dojo.Promise<any>;
+	}
+	export = request;
+}
+declare module "dojo/request/script"
+{
+	var request: {
+		(url: string, options?: Dojo.Request.Script._Options): Dojo.Promise<any>;
+
+		get(url: string, options?: Dojo.Request.Script._BaseOptions): Dojo.Promise<any>;
+	}
+	export = request;
+}
+
+declare module "dojo/request/handlers"
+{
+	export function register(name: string, handler: (response: any) => any): void;
+}
+
+declare module "dojo/request/notify"
+{
+	function notify(type?: string, listener?: Dojo.Action): Dojo.RemovableHandle;
+	function notify(type?: "start", listener?: Dojo.BlankFunction): Dojo.RemovableHandle;
+	function notify(type?: "send", listener?: (response: any, cancel: () => void) => void): Dojo.RemovableHandle;
+	function notify(type?: "load", listener?: (response: any) => void): Dojo.RemovableHandle;
+	function notify(type?: "error", listener?: (error: any) => void): Dojo.RemovableHandle;
+	function notify(type?: "done", listener?: (responseOrError: any) => void): Dojo.RemovableHandle;
+	function notify(type?: "stop", listener?: Dojo.BlankFunction): Dojo.RemovableHandle;
+
+	export = notify;
+}
+
+declare module "dojo/request/registry"
+{
+	var registry: {
+		(url: string, options?: Dojo.Request._Options): Dojo.Promise<any>;
+
+		get(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+		put(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+		post(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+		del(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+
+		register(url: string, provider: Dojo.Request.RequestObject, first?: boolean): Dojo.RemovableHandle;
+		register(url: RegExp, provider: Dojo.Request.RequestObject, first?: boolean): Dojo.RemovableHandle;
+		register(url: (url: string, options: Dojo.Request._Options) => boolean, provider: Dojo.Request.RequestObject, first?: boolean): Dojo.RemovableHandle;
+	};
+	export = registry;
+}
+
+// dojo/router
+
+declare module Dojo
+{
+	export interface RouterEvent
+	{
+		params: { [name: string]: string; };
+		oldPath: string;
+		newPath: string;
+		preventDefault: Dojo.BlankFunction;
+		stopImmediatePropagation: Dojo.BlankFunction;
+	}
+}
+declare module "dojo/router"
+{
+	export function register(route: string, callback: (ev: Dojo.RouterEvent) => void ): Dojo.RemovableHandle;
+	export function register(route: RegExp, callback: (ev: Dojo.RouterEvent) => void ): Dojo.RemovableHandle;
+
+	export function registerBefore(route: string, callback: (ev: Dojo.RouterEvent) => void ): Dojo.RemovableHandle;
+	export function registerBefore(route: RegExp, callback: (ev: Dojo.RouterEvent) => void ): Dojo.RemovableHandle;
+
+	export function startup(defaultPath?: string): void;
+	export function destroy(): void;
+	export function go(path: string, replace?: boolean): boolean;
+}
+
 // dojo/sniff
 
 declare module "dojo/sniff"
@@ -1391,52 +2043,8 @@ declare module "dojo/sniff"
 
 declare module "dojo/topic" 
 {
-	export function subscribe(topic: string, listener: Dojo.Function): Dojo.RemovableHandle;
+	export function subscribe(topic: string, listener: Dojo.Action): Dojo.RemovableHandle;
 	export function publish(topic: string, ...v_args: any[]): void;
-}
-
-// dojo/promise/Promise
-
-declare class DojoPromise<T>
-{
-	constructor();
-
-	always(callbackOrErrback?: (value: any) => void ): DojoPromise<T>;
-	cancel(reason: any, strict?: boolean): any;
-	isCanceled(): boolean;
-	isFulfilled(): boolean;
-	isRejected(): boolean;
-	isResolved(): boolean;
-	otherwise(errback?: (error: any) => void ): DojoPromise<T>;
-	then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): DojoPromise<V>;
-	trace(): DojoPromise<T>;
-	traceRejected(): DojoPromise<T>;
-}
-declare module "dojo/promise/Promise"
-{
-	export = DojoPromise;
-}
-
-// dojo/promise/all
-
-declare module "dojo/promise/all"
-{
-	function all<T>(promises: DojoPromise<T>[]): DojoPromise<T[]>;
-	function all<T>(promises: { [name: string]: DojoPromise<T>; }): DojoPromise<{ [name: string]: T;}>;
-	function all<T>(promises: any): DojoPromise<T>;
-
-	export = all;
-}
-
-// dojo/promise/first
-
-declare module "dojo/promise/first"
-{
-	function first<T>(promises: DojoPromise<T>[]): DojoPromise<T>;
-	function first<T>(promises: { [name: string]: DojoPromise<T>; }): DojoPromise<T>;
-	function first<T>(promises: any): DojoPromise<T>;
-
-	export = first;
 }
 
 // dojo/Stateful
@@ -1474,14 +2082,14 @@ declare module "dojo/string"
 
 declare module "dojo/touch"
 {
-	export function cancel(node: HTMLElement, listener: EventListener): Dojo.RemovableHandle;
-	export function enter(node: HTMLElement, listener: EventListener): Dojo.RemovableHandle;
-	export function leave(node: HTMLElement, listener: EventListener): Dojo.RemovableHandle;
-	export function move(node: HTMLElement, listener: EventListener): Dojo.RemovableHandle;
-	export function out(node: HTMLElement, listener: EventListener): Dojo.RemovableHandle;
-	export function over(node: HTMLElement, listener: EventListener): Dojo.RemovableHandle;
-	export function press(node: HTMLElement, listener: EventListener): Dojo.RemovableHandle;
-	export function release(node: HTMLElement, listener: EventListener): Dojo.RemovableHandle;
+	export function cancel(node: HTMLElement, listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+	export function enter(node: HTMLElement, listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+	export function leave(node: HTMLElement, listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+	export function move(node: HTMLElement, listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+	export function out(node: HTMLElement, listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+	export function over(node: HTMLElement, listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+	export function press(node: HTMLElement, listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+	export function release(node: HTMLElement, listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
 }
 
 // dojo/uacss
@@ -1496,10 +2104,10 @@ declare module "dojo/uacss"
 
 declare module "dojo/when"
 {
-	function when<T>(value: T): DojoPromise<T>;
+	function when<T>(value: T): Dojo.Promise<T>;
 	function when<T, V>(value: T, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): V;
-	function when<T>(promise: DojoPromise<T>): DojoPromise<T>;
-	function when<T, V>(promise: DojoPromise<T>, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): DojoPromise<V>;
+	function when<T>(promise: Dojo.Promise<T>): Dojo.Promise<T>;
+	function when<T, V>(promise: Dojo.Promise<T>, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): Dojo.Promise<V>;
 
 	export = when;
 }
