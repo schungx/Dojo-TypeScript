@@ -23,7 +23,6 @@ declare module Dojo
 
 	export interface BlankFunction { (): void; }
 	export interface Action { (...args: any[]): void; }
-	export interface Function { (...args: any[]): any; }
 	export interface FunctionReturning<T> { (...args: any[]): T; }
 
 	export interface ExtensionEvent { (node: HTMLElement, listener: EventListener): RemovableHandle; }
