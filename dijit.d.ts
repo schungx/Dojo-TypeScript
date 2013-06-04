@@ -6,7 +6,7 @@
 
 declare module Dijit
 {
-	export class WidgetBase extends _Widget
+	export class _WidgetBase extends _Widget
 	{
 		baseClass: string;
 		class: string;
@@ -25,46 +25,112 @@ declare module Dijit
 
 		buildRendering(): void;
 
+/* Deprecated
 		connect(obj: Object, event: string, method: string): Dojo.Handle;
 		connect(obj: Object, event: Dojo.ExtensionEvent, method: string): Dojo.Handle;
 		connect(obj: Object, event: string, method: EventListener): Dojo.Handle;
 		connect(obj: Object, event: Dojo.ExtensionEvent, method: EventListener): Dojo.Handle;
+
+		disconnect(handle: Dojo.Handle): void;
+*/
 
 		defer(fcn: Dojo.Action, delay: number): Dojo.RemovableHandle;
 		destroy(preserveDom?: boolean): void;
 		destroyDescendants(preserveDom?: boolean): void;
 		destroyRecursive(preserveDom?: boolean): void;
 		destroyRendering(preserveDom?: boolean): void;
-		disconnect(handle: Dojo.Handle): void;
 		emit(type: string, eventObj: Object, callbackArgs?: any[]): void;
 
-		getChildren(): WidgetBase[];
-		getParent(): WidgetBase;
+		getChildren(): _WidgetBase[];
+		getParent(): _WidgetBase;
 		isFocusable(): boolean;
 		isLeftToRight(): boolean;
 		isValid(): boolean;
 
-		on(type: string, func: Dojo.Action): Dojo.RemovableHandle;
+		on(type: string, listener: Dojo.Action): Dojo.RemovableHandle;
+		on(type: "abort", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "afterprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "beforeprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "blur", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "canplay", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "canplaythrough", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "change", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "click", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "contextmenu", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dblclick", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "drag", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragend", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragenter", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragleave", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragover", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragstart", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "drop", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "durationchange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "emptied", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "ended", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "focus", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "hashchange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "input", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "keydown", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "keypress", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "keyup", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "load", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "loadeddata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "loadedmetadata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "loadstart", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "message", listener: (ev: MessageEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mousedown", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mousemove", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mouseout", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mouseover", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mouseup", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "offline", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "online", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "pause", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "play", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "playing", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "progress", listener: (ev: any) => boolean): Dojo.RemovableHandle;
+		on(type: "ratechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "readystatechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "reset", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "resize", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "scroll", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "seeked", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "seeking", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "select", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "stalled", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "storage", listener: (ev: StorageEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "submit", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "suspend", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "timeupdate", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "unload", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "volumechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "waiting", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: Dojo.ExtensionEvent, func: Dojo.Action): Dojo.RemovableHandle;
 
 		own(handle: Dojo.RemovableHandle): Dojo.RemovableHandle[];
 
-		placeAt(referenceId: string, position: string): WidgetBase;
-		placeAt(referenceNode: HTMLElement, position: string): WidgetBase;
-		placeAt(referenceWidget: WidgetBase, position: string): WidgetBase;
-		placeAt(referenceId: string, position: number): WidgetBase;
-		placeAt(referenceNode: HTMLElement, position: number): WidgetBase;
-		placeAt(referenceWidget: WidgetBase, position: number): WidgetBase;
+		placeAt(referenceId: string, position: string): _WidgetBase;
+		placeAt(referenceNode: HTMLElement, position: string): _WidgetBase;
+		placeAt(referenceWidget: _WidgetBase, position: string): _WidgetBase;
+		placeAt(referenceId: string, position: number): _WidgetBase;
+		placeAt(referenceNode: HTMLElement, position: number): _WidgetBase;
+		placeAt(referenceWidget: _WidgetBase, position: number): _WidgetBase;
 
 		postCreate(): void;
 		startup(): void;
-		subscribe(topic: string, callback: Dojo.Action): Dojo.Handle;
 		toString(): string;
+
+/* Deprecated
+		subscribe(topic: string, callback: Dojo.Action): Dojo.Handle;
 		uninitialize(): boolean;
 		unsubscribe(handle: Dojo.Handle): void;
+*/
 	}
 
-	export class Widget extends WidgetBase implements FocusMixin
+	export class Widget extends _WidgetBase implements _FocusMixin
 	{
 		onClick(event: MouseEvent): void;
 		onDblClick(event: MouseEvent): void;
@@ -81,42 +147,42 @@ declare module Dijit
 		onMouseUp(event: MouseEvent): void;
 		onShow(): void;
 
-		// dijit/_FocusMixin
+		// dijit/__FocusMixin
 		onBlur(): void;
 		onFocus(): void;
 	}
 
 	// Widget mixin's
 
-	export interface FocusMixin
+	export interface _FocusMixin
 	{
 		onBlur(): void;
 		onFocus(): void;
 	}
 
-	export interface Container
+	export interface _Container
 	{
-		addChild(widget: WidgetBase, insertIndex?: number): void;
-		getIndexOfChild(child: WidgetBase): number;
+		addChild(widget: _WidgetBase, insertIndex?: number): void;
+		getIndexOfChild(child: _WidgetBase): number;
 		hasChildren(): boolean;
-		removeChild(widget: WidgetBase): void;
+		removeChild(widget: _WidgetBase): void;
 		removeChild(widget: number): void;
 	}
 
-	export interface Contained
+	export interface _Contained
 	{
 		getIndexInParent(): number;
-		getNextSibling(): WidgetBase;
-		getPreviousSibling(): WidgetBase;
+		getNextSibling(): _WidgetBase;
+		getPreviousSibling(): _WidgetBase;
 	}
 
-	export interface AttachMixin
+	export interface _AttachMixin
 	{
 		attachScope: Object;
 		searchContainerNode: boolean;
 	}
 
-	export interface TemplatedMixin extends AttachMixin
+	export interface _TemplatedMixin extends _AttachMixin
 	{
 		templatePath: string;
 		templateString: string;
@@ -124,7 +190,7 @@ declare module Dijit
 		getCachedTemplate(templateString: string, alwaysUseString: boolean, doc?: HTMLDocument): any;
 	}
 
-	export interface KeyNavMixin extends FocusMixin
+	export interface _KeyNavMixin extends _FocusMixin
 	{
 		childSelector: Object;
 		focusedChild: Object;
@@ -132,30 +198,30 @@ declare module Dijit
 		tabIndex: string;
 
 		focus(): void;
-		focusChild(widget: WidgetBase, last: boolean): void;
+		focusChild(widget: _WidgetBase, last: boolean): void;
 		focusFirstChild(): void;
 		focusLastChild(): void;
 
-		onKeyboardSearch(item: WidgetBase, event: Event, searchString: string, numMatches: number): void;
+		onKeyboardSearch(item: _WidgetBase, event: Event, searchString: string, numMatches: number): void;
 	}
 
-	export interface KeyNavContainer extends Container //implements KeyNavMixin
+	export interface _KeyNavContainer extends _Container //implements _KeyNavMixin
 	{
-		// dijit/_KeyNavMixin
+		// dijit/__KeyNavMixin
 		childSelector: Object;
 		focusedChild: Object;
 		multiCharSearchDuration: number;
 		tabIndex: string;
 
 		focus(): void;
-		focusChild(widget: WidgetBase, last: boolean): void;
+		focusChild(widget: _WidgetBase, last: boolean): void;
 		focusFirstChild(): void;
 		focusLastChild(): void;
 
-		onKeyboardSearch(item: WidgetBase, event: Event, searchString: string, numMatches: number): void;
+		onKeyboardSearch(item: _WidgetBase, event: Event, searchString: string, numMatches: number): void;
 	}
 
-	export interface CssStateMixin
+	export interface _CssStateMixin
 	{
 		active: boolean;
 		cssStateNodes: { [attachPoint: string]: string; };
