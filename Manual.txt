@@ -177,3 +177,17 @@ The complete list of definition files is as follows:
 	
 	dijit.d.ts           - Basic widget definitions
 	dijit.menu.d.ts      - dijit/Menu modules
+
+
+VIII. Importing plugin's
+------------------------
+
+For plugin modules, use the following undocumented feature to pull
+in the dependent module at the end of the "require" list without
+creating a variable:
+
+	/// <amd-dependency path="plugin1" />
+	/// <amd-dependency path="plugin2" />
+	/// <amd-dependency path="plugin3" />
+
+These must be among the first lines of the program file.
