@@ -262,7 +262,6 @@ declare module "dojo/_base/declare"
 
 		safeMixin<T extends Object>(dest: T, source: Object): T;
 	};
-
 	export = declare;
 }
 
@@ -307,9 +306,7 @@ declare module Dojo
 
 declare module "dojo/_base/fx"
 {
-	export class _Line
-	{
-	}
+	export class _Line {}
 
 	export function anim(nodeId: string, properties: Object, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.BlankFunction, delay?: number): Dojo.Animation;
 	export function anim(node: HTMLElement, properties: Object, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.BlankFunction, delay?: number): Dojo.Animation;
@@ -445,7 +442,7 @@ declare module "dojo/cookie"
 
 declare module "dojo/currency"
 {
-	interface _FormatOptions
+	export interface _FormatOptions
 	{
 		currency?: string;
 		fractional?: boolean;
@@ -487,7 +484,7 @@ declare module "dojo/date/stamp"
 
 declare module "dojo/date/locale"
 {
-	interface _FormatOptions
+	export interface _FormatOptions
 	{
 		selector?: string;
 		formatLength?: string;
@@ -659,22 +656,22 @@ declare module Dojo
 		x: number;
 		y: number;
 	}
-	export interface SizeWidthHeight
+	export interface BoxWH
 	{
 		w: number;
 		h: number;
 	}
-	export interface BorderBox extends Point
+	export interface BorderBox extends Point // implements BoxWH
 	{
 		w: number;
 		h: number;
 	}
-	export interface PositionLeftTopWidthHeight extends SizeWidthHeight
+	export interface BoxLTWH extends BoxWH
 	{
 		l: number;
 		t: number;
 	}
-	export interface PositionLeftTopRightBottomWidthHeight extends PositionLeftTopWidthHeight
+	export interface BoxLTRBWH extends BoxLTWH
 	{
 		r: number;
 		b: number;
@@ -687,22 +684,22 @@ declare module "dojo/dom-geometry"
 
 	export function docScroll(doc?: HTMLDocument): { node: HTMLElement; x: number; y: number; };
 	export function fixIeBiDiScrollLeft(scrollLeft: number, doc?: HTMLDocument): number;
-	export function getBorderExtents(node: HTMLElement, computedStyle?: Object): Dojo.PositionLeftTopRightBottomWidthHeight;
-	export function getContentBox(node: HTMLElement, computedStyle?: Object): Dojo.PositionLeftTopWidthHeight;
+	export function getBorderExtents(node: HTMLElement, computedStyle?: Object): Dojo.BoxLTRBWH;
+	export function getContentBox(node: HTMLElement, computedStyle?: Object): Dojo.BoxLTWH;
 	export function getIeDocumentElementOffset(doc?: HTMLDocument): Dojo.Point;
-	export function getMarginBox(node: HTMLElement, computedStyle?: Object): Dojo.PositionLeftTopWidthHeight;
-	export function getMarginExtents(node: HTMLElement, computedStyle?: Object): Dojo.PositionLeftTopWidthHeight;
-	export function getMarginSize(node: HTMLElement, computedStyle?: Object): Dojo.SizeWidthHeight;
-	export function getPadBorderExtents(node: HTMLElement, computedStyle?: Object): Dojo.PositionLeftTopRightBottomWidthHeight;
-	export function getPadExtents(node: HTMLElement, computedStyle?: Object): Dojo.PositionLeftTopRightBottomWidthHeight;
+	export function getMarginBox(node: HTMLElement, computedStyle?: Object): Dojo.BoxLTWH;
+	export function getMarginExtents(node: HTMLElement, computedStyle?: Object): Dojo.BoxLTWH;
+	export function getMarginSize(node: HTMLElement, computedStyle?: Object): Dojo.BoxWH;
+	export function getPadBorderExtents(node: HTMLElement, computedStyle?: Object): Dojo.BoxLTRBWH;
+	export function getPadExtents(node: HTMLElement, computedStyle?: Object): Dojo.BoxLTRBWH;
 	export function isBodyLtr(doc?: HTMLDocument): boolean;
 	export function normalizeEvent(event: { pageX?: number; pageY?: number; offsetX?: number; offsetY?: number; layerX?: number; layerY?: number; }): void;
 
-	export function position(node: HTMLElement, includeScroll?: boolean): Dojo.PositionLeftTopWidthHeight;
-	export function position(node: string, includeScroll?: boolean): Dojo.PositionLeftTopWidthHeight;
+	export function position(node: HTMLElement, includeScroll?: boolean): Dojo.BoxLTWH;
+	export function position(node: string, includeScroll?: boolean): Dojo.BoxLTWH;
 
-	export function setContentSize(node: HTMLElement, box: Dojo.SizeWidthHeight, computedStyle?: Object): void;
-	export function setMarginBox(node: HTMLElement, box: Dojo.SizeWidthHeight, computedStyle?: Object): void;
+	export function setContentSize(node: HTMLElement, box: Dojo.BoxWH, computedStyle?: Object): void;
+	export function setMarginBox(node: HTMLElement, box: Dojo.BoxWH, computedStyle?: Object): void;
 }
 
 // dojo/dom-prop
@@ -739,7 +736,6 @@ declare module Dojo
 {
 	export class Evented
 	{
-
 		emit(type: string, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 		emit(type: Dojo.ExtensionEvent, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 
@@ -832,7 +828,7 @@ declare module Dojo
 }
 
 declare module "dojo/fx" 
-	{
+{
 	export function chain(animations: Dojo.Animation[]): Dojo.Animation;
 	export function combine(animations: Dojo.Animation[]): Dojo.Animation;
 	export function slideTo(args: Dojo.Fx.SlideCreateOptions): Dojo.Animation;
@@ -950,7 +946,7 @@ declare module "dojo/hash"
 
 declare module "dojo/html"
 {
-	interface _ContentSetterOptions
+	export interface _ContentSetterOptions
 	{
 		cleanContent?: boolean;
 		extractContent?: boolean;
@@ -1099,6 +1095,8 @@ declare module "dojo/mouse"
 
 // dojo/NodeList
 
+interface HTMLNodeList extends NodeList { }
+
 declare module Dojo
 {
 	export module Fx
@@ -1117,35 +1115,37 @@ declare module Dojo
 	{
 		constructor(node: HTMLElement);
 		constructor(nodes: HTMLElement[]);
-		//constructor(nodes: NodeList);
+		constructor(nodes: HTMLNodeList);
 		constructor(nodes: Dojo.NodeList);
 
 		addClass(className: string): Dojo.NodeList;
 		addClass(classNames: string[]): Dojo.NodeList;
-		//addClassFx(cssClass, args);			// May require dojox.fx
+
+		addClassFx(className: string, options?: Fx.CreateOptions): Animation;
+		addClassFx(classNames: string[], options?: Fx.CreateOptions): Animation;
 
 		addContent(content: string, position?: string): Dojo.NodeList;
 		addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: string): Dojo.NodeList;
 		addContent(content: HTMLElement, position?: string): Dojo.NodeList;
 		addContent(content: HTMLElement[], position?: string): Dojo.NodeList;
 		addContent(content: Dojo.NodeList, position?: string): Dojo.NodeList;
-		//addContent(content: NodeList, position?: string): Dojo.NodeList;
+		addContent(content: HTMLNodeList, position?: string): Dojo.NodeList;
 		addContent(content: string, position?: number): Dojo.NodeList;
 		addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: number): Dojo.NodeList;
 		addContent(content: HTMLElement, position?: number): Dojo.NodeList;
 		addContent(content: HTMLElement[], position?: number): Dojo.NodeList;
 		addContent(content: Dojo.NodeList, position?: number): Dojo.NodeList;
-		//addContent(content: NodeList, position?: number): Dojo.NodeList;
+		addContent(content: HTMLNodeList, position?: number): Dojo.NodeList;
 
 		adopt(query: string, position?: string): Dojo.NodeList;
 		adopt(node: HTMLElement, position?: string): Dojo.NodeList;
 		adopt(list: HTMLElement[], position?: string): Dojo.NodeList;
-		//adopt(list: NodeList, position?: string): Dojo.NodeList;
+		adopt(list: HTMLNodeList, position?: string): Dojo.NodeList;
 		adopt(list: Dojo.NodeList, position?: string): Dojo.NodeList;
 		adopt(query: string, position?: number): Dojo.NodeList;
 		adopt(node: HTMLElement, position?: number): Dojo.NodeList;
 		adopt(list: HTMLElement[], position?: number): Dojo.NodeList;
-		//adopt(list: NodeList, position?: number): Dojo.NodeList;
+		adopt(list: HTMLNodeList, position?: number): Dojo.NodeList;
 		adopt(list: Dojo.NodeList, position?: number): Dojo.NodeList;
 
 		after(content: string): Dojo.NodeList;
@@ -1153,20 +1153,20 @@ declare module Dojo
 		after(content: HTMLElement): Dojo.NodeList;
 		after(content: HTMLElement[]): Dojo.NodeList;
 		after(content: Dojo.NodeList): Dojo.NodeList;
-		//after(content: NodeList): Dojo.NodeList;
+		after(content: HTMLNodeList): Dojo.NodeList;
 
 		andSelf(): Dojo.NodeList;
-		anim(properties: { [property: string]: any; }, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.BlankFunction, delay?: number): Dojo.Animation;
+		anim(properties: { [property: string]: any; }, duration?: number, easing?: Fx.EasingFunction, onEnd?: BlankFunction, delay?: number): Animation;
 
-		animateProperty(args: Dojo.Fx.CreateOptions): Dojo.Animation;
-		animateProperty(args: Dojo.Fx.AutoCreateOptions): Dojo.NodeList;
+		animateProperty(args: Fx.CreateOptions): Animation;
+		animateProperty(args: Fx.AutoCreateOptions): Dojo.NodeList;
 
 		append(content: string): Dojo.NodeList;
 		append(content: Object): Dojo.NodeList;
 		append(content: HTMLElement): Dojo.NodeList;
 		append(content: HTMLElement[]): Dojo.NodeList;
 		append(content: Dojo.NodeList): Dojo.NodeList;
-		//append(content: NodeList): Dojo.NodeList;
+		append(content: HTMLNodeList): Dojo.NodeList;
 
 		appendTo(query: string): Dojo.NodeList;
 		at(...index: number[]): Dojo.NodeList;
@@ -1179,7 +1179,7 @@ declare module Dojo
 		before(content: HTMLElement): Dojo.NodeList;
 		before(content: HTMLElement[]): Dojo.NodeList;
 		before(content: Dojo.NodeList): Dojo.NodeList;
-		//before(content: NodeList): Dojo.NodeList;
+		before(content: HTMLNodeList): Dojo.NodeList;
 
 		children(query?: string): Dojo.NodeList;
 		clone(): Dojo.NodeList;
@@ -1266,11 +1266,11 @@ declare module Dojo
 		even(): Dojo.NodeList;
 		every(callback: (node: HTMLElement, index: number, list: Dojo.NodeList) => boolean, thisObject?: Object): boolean;
 
-		fadeIn(args?: Dojo.Fx.AutoBaseCreateOptions): Dojo.NodeList;
-		fadeIn(args?: Dojo.Fx.BaseCreateOptions): Dojo.Animation;
+		fadeIn(args?: Fx.AutoBaseCreateOptions): Dojo.NodeList;
+		fadeIn(args?: Fx.BaseCreateOptions): Animation;
 
-		fadeOut(args?: Dojo.Fx.AutoBaseCreateOptions): Dojo.NodeList;
-		fadeOut(args?: Dojo.Fx.BaseCreateOptions): Dojo.Animation;
+		fadeOut(args?: Fx.AutoBaseCreateOptions): Dojo.NodeList;
+		fadeOut(args?: Fx.BaseCreateOptions): Animation;
 
 		filter(filter: string): Dojo.NodeList;
 		filter(filter: (item: HTMLElement, index: number, list: Dojo.NodeList) => boolean): Dojo.NodeList;
@@ -1282,7 +1282,7 @@ declare module Dojo
 		html(content: string): Dojo.NodeList;
 		html(content: HTMLElement): Dojo.NodeList;
 		html(content: HTMLElement[]): Dojo.NodeList;
-		//html(content: NodeList): Dojo.NodeList;
+		html(content: HTMLNodeList): Dojo.NodeList;
 		html(content: Dojo.NodeList): Dojo.NodeList;
 
 		indexOf(value: HTMLElement, fromIndex?: number): number;
@@ -1291,7 +1291,7 @@ declare module Dojo
 		innerHTML(content: string): Dojo.NodeList;
 		innerHTML(content: HTMLElement): Dojo.NodeList;
 		innerHTML(content: HTMLElement[]): Dojo.NodeList;
-		//innerHTML(content: NodeList): Dojo.NodeList;
+		innerHTML(content: HTMLNodeList): Dojo.NodeList;
 		innerHTML(content: Dojo.NodeList): Dojo.NodeList;
 
 		insertAfter(query: string): Dojo.NodeList;
@@ -1300,7 +1300,7 @@ declare module Dojo
 		last(): Dojo.NodeList;
 		lastIndexOf(value: HTMLElement, fromIndex?: number): number;
 		map(func: (item: HTMLElement, index: number, list: Dojo.NodeList) => HTMLElement, thisObject?: Object): Dojo.NodeList;
-		marginBox(): Dojo.PositionLeftTopWidthHeight;
+		marginBox(): BoxLTWH;
 		next(query?: string): Dojo.NodeList;
 		nextAll(query?: string): Dojo.NodeList;
 		odd(): Dojo.NodeList;
@@ -1366,7 +1366,7 @@ declare module Dojo
 		on(name: "unload", listener: (ev: Event) => boolean): Dojo.NodeList;
 		on(name: "volumechange", listener: (ev: Event) => boolean): Dojo.NodeList;
 		on(name: "waiting", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(type: Dojo.ExtensionEvent, listener: EventListener): Dojo.NodeList;
+		on(type: ExtensionEvent, listener: EventListener): Dojo.NodeList;
 
 		orphan(filter?: string): Dojo.NodeList;
 		parent(query?: string): Dojo.NodeList;
@@ -1377,14 +1377,14 @@ declare module Dojo
 		place(query: string, position?: number): Dojo.NodeList;
 		place(node: HTMLElement, position?: number): Dojo.NodeList;
 
-		position(): Dojo.BorderBox;
+		position(): BorderBox;
 
 		prepend(content: string): Dojo.NodeList;
 		prepend(content: Object): Dojo.NodeList;
 		prepend(content: HTMLElement): Dojo.NodeList;
 		prepend(content: HTMLElement[]): Dojo.NodeList;
 		prepend(content: Dojo.NodeList): Dojo.NodeList;
-		//prepend(content: NodeList): Dojo.NodeList;
+		prepend(content: HTMLNodeList): Dojo.NodeList;
 
 		prependTo(query: string): Dojo.NodeList;
 		prev(query?: string): Dojo.NodeList;
@@ -1395,7 +1395,10 @@ declare module Dojo
 
 		removeClass(className?: string): Dojo.NodeList;
 		removeClass(classNames?: string[]): Dojo.NodeList;
-		//removeClassFx(cssClass, args);			// May require dojox.fx
+
+		removeClassFx(className: string, args?: Fx.CreateOptions): Animation;
+		removeClassFx(classNames: string[], args?: Fx.CreateOptions): Animation;
+
 		removeData(key?: string): Dojo.NodeList;
 		replaceAll(query: string): Dojo.NodeList;
 
@@ -1409,13 +1412,13 @@ declare module Dojo
 		replaceWith(content: HTMLElement): Dojo.NodeList;
 		replaceWith(content: HTMLElement[]): Dojo.NodeList;
 		replaceWith(content: Dojo.NodeList): Dojo.NodeList;
-		//replaceWith(content: NodeList): Dojo.NodeList;
+		replaceWith(content: HTMLNodeList): Dojo.NodeList;
 
 		siblings(query?: string): Dojo.NodeList;
 		slice(begin: number, end?: number): Dojo.NodeList;
 
-		slideTo(args: Dojo.Fx.SlideCreateOptions): Dojo.Animation;
-		slideTo(args: Dojo.Fx.AutoSlideCreateOptions): Dojo.NodeList;
+		slideTo(args: Fx.SlideCreateOptions): Animation;
+		slideTo(args: Fx.AutoSlideCreateOptions): Dojo.NodeList;
 
 		some(callback: (node: HTMLElement, index: number, list: Dojo.NodeList) => boolean, thisObject?: Object): boolean;
 		splice(index: number, howmany?: number, ...items: HTMLElement[]): Dojo.NodeList;
@@ -1427,18 +1430,18 @@ declare module Dojo
 		text(value: string): Dojo.NodeList;
 
 		toggleClass(className: string, condition?: boolean): Dojo.NodeList;
-		//toggleClassFx(cssClass, force, args);			// May require dojox.fx
+		toggleClassFx(className: string, condition?: boolean, options?: Fx.CreateOptions): Animation;
 
 		val(): string;
 		val(): string[];
 		val(value: string): Dojo.NodeList;
 		val(value: string[]): Dojo.NodeList;
 
-		wipeIn(args: Dojo.Fx.CreateOptions): Dojo.Animation;
-		wipeIn(args: Dojo.Fx.AutoCreateOptions): Dojo.NodeList;
+		wipeIn(args: Fx.CreateOptions): Animation;
+		wipeIn(args: Fx.AutoCreateOptions): Dojo.NodeList;
 		
-		wipeOut(args: Dojo.Fx.CreateOptions): Dojo.Animation;
-		wipeOut(args: Dojo.Fx.AutoCreateOptions): Dojo.NodeList;
+		wipeOut(args: Fx.CreateOptions): Animation;
+		wipeOut(args: Fx.AutoCreateOptions): Dojo.NodeList;
 
 		wrap(html: string): Dojo.NodeList;
 		wrap(node: HTMLElement): Dojo.NodeList;
@@ -1726,7 +1729,7 @@ declare module "dojo/on"
 
 declare module "dojo/parser" 
 {
-	interface _ParseOptions
+	export interface _ParseOptions
 	{
 		noStart?: boolean;
 		rootNode?: HTMLElement;
@@ -2117,7 +2120,7 @@ declare module "dojo/when"
 declare module "dojo/window"
 {
 	export function get(doc: HTMLDocument): Window;
-	export function getBox(doc: HTMLDocument): Dojo.PositionLeftTopWidthHeight;
+	export function getBox(doc: HTMLDocument): Dojo.BoxLTWH;
 	export function scrollIntoView(node: HTMLElement, pos?:Object): void;
 }
 
