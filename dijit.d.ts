@@ -6,6 +6,9 @@
 
 declare module Dijit
 {
+
+	// dijit/_WidgetBase
+
 	export class _WidgetBase extends _Widget
 	{
 		baseClass: string;
@@ -25,14 +28,14 @@ declare module Dijit
 
 		buildRendering(): void;
 
-/* Deprecated
-		connect(obj: Object, event: string, method: string): Dojo.Handle;
-		connect(obj: Object, event: Dojo.ExtensionEvent, method: string): Dojo.Handle;
-		connect(obj: Object, event: string, method: EventListener): Dojo.Handle;
-		connect(obj: Object, event: Dojo.ExtensionEvent, method: EventListener): Dojo.Handle;
+		/* Deprecated
+				connect(obj: Object, event: string, method: string): Dojo.Handle;
+				connect(obj: Object, event: Dojo.ExtensionEvent, method: string): Dojo.Handle;
+				connect(obj: Object, event: string, method: EventListener): Dojo.Handle;
+				connect(obj: Object, event: Dojo.ExtensionEvent, method: EventListener): Dojo.Handle;
 
-		disconnect(handle: Dojo.Handle): void;
-*/
+				disconnect(handle: Dojo.Handle): void;
+		*/
 
 		defer(fcn: Dojo.Action, delay: number): Dojo.RemovableHandle;
 		destroy(preserveDom?: boolean): void;
@@ -123,12 +126,14 @@ declare module Dijit
 		startup(): void;
 		toString(): string;
 
-/* Deprecated
-		subscribe(topic: string, callback: Dojo.Action): Dojo.Handle;
-		uninitialize(): boolean;
-		unsubscribe(handle: Dojo.Handle): void;
-*/
+		/* Deprecated
+				subscribe(topic: string, callback: Dojo.Action): Dojo.Handle;
+				uninitialize(): boolean;
+				unsubscribe(handle: Dojo.Handle): void;
+		*/
 	}
+
+	// dijit/Widget
 
 	export class Widget extends _WidgetBase implements _FocusMixin
 	{
@@ -152,7 +157,7 @@ declare module Dijit
 		onFocus(): void;
 	}
 
-	// Widget mixin's
+	// Common widget mixin's
 
 	export interface _FocusMixin
 	{
@@ -226,5 +231,63 @@ declare module Dijit
 		active: boolean;
 		cssStateNodes: { [attachPoint: string]: string; };
 		hovering: boolean;
+	}
+}
+
+// dijit/registry
+
+declare module Dijit
+{
+	export interface Registry extends Array<_WidgetBase>
+	{
+		byId(id: string): _WidgetBase;
+		byNode(node: HTMLElement): _WidgetBase;
+		findWidgets(root: HTMLElement, skipNode?: HTMLElement): _WidgetBase[];
+		getEnclosingWidget(node: HTMLElement): _WidgetBase;
+		getUniqueId(widgetType: string): string;
+		add(widget: _WidgetBase): void;
+		remove(id: string): void;
+		toArray(): _WidgetBase[];
+	}
+}
+
+declare module "dijit/registry" 
+{
+	var registry: Dijit.Registry;
+	export = registry;
+}
+
+// dijit/place
+
+declare module "dijit/place"
+{
+	export interface _ReturnValues extends Dojo.Rectangle
+	{
+		corner: string;
+		aroundCorner: string;
+		overflow: number;
+		spaceAvailable: Dojo.BoxWH;
+	}
+
+	export function around(node: HTMLElement, anchor: HTMLElement, positions?: string[], leftToRight?: boolean, layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.BoxWH) => number): _ReturnValues;
+	export function around(node: HTMLElement, anchor: Dojo.Rectangle, positions?: string[], leftToRight?: boolean, layoutNode?: (node, aroundNodeCorner: string, nodeCorner: string, size: Dojo.BoxWH) => number): _ReturnValues;
+
+	export function at(node: HTMLElement, pos: Dojo.Point, corners?: string[], layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.BoxWH) => number): void;
+}
+
+// dijit/form
+
+declare module Dijit
+{
+	export module Form
+	{
+		export interface _FormMixin
+		{
+			state: string;
+
+			connectChildren(inStartup: boolean): void;
+			reset(): void;
+			validate(): void;
+		}
 	}
 }
