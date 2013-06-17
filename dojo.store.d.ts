@@ -100,7 +100,7 @@ declare module Dojo.Store
 		data?: any[];
 		idProperty?: string;
 	}
-	export class Memory extends Store.Store implements MemoryStoreCreateOptions
+	export class Memory extends Store implements MemoryStoreCreateOptions
 	{
 		constructor(options: MemoryStoreCreateOptions);
 
@@ -117,7 +117,7 @@ declare module Dojo.Store
 		store?: Object;		// Should be DojoDataStore, but needs to pull in dojo_data.ts and dojo.ts, so don't do it
 		target?: string;
 	}
-	export class DataStore extends Store.Store implements DataStoreCreateOptions
+	export class DataStore extends Store implements DataStoreCreateOptions
 	{
 		constructor(options: DataStoreCreateOptions);
 
@@ -138,7 +138,7 @@ declare module Dojo.Store
 		queryEngine(query: any, options?: QueryOptions): (data: any[]) => any[];
 		target?: string;
 	}
-	export class JsonRest extends Store.Store implements JsonRestStoreCreateOptions
+	export class JsonRest extends Store implements JsonRestStoreCreateOptions
 	{
 		constructor(options: JsonRestStoreCreateOptions);
 
