@@ -210,20 +210,8 @@ declare module Dijit
 		onKeyboardSearch(item: _WidgetBase, event: Event, searchString: string, numMatches: number): void;
 	}
 
-	export interface _KeyNavContainer extends _Container //implements _KeyNavMixin
+	export interface _KeyNavContainer extends _Container, _KeyNavMixin
 	{
-		// dijit/__KeyNavMixin
-		childSelector: Object;
-		focusedChild: Object;
-		multiCharSearchDuration: number;
-		tabIndex: string;
-
-		focus(): void;
-		focusChild(widget: _WidgetBase, last: boolean): void;
-		focusFirstChild(): void;
-		focusLastChild(): void;
-
-		onKeyboardSearch(item: _WidgetBase, event: Event, searchString: string, numMatches: number): void;
 	}
 
 	export interface _CssStateMixin
