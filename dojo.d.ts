@@ -57,6 +57,12 @@ declare module "dojo/_base/array"
 	export function every(array: string, callback: string, context?: Object): boolean;
 }
 
+// dojo/_base/browser
+
+declare module "dojo/_base/browser"
+{
+}
+
 // dojo/_base/Color
 
 declare module "dojo/_base/Color"
@@ -661,11 +667,8 @@ declare module Dojo
 		w: number;
 		h: number;
 	}
-	export interface BorderBox extends Point // implements BoxWH
-	{
-		w: number;
-		h: number;
-	}
+	export interface Rectangle extends Point, BoxWH {}
+	export interface BorderBox extends Point, BoxWH {}
 	export interface BoxLTWH extends BoxWH
 	{
 		l: number;
@@ -1867,59 +1870,47 @@ declare module Dojo
 			timeout?: number;
 			preventCache?: boolean;
 		}
-		export interface _Options extends _BaseOptions //implements _MethodOptions
-		{
-			method: string;
-		}
+		export interface _Options extends _BaseOptions, _MethodOptions {}
 
 		export interface RequestObject
 		{
-			(url: string, options?: Dojo.Request._Options): Dojo.Promise<any>;
+			(url: string, options?: Request._Options): Dojo.Promise<any>;
 
-			get(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
-			put? (url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
-			post? (url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
-			del? (url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<any>;
+			get(url: string, options?: _BaseOptions): Dojo.Promise<any>;
+			put? (url: string, options?: _BaseOptions): Dojo.Promise<any>;
+			post? (url: string, options?: _BaseOptions): Dojo.Promise<any>;
+			del? (url: string, options?: _BaseOptions): Dojo.Promise<any>;
 		}
 
 		export module iFrame
 		{
-			export interface _BaseOptions extends Dojo.Request._BaseOptions
+			export interface _BaseOptions extends Request._BaseOptions
 			{
 				form?: HTMLElement;
 			}
-			export interface _Options extends _BaseOptions //implements _MethodOptions
-			{
-				method: string;
-			}
+			export interface _Options extends _BaseOptions, _MethodOptions {}
 		}
 
 		export module Node
 		{
-			export interface _BaseOptions extends Dojo.Request._BaseOptions
+			export interface _BaseOptions extends Request._BaseOptions
 			{
 				headers?: Object;
 				user: string;
 				password: string;
 			}
-			export interface _Options extends _BaseOptions //implements _MethodOptions
-			{
-				method: string;
-			}
+			export interface _Options extends _BaseOptions, _MethodOptions {}
 		}
 
 		export module Script
 		{
-			export interface _BaseOptions extends Dojo.Request._BaseOptions
+			export interface _BaseOptions extends Request._BaseOptions
 			{
 				frameDoc?: HTMLDocument;
 				jsonp?: string;
 				checkString?: string;
 			}
-			export interface _Options extends _BaseOptions //implements _MethodOptions
-			{
-				method: string;
-			}
+			export interface _Options extends _BaseOptions, _MethodOptions {}
 		}
 	}
 }
