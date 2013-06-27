@@ -2,14 +2,13 @@
 /* Define Dojo widgets                                                  */
 /************************************************************************/
 
-/// <reference path="dojo.d.ts"/>
+/// <reference path="dojo.types.d.ts"/>
 
 declare module Dijit
 {
-
 	// dijit/_WidgetBase
 
-	export class _WidgetBase extends _Widget
+	class _WidgetBase extends _Widget
 	{
 		baseClass: string;
 		class: string;
@@ -135,7 +134,7 @@ declare module Dijit
 
 	// dijit/Widget
 
-	export class Widget extends _WidgetBase implements _FocusMixin
+	class Widget extends _WidgetBase implements _FocusMixin
 	{
 		onClick(event: MouseEvent): void;
 		onDblClick(event: MouseEvent): void;
@@ -159,13 +158,13 @@ declare module Dijit
 
 	// Common widget mixin's
 
-	export interface _FocusMixin
+	interface _FocusMixin
 	{
 		onBlur(): void;
 		onFocus(): void;
 	}
 
-	export interface _Container
+	interface _Container
 	{
 		addChild(widget: _WidgetBase, insertIndex?: number): void;
 		getIndexOfChild(child: _WidgetBase): number;
@@ -174,20 +173,20 @@ declare module Dijit
 		removeChild(widget: number): void;
 	}
 
-	export interface _Contained
+	interface _Contained
 	{
 		getIndexInParent(): number;
 		getNextSibling(): _WidgetBase;
 		getPreviousSibling(): _WidgetBase;
 	}
 
-	export interface _AttachMixin
+	interface _AttachMixin
 	{
 		attachScope: Object;
 		searchContainerNode: boolean;
 	}
 
-	export interface _TemplatedMixin extends _AttachMixin
+	interface _TemplatedMixin extends _AttachMixin
 	{
 		templatePath: string;
 		templateString: string;
@@ -195,7 +194,7 @@ declare module Dijit
 		getCachedTemplate(templateString: string, alwaysUseString: boolean, doc?: HTMLDocument): any;
 	}
 
-	export interface _KeyNavMixin extends _FocusMixin
+	interface _KeyNavMixin extends _FocusMixin
 	{
 		childSelector: Object;
 		focusedChild: Object;
@@ -210,11 +209,11 @@ declare module Dijit
 		onKeyboardSearch(item: _WidgetBase, event: Event, searchString: string, numMatches: number): void;
 	}
 
-	export interface _KeyNavContainer extends _Container, _KeyNavMixin
+	interface _KeyNavContainer extends _Container, _KeyNavMixin
 	{
 	}
 
-	export interface _CssStateMixin
+	interface _CssStateMixin
 	{
 		active: boolean;
 		cssStateNodes: { [attachPoint: string]: string; };
@@ -226,7 +225,7 @@ declare module Dijit
 
 declare module Dijit
 {
-	export interface Registry extends Array<_WidgetBase>
+	interface Registry extends Array<_WidgetBase>
 	{
 		byId(id: string): _WidgetBase;
 		byNode(node: HTMLElement): _WidgetBase;
@@ -249,27 +248,27 @@ declare module "dijit/registry"
 
 declare module "dijit/place"
 {
-	export interface _ReturnValues extends Dojo.Rectangle
+	interface _ReturnValues extends Dojo.Rectangle
 	{
 		corner: string;
 		aroundCorner: string;
 		overflow: number;
-		spaceAvailable: Dojo.BoxWH;
+		spaceAvailable: Dojo.Size;
 	}
 
-	export function around(node: HTMLElement, anchor: HTMLElement, positions?: string[], leftToRight?: boolean, layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.BoxWH) => number): _ReturnValues;
-	export function around(node: HTMLElement, anchor: Dojo.Rectangle, positions?: string[], leftToRight?: boolean, layoutNode?: (node, aroundNodeCorner: string, nodeCorner: string, size: Dojo.BoxWH) => number): _ReturnValues;
+	function around(node: HTMLElement, anchor: HTMLElement, positions?: string[], leftToRight?: boolean, layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): _ReturnValues;
+	function around(node: HTMLElement, anchor: Dojo.Rectangle, positions?: string[], leftToRight?: boolean, layoutNode?: (node, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): _ReturnValues;
 
-	export function at(node: HTMLElement, pos: Dojo.Point, corners?: string[], layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.BoxWH) => number): void;
+	function at(node: HTMLElement, pos: Dojo.Point, corners?: string[], layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): void;
 }
 
 // dijit/form
 
 declare module Dijit
 {
-	export module Form
+	module Form
 	{
-		export interface _FormMixin
+		interface _FormMixin
 		{
 			state: string;
 
