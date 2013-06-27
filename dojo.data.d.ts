@@ -35,13 +35,13 @@ declare module Dojo.Data
 
 	// dojo/data
 
-	export class Store extends Dojo.Evented
+	class Store extends Dojo.Evented
 	{
 	}
 
 	// dojo/data/ItemFileReadStore
 
-	export class ItemFileReadStore extends Store implements Util.SimpleFetch
+	class ItemFileReadStore extends Store implements Util.SimpleFetch
 	{
 		constructor(keywordParameters: {
 			url?: string;
@@ -90,7 +90,7 @@ declare module Dojo.Data
 
 	// dojo/data/ItemFileWriteStore
 
-	export class ItemFileWriteStore extends ItemFileReadStore
+	class ItemFileWriteStore extends ItemFileReadStore
 	{
 		referenceIntegrity: boolean;
 
@@ -110,7 +110,7 @@ declare module Dojo.Data
 
 	// dojo/data/ObjectStore
 
-	export class ObjectStore extends Dojo.Evented implements Util.SimpleFetch
+	class ObjectStore extends Dojo.Evented implements Util.SimpleFetch
 	{
 		constructor(keywordParameters: {
 			url?: string;
@@ -180,7 +180,7 @@ declare module Dojo.Data
 		onSet(item: Object, attribute: string, oldValue: any, newValue: any): void;
 	}
 
-	export module Util
+	module Util
 	{
 		// dojo/data/util/simpleFetch
 		export interface SimpleFetch
