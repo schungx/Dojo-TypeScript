@@ -8,7 +8,7 @@ declare module Dijit
 {
 	// dijit/MenuBase
 
-	export class MenuBase extends Widget implements _TemplatedMixin, _KeyNavContainer, _CssStateMixin
+	class MenuBase extends Widget implements _TemplatedMixin, _KeyNavContainer, _CssStateMixin
 	{
 		activated: boolean;
 		autoFocus: boolean;
@@ -57,13 +57,13 @@ declare module Dijit
 
 	// dijit/DropDownMenu
 
-	export class DropDownMenu extends MenuBase
+	class DropDownMenu extends MenuBase
 	{
 	}
 
 	// dijit/Menu
 
-	export class Menu extends DropDownMenu
+	class Menu extends DropDownMenu
 	{
 		contextMenuForWindow: boolean;
 		currentTarget: HTMLElement;
@@ -82,7 +82,7 @@ declare module Dijit
 
 	// dijit/MenuItem
 
-	export class MenuItem extends Widget implements _TemplatedMixin, _Container, _CssStateMixin
+	class MenuItem extends Widget implements _TemplatedMixin, _Container, _CssStateMixin
 	{
 		accelKey: string;
 		disabled: boolean;
@@ -114,7 +114,7 @@ declare module Dijit
 
 	// dijit/MenuSeparator
 
-	export class MenuSeparator extends _WidgetBase implements _TemplatedMixin, _Contained
+	class MenuSeparator extends _WidgetBase implements _TemplatedMixin, _Contained
 	{
 		// dijit/_TemplatedMixin
 		attachScope: Object;
