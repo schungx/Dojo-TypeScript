@@ -42,6 +42,7 @@ declare module Dojo
 		pause(): void;
 		resume(): void;
 	}
+	interface WatchHandle { unwatch(): void; }
 
 	// Common callback function types
 
@@ -51,6 +52,7 @@ declare module Dojo
 	interface FunctionReturning<T> { (...args: any[]): T; }
 
 	interface ExtensionEvent { (node: HTMLElement, listener: EventListener): RemovableHandle; }
+	interface WatchCallback<T> { (prop: string, oldvalue: T, newvalue: T): void; }
 
 	module Fx
 	{
@@ -176,10 +178,28 @@ declare module Dojo
 
 	class Stateful
 	{
-		get (name: string): any;
-		set (name: string, value: any): void;
-		set (values: PropertiesMap): void;
-		watch(name: string, callback: (prop: string, oldvalue: any, newvalue: any) => void ): { unwatch(): void; };
+		"get"(name: string): any;
+		"set"(name: string, value: any): void;
+		"set"(values: PropertiesMap): void;
+		watch<T>(name: string, callback: WatchCallback<T>): WatchHandle;
+	}
+
+	// Declared class
+
+	module Declare
+	{
+		interface Options
+		{
+			"constructor"?: Dojo.Action;
+			destroy?: Dojo.SimpleAction;
+		}
+	}
+
+	interface DeclaredClass
+	{
+		//BUG IN TYPESCRIPT: Class doesn't satisfy "new" signature in interfaces!
+		//new(...v_args: any[]);
+		destroy?(): void;
 	}
 
 	// Promise
@@ -211,7 +231,7 @@ declare module Dojo
 
 declare module Dijit
 {
-	interface WidgetCreateOptions
+	interface WidgetCreateOptions extends Dojo.Declare.Options
 	{
 		id?: string;
 		srcNodeRef?: HTMLElement;
@@ -230,9 +250,76 @@ declare module Dijit
 		tooltip?: string;
 	}
 
-	class _Widget extends Dojo.Stateful
+	class _Widget extends Dojo.Stateful implements Dojo.DeclaredClass
 	{
 		constructor(params?: WidgetCreateOptions, srcNodeRef?: HTMLElement);
 		constructor(params?: WidgetCreateOptions, srcNodeRefId?: string);
+
+		private baseClass: string;
+		private "class": string;
+		private containerNode: HTMLElement;
+		private dir: string;
+		private domNode: HTMLElement;
+		private focused: boolean;
+		private id: string;
+		private lang: string;
+		private ownerDocument: HTMLDocument;
+		private postMixInProperties: string;
+		private srcNodeRef: HTMLElement;
+		private style: Dojo.StylesMap;
+		private title: string;
+		private tooltip: string;
+
+		"get"(name: string): any;
+		"get"(name: "baseClass"): string;
+		"get"(name: "class"): string;
+		"get"(name: "containerNode"): HTMLElement;
+		"get"(name: "dir"): string;
+		"get"(name: "domNode"): HTMLElement;
+		"get"(name: "focused"): boolean;
+		"get"(name: "id"): string;
+		"get"(name: "lang"): string;
+		"get"(name: "ownerDocument"): HTMLDocument;
+		"get"(name: "postMixInProperties"): string;
+		"get"(name: "srcNodeRef"): HTMLElement;
+		"get"(name: "style"): Dojo.StylesMap;
+		"get"(name: "title"): string;
+		"get"(name: "tooltip"): string;
+
+		"set"(name: string, value: any): void;
+		"set"(values: Dojo.PropertiesMap): void;
+		"set"(name: "baseClass", value: string): void;
+		"set"(name: "class", value: string): void;
+		"set"(name: "containerNode", value: HTMLElement): void;
+		"set"(name: "dir", value: string): void;
+		"set"(name: "domNode", value: HTMLElement): void;
+		"set"(name: "focused", value: boolean): void;
+		"set"(name: "id", value: string): void;
+		"set"(name: "lang", value: string): void;
+		"set"(name: "ownerDocument", value: HTMLDocument): void;
+		"set"(name: "postMixInProperties", value: string): void;
+		"set"(name: "srcNodeRef", value: HTMLElement): void;
+		"set"(name: "style", value: Dojo.StylesMap): void;
+		"set"(name: "title", value: string): void;
+		"set"(name: "tooltip", value: string): void;
+
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "containerNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
+		watch(prop: "dir", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "domNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
+		watch(prop: "focused", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+		watch(prop: "id", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "lang", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "ownerDocument", callback: Dojo.WatchCallback<HTMLDocument>): Dojo.WatchHandle;
+		watch(prop: "postMixInProperties", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "srcNodeRef", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
+		watch(prop: "style", callback: Dojo.WatchCallback<Dojo.StylesMap>): Dojo.WatchHandle;
+		watch(prop: "title", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+
+		// Dojo.DeclaredClass
+		destroy(): void;
 	}
 }
