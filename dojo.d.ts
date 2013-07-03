@@ -250,28 +250,16 @@ declare module "dojo/_base/config"
 
 // dojo/_base/declare
 
-declare module Dojo
-{
-	module Declare
-	{
-		interface Options
-		{
-			constructor: Dojo.Action;
-			destroy: Dojo.SimpleAction;
-		}
-	}
-}
-
 declare module "dojo/_base/declare"
 {
-	function declare(className: string, superclass: Function, props: Dojo.Declare.Options): Function;
-	function declare(className: string, superclasses: Function[], props: Dojo.Declare.Options): Function;
-	function declare(superclass: Function, props: Dojo.Declare.Options): Function;
-	function declare(superclasses: Function[], props: Dojo.Declare.Options): Function;
+	function declare(className: string, superclass: Dojo.DeclaredClass, props: Dojo.Declare.Options): Dojo.DeclaredClass;
+	function declare(className: string, superclasses: Dojo.DeclaredClass[], props: Dojo.Declare.Options): Dojo.DeclaredClass;
+	function declare(superclass: Dojo.DeclaredClass, props: Dojo.Declare.Options): Dojo.DeclaredClass;
+	function declare(superclasses: Dojo.DeclaredClass[], props: Dojo.Declare.Options): Dojo.DeclaredClass;
 
 	module declare
 	{
-		function safeMixin<T extends Object>(dest: T, source: Object): T;
+		function safeMixin<T extends Dojo.DeclaredClass>(dest: T, source: Dojo.PropertiesMap): T;
 	}
 
 	export = declare;
@@ -866,11 +854,11 @@ declare module "dojo/html"
 
 		empty(): void;
 		
-		set(cont: string, params?: Dojo.AttributesMap): void;
-		set(cont: HTMLElement, params?: Dojo.AttributesMap): void;
-		set(cont: NodeList, params?: Dojo.AttributesMap): void;
-		set(cont: Dojo.NodeList, params?: Dojo.AttributesMap): void;
-		set(cont: HTMLElement[], params?: Dojo.AttributesMap): void;
+		"set"(cont: string, params?: Dojo.AttributesMap): void;
+		"set"(cont: HTMLElement, params?: Dojo.AttributesMap): void;
+		"set"(cont: NodeList, params?: Dojo.AttributesMap): void;
+		"set"(cont: Dojo.NodeList, params?: Dojo.AttributesMap): void;
+		"set"(cont: HTMLElement[], params?: Dojo.AttributesMap): void;
 
 		setContent(): void;
 		tearDown(): void;
