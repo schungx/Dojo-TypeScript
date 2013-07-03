@@ -10,20 +10,56 @@ declare module Dijit
 
 	class _WidgetBase extends _Widget
 	{
-		baseClass: string;
-		class: string;
-		containerNode: HTMLElement;
-		dir: string;
-		domNode: HTMLElement;
-		focused: boolean;
-		id: string;
-		lang: string;
-		ownerDocument: HTMLDocument;
-		postMixInProperties: string;
-		srcNodeRef: HTMLElement;
-		style: { [style: string]: string; };
-		title: string;
-		tooltip: string;
+		// _Widget
+		"get"(name: string): any;
+		"get"(name: "baseClass"): string;
+		"get"(name: "class"): string;
+		"get"(name: "containerNode"): HTMLElement;
+		"get"(name: "dir"): string;
+		"get"(name: "domNode"): HTMLElement;
+		"get"(name: "focused"): boolean;
+		"get"(name: "id"): string;
+		"get"(name: "lang"): string;
+		"get"(name: "ownerDocument"): HTMLDocument;
+		"get"(name: "postMixInProperties"): string;
+		"get"(name: "srcNodeRef"): HTMLElement;
+		"get"(name: "style"): Dojo.StylesMap;
+		"get"(name: "title"): string;
+		"get"(name: "tooltip"): string;
+
+		"set"(name: string, value: any): void;
+		"set"(values: Dojo.PropertiesMap): void;
+		"set"(name: "baseClass", value: string): void;
+		"set"(name: "class", value: string): void;
+		"set"(name: "containerNode", value: HTMLElement): void;
+		"set"(name: "dir", value: string): void;
+		"set"(name: "domNode", value: HTMLElement): void;
+		"set"(name: "focused", value: boolean): void;
+		"set"(name: "id", value: string): void;
+		"set"(name: "lang", value: string): void;
+		"set"(name: "ownerDocument", value: HTMLDocument): void;
+		"set"(name: "postMixInProperties", value: string): void;
+		"set"(name: "srcNodeRef", value: HTMLElement): void;
+		"set"(name: "style", value: Dojo.StylesMap): void;
+		"set"(name: "title", value: string): void;
+		"set"(name: "tooltip", value: string): void;
+
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "containerNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
+		watch(prop: "dir", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "domNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
+		watch(prop: "focused", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+		watch(prop: "id", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "lang", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "ownerDocument", callback: Dojo.WatchCallback<HTMLDocument>): Dojo.WatchHandle;
+		watch(prop: "postMixInProperties", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "srcNodeRef", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
+		watch(prop: "style", callback: Dojo.WatchCallback<Dojo.StylesMap>): Dojo.WatchHandle;
+		watch(prop: "title", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+
 
 		buildRendering(): void;
 
@@ -136,6 +172,57 @@ declare module Dijit
 
 	class Widget extends _WidgetBase implements _FocusMixin
 	{
+		// _WidgetBase
+		"get"(name: string): any;
+		"get"(name: "baseClass"): string;
+		"get"(name: "class"): string;
+		"get"(name: "containerNode"): HTMLElement;
+		"get"(name: "dir"): string;
+		"get"(name: "domNode"): HTMLElement;
+		"get"(name: "focused"): boolean;
+		"get"(name: "id"): string;
+		"get"(name: "lang"): string;
+		"get"(name: "ownerDocument"): HTMLDocument;
+		"get"(name: "postMixInProperties"): string;
+		"get"(name: "srcNodeRef"): HTMLElement;
+		"get"(name: "style"): Dojo.StylesMap;
+		"get"(name: "title"): string;
+		"get"(name: "tooltip"): string;
+
+		"set"(name: string, value: any): void;
+		"set"(values: Dojo.PropertiesMap): void;
+		"set"(name: "baseClass", value: string): void;
+		"set"(name: "class", value: string): void;
+		"set"(name: "containerNode", value: HTMLElement): void;
+		"set"(name: "dir", value: string): void;
+		"set"(name: "domNode", value: HTMLElement): void;
+		"set"(name: "focused", value: boolean): void;
+		"set"(name: "id", value: string): void;
+		"set"(name: "lang", value: string): void;
+		"set"(name: "ownerDocument", value: HTMLDocument): void;
+		"set"(name: "postMixInProperties", value: string): void;
+		"set"(name: "srcNodeRef", value: HTMLElement): void;
+		"set"(name: "style", value: Dojo.StylesMap): void;
+		"set"(name: "title", value: string): void;
+		"set"(name: "tooltip", value: string): void;
+
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "containerNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
+		watch(prop: "dir", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "domNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
+		watch(prop: "focused", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+		watch(prop: "id", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "lang", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "ownerDocument", callback: Dojo.WatchCallback<HTMLDocument>): Dojo.WatchHandle;
+		watch(prop: "postMixInProperties", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "srcNodeRef", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
+		watch(prop: "style", callback: Dojo.WatchCallback<Dojo.StylesMap>): Dojo.WatchHandle;
+		watch(prop: "title", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+
+
 		onClick(event: MouseEvent): void;
 		onDblClick(event: MouseEvent): void;
 		onHide(): void;
@@ -182,24 +269,66 @@ declare module Dijit
 
 	interface _AttachMixin
 	{
-		attachScope: Object;
-		searchContainerNode: boolean;
+		//attachScope: Object;
+		//searchContainerNode: boolean;
+
+		"get"(name: string): any;
+		"get"(name: "attachScope"): Object;
+		"get"(name: "searchContainerNode"): boolean;
+
+		"set"(name: string, value: any): void;
+		"set"(name: "attachScope", value: Object): void;
+		"set"(name: "searchContainerNode", value: boolean): void;
+
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch(prop: "attachScope", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
+		watch(prop: "searchContainerNode", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 	}
 
 	interface _TemplatedMixin extends _AttachMixin
 	{
-		templatePath: string;
-		templateString: string;
+		//templatePath: string;
+		//templateString: string;
+
+		"get"(name: string): any;
+		"get"(name: "templatePath"): string;
+		"get"(name: "templateString"): string;
+
+		"set"(name: string, value: any): void;
+		"set"(name: "templatePath", value: string): void;
+		"set"(name: "templateString", value: string): void;
+
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch(prop: "templatePath", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "templateString", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 
 		getCachedTemplate(templateString: string, alwaysUseString: boolean, doc?: HTMLDocument): any;
 	}
 
 	interface _KeyNavMixin extends _FocusMixin
 	{
-		childSelector: Object;
-		focusedChild: Object;
-		multiCharSearchDuration: number;
-		tabIndex: string;
+		//childSelector: Object;
+		//focusedChild: Object;
+		//multiCharSearchDuration: number;
+		//tabIndex: string;
+
+		"get"(name: string): any;
+		"get"(name: "childSelector"): Object;
+		"get"(name: "focusedChild"): Object;
+		"get"(name: "multiCharSearchDuration"): number;
+		"get"(name: "tabIndex"): string;
+
+		"set"(name: string, value: any): void;
+		"set"(name: "childSelector", value: Object): void;
+		"set"(name: "focusedChild", value: Object): void;
+		"set"(name: "multiCharSearchDuration", value: number): void;
+		"set"(name: "tabIndex", value: string): void;
+
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch(prop: "childSelector", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
+		watch(prop: "focusedChild", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
+		watch(prop: "multiCharSearchDuration", callback: Dojo.WatchCallback<number>): Dojo.WatchHandle;
+		watch(prop: "tabIndex", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 
 		focus(): void;
 		focusChild(widget: _WidgetBase, last: boolean): void;
@@ -215,9 +344,24 @@ declare module Dijit
 
 	interface _CssStateMixin
 	{
-		active: boolean;
-		cssStateNodes: { [attachPoint: string]: string; };
-		hovering: boolean;
+		//active: boolean;
+		//cssStateNodes: { [attachPoint: string]: string; };
+		//hovering: boolean;
+
+		"get"(name: string): any;
+		"get"(name: "active"): boolean;
+		"get"(name: "cssStateNodes"): { [attachPoint: string]: string; };
+		"get"(name: "hovering"): boolean;
+
+		"set"(name: string, value: any): void;
+		"set"(name: "active", value: boolean): void;
+		"set"(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
+		"set"(name: "hovering", value: boolean): void;
+
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 	}
 }
 
@@ -270,7 +414,16 @@ declare module Dijit
 	{
 		interface _FormMixin
 		{
-			state: string;
+			//state: string;
+
+			"get"(name: string): any;
+			"get"(name: "state"): string;
+
+			"set"(name: string, value: any): void;
+			"set"(name: "state", value: string): void;
+
+			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch(prop: "state", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
 			connectChildren(inStartup: boolean): void;
 			reset(): void;
