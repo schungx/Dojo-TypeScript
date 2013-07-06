@@ -6,12 +6,15 @@
 
 // Overload on declare
 
-interface _DojoDeclare
+declare module Dojo
 {
-	(className: string, superclass: Dijit.WidgetOrMixin, props: Dojo.Declare.Options): Dijit._WidgetBase;
-	(className: string, superclasses: Dijit.WidgetOrMixin[], props: Dojo.Declare.Options): Dijit._WidgetBase;
-	(superclass: Dijit.WidgetOrMixin, props: Dojo.Declare.Options): Dijit._WidgetBase;
-	(superclasses: Dijit.WidgetOrMixin[], props: Dojo.Declare.Options): Dijit._WidgetBase;
+	interface Declare
+	{
+		(className: string, superclass: Dijit.WidgetOrMixin, props: DeclareOptions): Dijit._WidgetBase;
+		(className: string, superclasses: Dijit.WidgetOrMixin[], props: DeclareOptions): Dijit._WidgetBase;
+		(superclass: Dijit.WidgetOrMixin, props: DeclareOptions): Dijit._WidgetBase;
+		(superclasses: Dijit.WidgetOrMixin[], props: DeclareOptions): Dijit._WidgetBase;
+	}
 }
 
 // dijit
