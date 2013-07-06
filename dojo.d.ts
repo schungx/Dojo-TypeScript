@@ -252,16 +252,8 @@ declare module "dojo/_base/config"
 
 declare module "dojo/_base/declare"
 {
-	function declare(className: string, superclass: Dojo.DeclaredClass, props: Dojo.Declare.Options): Dojo.DeclaredClass;
-	function declare(className: string, superclasses: Dojo.DeclaredClass[], props: Dojo.Declare.Options): Dojo.DeclaredClass;
-	function declare(superclass: Dojo.DeclaredClass, props: Dojo.Declare.Options): Dojo.DeclaredClass;
-	function declare(superclasses: Dojo.DeclaredClass[], props: Dojo.Declare.Options): Dojo.DeclaredClass;
-
-	module declare
-	{
-		function safeMixin<T extends Dojo.DeclaredClass>(dest: T, source: Dojo.PropertiesMap): T;
-	}
-
+	var declare: _DojoDeclare;
+	
 	export = declare;
 }
 
@@ -1185,7 +1177,6 @@ declare module Dojo
 		nextAll(query?: string): Dojo.NodeList;
 		odd(): Dojo.NodeList;
 
-		on(name: string, listener: (ev: Event) => boolean): Dojo.NodeList;
 		on(name: "abort", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
 		on(name: "afterprint", listener: (ev: Event) => boolean): Dojo.NodeList;
 		on(name: "beforeprint", listener: (ev: Event) => boolean): Dojo.NodeList;
@@ -1246,6 +1237,7 @@ declare module Dojo
 		on(name: "unload", listener: (ev: Event) => boolean): Dojo.NodeList;
 		on(name: "volumechange", listener: (ev: Event) => boolean): Dojo.NodeList;
 		on(name: "waiting", listener: (ev: Event) => boolean): Dojo.NodeList;
+		on(name: string, listener: (ev: Event) => boolean): Dojo.NodeList;
 		on(type: ExtensionEvent, listener: EventListener): Dojo.NodeList;
 
 		orphan(filter?: string): Dojo.NodeList;
@@ -1399,7 +1391,6 @@ declare module "dojo/number"
 
 declare module "dojo/on"
 {
-	function on(target: HTMLElement, type: string, listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 	function on(target: HTMLElement, type: "abort", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 	function on(target: HTMLElement, type: "afterprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 	function on(target: HTMLElement, type: "beforeprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
@@ -1460,6 +1451,7 @@ declare module "dojo/on"
 	function on(target: HTMLElement, type: "unload", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 	function on(target: HTMLElement, type: "volumechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 	function on(target: HTMLElement, type: "waiting", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+	function on(target: HTMLElement, type: string, listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 	function on(target: Object, type: string, listener: EventListener, dontFix?: boolean): Dojo.RemovableHandle;
 	function on(target: HTMLElement, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): Dojo.RemovableHandle;
 	function on(target: Object, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): Dojo.RemovableHandle;
@@ -1472,7 +1464,6 @@ declare module "dojo/on"
 		function selector(cssSelector: string, event: string, children?: boolean): Dojo.ExtensionEvent;
 		function selector(cssSelector: string, event: Dojo.ExtensionEvent, children?: boolean): Dojo.ExtensionEvent;
 
-		function pausable(target: HTMLElement, type: string, listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		function pausable(target: HTMLElement, type: "abort", listener: (ev: UIEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		function pausable(target: HTMLElement, type: "afterprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		function pausable(target: HTMLElement, type: "beforeprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
@@ -1533,11 +1524,11 @@ declare module "dojo/on"
 		function pausable(target: HTMLElement, type: "unload", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		function pausable(target: HTMLElement, type: "volumechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		function pausable(target: HTMLElement, type: "waiting", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		function pausable(target: HTMLElement, type: string, listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		function pausable(target: Object, type: string, listener: EventListener, dontFix?: boolean): Dojo.PausableHandle;
 		function pausable(target: HTMLElement, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): Dojo.PausableHandle;
 		function pausable(target: Object, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): Dojo.PausableHandle;
 
-		function once(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): void;
 		function once(target: HTMLElement, type: "afterprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		function once(target: HTMLElement, type: "beforeprint", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		function once(target: HTMLElement, type: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
@@ -1597,6 +1588,7 @@ declare module "dojo/on"
 		function once(target: HTMLElement, type: "unload", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		function once(target: HTMLElement, type: "volumechange", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
 		function once(target: HTMLElement, type: "waiting", listener: (ev: Event) => boolean, dontFix?: boolean): Dojo.RemovableHandle;
+		function once(target: HTMLElement, type: string, listener: EventListener, dontFix?: boolean): void;
 		function once(target: Object, type: string, listener: EventListener, dontFix?: boolean): void;
 		function once(target: HTMLElement, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): void;
 		function once(target: Object, type: Dojo.ExtensionEvent, listener: EventListener, dontFix?: boolean): void;
@@ -1620,10 +1612,10 @@ declare module "dojo/parser"
 		contextRequire?: Function;
 	}
 
-	function parse(rootNode?: HTMLElement, options?: _ParseOptions): Dijit._Widget[];
+	function parse(rootNode?: HTMLElement, options?: _ParseOptions): Dijit._WidgetBase[];
 	function scan(root?: HTMLElement, options?: _ParseOptions): Dojo.Promise<HTMLElement[]>;
-	function instantiate(nodes: HTMLElement[], mixin?: Dojo.PropertiesMap, options?: _ParseOptions): Dijit._Widget[];
-	function construct(ctor: { (params?: Dijit.WidgetCreateOptions): Dijit._Widget; }, node: HTMLElement, mixin?: Dojo.PropertiesMap, options?: _ParseOptions, scripts?: HTMLElement[], inherited?: Object): Dijit._Widget;
+	function instantiate(nodes: HTMLElement[], mixin?: Dojo.PropertiesMap, options?: _ParseOptions): Dijit._WidgetBase[];
+	function construct(ctor: { (params?: Dijit.WidgetCreateOptions): Dijit._WidgetBase; }, node: HTMLElement, mixin?: Dojo.PropertiesMap, options?: _ParseOptions, scripts?: HTMLElement[], inherited?: Object): Dijit._WidgetBase;
 }
 
 // dojo/promise/Promise
