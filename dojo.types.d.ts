@@ -245,7 +245,7 @@ declare module Dojo
 
 declare module Dijit
 {
-	interface WidgetCreateOptions extends Dojo.Declare.Options
+	interface WidgetCreateOptions extends Dojo.DeclareOptions
 	{
 		id?: string;
 		srcNodeRef?: HTMLElement;
