@@ -252,7 +252,7 @@ declare module "dojo/_base/config"
 
 declare module "dojo/_base/declare"
 {
-	var declare: _DojoDeclare;
+	var declare: Dojo.Declare;
 	
 	export = declare;
 }
