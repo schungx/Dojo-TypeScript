@@ -8,10 +8,9 @@ declare module Dijit
 {
 	// dijit/MenuBase
 
-	class MenuBase extends Widget implements _TemplatedMixin, _KeyNavContainer, _CssStateMixin
+	class MenuBase extends _Widget implements _TemplatedMixin, _KeyNavContainer, _CssStateMixin
 	{
-		// Widget
-		"get"(name: string): any;
+		// dijit/_Widget
 		"get"(name: "baseClass"): string;
 		"get"(name: "class"): string;
 		"get"(name: "containerNode"): HTMLElement;
@@ -27,8 +26,6 @@ declare module Dijit
 		"get"(name: "title"): string;
 		"get"(name: "tooltip"): string;
 
-		"set"(name: string, value: any): void;
-		"set"(values: Dojo.PropertiesMap): void;
 		"set"(name: "baseClass", value: string): void;
 		"set"(name: "class", value: string): void;
 		"set"(name: "containerNode", value: HTMLElement): void;
@@ -44,7 +41,6 @@ declare module Dijit
 		"set"(name: "title", value: string): void;
 		"set"(name: "tooltip", value: string): void;
 
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "containerNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
@@ -156,6 +152,13 @@ declare module Dijit
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+
+
+		// get/set/watch master signatures
+		"get"(name: string): any;
+		"set"(name: string, value: any): void;
+		"set"(values: Dojo.PropertiesMap): void;
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
 	// dijit/DropDownMenu
@@ -163,7 +166,6 @@ declare module Dijit
 	class DropDownMenu extends MenuBase
 	{
 		// MenuBase
-		"get"(name: string): any;
 		"get"(name: "baseClass"): string;
 		"get"(name: "class"): string;
 		"get"(name: "containerNode"): HTMLElement;
@@ -179,8 +181,6 @@ declare module Dijit
 		"get"(name: "title"): string;
 		"get"(name: "tooltip"): string;
 
-		"set"(name: string, value: any): void;
-		"set"(values: Dojo.PropertiesMap): void;
 		"set"(name: "baseClass", value: string): void;
 		"set"(name: "class", value: string): void;
 		"set"(name: "containerNode", value: HTMLElement): void;
@@ -232,7 +232,6 @@ declare module Dijit
 		"set"(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
 		"set"(name: "hovering", value: boolean): void;
 
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "containerNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
@@ -258,6 +257,13 @@ declare module Dijit
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+
+
+		// get/set/watch master signatures
+		"get"(name: string): any;
+		"set"(name: string, value: any): void;
+		"set"(values: Dojo.PropertiesMap): void;
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
 	// dijit/Menu
@@ -265,7 +271,6 @@ declare module Dijit
 	class Menu extends DropDownMenu
 	{
 		// DropDownMenu
-		"get"(name: string): any;
 		"get"(name: "baseClass"): string;
 		"get"(name: "class"): string;
 		"get"(name: "containerNode"): HTMLElement;
@@ -281,8 +286,6 @@ declare module Dijit
 		"get"(name: "title"): string;
 		"get"(name: "tooltip"): string;
 
-		"set"(name: string, value: any): void;
-		"set"(values: Dojo.PropertiesMap): void;
 		"set"(name: "baseClass", value: string): void;
 		"set"(name: "class", value: string): void;
 		"set"(name: "containerNode", value: HTMLElement): void;
@@ -334,7 +337,6 @@ declare module Dijit
 		"set"(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
 		"set"(name: "hovering", value: boolean): void;
 
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "containerNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
@@ -396,14 +398,20 @@ declare module Dijit
 
 		unBindDomNode(nodeId: string): void;
 		unBindDomNode(node: HTMLElement): void;
+
+
+		// get/set/watch master signatures
+		"get"(name: string): any;
+		"set"(name: string, value: any): void;
+		"set"(values: Dojo.PropertiesMap): void;
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
 	// dijit/MenuItem
 
-	class MenuItem extends Widget implements _TemplatedMixin, _Container, _CssStateMixin
+	class MenuItem extends _Widget implements _TemplatedMixin, _Container, _CssStateMixin
 	{
-		// Widget
-		"get"(name: string): any;
+		// dijit/_Widget
 		"get"(name: "baseClass"): string;
 		"get"(name: "class"): string;
 		"get"(name: "containerNode"): HTMLElement;
@@ -419,8 +427,6 @@ declare module Dijit
 		"get"(name: "title"): string;
 		"get"(name: "tooltip"): string;
 
-		"set"(name: string, value: any): void;
-		"set"(values: Dojo.PropertiesMap): void;
 		"set"(name: "baseClass", value: string): void;
 		"set"(name: "class", value: string): void;
 		"set"(name: "containerNode", value: HTMLElement): void;
@@ -436,7 +442,6 @@ declare module Dijit
 		"set"(name: "title", value: string): void;
 		"set"(name: "tooltip", value: string): void;
 
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "containerNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
@@ -516,14 +521,20 @@ declare module Dijit
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+
+
+		// get/set/watch master signatures
+		"get"(name: string): any;
+		"set"(name: string, value: any): void;
+		"set"(values: Dojo.PropertiesMap): void;
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
 	// dijit/MenuSeparator
 
 	class MenuSeparator extends _WidgetBase implements _TemplatedMixin, _Contained
 	{
-		// _WidgetBase
-		"get"(name: string): any;
+		// dijit/_WidgetBase
 		"get"(name: "baseClass"): string;
 		"get"(name: "class"): string;
 		"get"(name: "containerNode"): HTMLElement;
@@ -539,8 +550,6 @@ declare module Dijit
 		"get"(name: "title"): string;
 		"get"(name: "tooltip"): string;
 
-		"set"(name: string, value: any): void;
-		"set"(values: Dojo.PropertiesMap): void;
 		"set"(name: "baseClass", value: string): void;
 		"set"(name: "class", value: string): void;
 		"set"(name: "containerNode", value: HTMLElement): void;
@@ -556,7 +565,6 @@ declare module Dijit
 		"set"(name: "title", value: string): void;
 		"set"(name: "tooltip", value: string): void;
 
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "containerNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
@@ -595,6 +603,13 @@ declare module Dijit
 		getIndexInParent(): number;
 		getNextSibling(): _WidgetBase;
 		getPreviousSibling(): _WidgetBase;
+
+
+		// get/set/watch master signatures
+		"get"(name: string): any;
+		"set"(name: string, value: any): void;
+		"set"(values: Dojo.PropertiesMap): void;
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 }
 
