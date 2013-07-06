@@ -35,6 +35,18 @@ TypeScript file:
 
 	/// <reference path="dojo.d.ts"/>
 
+To use Dijits, include the following reference in the first lines of your
+TypeScript file:
+
+	/// <reference path="dijit.d.ts"/>
+
+To use Dijits together with Dojo, reference dijit.d.ts first:
+
+	/// <reference path="dijit.d.ts"/>
+	/// <reference path="dojo.d.ts"/>
+
+That is because dijit.d.ts adds to certain declarations in dojo.d.ts.
+
 
 III. TypeScript setup
 ---------------------
@@ -54,6 +66,7 @@ IV. Using Dojo modules
 
 To use a Dojo module, just "import" it:
 
+	/// <reference path="dojo.d.ts"/>
 	import array = module("dojo/_base/array");
 	array.forEach(...);
 
@@ -67,6 +80,7 @@ compiles into:
 
 Directly-callable Dojo modules are supported similarly.  For example:
 
+	/// <reference path="dojo.d.ts"/>
 	import ready = module("dojo/ready");
 	ready(() => { ... });
 
@@ -80,6 +94,8 @@ compiles into:
 
 Class-type Dojo modules are also supported.  For example:
 
+	/// <reference path="dojo.store.d.ts"/>
+	/// <reference path="dojo.d.ts"/>
 	import Memory = require("dojo/store/Memory");
 	var store = new Memory({ data: ... });
 
@@ -97,6 +113,7 @@ V. Defining Dojo modules
 You can define modules to be used with Dojo in TypeScript.  For
 example, the following:
 
+	/// <reference path="dojo.d.ts"/>
 	import array = module("dojo/_base/array");
 		:
 		:
@@ -136,6 +153,7 @@ definition itself.
 As in the following, you can continue to use NodeList after mixing in
 other NodeList features:
 
+	/// <reference path="dojo.d.ts"/>
 	import NodeList = module("dojo/NodeList");
 	import NodeListDom = module("dojo/NodeList-dom");
 		:
@@ -171,7 +189,8 @@ definition files.
 
 The complete list of definition files is as follows:
 
-	dojo.d.ts            - Core Dojo
+	dojo.types.d.ts      - Common type definitions for Dojo
+	dojo.d.ts            - Dojo Core
 	dojo.store.d.ts      - dojo/store modules
 	dojo.data.d.ts       - Legacy dojo/data modules
 	
