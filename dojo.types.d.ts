@@ -184,15 +184,22 @@ declare module Dojo
 		watch<T>(name: string, callback: WatchCallback<T>): WatchHandle;
 	}
 
-	// Declared class
+	// Declare
 
-	module Declare
+	interface Declare
 	{
-		interface Options
-		{
-			"constructor"?: Action;
-			destroy?: SimpleAction;
-		}
+		(className: string, superclass: DeclaredClass, props: DeclareOptions): DeclaredClass;
+		(className: string, superclasses: DeclaredClass[], props: DeclareOptions): DeclaredClass;
+		(superclass: DeclaredClass, props: DeclareOptions): DeclaredClass;
+		(superclasses: DeclaredClass[], props: DeclareOptions): DeclaredClass;
+
+		safeMixin(dest: Dijit._WidgetBase, ...sources: PropertiesMap[]): void;
+	}
+
+	interface DeclareOptions
+	{
+		"constructor"?: Action;
+		destroy?: SimpleAction;
 	}
 
 	interface DeclaredClass
@@ -231,20 +238,6 @@ declare module Dojo
 		stop(goToEnd?:boolean): Animation;
 		status(): string;
 	}
-}
-
-
-// Dojo Declare must reside at the root level because "export =" cannot handle namespaces
-// This definition is moved outside of the dojo/_base/declare module because dijit overloads it
-
-interface _DojoDeclare
-{
-	(className: string, superclass: Dojo.DeclaredClass, props: Dojo.Declare.Options): Dojo.DeclaredClass;
-	(className: string, superclasses: Dojo.DeclaredClass[], props: Dojo.Declare.Options): Dojo.DeclaredClass;
-	(superclass: Dojo.DeclaredClass, props: Dojo.Declare.Options): Dojo.DeclaredClass;
-	(superclasses: Dojo.DeclaredClass[], props: Dojo.Declare.Options): Dojo.DeclaredClass;
-
-	safeMixin(dest: Dijit._WidgetBase, ...sources: Dojo.PropertiesMap[]): void;
 }
 
 
