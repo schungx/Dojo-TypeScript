@@ -190,8 +190,8 @@ declare module Dojo
 	{
 		interface Options
 		{
-			"constructor"?: Dojo.Action;
-			destroy?: Dojo.SimpleAction;
+			"constructor"?: Action;
+			destroy?: SimpleAction;
 		}
 	}
 
@@ -200,6 +200,12 @@ declare module Dojo
 		//BUG IN TYPESCRIPT: Class doesn't satisfy "new" signature in interfaces!
 		//new(...v_args: any[]);
 		destroy?(): void;
+
+		// dojo/Stateful
+		"get"(name: string): any;
+		"set"(name: string, value: any): void;
+		"set"(values: PropertiesMap): void;
+		watch<T>(name: string, callback: WatchCallback<T>): WatchHandle;
 	}
 
 	// Promise
@@ -227,6 +233,21 @@ declare module Dojo
 	}
 }
 
+
+// Dojo Declare must reside at the root level because "export =" cannot handle namespaces
+// This definition is moved outside of the dojo/_base/declare module because dijit overloads it
+
+interface _DojoDeclare
+{
+	(className: string, superclass: Dojo.DeclaredClass, props: Dojo.Declare.Options): Dojo.DeclaredClass;
+	(className: string, superclasses: Dojo.DeclaredClass[], props: Dojo.Declare.Options): Dojo.DeclaredClass;
+	(superclass: Dojo.DeclaredClass, props: Dojo.Declare.Options): Dojo.DeclaredClass;
+	(superclasses: Dojo.DeclaredClass[], props: Dojo.Declare.Options): Dojo.DeclaredClass;
+
+	safeMixin(dest: Dijit._WidgetBase, ...sources: Dojo.PropertiesMap[]): void;
+}
+
+
 // Widgets
 
 declare module Dijit
@@ -250,7 +271,9 @@ declare module Dijit
 		tooltip?: string;
 	}
 
-	class _Widget extends Dojo.Stateful implements Dojo.DeclaredClass
+	interface WidgetOrMixin { }
+
+	class _WidgetBase extends Dojo.Stateful implements Dojo.DeclaredClass, WidgetOrMixin
 	{
 		constructor(params?: WidgetCreateOptions, srcNodeRef?: HTMLElement);
 		constructor(params?: WidgetCreateOptions, srcNodeRefId?: string);
@@ -270,7 +293,6 @@ declare module Dijit
 		private title: string;
 		private tooltip: string;
 
-		"get"(name: string): any;
 		"get"(name: "baseClass"): string;
 		"get"(name: "class"): string;
 		"get"(name: "containerNode"): HTMLElement;
@@ -285,9 +307,8 @@ declare module Dijit
 		"get"(name: "style"): Dojo.StylesMap;
 		"get"(name: "title"): string;
 		"get"(name: "tooltip"): string;
+		"get"(name: string): any;
 
-		"set"(name: string, value: any): void;
-		"set"(values: Dojo.PropertiesMap): void;
 		"set"(name: "baseClass", value: string): void;
 		"set"(name: "class", value: string): void;
 		"set"(name: "containerNode", value: HTMLElement): void;
@@ -302,8 +323,9 @@ declare module Dijit
 		"set"(name: "style", value: Dojo.StylesMap): void;
 		"set"(name: "title", value: string): void;
 		"set"(name: "tooltip", value: string): void;
+		"set"(name: string, value: any): void;
+		"set"(values: Dojo.PropertiesMap): void;
 
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "containerNode", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
@@ -318,8 +340,113 @@ declare module Dijit
 		watch(prop: "style", callback: Dojo.WatchCallback<Dojo.StylesMap>): Dojo.WatchHandle;
 		watch(prop: "title", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 
-		// Dojo.DeclaredClass
-		destroy(): void;
+
+		buildRendering(): void;
+
+		/* Deprecated
+				connect(obj: Object, event: string, method: string): Dojo.Handle;
+				connect(obj: Object, event: Dojo.ExtensionEvent, method: string): Dojo.Handle;
+				connect(obj: Object, event: string, method: EventListener): Dojo.Handle;
+				connect(obj: Object, event: Dojo.ExtensionEvent, method: EventListener): Dojo.Handle;
+
+				disconnect(handle: Dojo.Handle): void;
+		*/
+
+		defer(fcn: Dojo.Action, delay: number): Dojo.RemovableHandle;
+		destroy(preserveDom?: boolean): void;
+		destroyDescendants(preserveDom?: boolean): void;
+		destroyRecursive(preserveDom?: boolean): void;
+		destroyRendering(preserveDom?: boolean): void;
+		emit(type: string, eventObj: Object, callbackArgs?: any[]): void;
+
+		getChildren(): _WidgetBase[];
+		getParent(): _WidgetBase;
+		isFocusable(): boolean;
+		isLeftToRight(): boolean;
+		isValid(): boolean;
+
+		on(type: "abort", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "afterprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "beforeprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "blur", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "canplay", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "canplaythrough", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "change", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "click", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "contextmenu", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dblclick", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "drag", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragend", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragenter", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragleave", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragover", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "dragstart", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "drop", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "durationchange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "emptied", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "ended", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "focus", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "hashchange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "input", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "keydown", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "keypress", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "keyup", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "load", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "loadeddata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "loadedmetadata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "loadstart", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "message", listener: (ev: MessageEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mousedown", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mousemove", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mouseout", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mouseover", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mouseup", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "offline", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "online", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "pause", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "play", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "playing", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "progress", listener: (ev: any) => boolean): Dojo.RemovableHandle;
+		on(type: "ratechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "readystatechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "reset", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "resize", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "scroll", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "seeked", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "seeking", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "select", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "stalled", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "storage", listener: (ev: StorageEvent) => boolean): Dojo.RemovableHandle;
+		on(type: "submit", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "suspend", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "timeupdate", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "unload", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "volumechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "waiting", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: string, listener: Dojo.Action): Dojo.RemovableHandle;
+		on(type: Dojo.ExtensionEvent, func: Dojo.Action): Dojo.RemovableHandle;
+
+		own(handle: Dojo.RemovableHandle): Dojo.RemovableHandle[];
+
+		placeAt(referenceId: string, position: string): _WidgetBase;
+		placeAt(referenceNode: HTMLElement, position: string): _WidgetBase;
+		placeAt(referenceWidget: _WidgetBase, position: string): _WidgetBase;
+		placeAt(referenceId: string, position: number): _WidgetBase;
+		placeAt(referenceNode: HTMLElement, position: number): _WidgetBase;
+		placeAt(referenceWidget: _WidgetBase, position: number): _WidgetBase;
+
+		postCreate(): void;
+		startup(): void;
+		toString(): string;
+
+		/* Deprecated
+				subscribe(topic: string, callback: Dojo.Action): Dojo.Handle;
+				uninitialize(): boolean;
+				unsubscribe(handle: Dojo.Handle): void;
+		*/
 	}
 }
