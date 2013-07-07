@@ -206,7 +206,12 @@ declare module Dojo
 	{
 		//BUG IN TYPESCRIPT: Class doesn't satisfy "new" signature in interfaces!
 		//new(...v_args: any[]);
-		destroy?(): void;
+
+		inherited(args: IArguments): void;
+		inherited(args: any[]): void;
+		inherited(...args: any[]): void;
+
+		destroy? (): void;
 
 		// dojo/Stateful
 		"get"(name: string): any;
@@ -356,6 +361,11 @@ declare module Dijit
 
 		getChildren(): _WidgetBase[];
 		getParent(): _WidgetBase;
+
+		inherited(args: IArguments): void;
+		inherited(args: any[]): void;
+		inherited(...args: any[]): void;
+
 		isFocusable(): boolean;
 		isLeftToRight(): boolean;
 		isValid(): boolean;
