@@ -218,6 +218,21 @@ declare module Dijit
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
+
+	interface _WidgetsInTemplateMixin extends _Mixin
+	{
+		//contextRequire: 
+		//widgetsInTemplate: boolean;
+
+		"get"(name: "widgetsInTemplate"): boolean;
+		"get"(name: string): any;
+
+		"set"(name: "widgetsInTemplate", value: boolean): void;
+		"set"(name: string, value: any): void;
+
+		watch(prop: "widgetsInTemplate", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+	}
 }
 
 // dijit module definitions
@@ -271,6 +286,11 @@ declare module "dijit/_CssStateMixin"
 {
 	var _CssStateMixin: Dijit._CssStateMixin;
 	export = _CssStateMixin;
+}
+declare module "dijit/_WidgetsInTemplateMixin"
+{
+	var _WidgetsInTemplateMixin: Dijit._WidgetsInTemplateMixin;
+	export = _WidgetsInTemplateMixin;
 }
 
 // dijit/registry
