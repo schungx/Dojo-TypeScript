@@ -35,7 +35,7 @@ declare module Dojo.Data
 
 	// dojo/data
 
-	class Store extends Dojo.Evented
+	class Store extends dojo.Evented
 	{
 	}
 
@@ -110,7 +110,7 @@ declare module Dojo.Data
 
 	// dojo/data/ObjectStore
 
-	class ObjectStore extends Dojo.Evented implements Util.SimpleFetch
+	class ObjectStore extends dojo.Evented implements Util.SimpleFetch
 	{
 		constructor(keywordParameters: {
 			url?: string;
