@@ -46,16 +46,16 @@ declare module Dojo
 
 		class StoreAsync<T> extends _Store<T>
 		{
-			add(object: T, directives?: PutDirectives<T>): Promise<number>;
-			get(id: number): Promise<T>;
-			getChildren<V>(parent: T, options?: QueryOptions): Promise<QueryResults<V>>;
-			getIdentity(object: T): Promise<number>;
-			getMetadata(object: T): Promise<Object>;
-			put(object: T, directives?: PutDirectives<T>): Promise<number>;
+			add(object: T, directives?: PutDirectives<T>): dojo.Promise<number>;
+			get(id: number): dojo.Promise<T>;
+			getChildren<V>(parent: T, options?: QueryOptions): dojo.Promise<QueryResults<V>>;
+			getIdentity(object: T): dojo.Promise<number>;
+			getMetadata(object: T): dojo.Promise<Object>;
+			put(object: T, directives?: PutDirectives<T>): dojo.Promise<number>;
 
-			query(query: string, options?: QueryOptions): Promise<QueryResults<T>>;
-			query(query: AttributesMap, options?: QueryOptions): Promise<QueryResults<T>>;
-			query(query: (item: T) => boolean, options?: QueryOptions): Promise<QueryResults<T>>;
+			query(query: string, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
+			query(query: AttributesMap, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
+			query(query: (item: T) => boolean, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
 
 			remove(id: number): boolean;
 
@@ -125,8 +125,8 @@ declare module Dojo
 		}
 		interface TransactionAsync
 		{
-			abort(callback?: Function, thisObject?: Object): Promise<boolean>;
-			commit(): Promise<boolean>;
+			abort(callback?: Function, thisObject?: Object): dojo.Promise<boolean>;
+			commit(): dojo.Promise<boolean>;
 		}
 
 		// Create options
