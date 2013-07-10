@@ -10,10 +10,10 @@ declare module Dojo
 {
 	interface Declare
 	{
-		(className: string, superclass: Dijit.WidgetOrMixin, props: DeclareOptions): Dijit._WidgetBase;
-		(className: string, superclasses: Dijit.WidgetOrMixin[], props: DeclareOptions): Dijit._WidgetBase;
-		(superclass: Dijit.WidgetOrMixin, props: DeclareOptions): Dijit._WidgetBase;
-		(superclasses: Dijit.WidgetOrMixin[], props: DeclareOptions): Dijit._WidgetBase;
+		(className: string, superclass: Dijit.WidgetOrMixin, props: DeclareOptions): dijit._WidgetBase;
+		(className: string, superclasses: Dijit.WidgetOrMixin[], props: DeclareOptions): dijit._WidgetBase;
+		(superclass: Dijit.WidgetOrMixin, props: DeclareOptions): dijit._WidgetBase;
+		(superclasses: Dijit.WidgetOrMixin[], props: DeclareOptions): dijit._WidgetBase;
 	}
 }
 
@@ -21,8 +21,10 @@ declare module Dojo
 
 declare module Dijit
 {
-	interface _Mixin extends WidgetOrMixin { }
-
+	interface _Mixin extends Dijit.WidgetOrMixin { }
+}
+declare module dijit
+{
 	// dijit/_Widget
 
 	class _Widget extends _WidgetBase implements _FocusMixin
@@ -100,13 +102,13 @@ declare module Dijit
 
 	// Common widget mixin's
 
-	interface _FocusMixin extends _Mixin
+	interface _FocusMixin extends Dijit._Mixin
 	{
 		onBlur(): void;
 		onFocus(): void;
 	}
 
-	interface _Container extends _Mixin
+	interface _Container extends Dijit._Mixin
 	{
 		addChild(widget: _WidgetBase, insertIndex?: number): void;
 		getIndexOfChild(child: _WidgetBase): number;
@@ -115,14 +117,14 @@ declare module Dijit
 		removeChild(widget: number): void;
 	}
 
-	interface _Contained extends _Mixin
+	interface _Contained extends Dijit._Mixin
 	{
 		getIndexInParent(): number;
 		getNextSibling(): _WidgetBase;
 		getPreviousSibling(): _WidgetBase;
 	}
 
-	interface _AttachMixin extends _Mixin
+	interface _AttachMixin extends Dijit._Mixin
 	{
 		//attachScope: Object;
 		//searchContainerNode: boolean;
@@ -197,7 +199,7 @@ declare module Dijit
 	{
 	}
 
-	interface _CssStateMixin extends _Mixin
+	interface _CssStateMixin extends Dijit._Mixin
 	{
 		//active: boolean;
 		//cssStateNodes: { [attachPoint: string]: string; };
@@ -219,7 +221,7 @@ declare module Dijit
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
-	interface _WidgetsInTemplateMixin extends _Mixin
+	interface _WidgetsInTemplateMixin extends Dijit._Mixin
 	{
 		//contextRequire: 
 		//widgetsInTemplate: boolean;
@@ -239,57 +241,57 @@ declare module Dijit
 
 declare module "dijit/_Widget"
 {
-	var _Widget: Dijit._Widget;
+	var _Widget: dijit._Widget;
 	export = _Widget;
 }
 declare module "dijit/_WidgetBase" 
 {
-	var _WidgetBase: Dijit._WidgetBase;
+	var _WidgetBase: dijit._WidgetBase;
 	export = _WidgetBase;
 }
 declare module "dijit/_FocusMixin"
 {
-	var _FocusMixin: Dijit._FocusMixin;
+	var _FocusMixin: dijit._FocusMixin;
 	export = _FocusMixin;
 }
 declare module "dijit/_Container" 
 {
-	var _Container: Dijit._Container;
+	var _Container: dijit._Container;
 	export = _Container;
 }
 declare module "dijit/_Contained"
 {
-	var _Contained: Dijit._Contained;
+	var _Contained: dijit._Contained;
 	export = _Contained;
 }
 declare module "dijit/_AttachMixin" 
 {
-	var _AttachMixin: Dijit._AttachMixin;
+	var _AttachMixin: dijit._AttachMixin;
 	export = _AttachMixin;
 }
 declare module "dijit/_TemplatedMixin"
 {
-	var _TemplatedMixin: Dijit._TemplatedMixin;
+	var _TemplatedMixin: dijit._TemplatedMixin;
 	export = _TemplatedMixin;
 }
 declare module "dijit/_KeyNavMixin" 
 {
-	var _KeyNavMixin: Dijit._KeyNavMixin;
+	var _KeyNavMixin: dijit._KeyNavMixin;
 	export = _KeyNavMixin;
 }
 declare module "dijit/_KeyNavContainer"
 {
-	var _KeyNavContainer: Dijit._KeyNavContainer;
+	var _KeyNavContainer: dijit._KeyNavContainer;
 	export = _KeyNavContainer;
 }
 declare module "dijit/_CssStateMixin" 
 {
-	var _CssStateMixin: Dijit._CssStateMixin;
+	var _CssStateMixin: dijit._CssStateMixin;
 	export = _CssStateMixin;
 }
 declare module "dijit/_WidgetsInTemplateMixin"
 {
-	var _WidgetsInTemplateMixin: Dijit._WidgetsInTemplateMixin;
+	var _WidgetsInTemplateMixin: dijit._WidgetsInTemplateMixin;
 	export = _WidgetsInTemplateMixin;
 }
 
@@ -297,16 +299,16 @@ declare module "dijit/_WidgetsInTemplateMixin"
 
 declare module Dijit
 {
-	interface Registry extends Array<_WidgetBase>
+	interface Registry extends Array<dijit._WidgetBase>
 	{
-		byId(id: string): _WidgetBase;
-		byNode(node: HTMLElement): _WidgetBase;
-		findWidgets(root: HTMLElement, skipNode?: HTMLElement): _WidgetBase[];
-		getEnclosingWidget(node: HTMLElement): _WidgetBase;
+		byId(id: string): dijit._WidgetBase;
+		byNode(node: HTMLElement): dijit._WidgetBase;
+		findWidgets(root: HTMLElement, skipNode?: HTMLElement): dijit._WidgetBase[];
+		getEnclosingWidget(node: HTMLElement): dijit._WidgetBase;
 		getUniqueId(widgetType: string): string;
-		add(widget: _WidgetBase): void;
+		add(widget: dijit._WidgetBase): void;
 		remove(id: string): void;
-		toArray(): _WidgetBase[];
+		toArray(): dijit._WidgetBase[];
 	}
 }
 
@@ -336,11 +338,11 @@ declare module "dijit/place"
 
 // dijit/form
 
-declare module Dijit
+declare module dijit
 {
-	module Form
+	module form
 	{
-		interface _FormMixin extends _Mixin
+		interface _FormMixin extends Dijit._Mixin
 		{
 			//state: string;
 
@@ -364,6 +366,6 @@ declare module Dijit
 
 declare module "dijit/form/_FormMixin"
 {
-	var _FormMixin: Dijit.Form._FormMixin;
+	var _FormMixin: dijit.form._FormMixin;
 	export = _FormMixin;
 }
