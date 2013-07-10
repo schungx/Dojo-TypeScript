@@ -278,14 +278,12 @@ declare module Dojo
 
 declare module "dojo/_base/fx"
 {
-	class _Line {}
+	function anim(nodeId: string, properties: Dojo.PropertiesMap, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.SimpleAction, delay?: number): dojo.Animation;
+	function anim(node: HTMLElement, properties: Dojo.PropertiesMap, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.SimpleAction, delay?: number): dojo.Animation;
 
-	function anim(nodeId: string, properties: Dojo.PropertiesMap, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.SimpleAction, delay?: number): Dojo.Animation;
-	function anim(node: HTMLElement, properties: Dojo.PropertiesMap, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.SimpleAction, delay?: number): Dojo.Animation;
-
-	function animateProperty(args: Dojo.Fx.CreateOptions): Dojo.Animation;
-	function fadeIn(args: Dojo.Fx.BaseCreateOptions): Dojo.Animation;
-	function fadeOut(args: Dojo.Fx.BaseCreateOptions): Dojo.Animation;
+	function animateProperty(args: Dojo.Fx.CreateOptions): dojo.Animation;
+	function fadeIn(args: Dojo.Fx.BaseCreateOptions): dojo.Animation;
+	function fadeOut(args: Dojo.Fx.BaseCreateOptions): dojo.Animation;
 }
 
 // dojo/_base/lang
@@ -484,17 +482,21 @@ declare class _DojoDeferred<T>		// TODO: "export =" cannot handle namespaces
 {
 	constructor(canceler?: (reason: any) => void );
 
-	promise: Dojo.Promise<T>;
+	promise: dojo.Promise<T>;
 
 	cancel(reason: any, strict?: boolean): any;
 	isCanceled(): boolean;
 	isFulfilled(): boolean;
 	isRejected(): boolean;
 	isResolved(): boolean;
-	progress(update: any, strict?: boolean): Dojo.Promise<T>;
-	reject(reason: any, strict?: boolean): Dojo.Promise<T>;
-	resolve(value: T, strict?: boolean): Dojo.Promise<T>;
-	then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): Dojo.Promise<V>;
+	progress(update: any, strict?: boolean): dojo.Promise<T>;
+	reject(reason: any, strict?: boolean): dojo.Promise<T>;
+	resolve(value: T, strict?: boolean): dojo.Promise<T>;
+	then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): dojo.Promise<V>;
+}
+declare module dojo
+{
+	class Deferred<T> extends _DojoDeferred<T> {}
 }
 declare module Dojo
 {
@@ -677,7 +679,7 @@ declare module "dojo/dom-style"
 
 declare module "dojo/Evented"
 {
-	var Evented: Dojo.Evented;
+	var Evented: dojo.Evented;
 	export = Evented;
 }
 
@@ -701,12 +703,12 @@ declare module Dojo
 
 declare module "dojo/fx" 
 {
-	function chain(animations: Dojo.Animation[]): Dojo.Animation;
-	function combine(animations: Dojo.Animation[]): Dojo.Animation;
-	function slideTo(args: Dojo.Fx.SlideCreateOptions): Dojo.Animation;
+	function chain(animations: dojo.Animation[]): dojo.Animation;
+	function combine(animations: dojo.Animation[]): dojo.Animation;
+	function slideTo(args: Dojo.Fx.SlideCreateOptions): dojo.Animation;
 	var Toggler: new (args: Dojo.Fx.TogglerCreateOptions) => Dojo.Fx.Toggler;
-	function wipeIn(args: Dojo.Fx.CreateOptions): Dojo.Animation;
-	function wipeOut(args: Dojo.Fx.CreateOptions): Dojo.Animation;
+	function wipeIn(args: Dojo.Fx.CreateOptions): dojo.Animation;
+	function wipeOut(args: Dojo.Fx.CreateOptions): dojo.Animation;
 }
 
 // dojo/fx/easing
@@ -758,9 +760,9 @@ declare module Dojo
 		{
 			node: any;
 			showDuration?: number;
-			showFunc?: (args: Dojo.Fx.BaseCreateOptions) => Dojo.Animation;
+			showFunc?: (args: Dojo.Fx.BaseCreateOptions) => Animation;
 			hideDuration?: number;
-			hideFuc?: (args: Dojo.Fx.BaseCreateOptions) => Dojo.Animation;
+			hideFuc?: (args: Dojo.Fx.BaseCreateOptions) => Animation;
 		}
 	}
 }
@@ -775,10 +777,10 @@ declare module "dojo/fx/Toggler"
 		node: HTMLElement;
 		showDuration: number;
 
-		hide(delay?: number): Dojo.Animation;
-		hideFunc(args?: { node: any; duration?: number; easing: Dojo.Fx.EasingFunction; }): Dojo.Animation;
-		show(delay?: number): Dojo.Animation;
-		showFunc(args?: { node: any; duration?: number; easing: Dojo.Fx.EasingFunction; }): Dojo.Animation;
+		hide(delay?: number): dojo.Animation;
+		hideFunc(args?: { node: any; duration?: number; easing: Dojo.Fx.EasingFunction; }): dojo.Animation;
+		show(delay?: number): dojo.Animation;
+		showFunc(args?: { node: any; duration?: number; easing: Dojo.Fx.EasingFunction; }): dojo.Animation;
 	}
 	export = Toggler;
 }
@@ -849,7 +851,7 @@ declare module "dojo/html"
 		"set"(cont: string, params?: Dojo.AttributesMap): void;
 		"set"(cont: HTMLElement, params?: Dojo.AttributesMap): void;
 		"set"(cont: NodeList, params?: Dojo.AttributesMap): void;
-		"set"(cont: Dojo.NodeList, params?: Dojo.AttributesMap): void;
+		"set"(cont: dojo.NodeList, params?: Dojo.AttributesMap): void;
 		"set"(cont: HTMLElement[], params?: Dojo.AttributesMap): void;
 
 		setContent(): void;
@@ -865,7 +867,7 @@ declare module "dojo/html"
 	function set(node: HTMLElement, content: string, params?: _ContentSetterOptions): void;
 	function set(node: HTMLElement, content: HTMLElement, params?: _ContentSetterOptions): void;
 	function set(node: HTMLElement, content: NodeList, params?: _ContentSetterOptions): void;
-	function set(node: HTMLElement, content: Dojo.NodeList, params?: _ContentSetterOptions): void;
+	function set(node: HTMLElement, content: dojo.NodeList, params?: _ContentSetterOptions): void;
 	function set(node: HTMLElement, content: HTMLElement[], params?: _ContentSetterOptions): void;
 }
 
@@ -982,379 +984,381 @@ declare module Dojo
 			auto: any;
 		}
 	}
-
+}
+declare module dojo
+{
 	class NodeList
 	{
 		constructor(node: HTMLElement);
 		constructor(nodes: HTMLElement[]);
 		constructor(nodes: HTMLNodeList);
-		constructor(nodes: Dojo.NodeList);
+		constructor(nodes: dojo.NodeList);
 
-		addClass(className: string): Dojo.NodeList;
-		addClass(classNames: string[]): Dojo.NodeList;
+		addClass(className: string): dojo.NodeList;
+		addClass(classNames: string[]): dojo.NodeList;
 
-		addClassFx(className: string, options?: Fx.CreateOptions): Animation;
-		addClassFx(classNames: string[], options?: Fx.CreateOptions): Animation;
+		addClassFx(className: string, options?: Dojo.Fx.CreateOptions): Animation;
+		addClassFx(classNames: string[], options?: Dojo.Fx.CreateOptions): Animation;
 
-		addContent(content: string, position?: string): Dojo.NodeList;
-		addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: string): Dojo.NodeList;
-		addContent(content: HTMLElement, position?: string): Dojo.NodeList;
-		addContent(content: HTMLElement[], position?: string): Dojo.NodeList;
-		addContent(content: Dojo.NodeList, position?: string): Dojo.NodeList;
-		addContent(content: HTMLNodeList, position?: string): Dojo.NodeList;
-		addContent(content: string, position?: number): Dojo.NodeList;
-		addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: number): Dojo.NodeList;
-		addContent(content: HTMLElement, position?: number): Dojo.NodeList;
-		addContent(content: HTMLElement[], position?: number): Dojo.NodeList;
-		addContent(content: Dojo.NodeList, position?: number): Dojo.NodeList;
-		addContent(content: HTMLNodeList, position?: number): Dojo.NodeList;
+		addContent(content: string, position?: string): dojo.NodeList;
+		addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: string): dojo.NodeList;
+		addContent(content: HTMLElement, position?: string): dojo.NodeList;
+		addContent(content: HTMLElement[], position?: string): dojo.NodeList;
+		addContent(content: dojo.NodeList, position?: string): dojo.NodeList;
+		addContent(content: HTMLNodeList, position?: string): dojo.NodeList;
+		addContent(content: string, position?: number): dojo.NodeList;
+		addContent(content: { template: string; parse?: boolean; templateFunc?: (template: string, content: Object) => Object; }, position?: number): dojo.NodeList;
+		addContent(content: HTMLElement, position?: number): dojo.NodeList;
+		addContent(content: HTMLElement[], position?: number): dojo.NodeList;
+		addContent(content: dojo.NodeList, position?: number): dojo.NodeList;
+		addContent(content: HTMLNodeList, position?: number): dojo.NodeList;
 
-		adopt(query: string, position?: string): Dojo.NodeList;
-		adopt(node: HTMLElement, position?: string): Dojo.NodeList;
-		adopt(list: HTMLElement[], position?: string): Dojo.NodeList;
-		adopt(list: HTMLNodeList, position?: string): Dojo.NodeList;
-		adopt(list: Dojo.NodeList, position?: string): Dojo.NodeList;
-		adopt(query: string, position?: number): Dojo.NodeList;
-		adopt(node: HTMLElement, position?: number): Dojo.NodeList;
-		adopt(list: HTMLElement[], position?: number): Dojo.NodeList;
-		adopt(list: HTMLNodeList, position?: number): Dojo.NodeList;
-		adopt(list: Dojo.NodeList, position?: number): Dojo.NodeList;
+		adopt(query: string, position?: string): dojo.NodeList;
+		adopt(node: HTMLElement, position?: string): dojo.NodeList;
+		adopt(list: HTMLElement[], position?: string): dojo.NodeList;
+		adopt(list: HTMLNodeList, position?: string): dojo.NodeList;
+		adopt(list: dojo.NodeList, position?: string): dojo.NodeList;
+		adopt(query: string, position?: number): dojo.NodeList;
+		adopt(node: HTMLElement, position?: number): dojo.NodeList;
+		adopt(list: HTMLElement[], position?: number): dojo.NodeList;
+		adopt(list: HTMLNodeList, position?: number): dojo.NodeList;
+		adopt(list: dojo.NodeList, position?: number): dojo.NodeList;
 
-		after(content: string): Dojo.NodeList;
-		after(content: Object): Dojo.NodeList;
-		after(content: HTMLElement): Dojo.NodeList;
-		after(content: HTMLElement[]): Dojo.NodeList;
-		after(content: Dojo.NodeList): Dojo.NodeList;
-		after(content: HTMLNodeList): Dojo.NodeList;
+		after(content: string): dojo.NodeList;
+		after(content: Object): dojo.NodeList;
+		after(content: HTMLElement): dojo.NodeList;
+		after(content: HTMLElement[]): dojo.NodeList;
+		after(content: dojo.NodeList): dojo.NodeList;
+		after(content: HTMLNodeList): dojo.NodeList;
 
-		andSelf(): Dojo.NodeList;
-		anim(properties: Dojo.PropertiesMap, duration?: number, easing?: Fx.EasingFunction, onEnd?: SimpleAction, delay?: number): Animation;
+		andSelf(): dojo.NodeList;
+		anim(properties: Dojo.PropertiesMap, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.SimpleAction, delay?: number): Animation;
 
-		animateProperty(args: Fx.CreateOptions): Animation;
-		animateProperty(args: Fx.AutoCreateOptions): Dojo.NodeList;
+		animateProperty(args: Dojo.Fx.CreateOptions): Animation;
+		animateProperty(args: Dojo.Fx.AutoCreateOptions): dojo.NodeList;
 
-		append(content: string): Dojo.NodeList;
-		append(content: Object): Dojo.NodeList;
-		append(content: HTMLElement): Dojo.NodeList;
-		append(content: HTMLElement[]): Dojo.NodeList;
-		append(content: Dojo.NodeList): Dojo.NodeList;
-		append(content: HTMLNodeList): Dojo.NodeList;
+		append(content: string): dojo.NodeList;
+		append(content: Object): dojo.NodeList;
+		append(content: HTMLElement): dojo.NodeList;
+		append(content: HTMLElement[]): dojo.NodeList;
+		append(content: dojo.NodeList): dojo.NodeList;
+		append(content: HTMLNodeList): dojo.NodeList;
 
-		appendTo(query: string): Dojo.NodeList;
-		at(...index: number[]): Dojo.NodeList;
+		appendTo(query: string): dojo.NodeList;
+		at(...index: number[]): dojo.NodeList;
 
 		attr(property: string): string[];
-		attr(property: string, value: string): Dojo.NodeList;
+		attr(property: string, value: string): dojo.NodeList;
 
-		before(content: string): Dojo.NodeList;
-		before(content: Object): Dojo.NodeList;
-		before(content: HTMLElement): Dojo.NodeList;
-		before(content: HTMLElement[]): Dojo.NodeList;
-		before(content: Dojo.NodeList): Dojo.NodeList;
-		before(content: HTMLNodeList): Dojo.NodeList;
+		before(content: string): dojo.NodeList;
+		before(content: Object): dojo.NodeList;
+		before(content: HTMLElement): dojo.NodeList;
+		before(content: HTMLElement[]): dojo.NodeList;
+		before(content: dojo.NodeList): dojo.NodeList;
+		before(content: HTMLNodeList): dojo.NodeList;
 
-		children(query?: string): Dojo.NodeList;
-		clone(): Dojo.NodeList;
+		children(query?: string): dojo.NodeList;
+		clone(): dojo.NodeList;
 
 		closest(query: string): HTMLElement;
 		closest(query: string, rootId: string): HTMLElement;
 		closest(query: string, root: Object): HTMLElement;
 
-		concat(...items: HTMLElement[]): Dojo.NodeList;
+		concat(...items: HTMLElement[]): dojo.NodeList;
 
-		connect(methodName: string, funcName: string): Dojo.NodeList;
-		connect(methodName: string, func: Function): Dojo.NodeList;
-		connect(methodName: string, obj: Object, funcName: string): Dojo.NodeList;
+		connect(methodName: string, funcName: string): dojo.NodeList;
+		connect(methodName: string, func: Function): dojo.NodeList;
+		connect(methodName: string, obj: Object, funcName: string): dojo.NodeList;
 
-		data(key: Dojo.PropertiesMap): Dojo.NodeList;
+		data(key: Dojo.PropertiesMap): dojo.NodeList;
 		data(key: string): any;
-		data(key: string, value: any): Dojo.NodeList;
+		data(key: string, value: any): dojo.NodeList;
 
-		delegate(selector: string, eventName: string, listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "abort", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "afterprint", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "beforeprint", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "blur", listener: (ev: FocusEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "canplay", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "canplaythrough", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "change", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "click", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "contextmenu", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "dblclick", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "drag", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "dragend", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "dragenter", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "dragleave", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "dragover", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "dragstart", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "drop", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "durationchange", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "emptied", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "ended", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "focus", listener: (ev: FocusEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "hashchange", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "input", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "keydown", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "keypress", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "keyup", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "load", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "loadeddata", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "loadedmetadata", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "loadstart", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "message", listener: (ev: MessageEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "mousedown", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "mousemove", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "mouseout", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "mouseover", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "mouseup", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "offline", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "online", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "pause", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "play", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "playing", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "progress", listener: (ev: any) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "ratechange", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "readystatechange", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "reset", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "resize", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "scroll", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "seeked", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "seeking", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "select", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "stalled", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "storage", listener: (ev: StorageEvent) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "submit", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "suspend", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "timeupdate", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "unload", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "volumechange", listener: (ev: Event) => boolean): Dojo.NodeList;
-		delegate(selector: string, eventName: "waiting", listener: (ev: Event) => boolean): Dojo.NodeList;
+		delegate(selector: string, eventName: string, listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "abort", listener: (ev: UIEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "afterprint", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "beforeprint", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "blur", listener: (ev: FocusEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "canplay", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "canplaythrough", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "change", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "click", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "contextmenu", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "dblclick", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "drag", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "dragend", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "dragenter", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "dragleave", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "dragover", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "dragstart", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "drop", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "durationchange", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "emptied", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "ended", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "focus", listener: (ev: FocusEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "hashchange", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "input", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "keydown", listener: (ev: KeyboardEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "keypress", listener: (ev: KeyboardEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "keyup", listener: (ev: KeyboardEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "load", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "loadeddata", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "loadedmetadata", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "loadstart", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "message", listener: (ev: MessageEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "mousedown", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "mousemove", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "mouseout", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "mouseover", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "mouseup", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "offline", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "online", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "pause", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "play", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "playing", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "progress", listener: (ev: any) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "ratechange", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "readystatechange", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "reset", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "resize", listener: (ev: UIEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "scroll", listener: (ev: UIEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "seeked", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "seeking", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "select", listener: (ev: UIEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "stalled", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "storage", listener: (ev: StorageEvent) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "submit", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "suspend", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "timeupdate", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "unload", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "volumechange", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: "waiting", listener: (ev: Event) => boolean): dojo.NodeList;
 
-		dtl(template: string, thisObject?: Object): Dojo.NodeList;
-		empty(): Dojo.NodeList;
-		end(): Dojo.NodeList;
-		even(): Dojo.NodeList;
-		every(callback: (node: HTMLElement, index: number, list: Dojo.NodeList) => boolean, thisObject?: Object): boolean;
+		dtl(template: string, thisObject?: Object): dojo.NodeList;
+		empty(): dojo.NodeList;
+		end(): dojo.NodeList;
+		even(): dojo.NodeList;
+		every(callback: (node: HTMLElement, index: number, list: dojo.NodeList) => boolean, thisObject?: Object): boolean;
 
-		fadeIn(args?: Fx.AutoBaseCreateOptions): Dojo.NodeList;
-		fadeIn(args?: Fx.BaseCreateOptions): Animation;
+		fadeIn(args?: Dojo.Fx.AutoBaseCreateOptions): dojo.NodeList;
+		fadeIn(args?: Dojo.Fx.BaseCreateOptions): Animation;
 
-		fadeOut(args?: Fx.AutoBaseCreateOptions): Dojo.NodeList;
-		fadeOut(args?: Fx.BaseCreateOptions): Animation;
+		fadeOut(args?: Dojo.Fx.AutoBaseCreateOptions): dojo.NodeList;
+		fadeOut(args?: Dojo.Fx.BaseCreateOptions): Animation;
 
-		filter(filter: string): Dojo.NodeList;
-		filter(filter: (item: HTMLElement, index: number, list: Dojo.NodeList) => boolean): Dojo.NodeList;
+		filter(filter: string): dojo.NodeList;
+		filter(filter: (item: HTMLElement, index: number, list: dojo.NodeList) => boolean): dojo.NodeList;
 
-		first(): Dojo.NodeList;
-		forEach(callback: (item: HTMLElement, index: number, list: Dojo.NodeList) => void , thisObject?: Object): Dojo.NodeList;
+		first(): dojo.NodeList;
+		forEach(callback: (item: HTMLElement, index: number, list: dojo.NodeList) => void , thisObject?: Object): dojo.NodeList;
 
 		html(): string;
-		html(content: string): Dojo.NodeList;
-		html(content: HTMLElement): Dojo.NodeList;
-		html(content: HTMLElement[]): Dojo.NodeList;
-		html(content: HTMLNodeList): Dojo.NodeList;
-		html(content: Dojo.NodeList): Dojo.NodeList;
+		html(content: string): dojo.NodeList;
+		html(content: HTMLElement): dojo.NodeList;
+		html(content: HTMLElement[]): dojo.NodeList;
+		html(content: HTMLNodeList): dojo.NodeList;
+		html(content: dojo.NodeList): dojo.NodeList;
 
 		indexOf(value: HTMLElement, fromIndex?: number): number;
 
 		innerHTML(): string;
-		innerHTML(content: string): Dojo.NodeList;
-		innerHTML(content: HTMLElement): Dojo.NodeList;
-		innerHTML(content: HTMLElement[]): Dojo.NodeList;
-		innerHTML(content: HTMLNodeList): Dojo.NodeList;
-		innerHTML(content: Dojo.NodeList): Dojo.NodeList;
+		innerHTML(content: string): dojo.NodeList;
+		innerHTML(content: HTMLElement): dojo.NodeList;
+		innerHTML(content: HTMLElement[]): dojo.NodeList;
+		innerHTML(content: HTMLNodeList): dojo.NodeList;
+		innerHTML(content: dojo.NodeList): dojo.NodeList;
 
-		insertAfter(query: string): Dojo.NodeList;
-		insertBefore(query: string): Dojo.NodeList;
-		instantiate(declaredClass: string, properties?: Dojo.PropertiesMap): Dojo.NodeList;
-		last(): Dojo.NodeList;
+		insertAfter(query: string): dojo.NodeList;
+		insertBefore(query: string): dojo.NodeList;
+		instantiate(declaredClass: string, properties?: Dojo.PropertiesMap): dojo.NodeList;
+		last(): dojo.NodeList;
 		lastIndexOf(value: HTMLElement, fromIndex?: number): number;
-		map(func: (item: HTMLElement, index: number, list: Dojo.NodeList) => HTMLElement, thisObject?: Object): Dojo.NodeList;
+		map(func: (item: HTMLElement, index: number, list: dojo.NodeList) => HTMLElement, thisObject?: Object): dojo.NodeList;
 		marginBox(): Position;
-		next(query?: string): Dojo.NodeList;
-		nextAll(query?: string): Dojo.NodeList;
-		odd(): Dojo.NodeList;
+		next(query?: string): dojo.NodeList;
+		nextAll(query?: string): dojo.NodeList;
+		odd(): dojo.NodeList;
 
-		on(name: "abort", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
-		on(name: "afterprint", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "beforeprint", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): Dojo.NodeList;
-		on(name: "blur", listener: (ev: FocusEvent) => boolean): Dojo.NodeList;
-		on(name: "canplay", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "canplaythrough", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "change", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "click", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		on(name: "contextmenu", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		on(name: "dblclick", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		on(name: "drag", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		on(name: "dragend", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		on(name: "dragenter", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		on(name: "dragleave", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		on(name: "dragover", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		on(name: "dragstart", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		on(name: "drop", listener: (ev: DragEvent) => boolean): Dojo.NodeList;
-		on(name: "durationchange", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "emptied", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "ended", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "focus", listener: (ev: FocusEvent) => boolean): Dojo.NodeList;
-		on(name: "hashchange", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "input", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "keydown", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
-		on(name: "keypress", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
-		on(name: "keyup", listener: (ev: KeyboardEvent) => boolean): Dojo.NodeList;
-		on(name: "load", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "loadeddata", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "loadedmetadata", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "loadstart", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "message", listener: (ev: MessageEvent) => boolean): Dojo.NodeList;
-		on(name: "mousedown", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		on(name: "mousemove", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		on(name: "mouseout", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		on(name: "mouseover", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		on(name: "mouseup", listener: (ev: MouseEvent) => boolean): Dojo.NodeList;
-		on(name: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): Dojo.NodeList;
-		on(name: "offline", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "online", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "pause", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "play", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "playing", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "progress", listener: (ev: any) => boolean): Dojo.NodeList;
-		on(name: "ratechange", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "readystatechange", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "reset", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "resize", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
-		on(name: "scroll", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
-		on(name: "seeked", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "seeking", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "select", listener: (ev: UIEvent) => boolean): Dojo.NodeList;
-		on(name: "stalled", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "storage", listener: (ev: StorageEvent) => boolean): Dojo.NodeList;
-		on(name: "submit", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "suspend", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "timeupdate", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "unload", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "volumechange", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: "waiting", listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(name: string, listener: (ev: Event) => boolean): Dojo.NodeList;
-		on(type: ExtensionEvent, listener: EventListener): Dojo.NodeList;
+		on(name: "abort", listener: (ev: UIEvent) => boolean): dojo.NodeList;
+		on(name: "afterprint", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "beforeprint", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): dojo.NodeList;
+		on(name: "blur", listener: (ev: FocusEvent) => boolean): dojo.NodeList;
+		on(name: "canplay", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "canplaythrough", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "change", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "click", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		on(name: "contextmenu", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		on(name: "dblclick", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		on(name: "drag", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		on(name: "dragend", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		on(name: "dragenter", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		on(name: "dragleave", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		on(name: "dragover", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		on(name: "dragstart", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		on(name: "drop", listener: (ev: DragEvent) => boolean): dojo.NodeList;
+		on(name: "durationchange", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "emptied", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "ended", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "focus", listener: (ev: FocusEvent) => boolean): dojo.NodeList;
+		on(name: "hashchange", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "input", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "keydown", listener: (ev: KeyboardEvent) => boolean): dojo.NodeList;
+		on(name: "keypress", listener: (ev: KeyboardEvent) => boolean): dojo.NodeList;
+		on(name: "keyup", listener: (ev: KeyboardEvent) => boolean): dojo.NodeList;
+		on(name: "load", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "loadeddata", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "loadedmetadata", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "loadstart", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "message", listener: (ev: MessageEvent) => boolean): dojo.NodeList;
+		on(name: "mousedown", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		on(name: "mousemove", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		on(name: "mouseout", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		on(name: "mouseover", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		on(name: "mouseup", listener: (ev: MouseEvent) => boolean): dojo.NodeList;
+		on(name: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): dojo.NodeList;
+		on(name: "offline", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "online", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "pause", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "play", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "playing", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "progress", listener: (ev: any) => boolean): dojo.NodeList;
+		on(name: "ratechange", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "readystatechange", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "reset", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "resize", listener: (ev: UIEvent) => boolean): dojo.NodeList;
+		on(name: "scroll", listener: (ev: UIEvent) => boolean): dojo.NodeList;
+		on(name: "seeked", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "seeking", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "select", listener: (ev: UIEvent) => boolean): dojo.NodeList;
+		on(name: "stalled", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "storage", listener: (ev: StorageEvent) => boolean): dojo.NodeList;
+		on(name: "submit", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "suspend", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "timeupdate", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "unload", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "volumechange", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: "waiting", listener: (ev: Event) => boolean): dojo.NodeList;
+		on(name: string, listener: (ev: Event) => boolean): dojo.NodeList;
+		on(type: Dojo.ExtensionEvent, listener: EventListener): dojo.NodeList;
 
-		orphan(filter?: string): Dojo.NodeList;
-		parent(query?: string): Dojo.NodeList;
-		parents(query?: string): Dojo.NodeList;
+		orphan(filter?: string): dojo.NodeList;
+		parent(query?: string): dojo.NodeList;
+		parents(query?: string): dojo.NodeList;
 
-		place(query: string, position?: string): Dojo.NodeList;
-		place(node: HTMLElement, position?: string): Dojo.NodeList;
-		place(query: string, position?: number): Dojo.NodeList;
-		place(node: HTMLElement, position?: number): Dojo.NodeList;
+		place(query: string, position?: string): dojo.NodeList;
+		place(node: HTMLElement, position?: string): dojo.NodeList;
+		place(query: string, position?: number): dojo.NodeList;
+		place(node: HTMLElement, position?: number): dojo.NodeList;
 
-		position(): Rectangle;
+		position(): Dojo.Rectangle;
 
-		prepend(content: string): Dojo.NodeList;
-		prepend(content: Object): Dojo.NodeList;
-		prepend(content: HTMLElement): Dojo.NodeList;
-		prepend(content: HTMLElement[]): Dojo.NodeList;
-		prepend(content: Dojo.NodeList): Dojo.NodeList;
-		prepend(content: HTMLNodeList): Dojo.NodeList;
+		prepend(content: string): dojo.NodeList;
+		prepend(content: Object): dojo.NodeList;
+		prepend(content: HTMLElement): dojo.NodeList;
+		prepend(content: HTMLElement[]): dojo.NodeList;
+		prepend(content: dojo.NodeList): dojo.NodeList;
+		prepend(content: HTMLNodeList): dojo.NodeList;
 
-		prependTo(query: string): Dojo.NodeList;
-		prev(query?: string): Dojo.NodeList;
-		prevAll(query?: string): Dojo.NodeList;
-		query(query: string): Dojo.NodeList;
-		remove(filter?: string): Dojo.NodeList;
-		removeAttr(name: string): Dojo.NodeList;
+		prependTo(query: string): dojo.NodeList;
+		prev(query?: string): dojo.NodeList;
+		prevAll(query?: string): dojo.NodeList;
+		query(query: string): dojo.NodeList;
+		remove(filter?: string): dojo.NodeList;
+		removeAttr(name: string): dojo.NodeList;
 
-		removeClass(className?: string): Dojo.NodeList;
-		removeClass(classNames?: string[]): Dojo.NodeList;
+		removeClass(className?: string): dojo.NodeList;
+		removeClass(classNames?: string[]): dojo.NodeList;
 
-		removeClassFx(className: string, args?: Fx.CreateOptions): Animation;
-		removeClassFx(classNames: string[], args?: Fx.CreateOptions): Animation;
+		removeClassFx(className: string, args?: Dojo.Fx.CreateOptions): Animation;
+		removeClassFx(classNames: string[], args?: Dojo.Fx.CreateOptions): Animation;
 
-		removeData(key?: string): Dojo.NodeList;
-		replaceAll(query: string): Dojo.NodeList;
+		removeData(key?: string): dojo.NodeList;
+		replaceAll(query: string): dojo.NodeList;
 
-		replaceClass(addClass: string, removeClass?: string): Dojo.NodeList;
-		replaceClass(addClass: string, removeClasses?: string[]): Dojo.NodeList;
-		replaceClass(addClasses: string[], removeClass?: string): Dojo.NodeList;
-		replaceClass(addClasses: string[], removeClasses?: string[]): Dojo.NodeList;
+		replaceClass(addClass: string, removeClass?: string): dojo.NodeList;
+		replaceClass(addClass: string, removeClasses?: string[]): dojo.NodeList;
+		replaceClass(addClasses: string[], removeClass?: string): dojo.NodeList;
+		replaceClass(addClasses: string[], removeClasses?: string[]): dojo.NodeList;
 
-		replaceWith(content: string): Dojo.NodeList;
-		replaceWith(content: Object): Dojo.NodeList;
-		replaceWith(content: HTMLElement): Dojo.NodeList;
-		replaceWith(content: HTMLElement[]): Dojo.NodeList;
-		replaceWith(content: Dojo.NodeList): Dojo.NodeList;
-		replaceWith(content: HTMLNodeList): Dojo.NodeList;
+		replaceWith(content: string): dojo.NodeList;
+		replaceWith(content: Object): dojo.NodeList;
+		replaceWith(content: HTMLElement): dojo.NodeList;
+		replaceWith(content: HTMLElement[]): dojo.NodeList;
+		replaceWith(content: dojo.NodeList): dojo.NodeList;
+		replaceWith(content: HTMLNodeList): dojo.NodeList;
 
-		siblings(query?: string): Dojo.NodeList;
-		slice(begin: number, end?: number): Dojo.NodeList;
+		siblings(query?: string): dojo.NodeList;
+		slice(begin: number, end?: number): dojo.NodeList;
 
-		slideTo(args: Fx.SlideCreateOptions): Animation;
-		slideTo(args: Fx.AutoSlideCreateOptions): Dojo.NodeList;
+		slideTo(args: Dojo.Fx.SlideCreateOptions): Animation;
+		slideTo(args: Dojo.Fx.AutoSlideCreateOptions): dojo.NodeList;
 
-		some(callback: (node: HTMLElement, index: number, list: Dojo.NodeList) => boolean, thisObject?: Object): boolean;
-		splice(index: number, howmany?: number, ...items: HTMLElement[]): Dojo.NodeList;
+		some(callback: (node: HTMLElement, index: number, list: dojo.NodeList) => boolean, thisObject?: Object): boolean;
+		splice(index: number, howmany?: number, ...items: HTMLElement[]): dojo.NodeList;
 
 		style(property: string): string[];
-		style(property: string, value: string): Dojo.NodeList;
+		style(property: string, value: string): dojo.NodeList;
 
 		text(): string;
-		text(value: string): Dojo.NodeList;
+		text(value: string): dojo.NodeList;
 
-		toggleClass(className: string, condition?: boolean): Dojo.NodeList;
-		toggleClassFx(className: string, condition?: boolean, options?: Fx.CreateOptions): Animation;
+		toggleClass(className: string, condition?: boolean): dojo.NodeList;
+		toggleClassFx(className: string, condition?: boolean, options?: Dojo.Fx.CreateOptions): Animation;
 
 		val(): string;
 		val(): string[];
-		val(value: string): Dojo.NodeList;
-		val(value: string[]): Dojo.NodeList;
+		val(value: string): dojo.NodeList;
+		val(value: string[]): dojo.NodeList;
 
-		wipeIn(args: Fx.CreateOptions): Animation;
-		wipeIn(args: Fx.AutoCreateOptions): Dojo.NodeList;
+		wipeIn(args: Dojo.Fx.CreateOptions): Animation;
+		wipeIn(args: Dojo.Fx.AutoCreateOptions): dojo.NodeList;
 		
-		wipeOut(args: Fx.CreateOptions): Animation;
-		wipeOut(args: Fx.AutoCreateOptions): Dojo.NodeList;
+		wipeOut(args: Dojo.Fx.CreateOptions): Animation;
+		wipeOut(args: Dojo.Fx.AutoCreateOptions): dojo.NodeList;
 
-		wrap(html: string): Dojo.NodeList;
-		wrap(node: HTMLElement): Dojo.NodeList;
+		wrap(html: string): dojo.NodeList;
+		wrap(node: HTMLElement): dojo.NodeList;
 
-		wrapAll(html: string): Dojo.NodeList;
-		wrapAll(node: HTMLElement): Dojo.NodeList;
+		wrapAll(html: string): dojo.NodeList;
+		wrapAll(node: HTMLElement): dojo.NodeList;
 
-		wrapInner(html: string): Dojo.NodeList;
-		wrapInner(node: HTMLElement): Dojo.NodeList;
+		wrapInner(html: string): dojo.NodeList;
+		wrapInner(node: HTMLElement): dojo.NodeList;
 	}
 }
 declare module "dojo/NodeList"
 {
-	var NodeList: Dojo.NodeList;
+	var NodeList: dojo.NodeList;
 	export = NodeList;
 }
 
 // dojo/NodeList-???
 
 declare module "dojo/NodeList-data" {
-	var NodeList: Dojo.NodeList;
+	var NodeList: dojo.NodeList;
 	export = NodeList;
 }
 declare module "dojo/NodeList-dom" { 
-	var NodeList: Dojo.NodeList;
+	var NodeList: dojo.NodeList;
 	export = NodeList;
 }
 declare module "dojo/NodeList-fx" {
-	var NodeList: Dojo.NodeList;
+	var NodeList: dojo.NodeList;
 	export = NodeList;
 }
 declare module "dojo/NodeList-html" {
-	var NodeList: Dojo.NodeList;
+	var NodeList: dojo.NodeList;
 	export = NodeList;
 }
 declare module "dojo/NodeList-manipulate" {
-	var NodeList: Dojo.NodeList;
+	var NodeList: dojo.NodeList;
 	export = NodeList;
 }
 declare module "dojo/NodeList-traverse" {
-	var NodeList: Dojo.NodeList;
+	var NodeList: dojo.NodeList;
 	export = NodeList;
 }
 
@@ -1612,10 +1616,10 @@ declare module "dojo/parser"
 		contextRequire?: Function;
 	}
 
-	function parse(rootNode?: HTMLElement, options?: _ParseOptions): Dijit._WidgetBase[];
-	function scan(root?: HTMLElement, options?: _ParseOptions): Dojo.Promise<HTMLElement[]>;
-	function instantiate(nodes: HTMLElement[], mixin?: Dojo.PropertiesMap, options?: _ParseOptions): Dijit._WidgetBase[];
-	function construct(ctor: { (params?: Dijit.WidgetCreateOptions): Dijit._WidgetBase; }, node: HTMLElement, mixin?: Dojo.PropertiesMap, options?: _ParseOptions, scripts?: HTMLElement[], inherited?: Object): Dijit._WidgetBase;
+	function parse(rootNode?: HTMLElement, options?: _ParseOptions): dijit._WidgetBase[];
+	function scan(root?: HTMLElement, options?: _ParseOptions): dojo.Promise<HTMLElement[]>;
+	function instantiate(nodes: HTMLElement[], mixin?: Dojo.PropertiesMap, options?: _ParseOptions): dijit._WidgetBase[];
+	function construct(ctor: { (params?: Dijit.WidgetCreateOptions): dijit._WidgetBase; }, node: HTMLElement, mixin?: Dojo.PropertiesMap, options?: _ParseOptions, scripts?: HTMLElement[], inherited?: Object): dijit._WidgetBase;
 }
 
 // dojo/promise/Promise
@@ -1629,9 +1633,9 @@ declare module "dojo/promise/Promise"
 
 declare module "dojo/promise/all" 
 {
-	function all<T>(promises: Dojo.Promise<T>[]): Dojo.Promise<T[]>;
-	function all<T>(promises: Dojo.Dictionary<Dojo.Promise<T>>): Dojo.Promise<Dojo.Dictionary<T>>;
-	function all<T>(promises: any): Dojo.Promise<T>;
+	function all<T>(promises: dojo.Promise<T>[]): dojo.Promise<T[]>;
+	function all<T>(promises: Dojo.Dictionary<dojo.Promise<T>>): dojo.Promise<Dojo.Dictionary<T>>;
+	function all<T>(promises: any): dojo.Promise<T>;
 
 	export = all;
 }
@@ -1640,9 +1644,9 @@ declare module "dojo/promise/all"
 
 declare module "dojo/promise/first" 
 {
-	function first<T>(promises: Dojo.Promise<T>[]): Dojo.Promise<T>;
-	function first<T>(promises: Dojo.Dictionary<Dojo.Promise<T>>): Dojo.Promise<T>;
-	function first<T>(promises: any): Dojo.Promise<T>;
+	function first<T>(promises: dojo.Promise<T>[]): dojo.Promise<T>;
+	function first<T>(promises: Dojo.Dictionary<dojo.Promise<T>>): dojo.Promise<T>;
+	function first<T>(promises: any): dojo.Promise<T>;
 
 	export = first;
 }
@@ -1653,10 +1657,10 @@ declare module Dojo
 {
 	interface QueryEngine
 	{
-		(selector: string, contextId?: string): Dojo.NodeList;
-		(selector: string, thisObject?: Object): Dojo.NodeList;
+		(selector: string, contextId?: string): dojo.NodeList;
+		(selector: string, thisObject?: Object): dojo.NodeList;
 
-		NodeList: Dojo.NodeList;
+		NodeList: dojo.NodeList;
 	}
 }
 declare module "dojo/query"
@@ -1723,11 +1727,11 @@ declare module Dojo
 
 		interface RequestObject<T, BaseOptions, Options>
 		{
-			<T>(url: string, options?: Options): Promise<T>;
-			get<T>(url: string, options?: BaseOptions): Promise<T>;
-			put<T>(url: string, options?: BaseOptions): Promise<T>;
-			post<T>(url: string, options?: BaseOptions): Promise<T>;
-			del<T>(url: string, options?: BaseOptions): Promise<T>;
+			<T>(url: string, options?: Options): dojo.Promise<T>;
+			get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
+			put<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
+			post<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
+			del<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 		}
 
 		module Xhr
@@ -1771,65 +1775,65 @@ declare module Dojo
 
 declare module "dojo/request"
 {
-	function request<T>(url: string, options?: Dojo.Request._Options): Dojo.Promise<T>;
+	function request<T>(url: string, options?: Dojo.Request._Options): dojo.Promise<T>;
 
 	module request
 	{
-		function get<T>(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<T>;
-		function put<T>(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<T>;
-		function post<T>(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<T>;
-		function del<T>(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<T>;
+		function get<T>(url: string, options?: Dojo.Request._BaseOptions): dojo.Promise<T>;
+		function put<T>(url: string, options?: Dojo.Request._BaseOptions): dojo.Promise<T>;
+		function post<T>(url: string, options?: Dojo.Request._BaseOptions): dojo.Promise<T>;
+		function del<T>(url: string, options?: Dojo.Request._BaseOptions): dojo.Promise<T>;
 	}
 
 	export = request;
 }
 declare module "dojo/request/xhr"
 {
-	function request<T>(url: string, options?: Dojo.Request.Xhr._Options): Dojo.Promise<T>;
+	function request<T>(url: string, options?: Dojo.Request.Xhr._Options): dojo.Promise<T>;
 
 	module request
 	{
-		function get<T>(url: string, options?: Dojo.Request.Xhr._BaseOptions): Dojo.Promise<T>;
-		function put<T>(url: string, options?: Dojo.Request.Xhr._BaseOptions): Dojo.Promise<T>;
-		function post<T>(url: string, options?: Dojo.Request.Xhr._BaseOptions): Dojo.Promise<T>;
-		function del<T>(url: string, options?: Dojo.Request.Xhr._BaseOptions): Dojo.Promise<T>;
+		function get<T>(url: string, options?: Dojo.Request.Xhr._BaseOptions): dojo.Promise<T>;
+		function put<T>(url: string, options?: Dojo.Request.Xhr._BaseOptions): dojo.Promise<T>;
+		function post<T>(url: string, options?: Dojo.Request.Xhr._BaseOptions): dojo.Promise<T>;
+		function del<T>(url: string, options?: Dojo.Request.Xhr._BaseOptions): dojo.Promise<T>;
 	}
 
 	export = request;
 }
 declare module "dojo/request/node"
 {
-	function request<T>(url: string, options?: Dojo.Request.Node._Options): Dojo.Promise<T>;
+	function request<T>(url: string, options?: Dojo.Request.Node._Options): dojo.Promise<T>;
 
 	module request
 	{
-		function get<T>(url: string, options?: Dojo.Request.Node._BaseOptions): Dojo.Promise<T>;
-		function put<T>(url: string, options?: Dojo.Request.Node._BaseOptions): Dojo.Promise<T>;
-		function post<T>(url: string, options?: Dojo.Request.Node._BaseOptions): Dojo.Promise<T>;
-		function del<T>(url: string, options?: Dojo.Request.Node._BaseOptions): Dojo.Promise<T>;
+		function get<T>(url: string, options?: Dojo.Request.Node._BaseOptions): dojo.Promise<T>;
+		function put<T>(url: string, options?: Dojo.Request.Node._BaseOptions): dojo.Promise<T>;
+		function post<T>(url: string, options?: Dojo.Request.Node._BaseOptions): dojo.Promise<T>;
+		function del<T>(url: string, options?: Dojo.Request.Node._BaseOptions): dojo.Promise<T>;
 	}
 
 	export = request;
 }
 declare module "dojo/request/iframe" 
 {
-	function request<T>(url: string, options?: Dojo.Request.iFrame._Options): Dojo.Promise<T>;
+	function request<T>(url: string, options?: Dojo.Request.iFrame._Options): dojo.Promise<T>;
 
 	module request
 	{
-		function get<T>(url: string, options?: Dojo.Request.iFrame._BaseOptions): Dojo.Promise<T>;
-		function post<T>(url: string, options?: Dojo.Request.iFrame._BaseOptions): Dojo.Promise<T>;
+		function get<T>(url: string, options?: Dojo.Request.iFrame._BaseOptions): dojo.Promise<T>;
+		function post<T>(url: string, options?: Dojo.Request.iFrame._BaseOptions): dojo.Promise<T>;
 	}
 
 	export = request;
 }
 declare module "dojo/request/script"
 {
-	function request<T>(url: string, options?: Dojo.Request.Script._Options): Dojo.Promise<T>;
+	function request<T>(url: string, options?: Dojo.Request.Script._Options): dojo.Promise<T>;
 
 	module request
 	{
-		function get<T>(url: string, options?: Dojo.Request.Script._BaseOptions): Dojo.Promise<T>;
+		function get<T>(url: string, options?: Dojo.Request.Script._BaseOptions): dojo.Promise<T>;
 	}
 
 	export = request;
@@ -1856,12 +1860,12 @@ declare module "dojo/request/notify"
 declare module "dojo/request/registry"
 {
 	var registry: {
-		<T>(url: string, options?: Dojo.Request._Options): Dojo.Promise<T>;
+		<T>(url: string, options?: Dojo.Request._Options): dojo.Promise<T>;
 
-		get<T>(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<T>;
-		put<T>(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<T>;
-		post<T>(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<T>;
-		del<T>(url: string, options?: Dojo.Request._BaseOptions): Dojo.Promise<T>;
+		get<T>(url: string, options?: Dojo.Request._BaseOptions): dojo.Promise<T>;
+		put<T>(url: string, options?: Dojo.Request._BaseOptions): dojo.Promise<T>;
+		post<T>(url: string, options?: Dojo.Request._BaseOptions): dojo.Promise<T>;
+		del<T>(url: string, options?: Dojo.Request._BaseOptions): dojo.Promise<T>;
 
 		register<T>(url: string, provider: Dojo.Request.RequestObject<T, Dojo.Request._BaseOptions, Dojo.Request._Options>, first?: boolean): Dojo.RemovableHandle;
 		register<T>(url: RegExp, provider: Dojo.Request.RequestObject<T, Dojo.Request._BaseOptions, Dojo.Request._Options>, first?: boolean): Dojo.RemovableHandle;
@@ -1916,7 +1920,7 @@ declare module "dojo/topic"
 
 declare module "dojo/Stateful"
 {
-	var Stateful: Dojo.Stateful;
+	var Stateful: dojo.Stateful;
 	export = Stateful;
 }
 
@@ -1959,10 +1963,10 @@ declare module "dojo/uacss"
 
 declare module "dojo/when"
 {
-	function when<T>(value: T): Dojo.Promise<T>;
+	function when<T>(value: T): dojo.Promise<T>;
 	function when<T, V>(value: T, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): V;
-	function when<T>(promise: Dojo.Promise<T>): Dojo.Promise<T>;
-	function when<T, V>(promise: Dojo.Promise<T>, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): Dojo.Promise<V>;
+	function when<T>(promise: dojo.Promise<T>): dojo.Promise<T>;
+	function when<T, V>(promise: dojo.Promise<T>, callback: (value: T) => V, errback?: (error: any) => void , progback?: (update: any) => void ): dojo.Promise<V>;
 
 	export = when;
 }
