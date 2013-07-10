@@ -4,7 +4,7 @@
 
 /// <reference path="dijit.d.ts"/>
 
-declare module Dijit
+declare module dijit
 {
 	// dijit/MenuBase
 
@@ -618,26 +618,26 @@ declare module Dijit
 
 declare module "dijit/MenuBase" 
 {
-	var MenuBase: Dijit.MenuBase;
+	var MenuBase: dijit.MenuBase;
 	export = MenuBase;
 }
 declare module "dijit/DropDownMenu" 
 {
-	var DropDownMenu: Dijit.DropDownMenu;
+	var DropDownMenu: dijit.DropDownMenu;
 	export = DropDownMenu;
 }
 declare module "dijit/Menu" 
 {
-	var Menu: Dijit.Menu;
+	var Menu: dijit.Menu;
 	export = Menu;
 }
 declare module "dijit/MenuItem" 
 {
-	var MenuItem: Dijit.MenuItem;
+	var MenuItem: dijit.MenuItem;
 	export = MenuItem;
 }
 declare module "dijit/MenuSeparator" 
 {
-	var MenuSeparator: Dijit.MenuSeparator;
+	var MenuSeparator: dijit.MenuSeparator;
 	export = MenuSeparator;
 }
