@@ -17,16 +17,16 @@ declare class _DojoPromise<T>
 {
 	constructor();
 
-	always(callbackOrErrback?: (value: any) => void ): Dojo.Promise<T>;
+	always(callbackOrErrback?: (value: any) => void ): dojo.Promise<T>;
 	cancel(reason: any, strict?: boolean): any;
 	isCanceled(): boolean;
 	isFulfilled(): boolean;
 	isRejected(): boolean;
 	isResolved(): boolean;
-	otherwise(errback?: (error: any) => void ): Dojo.Promise<T>;
-	then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): Dojo.Promise<V>;
-	trace(): Dojo.Promise<T>;
-	traceRejected(): Dojo.Promise<T>;
+	otherwise(errback?: (error: any) => void ): dojo.Promise<T>;
+	then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): dojo.Promise<V>;
+	trace(): dojo.Promise<T>;
+	traceRejected(): dojo.Promise<T>;
 }
 
 // Define the Dojo namespace
@@ -103,6 +103,38 @@ declare module Dojo
 		b: number;
 	}
 
+	// Declare
+
+	interface Declare
+	{
+		(className: string, superclass: DeclaredClass, props: DeclareOptions): DeclaredClass;
+		(className: string, superclasses: DeclaredClass[], props: DeclareOptions): DeclaredClass;
+		(superclass: DeclaredClass, props: DeclareOptions): DeclaredClass;
+		(superclasses: DeclaredClass[], props: DeclareOptions): DeclaredClass;
+
+		safeMixin(dest: dijit._WidgetBase, ...sources: PropertiesMap[]): void;
+	}
+
+	interface DeclareOptions
+	{
+		"constructor"?: Action;
+		destroy?: SimpleAction;
+	}
+
+	class DeclaredClass
+	{
+		constructor(...v_args: any[]);
+
+		inherited(args: IArguments): void;
+		inherited(args: any[]): void;
+		inherited(...args: any[]): void;
+
+		destroy(): void;
+	}
+}
+
+declare module dojo
+{
 	// Evented
 
 	class Evented
@@ -176,48 +208,13 @@ declare module Dojo
 	
 	// Stateful
 
-	class Stateful
+	class Stateful extends Dojo.DeclaredClass
 	{
 		"get"(name: string): any;
 		"set"(name: string, value: any): void;
-		"set"(values: PropertiesMap): void;
-		watch<T>(name: string, callback: WatchCallback<T>): WatchHandle;
-	}
-
-	// Declare
-
-	interface Declare
-	{
-		(className: string, superclass: DeclaredClass, props: DeclareOptions): DeclaredClass;
-		(className: string, superclasses: DeclaredClass[], props: DeclareOptions): DeclaredClass;
-		(superclass: DeclaredClass, props: DeclareOptions): DeclaredClass;
-		(superclasses: DeclaredClass[], props: DeclareOptions): DeclaredClass;
-
-		safeMixin(dest: Dijit._WidgetBase, ...sources: PropertiesMap[]): void;
-	}
-
-	interface DeclareOptions
-	{
-		"constructor"?: Action;
-		destroy?: SimpleAction;
-	}
-
-	interface DeclaredClass
-	{
-		//BUG IN TYPESCRIPT: Class doesn't satisfy "new" signature in interfaces!
-		//new(...v_args: any[]);
-
-		inherited(args: IArguments): void;
-		inherited(args: any[]): void;
-		inherited(...args: any[]): void;
-
-		destroy? (): void;
-
-		// dojo/Stateful
-		"get"(name: string): any;
-		"set"(name: string, value: any): void;
-		"set"(values: PropertiesMap): void;
-		watch<T>(name: string, callback: WatchCallback<T>): WatchHandle;
+		"set"(values: Dojo.PropertiesMap): void;
+		watch<T>(name: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
+		_changeAttrValue(name: string, value: any): void;		// Helper functions are not flushed out with overload-by-constant
 	}
 
 	// Promise
@@ -228,11 +225,11 @@ declare module Dojo
 
 	class Animation extends Evented
 	{
-		constructor(args?: PropertiesMap);
-
+		constructor(args?: Dojo.PropertiesMap);
+		
 		duration: number;
 		curve: any;
-		easing: Fx.EasingFunction;
+		easing: Dojo.Fx.EasingFunction;
 		repeat: number;
 		rate: number;
 		delay: number;
@@ -270,11 +267,14 @@ declare module Dijit
 	}
 
 	interface WidgetOrMixin { }
+}
 
-	class _WidgetBase extends Dojo.Stateful implements Dojo.DeclaredClass, WidgetOrMixin
+declare module dijit
+{
+	class _WidgetBase extends dojo.Stateful implements Dojo.DeclaredClass, Dijit.WidgetOrMixin
 	{
-		constructor(params?: WidgetCreateOptions, srcNodeRef?: HTMLElement);
-		constructor(params?: WidgetCreateOptions, srcNodeRefId?: string);
+		constructor(params?: Dijit.WidgetCreateOptions, srcNodeRef?: HTMLElement);
+		constructor(params?: Dijit.WidgetCreateOptions, srcNodeRefId?: string);
 
 		private baseClass: string;
 		private "class": string;
