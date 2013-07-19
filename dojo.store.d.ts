@@ -4,6 +4,8 @@
 
 /// <reference path="dojo.types.d.ts"/>
 
+interface _HTMLArray<T> extends Array<T> { }
+
 declare module Dojo
 {
 	module Store
@@ -96,7 +98,7 @@ declare module Dojo
 
 		// dojo/store/api/Store.QueryResults
 
-		interface QueryResults<T> extends Array<T>
+		interface QueryResults<T> extends _HTMLArray<T>
 		{
 			total: number;
 
@@ -144,20 +146,41 @@ declare module Dojo
 			{
 				data?: any[];
 			}
-			class MemoryStore<T> extends _DojoStoreMemoryStore<T> {}
+			class Store<T> extends Dojo.Store.Store<T> implements CreateOptions
+			{
+				constructor(options: CreateOptions);
+
+				idProperty: string;
+				data: any[];
+				index: Dojo.Dictionary<number>;
+			}
 		}
 	
 		// dojo/store/DataStore
 
-		module Data
+		module DataStore
 		{
 			interface CreateOptions extends Dojo.Store.CreateOptions
 			{
 				target?: string;
 				store?: Object;		// Should be DojoDataStore, but needs to pull in dojo_data.ts and dojo.ts, so don't do it
 			}
-			class DataStore<T> extends _DojoStoreDataStore <T> {}
-			class DataStoreAsync<T> extends _DojoStoreDataStoreAsync<T> {}
+			class Store<T> extends Dojo.Store.Store<T> implements CreateOptions
+			{
+				constructor(options: CreateOptions);
+
+				idProperty: string;
+				target: string;
+				store: Object;
+			}
+			class StoreAsync<T> extends Dojo.Store.StoreAsync<T> implements CreateOptions
+			{
+				constructor(options: CreateOptions);
+
+				idProperty: string;
+				target: string;
+				store: Object;
+			}
 		}
 
 		// dojo/store/JsonRest
@@ -172,49 +195,19 @@ declare module Dojo
 				descendingPrefix?: string;
 				headers?: { [header: string]: string; };
 			}
-			class JsonRestStore<T> extends _DojoStoreJsonRestStore<T> {}
+			class Store<T> extends Dojo.Store.StoreAsync<T> implements CreateOptions
+			{
+				constructor(options: CreateOptions);
+
+				idProperty: string;
+				target: string;
+				accepts: string;
+				ascendingPrefix: string;
+				descendingPrefix: string;
+				headers: { [header: string]: string; };
+			}
 		}
 	}
-}
-
-
-// Generic classes that must reside at the root level because "export =" cannot handle namespaces
-// and we cannot use a variable because the classes are generic!
-
-declare class _DojoStoreMemoryStore<T> extends Dojo.Store.Store<T> implements Dojo.Store.CreateOptions
-{
-	constructor(options: Dojo.Store.CreateOptions);
-
-	idProperty: string;
-	data: any[];
-	index: Dojo.Dictionary<number>;
-}
-declare class _DojoStoreDataStore<T> extends Dojo.Store.Store<T> implements Dojo.Store.CreateOptions
-{
-	constructor(options: Dojo.Store.CreateOptions);
-
-	idProperty: string;
-	target: string;
-	store: Object;
-}
-declare class _DojoStoreDataStoreAsync<T> extends Dojo.Store.StoreAsync<T> implements Dojo.Store.CreateOptions
-{
-	constructor(options: Dojo.Store.CreateOptions);
-
-	idProperty: string;
-	target: string;
-	store: Object;
-}
-declare class _DojoStoreJsonRestStore<T> extends Dojo.Store.StoreAsync<T> implements Dojo.Store.CreateOptions
-{
-	constructor(options: Dojo.Store.CreateOptions);
-
-	idProperty: string;
-	target: string;
-	accepts: string;
-	ascendingPrefix: string;
-	descendingPrefix: string;
-	headers: { [header: string]: string; };
 }
 
 
@@ -222,15 +215,18 @@ declare class _DojoStoreJsonRestStore<T> extends Dojo.Store.StoreAsync<T> implem
 
 declare module "dojo/store/Memory" 
 {
-	export = _DojoStoreMemoryStore;
+	class Memory<T> extends Dojo.Store.Memory.Store<T> { }
+	export = Memory;
 }
 declare module "dojo/store/DataStore"
 {
-	export = _DojoStoreDataStore;
+	class DataStore<T> extends Dojo.Store.DataStore.Store<T> { }
+	export = DataStore;
 }
 declare module "dojo/store/JsonRest"
 {
-	export = _DojoStoreJsonRestStore;
+	class JsonRest<T> extends Dojo.Store.JsonRest.Store<T> { }
+	export = JsonRest;
 }
 
 // dojo/store/Observable
