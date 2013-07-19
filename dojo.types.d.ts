@@ -11,24 +11,6 @@ declare function define<T>(id: string, depends: string[], callback: Dojo.Functio
 declare function define<T>(depends: string[], callback: Dojo.FunctionReturning<T>): T;
 declare function define(obj: Object);
 
-// Classes that must reside at the root level because "export =" cannot handle namespaces
-
-declare class _DojoPromise<T>
-{
-	constructor();
-
-	always(callbackOrErrback?: (value: any) => void ): dojo.Promise<T>;
-	cancel(reason: any, strict?: boolean): any;
-	isCanceled(): boolean;
-	isFulfilled(): boolean;
-	isRejected(): boolean;
-	isResolved(): boolean;
-	otherwise(errback?: (error: any) => void ): dojo.Promise<T>;
-	then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): dojo.Promise<V>;
-	trace(): dojo.Promise<T>;
-	traceRejected(): dojo.Promise<T>;
-}
-
 // Define the Dojo namespace
 
 declare module Dojo
@@ -219,7 +201,21 @@ declare module dojo
 
 	// Promise
 
-	class Promise<T> extends _DojoPromise<T> { }
+	class Promise<T>
+	{
+		constructor();
+
+		always(callbackOrErrback?: (value: any) => void ): dojo.Promise<T>;
+		cancel(reason: any, strict?: boolean): any;
+		isCanceled(): boolean;
+		isFulfilled(): boolean;
+		isRejected(): boolean;
+		isResolved(): boolean;
+		otherwise(errback?: (error: any) => void ): dojo.Promise<T>;
+		then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): dojo.Promise<V>;
+		trace(): dojo.Promise<T>;
+		traceRejected(): dojo.Promise<T>;
+	}
 
 	// Animation
 
@@ -240,6 +236,17 @@ declare module dojo
 		stop(goToEnd?:boolean): Animation;
 		status(): string;
 	}
+}
+
+// These modules are useful in dijit, so define them here
+
+// dojo/_base/declare
+
+declare module "dojo/_base/declare" 
+{
+	var declare: Dojo.Declare;
+
+	export = declare;
 }
 
 
