@@ -217,3 +217,39 @@ creating a variable:
 	/// <amd-dependency path="plugin3" />
 
 These must be among the first lines of the program file.
+
+
+IX. Namespaces and types
+------------------------
+
+Interfaces are created for most Dojo Core modules and classes for
+almost all Dijit classes.  These interfaces and classes can be used
+directly in TypeScript code separate from the Dojo/Dijit modules
+they reside in.
+
+Namespaces and interfaces/types are proper-cased, for example:
+
+	dojo/html ==> Dojo.Html
+	dojo/ready ==> Dojo.Ready
+	dojo/dom-class ==> Dojo.DomClass
+	
+Modules under "dojo/_base" are mapped under the Dojo namespace
+without the "_base" level, for example:
+
+	dojo/_base/array ==> Dojo.Array
+	dojo/_base/lang ==> Dojo.Lang
+	
+Some very common Dojo and classes are put under the "dojo" namespace
+(notice the lower-case "d") so that they can be used directly in
+TypeScript code which will compile stright to JavaScript code that
+works stright out with Dojo:
+
+	dojo.Evented
+	dojo.Stateful
+	dojo.Promise
+	dojo.Animation
+	
+An example of using "dojo/_base/array" without using TypeScript's
+"import" syntax is:
+
+	require(["dojo/_base/array"], function(array: Dojo.Array) { ... });
