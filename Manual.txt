@@ -1,5 +1,5 @@
-Using The Dojo Toolkit with TypeScript 0.9
-==========================================
+Using The Dojo Toolkit (AMD-style) with TypeScript 0.9
+======================================================
 
 
 I. Prepare Dojo baseUrl
@@ -239,7 +239,7 @@ without the "_base" level, for example:
 	dojo/_base/array ==> Dojo.Array
 	dojo/_base/lang  ==> Dojo.Lang
 	
-Some very common Dojo and classes are put under the "dojo" namespace
+Some very common Dojo classes are put under the "dojo" namespace
 (notice the lower-case "d") so that they can be used directly in
 TypeScript code which will compile stright to JavaScript code that
 works stright out with Dojo:
