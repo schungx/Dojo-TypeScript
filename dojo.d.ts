@@ -4,172 +4,6 @@
 
 /// <reference path="dojo.types.d.ts"/>
 
-// Classes that must reside at the root level because "export =" cannot handle namespaces
-
-declare class _DojoColor
-{
-	constructor();
-	constructor(colors: any[]);
-	constructor(color: string);
-	constructor(color: Object);
-
-	a: number;
-	r: number;
-	g: number;
-	b: number;
-}
-
-declare module _DojoColor
-{
-	var named:
-	{
-		"aliceblue": number[];
-		"antiquewhite": number[];
-		"aquamarine": number[];
-		"azure": number[];
-		"beige": number[];
-		"bisque": number[];
-		"blanchedalmond": number[];
-		"blueviolet": number[];
-		"brown": number[];
-		"burlywood": number[];
-		"cadetblue": number[];
-		"chartreuse": number[];
-		"chocolate": number[];
-		"coral": number[];
-		"cornflowerblue": number[];
-		"cornsilk": number[];
-		"crimson": number[];
-		"cyan": number[];
-		"darkblue": number[];
-		"darkcyan": number[];
-		"darkgoldenrod": number[];
-		"darkgray": number[];
-		"darkgreen": number[];
-		"darkgrey": number[];
-		"darkkhaki": number[];
-		"darkmagenta": number[];
-		"darkolivegreen": number[];
-		"darkorange": number[];
-		"darkorchid": number[];
-		"darkred": number[];
-		"darksalmon": number[];
-		"darkseagreen": number[];
-		"darkslateblue": number[];
-		"darkslategray": number[];
-		"darkslategrey": number[];
-		"darkturquoise": number[];
-		"darkviolet": number[];
-		"deeppink": number[];
-		"deepskyblue": number[];
-		"dimgray": number[];
-		"dimgrey": number[];
-		"dodgerblue": number[];
-		"firebrick": number[];
-		"floralwhite": number[];
-		"forestgreen": number[];
-		"gainsboro": number[];
-		"ghostwhite": number[];
-		"gold": number[];
-		"goldenrod": number[];
-		"greenyellow": number[];
-		"grey": number[];
-		"honeydew": number[];
-		"hotpink": number[];
-		"indianred": number[];
-		"indigo": number[];
-		"ivory": number[];
-		"khaki": number[];
-		"lavender": number[];
-		"lavenderblush": number[];
-		"lawngreen": number[];
-		"lemonchiffon": number[];
-		"lightblue": number[];
-		"lightcoral": number[];
-		"lightcyan": number[];
-		"lightgoldenrodyellow": number[];
-		"lightgray": number[];
-		"lightgreen": number[];
-		"lightgrey": number[];
-		"lightpink": number[];
-		"lightsalmon": number[];
-		"lightseagreen": number[];
-		"lightskyblue": number[];
-		"lightslategray": number[];
-		"lightslategrey": number[];
-		"lightsteelblue": number[];
-		"lightyellow": number[];
-		"limegreen": number[];
-		"linen": number[];
-		"magenta": number[];
-		"mediumaquamarine": number[];
-		"mediumblue": number[];
-		"mediumorchid": number[];
-		"mediumpurple": number[];
-		"mediumseagreen": number[];
-		"mediumslateblue": number[];
-		"mediumspringgreen": number[];
-		"mediumturquoise": number[];
-		"mediumvioletred": number[];
-		"midnightblue": number[];
-		"mintcream": number[];
-		"mistyrose": number[];
-		"moccasin": number[];
-		"navajowhite": number[];
-		"oldlace": number[];
-		"olivedrab": number[];
-		"orange": number[];
-		"orangered": number[];
-		"orchid": number[];
-		"palegoldenrod": number[];
-		"palegreen": number[];
-		"paleturquoise": number[];
-		"palevioletred": number[];
-		"papayawhip": number[];
-		"peachpuff": number[];
-		"peru": number[];
-		"pink": number[];
-		"plum": number[];
-		"powderblue": number[];
-		"rosybrown": number[];
-		"royalblue": number[];
-		"saddlebrown": number[];
-		"salmon": number[];
-		"sandybrown": number[];
-		"seagreen": number[];
-		"seashell": number[];
-		"sienna": number[];
-		"skyblue": number[];
-		"slateblue": number[];
-		"slategray": number[];
-		"slategrey": number[];
-		"snow": number[];
-		"springgreen": number[];
-		"steelblue": number[];
-		"tan": number[];
-		"thistle": number[];
-		"tomato": number[];
-		"turquoise": number[];
-		"violet": number[];
-		"wheat": number[];
-		"whitesmoke": number[];
-		"yellowgreen": number[];
-	};
-}
-declare class _DojoFxToggler
-{
-	constructor(args: Dojo.Fx.TogglerCreateOptions);
-
-	hideDuration: number;
-	node: HTMLElement;
-	showDuration: number;
-
-	hide(delay?: number): dojo.Animation;
-	hideFunc(args?: { node: any; duration?: number; easing: Dojo.Fx.EasingFunction; }): dojo.Animation;
-	show(delay?: number): dojo.Animation;
-	showFunc(args?: { node: any; duration?: number; easing: Dojo.Fx.EasingFunction; }): dojo.Animation;
-}
-
 // dojo/ready
 
 declare module Dojo
@@ -253,11 +87,172 @@ declare module "dojo/_base/browser"
 
 declare module Dojo
 {
-	class Color extends _DojoColor {}
+	// We need this in order to prevent a compiler error
+	class _Color
+	{
+		constructor();
+		constructor(colors: any[]);
+		constructor(color: string);
+		constructor(color: Object);
+
+		a: number;
+		r: number;
+		g: number;
+		b: number;
+	}
+
+	class Color extends _Color { }
+
+	module Color
+	{
+		interface NamedColors
+		{
+			"aliceblue": number[];
+			"antiquewhite": number[];
+			"aquamarine": number[];
+			"azure": number[];
+			"beige": number[];
+			"bisque": number[];
+			"blanchedalmond": number[];
+			"blueviolet": number[];
+			"brown": number[];
+			"burlywood": number[];
+			"cadetblue": number[];
+			"chartreuse": number[];
+			"chocolate": number[];
+			"coral": number[];
+			"cornflowerblue": number[];
+			"cornsilk": number[];
+			"crimson": number[];
+			"cyan": number[];
+			"darkblue": number[];
+			"darkcyan": number[];
+			"darkgoldenrod": number[];
+			"darkgray": number[];
+			"darkgreen": number[];
+			"darkgrey": number[];
+			"darkkhaki": number[];
+			"darkmagenta": number[];
+			"darkolivegreen": number[];
+			"darkorange": number[];
+			"darkorchid": number[];
+			"darkred": number[];
+			"darksalmon": number[];
+			"darkseagreen": number[];
+			"darkslateblue": number[];
+			"darkslategray": number[];
+			"darkslategrey": number[];
+			"darkturquoise": number[];
+			"darkviolet": number[];
+			"deeppink": number[];
+			"deepskyblue": number[];
+			"dimgray": number[];
+			"dimgrey": number[];
+			"dodgerblue": number[];
+			"firebrick": number[];
+			"floralwhite": number[];
+			"forestgreen": number[];
+			"gainsboro": number[];
+			"ghostwhite": number[];
+			"gold": number[];
+			"goldenrod": number[];
+			"greenyellow": number[];
+			"grey": number[];
+			"honeydew": number[];
+			"hotpink": number[];
+			"indianred": number[];
+			"indigo": number[];
+			"ivory": number[];
+			"khaki": number[];
+			"lavender": number[];
+			"lavenderblush": number[];
+			"lawngreen": number[];
+			"lemonchiffon": number[];
+			"lightblue": number[];
+			"lightcoral": number[];
+			"lightcyan": number[];
+			"lightgoldenrodyellow": number[];
+			"lightgray": number[];
+			"lightgreen": number[];
+			"lightgrey": number[];
+			"lightpink": number[];
+			"lightsalmon": number[];
+			"lightseagreen": number[];
+			"lightskyblue": number[];
+			"lightslategray": number[];
+			"lightslategrey": number[];
+			"lightsteelblue": number[];
+			"lightyellow": number[];
+			"limegreen": number[];
+			"linen": number[];
+			"magenta": number[];
+			"mediumaquamarine": number[];
+			"mediumblue": number[];
+			"mediumorchid": number[];
+			"mediumpurple": number[];
+			"mediumseagreen": number[];
+			"mediumslateblue": number[];
+			"mediumspringgreen": number[];
+			"mediumturquoise": number[];
+			"mediumvioletred": number[];
+			"midnightblue": number[];
+			"mintcream": number[];
+			"mistyrose": number[];
+			"moccasin": number[];
+			"navajowhite": number[];
+			"oldlace": number[];
+			"olivedrab": number[];
+			"orange": number[];
+			"orangered": number[];
+			"orchid": number[];
+			"palegoldenrod": number[];
+			"palegreen": number[];
+			"paleturquoise": number[];
+			"palevioletred": number[];
+			"papayawhip": number[];
+			"peachpuff": number[];
+			"peru": number[];
+			"pink": number[];
+			"plum": number[];
+			"powderblue": number[];
+			"rosybrown": number[];
+			"royalblue": number[];
+			"saddlebrown": number[];
+			"salmon": number[];
+			"sandybrown": number[];
+			"seagreen": number[];
+			"seashell": number[];
+			"sienna": number[];
+			"skyblue": number[];
+			"slateblue": number[];
+			"slategray": number[];
+			"slategrey": number[];
+			"snow": number[];
+			"springgreen": number[];
+			"steelblue": number[];
+			"tan": number[];
+			"thistle": number[];
+			"tomato": number[];
+			"turquoise": number[];
+			"violet": number[];
+			"wheat": number[];
+			"whitesmoke": number[];
+			"yellowgreen": number[];
+		}
+
+		var named: NamedColors;
+	}
 }
 declare module "dojo/_base/Color"
 {
-	export = _DojoColor;
+	class Color extends Dojo._Color { }
+
+	module Color
+	{
+		var named: Dojo.Color.NamedColors;
+	}
+
+	export = Color;
 }
 
 // dojo/_base/config
@@ -603,33 +598,29 @@ declare module "dojo/date/locale"
 
 // dojo/Deferred
 
-declare class _DojoDeferred<T>		// TODO: "export =" cannot handle namespaces
-{
-	constructor(canceler?: (reason: any) => void );
-
-	promise: dojo.Promise<T>;
-
-	cancel(reason: any, strict?: boolean): any;
-	isCanceled(): boolean;
-	isFulfilled(): boolean;
-	isRejected(): boolean;
-	isResolved(): boolean;
-	progress(update: any, strict?: boolean): dojo.Promise<T>;
-	reject(reason: any, strict?: boolean): dojo.Promise<T>;
-	resolve(value: T, strict?: boolean): dojo.Promise<T>;
-	then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): dojo.Promise<V>;
-}
 declare module dojo
 {
-	class Deferred<T> extends _DojoDeferred<T> {}
-}
-declare module Dojo
-{
-	class Deferred<T> extends _DojoDeferred<T> {}
+	class Deferred<T>
+	{
+		constructor(canceler?: (reason: any) => void );
+
+		promise: dojo.Promise<T>;
+
+		cancel(reason: any, strict?: boolean): any;
+		isCanceled(): boolean;
+		isFulfilled(): boolean;
+		isRejected(): boolean;
+		isResolved(): boolean;
+		progress(update: any, strict?: boolean): dojo.Promise<T>;
+		reject(reason: any, strict?: boolean): dojo.Promise<T>;
+		resolve(value: T, strict?: boolean): dojo.Promise<T>;
+		then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): dojo.Promise<V>;
+	}
 }
 declare module "dojo/Deferred"
 {
-	export = _DojoDeferred;
+	class Deferred<T> extends dojo.Deferred<T> { }
+	export = Deferred;
 }
 
 // dojo/dom
@@ -971,12 +962,25 @@ declare module Dojo
 			hideFuc?: (args: BaseCreateOptions) => dojo.Animation;
 		}
 
-		class Toggler extends _DojoFxToggler {}
+		class Toggler
+		{
+			constructor(args: TogglerCreateOptions);
+
+			hideDuration: number;
+			node: HTMLElement;
+			showDuration: number;
+
+			hide(delay?: number): dojo.Animation;
+			hideFunc(args?: { node: any; duration?: number; easing: EasingFunction; }): dojo.Animation;
+			show(delay?: number): dojo.Animation;
+			showFunc(args?: { node: any; duration?: number; easing: EasingFunction; }): dojo.Animation;
+		}
 	}
 }
 declare module "dojo/fx/Toggler"
 {
-	export = _DojoFxToggler;
+	class Toggler extends Dojo.Fx.Toggler { }
+	export = Toggler;
 }
 
 // dojo/has
@@ -1854,7 +1858,8 @@ declare module "dojo/parser"
 
 declare module "dojo/promise/Promise" 
 {
-	export = _DojoPromise;
+	class Promise<T> extends dojo.Promise<T> { }
+	export = Promise;
 }
 
 // dojo/promise/all
@@ -1977,7 +1982,7 @@ declare module Dojo
 			timeout?: number;
 			preventCache?: boolean;
 		}
-		interface Options extends BaseOptions, MethodOptions {}
+		interface Options extends BaseOptions, MethodOptions { }
 
 		interface RequestObject<T, BaseOptions, Options>
 		{
@@ -2048,7 +2053,7 @@ declare module Dojo
 				user: string;
 				password: string;
 			}
-			interface Options extends BaseOptions, MethodOptions {}
+			interface Options extends BaseOptions, MethodOptions { }
 
 			interface Base
 			{
@@ -2077,7 +2082,7 @@ declare module Dojo
 			{
 				form?: HTMLElement;
 			}
-			interface Options extends BaseOptions, MethodOptions {}
+			interface Options extends BaseOptions, MethodOptions { }
 
 			interface Base
 			{
@@ -2106,7 +2111,7 @@ declare module Dojo
 				jsonp?: string;
 				checkString?: string;
 			}
-			interface Options extends BaseOptions, MethodOptions {}
+			interface Options extends BaseOptions, MethodOptions { }
 
 			interface Base
 			{
@@ -2221,7 +2226,7 @@ declare module "dojo/router"
 
 declare module Dojo
 {
-	interface Sniff extends Has {}
+	interface Sniff extends Has { }
 }
 declare module "dojo/sniff"
 {
@@ -2300,7 +2305,7 @@ declare module "dojo/touch"
 
 declare module Dojo
 {
-	interface Uacss extends Has {}
+	interface Uacss extends Has { }
 }
 declare module "dojo/uacss"
 {
