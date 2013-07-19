@@ -227,7 +227,7 @@ almost all Dijit classes.  These interfaces and classes can be used
 directly in TypeScript code separate from the Dojo/Dijit modules
 they reside in.
 
-Namespaces and interfaces/types are proper-cased, for example:
+Dojo namespaces and interfaces/types are proper-cased, for example:
 
 	dojo/html        ==> Dojo.Html
 	dojo/ready       ==> Dojo.Ready
@@ -253,3 +253,7 @@ An example of using "dojo/_base/array" without using TypeScript's
 "import" syntax is:
 
 	require(["dojo/_base/array"], function(array: Dojo.Array) { ... });
+
+Dijits, however, use the "dijit" namespace (note the lower-case "d")
+instead of "Dijit" bacause some programmers use them as base classes
+to declare new widgets -- a practice better avoided.
