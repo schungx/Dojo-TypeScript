@@ -242,7 +242,7 @@ without the "_base" level, for example:
 Some very common Dojo classes are put under the "dojo" namespace
 (notice the lower-case "d") so that they can be used directly in
 TypeScript code which will compile stright to JavaScript code that
-works stright out with Dojo:
+works straight out with Dojo:
 
 	dojo.Evented
 	dojo.Stateful
