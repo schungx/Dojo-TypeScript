@@ -618,26 +618,26 @@ declare module dijit
 
 declare module "dijit/MenuBase" 
 {
-	var MenuBase: dijit.MenuBase;
+	class MenuBase extends dijit.MenuBase { }
 	export = MenuBase;
 }
 declare module "dijit/DropDownMenu" 
 {
-	var DropDownMenu: dijit.DropDownMenu;
+	class DropDownMenu extends dijit.DropDownMenu { }
 	export = DropDownMenu;
 }
 declare module "dijit/Menu" 
 {
-	var Menu: dijit.Menu;
+	class Menu extends dijit.Menu { }
 	export = Menu;
 }
 declare module "dijit/MenuItem" 
 {
-	var MenuItem: dijit.MenuItem;
+	class MenuItem extends dijit.MenuItem { }
 	export = MenuItem;
 }
 declare module "dijit/MenuSeparator" 
 {
-	var MenuSeparator: dijit.MenuSeparator;
+	class MenuSeparator extends dijit.MenuSeparator { }
 	export = MenuSeparator;
 }
