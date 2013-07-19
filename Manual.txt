@@ -229,15 +229,15 @@ they reside in.
 
 Namespaces and interfaces/types are proper-cased, for example:
 
-	dojo/html ==> Dojo.Html
-	dojo/ready ==> Dojo.Ready
-	dojo/dom-class ==> Dojo.DomClass
+	dojo/html        ==> Dojo.Html
+	dojo/ready       ==> Dojo.Ready
+	dojo/dom-class   ==> Dojo.DomClass
 	
 Modules under "dojo/_base" are mapped under the Dojo namespace
 without the "_base" level, for example:
 
 	dojo/_base/array ==> Dojo.Array
-	dojo/_base/lang ==> Dojo.Lang
+	dojo/_base/lang  ==> Dojo.Lang
 	
 Some very common Dojo and classes are put under the "dojo" namespace
 (notice the lower-case "d") so that they can be used directly in
