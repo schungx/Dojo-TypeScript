@@ -241,12 +241,12 @@ declare module dijit
 
 declare module "dijit/_Widget"
 {
-	var _Widget: dijit._Widget;
+	class _Widget extends dijit._Widget { }
 	export = _Widget;
 }
 declare module "dijit/_WidgetBase" 
 {
-	var _WidgetBase: dijit._WidgetBase;
+	class _WidgetBase extends dijit._WidgetBase { }
 	export = _WidgetBase;
 }
 declare module "dijit/_FocusMixin"
@@ -311,7 +311,6 @@ declare module Dijit
 		toArray(): dijit._WidgetBase[];
 	}
 }
-
 declare module "dijit/registry" 
 {
 	var registry: Dijit.Registry;
@@ -320,9 +319,9 @@ declare module "dijit/registry"
 
 // dijit/place
 
-declare module "dijit/place"
+declare module Dijit
 {
-	interface _ReturnValues extends Dojo.Rectangle
+	interface _PlaceResult extends Dojo.Rectangle
 	{
 		corner: string;
 		aroundCorner: string;
@@ -330,10 +329,18 @@ declare module "dijit/place"
 		spaceAvailable: Dojo.Size;
 	}
 
-	function around(node: HTMLElement, anchor: HTMLElement, positions?: string[], leftToRight?: boolean, layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): _ReturnValues;
-	function around(node: HTMLElement, anchor: Dojo.Rectangle, positions?: string[], leftToRight?: boolean, layoutNode?: (node, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): _ReturnValues;
+	interface Place
+	{
+		around(node: HTMLElement, anchor: HTMLElement, positions?: string[], leftToRight?: boolean, layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): _PlaceResult;
+		around(node: HTMLElement, anchor: Dojo.Rectangle, positions?: string[], leftToRight?: boolean, layoutNode?: (node, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): _PlaceResult;
 
-	function at(node: HTMLElement, pos: Dojo.Point, corners?: string[], layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): void;
+		at(node: HTMLElement, pos: Dojo.Point, corners?: string[], layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): void;
+	}
+}
+declare module "dijit/place"
+{
+	var place: Dijit.Place;
+	export = place;
 }
 
 // dijit/form
