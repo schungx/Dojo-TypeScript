@@ -235,18 +235,36 @@ declare module "dojo/store/JsonRest"
 
 // dojo/store/Observable
 
+declare module Dojo
+{
+	module Store
+	{
+		interface Observable
+		{
+			<V, S extends _Store<V>>(store: S): S;
+		}
+	}
+}
 declare module "dojo/store/Observable"
 {
-	function Observable<V, S extends Dojo.Store._Store<V>>(store: S): S;
-
+	var Observable: Dojo.Store.Observable;
 	export = Observable;
 }
 
 // dojo/store/Cache
 
+declare module Dojo
+{
+	module Store
+	{
+		interface Cache
+		{
+			<V, S extends _Store<V>>(masterStore: S, cachingStore: _Store<V>, options?: { isLoaded?: (item: V) => bool; }): S;
+		}
+	}
+}
 declare module "dojo/store/Cache"
 {
-	function Cache<V, S extends Dojo.Store._Store<V>>(masterStore: S, cachingStore: Dojo.Store._Store<V>, options?: { isLoaded?: (item: V) => bool; }): S;
-
+	var Cache: Dojo.Store.Cache;
 	export = Cache;
 }
