@@ -246,6 +246,7 @@ works straight out with Dojo:
 
 	dojo.Evented
 	dojo.Stateful
+	dojo.Deferred
 	dojo.Promise
 	dojo.Animation
 	
