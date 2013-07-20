@@ -50,10 +50,10 @@ declare module Dojo
 		forEach<T>(array: string, callback: (item: string, index: number, array: string) => void , thisObject?: Object): void;
 		forEach<T>(array: string, callback: string, thisObject?: Object): void;
 
-		filter<T>(array: T[], callback: (item: T, index: number, array: T[]) => boolean, thisObject?: Object): void;
-		filter<T>(array: T[], callback: string, thisObject?: Object): void;
-		filter(array: string, callback: (item: string, index: number, array: string) => boolean, thisObject?: Object): void;
-		filter(array: string, callback: string, thisObject?: Object): void;
+		filter<T>(array: T[], callback: (item: T, index: number, array: T[]) => boolean, thisObject?: Object): T[];
+		filter<T>(array: T[], callback: string, thisObject?: Object): T[];
+		filter(array: string, callback: (item: string, index: number, array: string) => boolean, thisObject?: Object): string[];
+		filter(array: string, callback: string, thisObject?: Object): string[];
 
 		map<T, V>(array: T[], callback: (item: T, index: number, array: T[]) => V, thisObject?: Object): V[];
 		map<T, V>(array: T[], callback: string, thisObject?: Object): V[];
