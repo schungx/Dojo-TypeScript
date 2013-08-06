@@ -60,7 +60,7 @@ declare module dijit
 		"set"(name: "style", value: Dojo.StylesMap): void;
 		"set"(name: "title", value: string): void;
 		"set"(name: "tooltip", value: string): void;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 		"set"(values: Dojo.PropertiesMap): void;
 
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -135,7 +135,7 @@ declare module dijit
 
 		"set"(name: "attachScope", value: Object): void;
 		"set"(name: "searchContainerNode", value: boolean): void;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "attachScope", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
 		watch(prop: "searchContainerNode", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
@@ -153,7 +153,7 @@ declare module dijit
 
 		"set"(name: "templatePath", value: string): void;
 		"set"(name: "templateString", value: string): void;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "templatePath", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "templateString", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -179,7 +179,7 @@ declare module dijit
 		"set"(name: "focusedChild", value: Object): void;
 		"set"(name: "multiCharSearchDuration", value: number): void;
 		"set"(name: "tabIndex", value: string): void;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "childSelector", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
 		watch(prop: "focusedChild", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
@@ -213,7 +213,7 @@ declare module dijit
 		"set"(name: "active", value: boolean): void;
 		"set"(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
 		"set"(name: "hovering", value: boolean): void;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
@@ -230,7 +230,7 @@ declare module dijit
 		"get"(name: string): any;
 
 		"set"(name: "widgetsInTemplate", value: boolean): void;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "widgetsInTemplate", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
@@ -341,38 +341,4 @@ declare module "dijit/place"
 {
 	var place: Dijit.Place;
 	export = place;
-}
-
-// dijit/form
-
-declare module dijit
-{
-	module form
-	{
-		interface _FormMixin extends Dijit._Mixin
-		{
-			//state: string;
-
-			"get"(name: "state"): string;
-			"get"(name: string): any;
-
-			"set"(name: "state", value: string): void;
-			"set"(name: string, value: any): void;
-
-			watch(prop: "state", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
-
-			connectChildren(inStartup: boolean): void;
-			reset(): void;
-			validate(): void;
-		}
-	}
-}
-
-// dijit/form module definitions
-
-declare module "dijit/form/_FormMixin"
-{
-	var _FormMixin: dijit.form._FormMixin;
-	export = _FormMixin;
 }
