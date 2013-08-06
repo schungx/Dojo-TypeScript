@@ -193,7 +193,7 @@ declare module dojo
 	class Stateful extends Dojo.DeclaredClass
 	{
 		"get"(name: string): any;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 		"set"(values: Dojo.PropertiesMap): void;
 		watch<T>(name: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 		_changeAttrValue(name: string, value: any): void;		// Helper functions are not flushed out with overload-by-constant
@@ -205,16 +205,20 @@ declare module dojo
 	{
 		constructor();
 
-		always(callbackOrErrback?: (value: any) => void ): dojo.Promise<T>;
-		cancel(reason: any, strict?: boolean): any;
+		always(callbackOrErrback?: (value: any) => void ): Promise<T>;
+		cancel(reason: any, strict?: boolean): void;
+		otherwise(errback?: (error: any) => void ): Promise<T>;
+
 		isCanceled(): boolean;
 		isFulfilled(): boolean;
 		isRejected(): boolean;
 		isResolved(): boolean;
-		otherwise(errback?: (error: any) => void ): dojo.Promise<T>;
-		then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): dojo.Promise<V>;
-		trace(): dojo.Promise<T>;
-		traceRejected(): dojo.Promise<T>;
+
+		then<V>(callback?: (value: T) => Promise<V>, errback?: (error: any) => void , progback?: (progress: any) => void ): Promise<V>;
+		then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): Promise<V>;
+
+		trace(): Promise<T>;
+		traceRejected(): Promise<T>;
 	}
 
 	// Animation
@@ -328,7 +332,7 @@ declare module dijit
 		"set"(name: "style", value: Dojo.StylesMap): void;
 		"set"(name: "title", value: string): void;
 		"set"(name: "tooltip", value: string): void;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 		"set"(values: Dojo.PropertiesMap): void;
 
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
