@@ -203,6 +203,9 @@ The complete list of definition files is as follows:
 	
 	dijit.d.ts           - Basic widget definitions
 	dijit.menu.d.ts      - dijit/Menu modules
+	dijit.form.d.ts      - dijit/form base definitions
+	dijit.form.button.d.ts   - dijit/form/Button
+	dijit.form.textbox.d.ts  - dijit/form/TextBox
 
 
 VIII. Importing plugin's
@@ -219,8 +222,39 @@ creating a variable:
 These must be among the first lines of the program file.
 
 
-IX. Namespaces and types
-------------------------
+IX. dojo/text!...
+-----------------
+
+For modules like dojo/text which accepts a URL path and returns the
+text of the file at that path, Dojo seems to be creating a module
+with an unknown name (or at least unknown to me without reading the
+Dojo source).  Therefore you won't be able to do:
+
+	/// <amd-dependency path="dojo/text!foo/bar/baz.txt" />
+
+	var baz = require<string>("dojo/text!foo/bar/baz.txt");      // Module not found
+	
+You have to fudge it like this:
+
+	declare module "dojo/text!foo/bar/baz.txt"
+	{
+		var retval: string;
+		export = retval;
+	}
+
+	import baz = module("dojo/text!foo/bar/baz.txt");
+	
+It compiles to:
+
+	define(["require", "exports", "dojo/text!foo/bar/baz.txt"], function(require, exports, __baz__) {
+		var baz = __baz__;
+			:
+			:
+	});
+
+
+X. Namespaces and types
+-----------------------
 
 Interfaces are created for most Dojo Core modules and classes for
 almost all Dijit classes.  These interfaces and classes can be used
