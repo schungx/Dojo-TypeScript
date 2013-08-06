@@ -604,17 +604,21 @@ declare module dojo
 	{
 		constructor(canceler?: (reason: any) => void );
 
-		promise: dojo.Promise<T>;
+		promise: Promise<T>;
 
-		cancel(reason: any, strict?: boolean): any;
 		isCanceled(): boolean;
 		isFulfilled(): boolean;
 		isRejected(): boolean;
 		isResolved(): boolean;
-		progress(update: any, strict?: boolean): dojo.Promise<T>;
-		reject(reason: any, strict?: boolean): dojo.Promise<T>;
-		resolve(value: T, strict?: boolean): dojo.Promise<T>;
-		then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): dojo.Promise<V>;
+
+		progress(update: any, strict?: boolean): void;
+		reject(reason: any, strict?: boolean): void;
+		resolve(value: T, strict?: boolean): void;
+		cancel(reason: any, strict?: boolean): any;
+
+		then<V>(callback?: (value: T) => Deferred<V>, errback?: (error: any) => void , progback?: (progress: any) => void ): Promise<V>;
+		then<V>(callback?: (value: T) => Promise<V>, errback?: (error: any) => void , progback?: (progress: any) => void ): Promise<V>;
+		then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): Promise<V>;
 	}
 }
 declare module "dojo/Deferred"
@@ -1977,8 +1981,10 @@ declare module Dojo
 		interface BaseOptions
 		{
 			handleAs?: string;
-			data?: { [param: string]: any; };
-			query?: { [param: string]: any; };
+			headers?: { [header: string]: string; };
+			sync?: boolean;
+			data?: any;
+			query?: any;
 			timeout?: number;
 			preventCache?: boolean;
 		}
@@ -2049,7 +2055,6 @@ declare module Dojo
 		{
 			interface BaseOptions extends Request.BaseOptions
 			{
-				headers?: { [header: string]: string; };
 				user: string;
 				password: string;
 			}
