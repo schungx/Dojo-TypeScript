@@ -150,13 +150,13 @@ declare module dijit
 		"set"(name: "hovering", value: boolean): void;
 
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
-		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<{ [attachPoint: string]: string; }>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
 
 		// get/set/watch master signatures
 		"get"(name: string): any;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 		"set"(values: Dojo.PropertiesMap): void;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
@@ -255,13 +255,13 @@ declare module dijit
 		watch(prop: "multiCharSearchDuration", callback: Dojo.WatchCallback<number>): Dojo.WatchHandle;
 		watch(prop: "tabIndex", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
-		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<{ [attachPoint: string]: string; }>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
 
 		// get/set/watch master signatures
 		"get"(name: string): any;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 		"set"(values: Dojo.PropertiesMap): void;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
@@ -360,7 +360,7 @@ declare module dijit
 		watch(prop: "multiCharSearchDuration", callback: Dojo.WatchCallback<number>): Dojo.WatchHandle;
 		watch(prop: "tabIndex", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
-		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<{ [attachPoint: string]: string; }>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
 
@@ -390,7 +390,7 @@ declare module dijit
 		watch(prop: "leftClickToOpen", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "refocus", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "selector", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
-		watch(prop: "targetNodeIds", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
+		watch(prop: "targetNodeIds", callback: Dojo.WatchCallback<string[]>): Dojo.WatchHandle;
 
 		bindDomNode(nodeId: string): void;
 		bindDomNode(node: HTMLElement): void;
@@ -402,7 +402,7 @@ declare module dijit
 
 		// get/set/watch master signatures
 		"get"(name: string): any;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 		"set"(values: Dojo.PropertiesMap): void;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
@@ -519,13 +519,13 @@ declare module dijit
 		"set"(name: "hovering", value: boolean): void;
 
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
-		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
+		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<{ [attachPoint: string]: string; }>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
 
 		// get/set/watch master signatures
 		"get"(name: string): any;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 		"set"(values: Dojo.PropertiesMap): void;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
@@ -607,7 +607,7 @@ declare module dijit
 
 		// get/set/watch master signatures
 		"get"(name: string): any;
-		"set"(name: string, value: any): void;
+		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
 		"set"(values: Dojo.PropertiesMap): void;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
