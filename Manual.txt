@@ -2,8 +2,8 @@ Using The Dojo Toolkit (AMD-style) with TypeScript 0.9
 ======================================================
 
 
-I. Prepare Dojo baseUrl
------------------------
+I. Prepare Dojo baseUrl and bootstrap
+-------------------------------------
 
 In your main HTML file, your Dojo script tag should look like this:
 
@@ -20,6 +20,27 @@ under dojo, dijit and dojox) by the Dojo AMD loader.
 JavaScript files compiled from TypeScript source modules in your project
 look exactly like a regular Dojo AMD-style module and are loaded
 automatically when "required".
+
+If you stay completely within TypeScript and Visual Studio, you'll find
+that every TypeScript file is compiled into an AMD module (see "TypeScript
+setup" below) and there is no way to automatically load the top-most one
+(your root module).
+
+The way to "bootstrap" the entire tree of modules is either: (1) write a
+simple, vanilla JavaScript script that contains the "require" statement,
+or (2) put that "require" statement in a script tag inside your HTML
+file. Option (1) is suitable where many pages must load the same scripts.
+Option (2) is simpler and suitable for one-page web apps because you
+avoid creating yet another JavaScript script file.
+
+Option (1):
+
+	bootstrap.js:  require(["main"]);
+	main.html:     <script type="text/javascript" src="bootstrap.js"></script>
+	
+Option (2):
+
+	main.html:     <script type="text/javascript">require(["main"]);</script>
 
 
 II. Dojo type definitions and referencing dojo.d.ts
