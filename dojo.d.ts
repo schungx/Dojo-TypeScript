@@ -427,6 +427,24 @@ declare module "dojo/back"
 	export = back;
 }
 
+// dojo.cache
+
+declare module Dojo
+{
+	interface Cache
+	{
+		<T>(url: string): T;
+		<T>(url: string, value: T): void;
+		<T>(module: string, url: string): T;
+		<T>(module: string, url: string, value: T): void;
+	}
+}
+declare module "dojo/cache"
+{
+	var cache: Dojo.Cache;
+	export = cache;
+}
+
 // dojo/cldr/monetary
 
 declare module Dojo
@@ -2236,6 +2254,12 @@ declare module "dojo/sniff"
 {
 	var sniff: Dojo.Sniff;
 	export = sniff;
+}
+
+// dojo/text
+
+declare module "dojo/text"
+{
 }
 
 // dojo/topic
