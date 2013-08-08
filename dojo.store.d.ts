@@ -255,7 +255,7 @@ declare module Dojo
 	{
 		interface Cache
 		{
-			<V, S extends _Store<V>>(masterStore: S, cachingStore: _Store<V>, options?: { isLoaded?: (item: V) => bool; }): S;
+			<V, S extends _Store<V>>(masterStore: S, cachingStore: _Store<V>, options?: { isLoaded?: (item: V) => boolean; }): S;
 		}
 	}
 }
