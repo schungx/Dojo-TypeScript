@@ -1,5 +1,5 @@
-Using The Dojo Toolkit (AMD-style) with TypeScript 0.9
-======================================================
+Using The Dojo Toolkit (AMD-style) with TypeScript 0.9.1
+========================================================
 
 
 I. Prepare Dojo baseUrl and bootstrap
@@ -95,7 +95,7 @@ IV. Using Dojo modules
 To use a Dojo module, just "import" it:
 
 	/// <reference path="dojo.d.ts"/>
-	import array = module("dojo/_base/array");
+	import array = require("dojo/_base/array");
 	array.forEach(...);
 
 compiles into:
@@ -109,7 +109,7 @@ compiles into:
 Directly-callable Dojo modules are supported similarly.  For example:
 
 	/// <reference path="dojo.d.ts"/>
-	import ready = module("dojo/ready");
+	import ready = require("dojo/ready");
 	ready(() => { ... });
 
 compiles into:
@@ -142,7 +142,7 @@ You can define modules to be used with Dojo in TypeScript.  For
 example, the following:
 
 	/// <reference path="dojo.d.ts"/>
-	import array = module("dojo/_base/array");
+	import array = require("dojo/_base/array");
 		:
 		:
 	var retval = { ... };
@@ -182,8 +182,8 @@ As in the following, you can continue to use NodeList after mixing in
 other NodeList features:
 
 	/// <reference path="dojo.d.ts"/>
-	import NodeList = module("dojo/NodeList");
-	import NodeListDom = module("dojo/NodeList-dom");
+	import NodeList = require("dojo/NodeList");
+	import NodeListDom = require("dojo/NodeList-dom");
 		:
 	<< you can use methods defined in dojo/NodeList-dom on NodeList >>
 		:
@@ -263,7 +263,7 @@ You have to fudge it like this:
 		export = retval;
 	}
 
-	import baz = module("dojo/text!foo/bar/baz.txt");
+	import baz = require("dojo/text!foo/bar/baz.txt");
 	
 It compiles to:
 
