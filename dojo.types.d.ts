@@ -287,17 +287,18 @@ declare module dijit
 		constructor(params?: Dijit.WidgetCreateOptions, srcNodeRef?: HTMLElement);
 		constructor(params?: Dijit.WidgetCreateOptions, srcNodeRefId?: string);
 
-		private baseClass: string;
-		private "class": string;
-		private containerNode: HTMLElement;
-		private dir: string;
-		private domNode: HTMLElement;
+		id: string;
+		baseClass: string;
+		class: string;
+		containerNode: HTMLElement;
+		srcNodeRef: HTMLElement;
+		domNode: HTMLElement;
+		ownerDocument: HTMLDocument;
+		dir: string;
+		lang: string;
+
 		private focused: boolean;
-		private id: string;
-		private lang: string;
-		private ownerDocument: HTMLDocument;
 		private postMixInProperties: string;
-		private srcNodeRef: HTMLElement;
 		private style: Dojo.StylesMap;
 		private title: string;
 		private tooltip: string;
