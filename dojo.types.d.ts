@@ -192,9 +192,9 @@ declare module dojo
 
 	class Stateful extends Dojo.DeclaredClass
 	{
-		"get"(name: string): any;
-		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
-		"set"(values: Dojo.PropertiesMap): void;
+		get(name: string): any;
+		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set(values: Dojo.PropertiesMap): void;
 		watch<T>(name: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 		_changeAttrValue(name: string, value: any): void;		// Helper functions are not flushed out with overload-by-constant
 	}
@@ -302,38 +302,38 @@ declare module dijit
 		private title: string;
 		private tooltip: string;
 
-		"get"(name: "baseClass"): string;
-		"get"(name: "class"): string;
-		"get"(name: "containerNode"): HTMLElement;
-		"get"(name: "dir"): string;
-		"get"(name: "domNode"): HTMLElement;
-		"get"(name: "focused"): boolean;
-		"get"(name: "id"): string;
-		"get"(name: "lang"): string;
-		"get"(name: "ownerDocument"): HTMLDocument;
-		"get"(name: "postMixInProperties"): string;
-		"get"(name: "srcNodeRef"): HTMLElement;
-		"get"(name: "style"): Dojo.StylesMap;
-		"get"(name: "title"): string;
-		"get"(name: "tooltip"): string;
-		"get"(name: string): any;
+		get(name: "baseClass"): string;
+		get(name: "class"): string;
+		get(name: "containerNode"): HTMLElement;
+		get(name: "dir"): string;
+		get(name: "domNode"): HTMLElement;
+		get(name: "focused"): boolean;
+		get(name: "id"): string;
+		get(name: "lang"): string;
+		get(name: "ownerDocument"): HTMLDocument;
+		get(name: "postMixInProperties"): string;
+		get(name: "srcNodeRef"): HTMLElement;
+		get(name: "style"): Dojo.StylesMap;
+		get(name: "title"): string;
+		get(name: "tooltip"): string;
+		get(name: string): any;
 
-		"set"(name: "baseClass", value: string): void;
-		"set"(name: "class", value: string): void;
-		"set"(name: "containerNode", value: HTMLElement): void;
-		"set"(name: "dir", value: string): void;
-		"set"(name: "domNode", value: HTMLElement): void;
-		"set"(name: "focused", value: boolean): void;
-		"set"(name: "id", value: string): void;
-		"set"(name: "lang", value: string): void;
-		"set"(name: "ownerDocument", value: HTMLDocument): void;
-		"set"(name: "postMixInProperties", value: string): void;
-		"set"(name: "srcNodeRef", value: HTMLElement): void;
-		"set"(name: "style", value: Dojo.StylesMap): void;
-		"set"(name: "title", value: string): void;
-		"set"(name: "tooltip", value: string): void;
-		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
-		"set"(values: Dojo.PropertiesMap): void;
+		set(name: "baseClass", value: string): void;
+		set(name: "class", value: string): void;
+		set(name: "containerNode", value: HTMLElement): void;
+		set(name: "dir", value: string): void;
+		set(name: "domNode", value: HTMLElement): void;
+		set(name: "focused", value: boolean): void;
+		set(name: "id", value: string): void;
+		set(name: "lang", value: string): void;
+		set(name: "ownerDocument", value: HTMLDocument): void;
+		set(name: "postMixInProperties", value: string): void;
+		set(name: "srcNodeRef", value: HTMLElement): void;
+		set(name: "style", value: Dojo.StylesMap): void;
+		set(name: "title", value: string): void;
+		set(name: "tooltip", value: string): void;
+		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set(values: Dojo.PropertiesMap): void;
 
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
