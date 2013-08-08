@@ -246,32 +246,43 @@ These must be among the first lines of the program file.
 IX. dojo/text!...
 -----------------
 
-For modules like dojo/text which accepts a URL path and returns the
-text of the file at that path, Dojo seems to be creating a module
-with an unknown name (or at least unknown to me without reading the
-Dojo source).  Therefore you won't be able to do:
+For dynamic plugin modules like "dojo/text" which accepts a resource
+path and returns the resource at that path, Dojo creates a module
+with an dynamically-generated name that you cannot access directly.
+You won't be able to do:
 
 	/// <amd-dependency path="dojo/text!foo/bar/baz.txt" />
 
 	var baz = require<string>("dojo/text!foo/bar/baz.txt");      // Module not found
 	
-You have to fudge it like this:
+For generic dynamic plugin modules, you have to fudge it like this:
 
-	declare module "dojo/text!foo/bar/baz.txt"
+	declare module "dojo/blah!foo/bar/baz"
 	{
 		var retval: string;
 		export = retval;
 	}
 
-	import baz = require("dojo/text!foo/bar/baz.txt");
+	import baz = require("dojo/blah!foo/bar/baz");
 	
 It compiles to:
 
-	define(["require", "exports", "dojo/text!foo/bar/baz.txt"], function(require, exports, __baz__) {
+	define(["require", "exports", "dojo/blah!foo/bar/baz"], function(require, exports, __baz__) {
 		var baz = __baz__;
 			:
 			:
 	});
+
+However, for the extremely important case of "dojo/text", there
+is a short-cut which is to use "dojo/cache":
+
+	/// <amd-dependency path="dojo/text!foo/bar/baz.txt" />
+	
+	import cache = require("dojo/cache");
+	var baz = cache<string>("foo/bar/baz.txt");
+
+The dynamic plugin module "dojo/text" uses "dojo/cache" to cache
+text content retrieved, with the URL path as key.
 
 
 X. Namespaces and types
