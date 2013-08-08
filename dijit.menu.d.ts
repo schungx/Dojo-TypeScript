@@ -11,35 +11,35 @@ declare module dijit
 	class MenuBase extends _Widget implements _TemplatedMixin, _KeyNavContainer, _CssStateMixin
 	{
 		// dijit/_Widget
-		"get"(name: "baseClass"): string;
-		"get"(name: "class"): string;
-		"get"(name: "containerNode"): HTMLElement;
-		"get"(name: "dir"): string;
-		"get"(name: "domNode"): HTMLElement;
-		"get"(name: "focused"): boolean;
-		"get"(name: "id"): string;
-		"get"(name: "lang"): string;
-		"get"(name: "ownerDocument"): HTMLDocument;
-		"get"(name: "postMixInProperties"): string;
-		"get"(name: "srcNodeRef"): HTMLElement;
-		"get"(name: "style"): Dojo.StylesMap;
-		"get"(name: "title"): string;
-		"get"(name: "tooltip"): string;
+		get(name: "baseClass"): string;
+		get(name: "class"): string;
+		get(name: "containerNode"): HTMLElement;
+		get(name: "dir"): string;
+		get(name: "domNode"): HTMLElement;
+		get(name: "focused"): boolean;
+		get(name: "id"): string;
+		get(name: "lang"): string;
+		get(name: "ownerDocument"): HTMLDocument;
+		get(name: "postMixInProperties"): string;
+		get(name: "srcNodeRef"): HTMLElement;
+		get(name: "style"): Dojo.StylesMap;
+		get(name: "title"): string;
+		get(name: "tooltip"): string;
 
-		"set"(name: "baseClass", value: string): void;
-		"set"(name: "class", value: string): void;
-		"set"(name: "containerNode", value: HTMLElement): void;
-		"set"(name: "dir", value: string): void;
-		"set"(name: "domNode", value: HTMLElement): void;
-		"set"(name: "focused", value: boolean): void;
-		"set"(name: "id", value: string): void;
-		"set"(name: "lang", value: string): void;
-		"set"(name: "ownerDocument", value: HTMLDocument): void;
-		"set"(name: "postMixInProperties", value: string): void;
-		"set"(name: "srcNodeRef", value: HTMLElement): void;
-		"set"(name: "style", value: Dojo.StylesMap): void;
-		"set"(name: "title", value: string): void;
-		"set"(name: "tooltip", value: string): void;
+		set(name: "baseClass", value: string): void;
+		set(name: "class", value: string): void;
+		set(name: "containerNode", value: HTMLElement): void;
+		set(name: "dir", value: string): void;
+		set(name: "domNode", value: HTMLElement): void;
+		set(name: "focused", value: boolean): void;
+		set(name: "id", value: string): void;
+		set(name: "lang", value: string): void;
+		set(name: "ownerDocument", value: HTMLDocument): void;
+		set(name: "postMixInProperties", value: string): void;
+		set(name: "srcNodeRef", value: HTMLElement): void;
+		set(name: "style", value: Dojo.StylesMap): void;
+		set(name: "title", value: string): void;
+		set(name: "tooltip", value: string): void;
 
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -64,19 +64,19 @@ declare module dijit
 		private popupDelay: number;
 		private selected: MenuItem;
 
-		"get"(name: "activated"): boolean;
-		"get"(name: "autoFocus"): boolean;
-		"get"(name: "parentMenu"): MenuBase;
-		"get"(name: "passivePopupDelay"): number;
-		"get"(name: "popupDelay"): number;
-		"get"(name: "selected"): MenuItem;
+		get(name: "activated"): boolean;
+		get(name: "autoFocus"): boolean;
+		get(name: "parentMenu"): MenuBase;
+		get(name: "passivePopupDelay"): number;
+		get(name: "popupDelay"): number;
+		get(name: "selected"): MenuItem;
 
-		"set"(name: "activated", value: boolean): void;
-		"set"(name: "autoFocus", value: boolean): void;
-		"set"(name: "parentMenu", value: MenuBase): void;
-		"set"(name: "passivePopupDelay", value: number): void;
-		"set"(name: "popupDelay", value: number): void;
-		"set"(name: "selected", value: MenuItem): void;
+		set(name: "activated", value: boolean): void;
+		set(name: "autoFocus", value: boolean): void;
+		set(name: "parentMenu", value: MenuBase): void;
+		set(name: "passivePopupDelay", value: number): void;
+		set(name: "popupDelay", value: number): void;
+		set(name: "selected", value: MenuItem): void;
 
 		watch(prop: "activated", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "autoFocus", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
@@ -96,15 +96,15 @@ declare module dijit
 		onKeyboardSearch(item: MenuItem, event: Event, searchString: string, numMatches: number): void;
 
 		// dijit/_TemplatedMixin
-		"get"(name: "attachScope"): Object;
-		"get"(name: "searchContainerNode"): boolean;
-		"get"(name: "templatePath"): string;
-		"get"(name: "templateString"): string;
+		get(name: "attachScope"): Object;
+		get(name: "searchContainerNode"): boolean;
+		get(name: "templatePath"): string;
+		get(name: "templateString"): string;
 
-		"set"(name: "attachScope", value: Object): void;
-		"set"(name: "searchContainerNode", value: boolean): void;
-		"set"(name: "templatePath", value: string): void;
-		"set"(name: "templateString", value: string): void;
+		set(name: "attachScope", value: Object): void;
+		set(name: "searchContainerNode", value: boolean): void;
+		set(name: "templatePath", value: string): void;
+		set(name: "templateString", value: string): void;
 
 		watch(prop: "attachScope", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
 		watch(prop: "searchContainerNode", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
@@ -114,15 +114,15 @@ declare module dijit
 		getCachedTemplate(templateString: string, alwaysUseString: boolean, doc?: HTMLDocument): any;
 
 		// dijit/_KeyNavContainer
-		"get"(name: "childSelector"): Object;
-		"get"(name: "focusedChild"): Object;
-		"get"(name: "multiCharSearchDuration"): number;
-		"get"(name: "tabIndex"): string;
+		get(name: "childSelector"): Object;
+		get(name: "focusedChild"): Object;
+		get(name: "multiCharSearchDuration"): number;
+		get(name: "tabIndex"): string;
 
-		"set"(name: "childSelector", value: Object): void;
-		"set"(name: "focusedChild", value: Object): void;
-		"set"(name: "multiCharSearchDuration", value: number): void;
-		"set"(name: "tabIndex", value: string): void;
+		set(name: "childSelector", value: Object): void;
+		set(name: "focusedChild", value: Object): void;
+		set(name: "multiCharSearchDuration", value: number): void;
+		set(name: "tabIndex", value: string): void;
 
 		watch(prop: "childSelector", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
 		watch(prop: "focusedChild", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
@@ -141,13 +141,13 @@ declare module dijit
 		removeChild(widget: number): void;
 
 		// dijit/_CssStateMixin
-		"get"(name: "active"): boolean;
-		"get"(name: "cssStateNodes"): { [attachPoint: string]: string; };
-		"get"(name: "hovering"): boolean;
+		get(name: "active"): boolean;
+		get(name: "cssStateNodes"): { [attachPoint: string]: string; };
+		get(name: "hovering"): boolean;
 
-		"set"(name: "active", value: boolean): void;
-		"set"(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
-		"set"(name: "hovering", value: boolean): void;
+		set(name: "active", value: boolean): void;
+		set(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
+		set(name: "hovering", value: boolean): void;
 
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<{ [attachPoint: string]: string; }>): Dojo.WatchHandle;
@@ -155,9 +155,9 @@ declare module dijit
 
 
 		// get/set/watch master signatures
-		"get"(name: string): any;
-		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
-		"set"(values: Dojo.PropertiesMap): void;
+		get(name: string): any;
+		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set(values: Dojo.PropertiesMap): void;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
@@ -166,71 +166,71 @@ declare module dijit
 	class DropDownMenu extends MenuBase
 	{
 		// MenuBase
-		"get"(name: "baseClass"): string;
-		"get"(name: "class"): string;
-		"get"(name: "containerNode"): HTMLElement;
-		"get"(name: "dir"): string;
-		"get"(name: "domNode"): HTMLElement;
-		"get"(name: "focused"): boolean;
-		"get"(name: "id"): string;
-		"get"(name: "lang"): string;
-		"get"(name: "ownerDocument"): HTMLDocument;
-		"get"(name: "postMixInProperties"): string;
-		"get"(name: "srcNodeRef"): HTMLElement;
-		"get"(name: "style"): Dojo.StylesMap;
-		"get"(name: "title"): string;
-		"get"(name: "tooltip"): string;
+		get(name: "baseClass"): string;
+		get(name: "class"): string;
+		get(name: "containerNode"): HTMLElement;
+		get(name: "dir"): string;
+		get(name: "domNode"): HTMLElement;
+		get(name: "focused"): boolean;
+		get(name: "id"): string;
+		get(name: "lang"): string;
+		get(name: "ownerDocument"): HTMLDocument;
+		get(name: "postMixInProperties"): string;
+		get(name: "srcNodeRef"): HTMLElement;
+		get(name: "style"): Dojo.StylesMap;
+		get(name: "title"): string;
+		get(name: "tooltip"): string;
 
-		"set"(name: "baseClass", value: string): void;
-		"set"(name: "class", value: string): void;
-		"set"(name: "containerNode", value: HTMLElement): void;
-		"set"(name: "dir", value: string): void;
-		"set"(name: "domNode", value: HTMLElement): void;
-		"set"(name: "focused", value: boolean): void;
-		"set"(name: "id", value: string): void;
-		"set"(name: "lang", value: string): void;
-		"set"(name: "ownerDocument", value: HTMLDocument): void;
-		"set"(name: "postMixInProperties", value: string): void;
-		"set"(name: "srcNodeRef", value: HTMLElement): void;
-		"set"(name: "style", value: Dojo.StylesMap): void;
-		"set"(name: "title", value: string): void;
-		"set"(name: "tooltip", value: string): void;
+		set(name: "baseClass", value: string): void;
+		set(name: "class", value: string): void;
+		set(name: "containerNode", value: HTMLElement): void;
+		set(name: "dir", value: string): void;
+		set(name: "domNode", value: HTMLElement): void;
+		set(name: "focused", value: boolean): void;
+		set(name: "id", value: string): void;
+		set(name: "lang", value: string): void;
+		set(name: "ownerDocument", value: HTMLDocument): void;
+		set(name: "postMixInProperties", value: string): void;
+		set(name: "srcNodeRef", value: HTMLElement): void;
+		set(name: "style", value: Dojo.StylesMap): void;
+		set(name: "title", value: string): void;
+		set(name: "tooltip", value: string): void;
 
-		"get"(name: "activated"): boolean;
-		"get"(name: "autoFocus"): boolean;
-		"get"(name: "parentMenu"): MenuBase;
-		"get"(name: "passivePopupDelay"): number;
-		"get"(name: "popupDelay"): number;
-		"get"(name: "selected"): MenuItem;
-		"get"(name: "attachScope"): Object;
-		"get"(name: "searchContainerNode"): boolean;
-		"get"(name: "templatePath"): string;
-		"get"(name: "templateString"): string;
-		"get"(name: "childSelector"): Object;
-		"get"(name: "focusedChild"): Object;
-		"get"(name: "multiCharSearchDuration"): number;
-		"get"(name: "tabIndex"): string;
-		"get"(name: "active"): boolean;
-		"get"(name: "cssStateNodes"): { [attachPoint: string]: string; };
-		"get"(name: "hovering"): boolean;
+		get(name: "activated"): boolean;
+		get(name: "autoFocus"): boolean;
+		get(name: "parentMenu"): MenuBase;
+		get(name: "passivePopupDelay"): number;
+		get(name: "popupDelay"): number;
+		get(name: "selected"): MenuItem;
+		get(name: "attachScope"): Object;
+		get(name: "searchContainerNode"): boolean;
+		get(name: "templatePath"): string;
+		get(name: "templateString"): string;
+		get(name: "childSelector"): Object;
+		get(name: "focusedChild"): Object;
+		get(name: "multiCharSearchDuration"): number;
+		get(name: "tabIndex"): string;
+		get(name: "active"): boolean;
+		get(name: "cssStateNodes"): { [attachPoint: string]: string; };
+		get(name: "hovering"): boolean;
 
-		"set"(name: "activated", value: boolean): void;
-		"set"(name: "autoFocus", value: boolean): void;
-		"set"(name: "parentMenu", value: MenuBase): void;
-		"set"(name: "passivePopupDelay", value: number): void;
-		"set"(name: "popupDelay", value: number): void;
-		"set"(name: "selected", value: MenuItem): void;
-		"set"(name: "attachScope", value: Object): void;
-		"set"(name: "searchContainerNode", value: boolean): void;
-		"set"(name: "templatePath", value: string): void;
-		"set"(name: "templateString", value: string): void;
-		"set"(name: "childSelector", value: Object): void;
-		"set"(name: "focusedChild", value: Object): void;
-		"set"(name: "multiCharSearchDuration", value: number): void;
-		"set"(name: "tabIndex", value: string): void;
-		"set"(name: "active", value: boolean): void;
-		"set"(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
-		"set"(name: "hovering", value: boolean): void;
+		set(name: "activated", value: boolean): void;
+		set(name: "autoFocus", value: boolean): void;
+		set(name: "parentMenu", value: MenuBase): void;
+		set(name: "passivePopupDelay", value: number): void;
+		set(name: "popupDelay", value: number): void;
+		set(name: "selected", value: MenuItem): void;
+		set(name: "attachScope", value: Object): void;
+		set(name: "searchContainerNode", value: boolean): void;
+		set(name: "templatePath", value: string): void;
+		set(name: "templateString", value: string): void;
+		set(name: "childSelector", value: Object): void;
+		set(name: "focusedChild", value: Object): void;
+		set(name: "multiCharSearchDuration", value: number): void;
+		set(name: "tabIndex", value: string): void;
+		set(name: "active", value: boolean): void;
+		set(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
+		set(name: "hovering", value: boolean): void;
 
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -260,9 +260,9 @@ declare module dijit
 
 
 		// get/set/watch master signatures
-		"get"(name: string): any;
-		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
-		"set"(values: Dojo.PropertiesMap): void;
+		get(name: string): any;
+		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set(values: Dojo.PropertiesMap): void;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
@@ -271,71 +271,71 @@ declare module dijit
 	class Menu extends DropDownMenu
 	{
 		// DropDownMenu
-		"get"(name: "baseClass"): string;
-		"get"(name: "class"): string;
-		"get"(name: "containerNode"): HTMLElement;
-		"get"(name: "dir"): string;
-		"get"(name: "domNode"): HTMLElement;
-		"get"(name: "focused"): boolean;
-		"get"(name: "id"): string;
-		"get"(name: "lang"): string;
-		"get"(name: "ownerDocument"): HTMLDocument;
-		"get"(name: "postMixInProperties"): string;
-		"get"(name: "srcNodeRef"): HTMLElement;
-		"get"(name: "style"): Dojo.StylesMap;
-		"get"(name: "title"): string;
-		"get"(name: "tooltip"): string;
+		get(name: "baseClass"): string;
+		get(name: "class"): string;
+		get(name: "containerNode"): HTMLElement;
+		get(name: "dir"): string;
+		get(name: "domNode"): HTMLElement;
+		get(name: "focused"): boolean;
+		get(name: "id"): string;
+		get(name: "lang"): string;
+		get(name: "ownerDocument"): HTMLDocument;
+		get(name: "postMixInProperties"): string;
+		get(name: "srcNodeRef"): HTMLElement;
+		get(name: "style"): Dojo.StylesMap;
+		get(name: "title"): string;
+		get(name: "tooltip"): string;
 
-		"set"(name: "baseClass", value: string): void;
-		"set"(name: "class", value: string): void;
-		"set"(name: "containerNode", value: HTMLElement): void;
-		"set"(name: "dir", value: string): void;
-		"set"(name: "domNode", value: HTMLElement): void;
-		"set"(name: "focused", value: boolean): void;
-		"set"(name: "id", value: string): void;
-		"set"(name: "lang", value: string): void;
-		"set"(name: "ownerDocument", value: HTMLDocument): void;
-		"set"(name: "postMixInProperties", value: string): void;
-		"set"(name: "srcNodeRef", value: HTMLElement): void;
-		"set"(name: "style", value: Dojo.StylesMap): void;
-		"set"(name: "title", value: string): void;
-		"set"(name: "tooltip", value: string): void;
+		set(name: "baseClass", value: string): void;
+		set(name: "class", value: string): void;
+		set(name: "containerNode", value: HTMLElement): void;
+		set(name: "dir", value: string): void;
+		set(name: "domNode", value: HTMLElement): void;
+		set(name: "focused", value: boolean): void;
+		set(name: "id", value: string): void;
+		set(name: "lang", value: string): void;
+		set(name: "ownerDocument", value: HTMLDocument): void;
+		set(name: "postMixInProperties", value: string): void;
+		set(name: "srcNodeRef", value: HTMLElement): void;
+		set(name: "style", value: Dojo.StylesMap): void;
+		set(name: "title", value: string): void;
+		set(name: "tooltip", value: string): void;
 
-		"get"(name: "activated"): boolean;
-		"get"(name: "autoFocus"): boolean;
-		"get"(name: "parentMenu"): MenuBase;
-		"get"(name: "passivePopupDelay"): number;
-		"get"(name: "popupDelay"): number;
-		"get"(name: "selected"): MenuItem;
-		"get"(name: "attachScope"): Object;
-		"get"(name: "searchContainerNode"): boolean;
-		"get"(name: "templatePath"): string;
-		"get"(name: "templateString"): string;
-		"get"(name: "childSelector"): Object;
-		"get"(name: "focusedChild"): Object;
-		"get"(name: "multiCharSearchDuration"): number;
-		"get"(name: "tabIndex"): string;
-		"get"(name: "active"): boolean;
-		"get"(name: "cssStateNodes"): { [attachPoint: string]: string; };
-		"get"(name: "hovering"): boolean;
+		get(name: "activated"): boolean;
+		get(name: "autoFocus"): boolean;
+		get(name: "parentMenu"): MenuBase;
+		get(name: "passivePopupDelay"): number;
+		get(name: "popupDelay"): number;
+		get(name: "selected"): MenuItem;
+		get(name: "attachScope"): Object;
+		get(name: "searchContainerNode"): boolean;
+		get(name: "templatePath"): string;
+		get(name: "templateString"): string;
+		get(name: "childSelector"): Object;
+		get(name: "focusedChild"): Object;
+		get(name: "multiCharSearchDuration"): number;
+		get(name: "tabIndex"): string;
+		get(name: "active"): boolean;
+		get(name: "cssStateNodes"): { [attachPoint: string]: string; };
+		get(name: "hovering"): boolean;
 
-		"set"(name: "activated", value: boolean): void;
-		"set"(name: "autoFocus", value: boolean): void;
-		"set"(name: "parentMenu", value: MenuBase): void;
-		"set"(name: "passivePopupDelay", value: number): void;
-		"set"(name: "popupDelay", value: number): void;
-		"set"(name: "selected", value: MenuItem): void;
-		"set"(name: "attachScope", value: Object): void;
-		"set"(name: "searchContainerNode", value: boolean): void;
-		"set"(name: "templatePath", value: string): void;
-		"set"(name: "templateString", value: string): void;
-		"set"(name: "childSelector", value: Object): void;
-		"set"(name: "focusedChild", value: Object): void;
-		"set"(name: "multiCharSearchDuration", value: number): void;
-		"set"(name: "tabIndex", value: string): void;
-		"set"(name: "active", value: boolean): void;
-		"set"(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
-		"set"(name: "hovering", value: boolean): void;
+		set(name: "activated", value: boolean): void;
+		set(name: "autoFocus", value: boolean): void;
+		set(name: "parentMenu", value: MenuBase): void;
+		set(name: "passivePopupDelay", value: number): void;
+		set(name: "popupDelay", value: number): void;
+		set(name: "selected", value: MenuItem): void;
+		set(name: "attachScope", value: Object): void;
+		set(name: "searchContainerNode", value: boolean): void;
+		set(name: "templatePath", value: string): void;
+		set(name: "templateString", value: string): void;
+		set(name: "childSelector", value: Object): void;
+		set(name: "focusedChild", value: Object): void;
+		set(name: "multiCharSearchDuration", value: number): void;
+		set(name: "tabIndex", value: string): void;
+		set(name: "active", value: boolean): void;
+		set(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
+		set(name: "hovering", value: boolean): void;
 
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -371,19 +371,19 @@ declare module dijit
 		private selector: Object;
 		private targetNodeIds: string[];
 
-		"get"(name: "contextMenuForWindow"): boolean;
-		"get"(name: "currentTarget"): HTMLElement;
-		"get"(name: "leftClickToOpen"): boolean;
-		"get"(name: "refocus"): boolean;
-		"get"(name: "selector"): Object;
-		"get"(name: "targetNodeIds"): string[];
+		get(name: "contextMenuForWindow"): boolean;
+		get(name: "currentTarget"): HTMLElement;
+		get(name: "leftClickToOpen"): boolean;
+		get(name: "refocus"): boolean;
+		get(name: "selector"): Object;
+		get(name: "targetNodeIds"): string[];
 
-		"set"(name: "contextMenuForWindow", value: boolean): void;
-		"set"(name: "currentTarget", value: HTMLElement): void;
-		"set"(name: "leftClickToOpen", value: boolean): void;
-		"set"(name: "refocus", value: boolean): void;
-		"set"(name: "selector", value: Object): void;
-		"set"(name: "targetNodeIds", value: string[]): void;
+		set(name: "contextMenuForWindow", value: boolean): void;
+		set(name: "currentTarget", value: HTMLElement): void;
+		set(name: "leftClickToOpen", value: boolean): void;
+		set(name: "refocus", value: boolean): void;
+		set(name: "selector", value: Object): void;
+		set(name: "targetNodeIds", value: string[]): void;
 
 		watch(prop: "contextMenuForWindow", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "currentTarget", callback: Dojo.WatchCallback<HTMLElement>): Dojo.WatchHandle;
@@ -401,9 +401,9 @@ declare module dijit
 
 
 		// get/set/watch master signatures
-		"get"(name: string): any;
-		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
-		"set"(values: Dojo.PropertiesMap): void;
+		get(name: string): any;
+		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set(values: Dojo.PropertiesMap): void;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
@@ -412,35 +412,35 @@ declare module dijit
 	class MenuItem extends _Widget implements _TemplatedMixin, _Container, _CssStateMixin
 	{
 		// dijit/_Widget
-		"get"(name: "baseClass"): string;
-		"get"(name: "class"): string;
-		"get"(name: "containerNode"): HTMLElement;
-		"get"(name: "dir"): string;
-		"get"(name: "domNode"): HTMLElement;
-		"get"(name: "focused"): boolean;
-		"get"(name: "id"): string;
-		"get"(name: "lang"): string;
-		"get"(name: "ownerDocument"): HTMLDocument;
-		"get"(name: "postMixInProperties"): string;
-		"get"(name: "srcNodeRef"): HTMLElement;
-		"get"(name: "style"): Dojo.StylesMap;
-		"get"(name: "title"): string;
-		"get"(name: "tooltip"): string;
+		get(name: "baseClass"): string;
+		get(name: "class"): string;
+		get(name: "containerNode"): HTMLElement;
+		get(name: "dir"): string;
+		get(name: "domNode"): HTMLElement;
+		get(name: "focused"): boolean;
+		get(name: "id"): string;
+		get(name: "lang"): string;
+		get(name: "ownerDocument"): HTMLDocument;
+		get(name: "postMixInProperties"): string;
+		get(name: "srcNodeRef"): HTMLElement;
+		get(name: "style"): Dojo.StylesMap;
+		get(name: "title"): string;
+		get(name: "tooltip"): string;
 
-		"set"(name: "baseClass", value: string): void;
-		"set"(name: "class", value: string): void;
-		"set"(name: "containerNode", value: HTMLElement): void;
-		"set"(name: "dir", value: string): void;
-		"set"(name: "domNode", value: HTMLElement): void;
-		"set"(name: "focused", value: boolean): void;
-		"set"(name: "id", value: string): void;
-		"set"(name: "lang", value: string): void;
-		"set"(name: "ownerDocument", value: HTMLDocument): void;
-		"set"(name: "postMixInProperties", value: string): void;
-		"set"(name: "srcNodeRef", value: HTMLElement): void;
-		"set"(name: "style", value: Dojo.StylesMap): void;
-		"set"(name: "title", value: string): void;
-		"set"(name: "tooltip", value: string): void;
+		set(name: "baseClass", value: string): void;
+		set(name: "class", value: string): void;
+		set(name: "containerNode", value: HTMLElement): void;
+		set(name: "dir", value: string): void;
+		set(name: "domNode", value: HTMLElement): void;
+		set(name: "focused", value: boolean): void;
+		set(name: "id", value: string): void;
+		set(name: "lang", value: string): void;
+		set(name: "ownerDocument", value: HTMLDocument): void;
+		set(name: "postMixInProperties", value: string): void;
+		set(name: "srcNodeRef", value: HTMLElement): void;
+		set(name: "style", value: Dojo.StylesMap): void;
+		set(name: "title", value: string): void;
+		set(name: "tooltip", value: string): void;
 
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -464,17 +464,17 @@ declare module dijit
 		private label: string;
 		private shortcutKey: string;
 
-		"get"(name: "accelKey"): string;
-		"get"(name: "disabled"): boolean;
-		"get"(name: "iconClass"): string;
-		"get"(name: "label"): string;
-		"get"(name: "shortcutKey"): string;
+		get(name: "accelKey"): string;
+		get(name: "disabled"): boolean;
+		get(name: "iconClass"): string;
+		get(name: "label"): string;
+		get(name: "shortcutKey"): string;
 
-		"set"(name: "accelKey", value: string): void;
-		"set"(name: "disabled", value: boolean): void;
-		"set"(name: "iconClass", value: string): void;
-		"set"(name: "label", value: string): void;
-		"set"(name: "shortcutKey", value: string): void;
+		set(name: "accelKey", value: string): void;
+		set(name: "disabled", value: boolean): void;
+		set(name: "iconClass", value: string): void;
+		set(name: "label", value: string): void;
+		set(name: "shortcutKey", value: string): void;
 
 		watch(prop: "accelKey", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "disabled", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
@@ -485,15 +485,15 @@ declare module dijit
 		focus(): void;
 
 		// dijit/_TemplatedMixin
-		"get"(name: "attachScope"): Object;
-		"get"(name: "searchContainerNode"): boolean;
-		"get"(name: "templatePath"): string;
-		"get"(name: "templateString"): string;
+		get(name: "attachScope"): Object;
+		get(name: "searchContainerNode"): boolean;
+		get(name: "templatePath"): string;
+		get(name: "templateString"): string;
 
-		"set"(name: "attachScope", value: Object): void;
-		"set"(name: "searchContainerNode", value: boolean): void;
-		"set"(name: "templatePath", value: string): void;
-		"set"(name: "templateString", value: string): void;
+		set(name: "attachScope", value: Object): void;
+		set(name: "searchContainerNode", value: boolean): void;
+		set(name: "templatePath", value: string): void;
+		set(name: "templateString", value: string): void;
 
 		watch(prop: "attachScope", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
 		watch(prop: "searchContainerNode", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
@@ -510,13 +510,13 @@ declare module dijit
 		removeChild(widget: number): void;
 
 		// dijit/_CssStateMixin
-		"get"(name: "active"): boolean;
-		"get"(name: "cssStateNodes"): { [attachPoint: string]: string; };
-		"get"(name: "hovering"): boolean;
+		get(name: "active"): boolean;
+		get(name: "cssStateNodes"): { [attachPoint: string]: string; };
+		get(name: "hovering"): boolean;
 
-		"set"(name: "active", value: boolean): void;
-		"set"(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
-		"set"(name: "hovering", value: boolean): void;
+		set(name: "active", value: boolean): void;
+		set(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
+		set(name: "hovering", value: boolean): void;
 
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<{ [attachPoint: string]: string; }>): Dojo.WatchHandle;
@@ -524,9 +524,9 @@ declare module dijit
 
 
 		// get/set/watch master signatures
-		"get"(name: string): any;
-		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
-		"set"(values: Dojo.PropertiesMap): void;
+		get(name: string): any;
+		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set(values: Dojo.PropertiesMap): void;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
@@ -535,35 +535,35 @@ declare module dijit
 	class MenuSeparator extends _WidgetBase implements _TemplatedMixin, _Contained
 	{
 		// dijit/_WidgetBase
-		"get"(name: "baseClass"): string;
-		"get"(name: "class"): string;
-		"get"(name: "containerNode"): HTMLElement;
-		"get"(name: "dir"): string;
-		"get"(name: "domNode"): HTMLElement;
-		"get"(name: "focused"): boolean;
-		"get"(name: "id"): string;
-		"get"(name: "lang"): string;
-		"get"(name: "ownerDocument"): HTMLDocument;
-		"get"(name: "postMixInProperties"): string;
-		"get"(name: "srcNodeRef"): HTMLElement;
-		"get"(name: "style"): Dojo.StylesMap;
-		"get"(name: "title"): string;
-		"get"(name: "tooltip"): string;
+		get(name: "baseClass"): string;
+		get(name: "class"): string;
+		get(name: "containerNode"): HTMLElement;
+		get(name: "dir"): string;
+		get(name: "domNode"): HTMLElement;
+		get(name: "focused"): boolean;
+		get(name: "id"): string;
+		get(name: "lang"): string;
+		get(name: "ownerDocument"): HTMLDocument;
+		get(name: "postMixInProperties"): string;
+		get(name: "srcNodeRef"): HTMLElement;
+		get(name: "style"): Dojo.StylesMap;
+		get(name: "title"): string;
+		get(name: "tooltip"): string;
 
-		"set"(name: "baseClass", value: string): void;
-		"set"(name: "class", value: string): void;
-		"set"(name: "containerNode", value: HTMLElement): void;
-		"set"(name: "dir", value: string): void;
-		"set"(name: "domNode", value: HTMLElement): void;
-		"set"(name: "focused", value: boolean): void;
-		"set"(name: "id", value: string): void;
-		"set"(name: "lang", value: string): void;
-		"set"(name: "ownerDocument", value: HTMLDocument): void;
-		"set"(name: "postMixInProperties", value: string): void;
-		"set"(name: "srcNodeRef", value: HTMLElement): void;
-		"set"(name: "style", value: Dojo.StylesMap): void;
-		"set"(name: "title", value: string): void;
-		"set"(name: "tooltip", value: string): void;
+		set(name: "baseClass", value: string): void;
+		set(name: "class", value: string): void;
+		set(name: "containerNode", value: HTMLElement): void;
+		set(name: "dir", value: string): void;
+		set(name: "domNode", value: HTMLElement): void;
+		set(name: "focused", value: boolean): void;
+		set(name: "id", value: string): void;
+		set(name: "lang", value: string): void;
+		set(name: "ownerDocument", value: HTMLDocument): void;
+		set(name: "postMixInProperties", value: string): void;
+		set(name: "srcNodeRef", value: HTMLElement): void;
+		set(name: "style", value: Dojo.StylesMap): void;
+		set(name: "title", value: string): void;
+		set(name: "tooltip", value: string): void;
 
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "class", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -582,15 +582,15 @@ declare module dijit
 
 
 		// dijit/_TemplatedMixin
-		"get"(name: "attachScope"): Object;
-		"get"(name: "searchContainerNode"): boolean;
-		"get"(name: "templatePath"): string;
-		"get"(name: "templateString"): string;
+		get(name: "attachScope"): Object;
+		get(name: "searchContainerNode"): boolean;
+		get(name: "templatePath"): string;
+		get(name: "templateString"): string;
 
-		"set"(name: "attachScope", value: Object): void;
-		"set"(name: "searchContainerNode", value: boolean): void;
-		"set"(name: "templatePath", value: string): void;
-		"set"(name: "templateString", value: string): void;
+		set(name: "attachScope", value: Object): void;
+		set(name: "searchContainerNode", value: boolean): void;
+		set(name: "templatePath", value: string): void;
+		set(name: "templateString", value: string): void;
 
 		watch(prop: "attachScope", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
 		watch(prop: "searchContainerNode", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
@@ -606,9 +606,9 @@ declare module dijit
 
 
 		// get/set/watch master signatures
-		"get"(name: string): any;
-		"set"(name: string, value: any, raiseChangeEvent?: boolean): void;
-		"set"(values: Dojo.PropertiesMap): void;
+		get(name: string): any;
+		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set(values: Dojo.PropertiesMap): void;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 }
