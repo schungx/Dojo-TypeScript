@@ -45,29 +45,29 @@ declare module Dojo
 		indexOf<T>(array: T[], value: T, fromIndex?: number, findLast?: boolean): number;
 		lastIndexOf<T>(array: T[], value: T, fromIndex?: number, findLast?: boolean): number;
 
-		forEach<T>(array: T[], callback: (item: T, index: number, array: T[]) => void , thisObject?: Object): void;
+		forEach<T>(array: T[], callback: (item: T, index?: number, array?: T[]) => void , thisObject?: Object): void;
 		forEach<T>(array: T[], callback: string, thisObject?: Object): void;
-		forEach<T>(array: string, callback: (item: string, index: number, array: string) => void , thisObject?: Object): void;
+		forEach<T>(array: string, callback: (item: string, index?: number, array?: string) => void , thisObject?: Object): void;
 		forEach<T>(array: string, callback: string, thisObject?: Object): void;
 
-		filter<T>(array: T[], callback: (item: T, index: number, array: T[]) => boolean, thisObject?: Object): T[];
+		filter<T>(array: T[], callback: (item: T, index?: number, array?: T[]) => boolean, thisObject?: Object): T[];
 		filter<T>(array: T[], callback: string, thisObject?: Object): T[];
-		filter(array: string, callback: (item: string, index: number, array: string) => boolean, thisObject?: Object): string[];
+		filter(array: string, callback: (item: string, index?: number, array?: string) => boolean, thisObject?: Object): string[];
 		filter(array: string, callback: string, thisObject?: Object): string[];
 
-		map<T, V>(array: T[], callback: (item: T, index: number, array: T[]) => V, thisObject?: Object): V[];
+		map<T, V>(array: T[], callback: (item: T, index?: number, array?: T[]) => V, thisObject?: Object): V[];
 		map<T, V>(array: T[], callback: string, thisObject?: Object): V[];
-		map<V>(array: string, callback: (item: string, index: number, array: string) => V, thisObject?: Object): V[];
+		map<V>(array: string, callback: (item: string, index?: number, array?: string) => V, thisObject?: Object): V[];
 		map<V>(array: string, callback: string, thisObject?: Object): V[];
 
-		some<T>(array: T[], callback: (item: T, index: number, array: T[]) => boolean, thisObject?: Object): boolean;
+		some<T>(array: T[], callback: (item: T, index?: number, array?: T[]) => boolean, thisObject?: Object): boolean;
 		some<T>(array: T[], callback: string, thisObject?: Object): boolean;
-		some(array: string, callback: (item: string, index: number, array: string) => boolean, thisObject?: Object): boolean;
+		some(array: string, callback: (item: string, index?: number, array?: string) => boolean, thisObject?: Object): boolean;
 		some(array: string, callback: string, thisObject?: Object): boolean;
 
-		every<T>(array: T[], callback: (item: T, index: number, array: T[]) => boolean, thisObject?: Object): boolean;
+		every<T>(array: T[], callback: (item: T, index?: number, array?: T[]) => boolean, thisObject?: Object): boolean;
 		every<T>(array: T[], callback: string, thisObject?: Object): boolean;
-		every(array: string, callback: (item: string, index: number, array: string) => boolean, thisObject?: Object): boolean;
+		every(array: string, callback: (item: string, index?: number, array?: string) => boolean, thisObject?: Object): boolean;
 		every(array: string, callback: string, thisObject?: Object): boolean;
 	}
 }
@@ -334,7 +334,7 @@ declare module Dojo
 		delegate(obj: Object, props: PropertiesMap): Object;
 		exists(path: string, root?: Object): boolean;
 		extend<T extends Object>(ctor: T, ...props: PropertiesMap[]): T;
-		getObject(path: string, create?: boolean): Object;
+		getObject(path: string, create?: boolean, context?: Object): Object;
 
 		hitch<F extends Function>(scope: Object, method: F): F;
 		hitch(scope: Object, method: string): Function;
@@ -1251,8 +1251,8 @@ declare module dojo
 		andSelf(): dojo.NodeList;
 		anim(properties: Dojo.PropertiesMap, duration?: number, easing?: Dojo.Fx.EasingFunction, onEnd?: Dojo.SimpleAction, delay?: number): Animation;
 
-		animateProperty(args: Dojo.Fx.CreateOptions): Animation;
 		animateProperty(args: Dojo.Fx.AutoCreateOptions): dojo.NodeList;
+		animateProperty(args: Dojo.Fx.CreateOptions): Animation;
 
 		append(content: string): dojo.NodeList;
 		append(content: Object): dojo.NodeList;
@@ -1357,7 +1357,7 @@ declare module dojo
 		empty(): dojo.NodeList;
 		end(): dojo.NodeList;
 		even(): dojo.NodeList;
-		every(callback: (node: HTMLElement, index: number, list: dojo.NodeList) => boolean, thisObject?: Object): boolean;
+		every(callback: (node: HTMLElement, index?: number, list?: dojo.NodeList) => boolean, thisObject?: Object): boolean;
 
 		fadeIn(args?: Dojo.Fx.AutoBaseCreateOptions): dojo.NodeList;
 		fadeIn(args?: Dojo.Fx.BaseCreateOptions): Animation;
@@ -1366,10 +1366,10 @@ declare module dojo
 		fadeOut(args?: Dojo.Fx.BaseCreateOptions): Animation;
 
 		filter(filter: string): dojo.NodeList;
-		filter(filter: (item: HTMLElement, index: number, list: dojo.NodeList) => boolean): dojo.NodeList;
+		filter(filter: (item: HTMLElement, index?: number, list?: dojo.NodeList) => boolean): dojo.NodeList;
 
 		first(): dojo.NodeList;
-		forEach(callback: (item: HTMLElement, index: number, list: dojo.NodeList) => void , thisObject?: Object): dojo.NodeList;
+		forEach(callback: (item: HTMLElement, index?: number, list?: dojo.NodeList) => void , thisObject?: Object): dojo.NodeList;
 
 		html(): string;
 		html(content: string): dojo.NodeList;
@@ -1392,7 +1392,7 @@ declare module dojo
 		instantiate(declaredClass: string, properties?: Dojo.PropertiesMap): dojo.NodeList;
 		last(): dojo.NodeList;
 		lastIndexOf(value: HTMLElement, fromIndex?: number): number;
-		map(func: (item: HTMLElement, index: number, list: dojo.NodeList) => HTMLElement, thisObject?: Object): dojo.NodeList;
+		map(func: (item: HTMLElement, index?: number, list?: dojo.NodeList) => HTMLElement, thisObject?: Object): dojo.NodeList;
 		marginBox(): Position;
 		next(query?: string): dojo.NodeList;
 		nextAll(query?: string): dojo.NodeList;
@@ -1513,7 +1513,7 @@ declare module dojo
 		slideTo(args: Dojo.Fx.SlideCreateOptions): Animation;
 		slideTo(args: Dojo.Fx.AutoSlideCreateOptions): dojo.NodeList;
 
-		some(callback: (node: HTMLElement, index: number, list: dojo.NodeList) => boolean, thisObject?: Object): boolean;
+		some(callback: (node: HTMLElement, index?: number, list?: dojo.NodeList) => boolean, thisObject?: Object): boolean;
 		splice(index: number, howmany?: number, ...items: HTMLElement[]): dojo.NodeList;
 
 		style(property: string): string[];
@@ -1526,15 +1526,14 @@ declare module dojo
 		toggleClassFx(className: string, condition?: boolean, options?: Dojo.Fx.CreateOptions): Animation;
 
 		val(): string;
-		val(): string[];
 		val(value: string): dojo.NodeList;
 		val(value: string[]): dojo.NodeList;
 
-		wipeIn(args: Dojo.Fx.CreateOptions): Animation;
 		wipeIn(args: Dojo.Fx.AutoCreateOptions): dojo.NodeList;
+		wipeIn(args: Dojo.Fx.CreateOptions): Animation;
 		
-		wipeOut(args: Dojo.Fx.CreateOptions): Animation;
 		wipeOut(args: Dojo.Fx.AutoCreateOptions): dojo.NodeList;
+		wipeOut(args: Dojo.Fx.CreateOptions): Animation;
 
 		wrap(html: string): dojo.NodeList;
 		wrap(node: HTMLElement): dojo.NodeList;
