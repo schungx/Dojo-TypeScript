@@ -123,7 +123,6 @@ compiles into:
 Class-type Dojo modules are also supported.  For example:
 
 	/// <reference path="dojo.store.d.ts"/>
-	/// <reference path="dojo.d.ts"/>
 	import Memory = require("dojo/store/Memory");
 	var store = new Memory({ data: ... });
 
@@ -135,8 +134,8 @@ compiles into:
 	});
 
 
-V. Defining Dojo modules
-------------------------
+V. Defining new modules in TypeScript
+-------------------------------------
 
 You can define modules to be used with Dojo in TypeScript.  For
 example, the following:
@@ -161,11 +160,46 @@ compiles to:
 The "export = ..." statement is necessary because TypeScript defaults
 to CommonJS-style AMD modules, which means attaching exported functions
 to the "exports" object but does not return it. This will cause errors
-when running the actual JavaScript with Dojo.  Perhaps in the future
-TypeScript will add a feature to generate RequireJS-style AMD modules.
+when running the actual JavaScript with Dojo. Using "export = ..." 
+causes TypeScript to load the proper object type for the module as well
+as generate the necessary "return" statement to return the module object.
 
-Using "export = ..." will also cause TypeScript to load the proper object
-type for the module.
+To use this TypeScript module from another TypeScript module, simply
+"import" it just like any other Dojo/Dijit module!
+
+For example:
+
+	foo.ts (your new module in TypeScript):
+    
+		var retval = { ... };
+		export = retval;
+        
+	bar.ts (which uses foo.ts):
+    
+		import foo = require("foo");
+			:
+			:
+
+Visual Studio will detect that you have a TypeScript file called
+"foo.ts" and, upon seeing the statement "import xyz = require("foo")",
+automatically loads the type definitions for the module defined in
+foo.ts!  The two TypeScript files willcompile into the following
+JavaScript files which, of course, work perfectly fine as well:
+
+	foo.js:
+    
+		define(["require", "exports"], function(require, exports) {
+			var retval = { ... };
+			return retval;
+		});
+		
+	bar.js:
+
+		define(["require", "exports", "foo"], function(require, exports, __foo__) {
+			var foo = __foo__;
+				:
+				:
+		});
 
 
 VI. Using dojo/NodeList
