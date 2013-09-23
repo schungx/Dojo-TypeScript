@@ -21,9 +21,9 @@ declare module Dojo
 			queryEngine(query: RegExp, options?: QueryOptions): QueryEngine<T>;
 			queryEngine(query: (item: T) => boolean, options?: QueryOptions): QueryEngine<T>;
 
-			PutDirectives: new () => PutDirectives;
+			PutDirectives: new () => PutDirectives<T>;
 			QueryOptions: new () => QueryOptions;
-			QueryResults: new () => QueryResults;
+			QueryResults: new () => QueryResults<T>;
 			SortInformation: new () => SortInformation;
 		}
 
@@ -76,7 +76,7 @@ declare module Dojo
 
 			matches?: (data: T) => boolean;
 		}
-	
+
 		// dojo/store/api/Store.PutDirectives
 
 		interface PutDirectives<T>
