@@ -181,9 +181,9 @@ For example:
 			:
 
 Visual Studio will detect that you have a TypeScript file called
-"foo.ts" and, upon seeing the statement "import xyz = require("foo")",
+"foo.ts" and, upon seeing the statement "import xyz = require("foo");",
 automatically loads the type definitions for the module defined in
-foo.ts!  The two TypeScript files willcompile into the following
+foo.ts!  The two TypeScript files will compile into the following
 JavaScript files which, of course, work perfectly fine as well:
 
 	foo.js:
