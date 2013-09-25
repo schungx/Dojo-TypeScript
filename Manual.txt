@@ -2,6 +2,35 @@ Using The Dojo Toolkit (AMD-style) with TypeScript 0.9.1
 ========================================================
 
 
+Preamble
+--------
+
+Using TypeScript with the Dojo Toolkit is easy with a few tricks to
+let the system does what you want.
+
+One of the tricky issues is the fact that all TypeScript files are
+compiled into AMD modules (when the "--module amd" option is set,
+which it should be in order to use TypeScript with Dojo). If you stay
+100% in TypeScript, how do you "bootstrap" the root module?  Turns out
+that you need at least *one* pur JavaScript file in order to do that.
+
+Another tricky issue is that of defining the root path for loading
+non-Dojo modules. In a typical Dojo modularized web application, this
+is done by mapping module prefixes into paths. In a TypeScript
+application, however, you must also consider the fact that your
+modules are also written in TypeScript (or at least some of them).
+You'd want other TypeScript code to be able to find your module file
+(in TypeScript) and figure out the correct type definitions. This means
+that you must find a common-point between the way TypeScript looks for
+modules and the way Dojo looks for modules.
+
+As you'll see, there is no easy way to force TypeScript to look for
+modules based on prefix (as per Dojo), so you'll either have to live
+with using path-relative modules, or put duplicate copies of your
+code files in different locations of the directory tree, or define
+type definition files for your modules.
+
+
 I. Prepare Dojo baseUrl and bootstrap
 -------------------------------------
 
@@ -17,14 +46,37 @@ your main scripts directory relative to the HTML file's location.  It
 overrides the default path for loading AMD modules (other than modules
 under dojo, dijit and dojox) by the Dojo AMD loader.
 
+Mind you that this is probably not the most typeical way to load custom
+Dojo modules -- the most typical way is to map a custom prefix (one that
+is other than "dojo", "dijit" and "dojox") to a path. However, TypeScript
+does not support looking for modules via prefix mapped to a path, so you
+must abandon that practice and use path-relative modules.
+
+If you do have a need to organize modules according to prefix, understand
+that you'll have to duplicate a *lot* of code files. Essentially,
+everywhere you import a module, you have to make sure that a subdirectory
+exists, with the same name as the prefix of the module, at the same level
+of the TypeScript file that uses that module, and that inside this
+subdirectory is a copy of the module's TypeScript file. Otherwise,
+TypeScript will complain that it doesn't find your module (since it doesn't
+understand that you have "mapped" a path to its prefix).
+
+A simpler way is to generate a ".d.ts" type definition file for your
+module, and then use the "/// <reference path="..."/>" syntax to load it.
+You will then be able to use that module in TypeScript and TypeScript will
+not attempt to locate that module file (which it won't find). This method,
+however, necessitates the regeneration of a lot of type definition files
+(and remembering to do it!) every time the public API of your module
+changes.
+
 JavaScript files compiled from TypeScript source modules in your project
 look exactly like a regular Dojo AMD-style module and are loaded
 automatically when "required".
 
-If you stay completely within TypeScript and Visual Studio, you'll find
-that every TypeScript file is compiled into an AMD module (see "TypeScript
-setup" below) and there is no way to automatically load the top-most one
-(your root module).
+If you stay completely within TypeScript and Visual Studio, however, you'll
+find that every TypeScript file is compiled into an AMD module (see
+"TypeScript setup" below) and there is no way to automatically load the
+top-most one (your root module).
 
 The way to "bootstrap" the entire tree of modules is either: (1) write a
 simple, vanilla JavaScript script that contains the "require" statement,
@@ -90,7 +142,7 @@ support).
 
 
 IV. Using Dojo modules
--------------------------------------
+----------------------
 
 To use a Dojo module, just "import" it:
 
