@@ -6,23 +6,23 @@ Preamble
 --------
 
 Using TypeScript with the Dojo Toolkit is easy with a few tricks to
-let the system does what you want.
+let the system do what you want.
 
 One of the tricky issues is the fact that all TypeScript files are
 compiled into AMD modules (when the "--module amd" option is set,
 which it should be in order to use TypeScript with Dojo). If you stay
 100% in TypeScript, how do you "bootstrap" the root module?  Turns out
-that you need at least *one* pur JavaScript file in order to do that.
+that you need at least *one* pure JavaScript file in order to do that.
 
-Another tricky issue is that of defining the root path for loading
-non-Dojo modules. In a typical Dojo modularized web application, this
-is done by mapping module prefixes into paths. In a TypeScript
-application, however, you must also consider the fact that your
-modules are also written in TypeScript (or at least some of them).
-You'd want other TypeScript code to be able to find your module file
-(in TypeScript) and figure out the correct type definitions. This means
-that you must find a common-point between the way TypeScript looks for
-modules and the way Dojo looks for modules.
+Another tricky issue is that of loading non-Dojo custom modules.
+In a typical Dojo modularized web application, this is done by mapping
+module prefixes into paths. In a TypeScript application, however, you
+must also consider the fact that your modules are also written in
+TypeScript (or at least some of them). You'd want other TypeScript code
+to be able to find your module file (in TypeScript) and figure out the
+correct type definitions. This means that you must find a common-point
+between the way TypeScript looks for modules and the way Dojo looks for
+modules.
 
 As you'll see, there is no easy way to force TypeScript to look for
 modules based on prefix (as per Dojo), so you'll either have to live
