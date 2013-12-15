@@ -1309,7 +1309,6 @@ declare module dojo
 		data(key: string): any;
 		data(key: string, value: any): dojo.NodeList;
 
-		delegate(selector: string, eventName: string, listener: (ev: Event) => boolean): dojo.NodeList;
 		delegate(selector: string, eventName: "abort", listener: (ev: UIEvent) => boolean): dojo.NodeList;
 		delegate(selector: string, eventName: "afterprint", listener: (ev: Event) => boolean): dojo.NodeList;
 		delegate(selector: string, eventName: "beforeprint", listener: (ev: Event) => boolean): dojo.NodeList;
@@ -1370,6 +1369,7 @@ declare module dojo
 		delegate(selector: string, eventName: "unload", listener: (ev: Event) => boolean): dojo.NodeList;
 		delegate(selector: string, eventName: "volumechange", listener: (ev: Event) => boolean): dojo.NodeList;
 		delegate(selector: string, eventName: "waiting", listener: (ev: Event) => boolean): dojo.NodeList;
+		delegate(selector: string, eventName: string, listener: (ev: Event) => boolean): dojo.NodeList;
 
 		dtl(template: string, thisObject?: Object): dojo.NodeList;
 		empty(): dojo.NodeList;
