@@ -442,7 +442,7 @@ declare module dijit
 		on(type: "unload", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "volumechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: "waiting", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: string, listener: Dojo.Action): Dojo.RemovableHandle;
+		on(type: string, listener: (ev: Event) => boolean): Dojo.RemovableHandle;
 		on(type: Dojo.ExtensionEvent, func: Dojo.Action): Dojo.RemovableHandle;
 
 		own(handle: Dojo.RemovableHandle): Dojo.RemovableHandle[];
