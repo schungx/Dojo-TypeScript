@@ -7,7 +7,7 @@
 
 declare module dijit
 {
-  module form
+	module form
 	{
 		interface _TextBoxMixin extends Dijit._Mixin
 		{
@@ -224,6 +224,7 @@ declare module dijit
 			on(type: "MouseUp", listener: (ev: MouseEvent) => void): Dojo.RemovableHandle;
 			on(type: "Show", listener: Dojo.Action): Dojo.RemovableHandle;
 			on(type: string, listener: Dojo.Action): Dojo.RemovableHandle;
+			on(type: string, listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
 			on(type: Dojo.ExtensionEvent, func: Dojo.Action): Dojo.RemovableHandle;
 		}
 	}
