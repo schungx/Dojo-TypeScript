@@ -104,8 +104,11 @@ declare module Dojo
 
 			filter(callback: (item: T) => boolean, thisObject?: Object): QueryResults<T>;
 			forEach(callback: (item: T) => void , thisObject?: Object): QueryResults<T>;
+
 			map<V>(callback: (item: T) => V, thisObject?: Object): QueryResults<V>;
-			then(callback: (items: T[]) => void , errorHandler: (error: any) => void ): QueryResults<T>;
+			map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
+
+			then(callback: (items: T[]) => void, errorHandler: (error: any) => void): QueryResults<T>;
 
 			observe? (listener: (object: any, removedFrom: number, insertedInto: number) => void , includeAllUpdates?: boolean): { cancel(): void; };
 		}
