@@ -19,6 +19,7 @@ declare module Dojo
 
 	interface Handle {}
 	interface RemovableHandle extends Handle	{ remove(): void; }
+	interface CancellableHandle extends Handle { cancel(): void; }
 	interface PausableHandle extends RemovableHandle
 	{
 		pause(): void;
