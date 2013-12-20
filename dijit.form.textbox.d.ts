@@ -235,6 +235,6 @@ declare module dijit
 
 declare module "dijit/form/TextBox" 
 {
-	class TextBox extends dijit.form.TextBox {}
+	var TextBox: typeof dijit.form.TextBox;
 	export = TextBox;
 }
