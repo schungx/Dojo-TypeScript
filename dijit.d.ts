@@ -241,12 +241,12 @@ declare module dijit
 
 declare module "dijit/_Widget"
 {
-	class _Widget extends dijit._Widget { }
+	var _Widget: typeof dijit._Widget;
 	export = _Widget;
 }
 declare module "dijit/_WidgetBase" 
 {
-	class _WidgetBase extends dijit._WidgetBase { }
+	var _WidgetBase: typeof dijit._WidgetBase;
 	export = _WidgetBase;
 }
 declare module "dijit/_FocusMixin"
