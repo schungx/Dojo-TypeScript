@@ -6,7 +6,7 @@
 
 declare module dijit
 {
-  module form
+	module form
 	{
 		interface _FormMixin extends Dijit._Mixin
 		{
@@ -371,7 +371,7 @@ declare module "dijit/form/_FormWidgetMixin"
 
 declare module "dijit/form/_FormWidget"
 {
-	class _FormWidget extends dijit.form._FormWidget {}
+	var _FormWidget: typeof dijit.form._FormWidget;
 	export = _FormWidget;
 }
 
@@ -383,6 +383,6 @@ declare module "dijit/form/_FormValueMixin"
 
 declare module "dijit/form/_FormValueWidget" 
 {
-	class _FormValueWidget extends dijit.form._FormValueWidget { }
+	var _FormValueWidget: typeof dijit.form._FormValueWidget;
 	export = _FormValueWidget;
 }
