@@ -131,14 +131,29 @@ to use dojo/store, you must add another refernece:
 III. TypeScript setup
 ---------------------
 
-Your TypeScript environment must be setup to compile using AMD-style
-modules.  In Visual Studio, you set "Use the AMD module" to true under
-Tools-Options-Web Essentials-TypeScript.
-
-When using the command line compiler, use the "--module amd" flag.
-
 You MUST be using TypeScript version 0.9 or higher (with generics
 support).
+
+When using the command line compiler, use the "--module amd" flag
+since Dojo works with AMD-style modules.
+
+Your TypeScript environment must be setup to compile using AMD-style
+modules.  In Visual Studio with Web Essentials, you *used* to be able
+to set "Use the AMD module" to true under Web Essentials-TypeScript.
+
+New versions of Web Essentials no longer support TypeScript, and you
+must now find the settings under Tools-Options-Text Editor-TypeScript.
+There does not appear to be a place to change the module style
+(defaulted to AMD if you use the built-in TypeScript HTML Application
+project template), nor the JavaScript version to be emitted (defaulted
+to ES5 if you use the built-in template).  You must exit Visual Studio
+and manually edit the project file if these settings are incorrect.
+For example, you might want to target ES3 instead of ES5 and so must
+edit the project file for TypeScript to emit ES3 JavaScript.
+
+Visual Studio 2013 appears to have much better built-in support of
+TypeScript, including a "TypeScript" page in the main project
+configuration window.
 
 
 IV. Using Dojo modules
