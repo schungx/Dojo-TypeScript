@@ -166,6 +166,6 @@ declare module dijit
 
 declare module "dijit/form/Button" 
 {
-	class Button extends dijit.form.Button {}
+	var Button: typeof dijit.form.Button;
 	export = Button;
 }
