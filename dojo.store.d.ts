@@ -4,8 +4,6 @@
 
 /// <reference path="dojo.types.d.ts"/>
 
-interface _HTMLArray<T> extends Array<T> { }
-
 declare module Dojo
 {
 	module Store
@@ -98,7 +96,7 @@ declare module Dojo
 
 		// dojo/store/api/Store.QueryResults
 
-		interface QueryResults<T> extends _HTMLArray<T>
+		interface QueryResults<T> extends Array<T>
 		{
 			total: number;
 
@@ -110,7 +108,8 @@ declare module Dojo
 
 			then(callback: (items: T[]) => void, errorHandler: (error: any) => void): QueryResults<T>;
 
-			observe? (listener: (object: any, removedFrom: number, insertedInto: number) => void , includeAllUpdates?: boolean): { cancel(): void; };
+			// Added by dojo/store/Observable
+			observe? (listener: (object: any, removedFrom: number, insertedInto: number) => void , includeAllUpdates?: boolean): Dojo.CancellableHandle;
 		}
 
 		// dojo/store/api/Store.SortInformation
@@ -218,17 +217,17 @@ declare module Dojo
 
 declare module "dojo/store/Memory" 
 {
-	class Memory<T> extends Dojo.Store.Memory.Store<T> { }
+	var Memory: typeof Dojo.Store.Memory.Store;
 	export = Memory;
 }
 declare module "dojo/store/DataStore"
 {
-	class DataStore<T> extends Dojo.Store.DataStore.Store<T> { }
+	var DataStore: typeof Dojo.Store.DataStore.Store;
 	export = DataStore;
 }
 declare module "dojo/store/JsonRest"
 {
-	class JsonRest<T> extends Dojo.Store.JsonRest.Store<T> { }
+	var JsonRest: typeof Dojo.Store.JsonRest.Store;
 	export = JsonRest;
 }
 
