@@ -87,8 +87,7 @@ declare module "dojo/_base/browser"
 
 declare module Dojo
 {
-	// We need this in order to prevent a compiler error
-	class _Color
+	class Color
 	{
 		constructor();
 		constructor(colors: any[]);
@@ -100,8 +99,6 @@ declare module Dojo
 		g: number;
 		b: number;
 	}
-
-	class Color extends _Color { }
 
 	module Color
 	{
@@ -245,14 +242,14 @@ declare module Dojo
 }
 declare module "dojo/_base/Color"
 {
-	class Color extends Dojo._Color { }
+	class color extends Dojo.Color { }
 
-	module Color
+	module color
 	{
 		var named: Dojo.Color.NamedColors;
 	}
 
-	export = Color;
+	export = color;
 }
 
 // dojo/_base/config
@@ -641,7 +638,7 @@ declare module dojo
 }
 declare module "dojo/Deferred"
 {
-	class Deferred<T> extends dojo.Deferred<T> { }
+	var Deferred: typeof dojo.Deferred;
 	export = Deferred;
 }
 
@@ -1001,7 +998,7 @@ declare module Dojo
 }
 declare module "dojo/fx/Toggler"
 {
-	class Toggler extends Dojo.Fx.Toggler { }
+	var Toggler: typeof Dojo.Fx.Toggler;
 	export = Toggler;
 }
 
@@ -1879,7 +1876,7 @@ declare module "dojo/parser"
 
 declare module "dojo/promise/Promise" 
 {
-	class Promise<T> extends dojo.Promise<T> { }
+	var Promise: typeof dojo.Promise;
 	export = Promise;
 }
 
@@ -2282,7 +2279,7 @@ declare module "dojo/topic"
 
 declare module "dojo/Stateful"
 {
-	var Stateful: dojo.Stateful;
+	var Stateful: typeof dojo.Stateful;
 	export = Stateful;
 }
 
