@@ -6,42 +6,44 @@
 
 declare module Dojo.Data
 {
+	interface Item<T> { }
+
 	// dojo/data/api
 
-	export interface Request extends RequestArgs
+	interface Request<T> extends RequestArgs<T>
 	{
 		abort(): void;
 	}
 
-	export interface RequestArgs
+	interface RequestArgs<T>
 	{
 		query?: any;
 		queryOptions?: { ignoreCase?: boolean; deep?: boolean; };
-		onBegin?: (size: number, request: Request) => void;
-		onItem?: (item: any, request: Request) => void;
-		onComplete?: (items: any[], request: Request) => void;
-		onError?: (errorData: Object, request: Request) => void;
+		onBegin?: (size: number, request: Request<T>) => void;
+		onItem?: (item: T, request: Request<T>) => void;
+		onComplete?: (items: T[], request: Request<T>) => void;
+		onError?: (errorData: any, request: Request<T>) => void;
 		scope?: Object;
 		start?: number;
 		count?: number;
 		sort?: SortingArgs[];
 	}
-	export interface SortingArgs
+	interface SortingArgs
 	{
 		attribute: string;
 		descending?: boolean;
 	}
-	export interface SortingFunction<T> { (a: T, b: T): number; }
+	interface SortingFunction<T> { (a: T, b: T): number; }
 
 	// dojo/data
 
-	class Store extends dojo.Evented
+	class Store<T> extends dojo.Evented
 	{
 	}
 
 	// dojo/data/ItemFileReadStore
 
-	class ItemFileReadStore extends Store implements Util.SimpleFetch
+	class ItemFileReadStore<T> extends Store<T> implements Util.SimpleFetch<T>
 	{
 		constructor(keywordParameters: {
 			url?: string;
@@ -57,60 +59,60 @@ declare module Dojo.Data
 		url: string;
 		urlPreventCache: boolean;
 
-		close(request: Request): void;
-		containsValue(item: Object, attribute: string, value: any): boolean;
+		close(request: Request<T>): void;
+		containsValue(item: Item<T>, attribute: string, value: T): boolean;
 		fetchItemByIdentity(keywordArgs: {
-			identity: Object;
-			onItem?: (item: Object) => void;
-			onError?: (error: Object) => void;
+			identity: any;
+			onItem?: (item: Item<T>) => void;
+			onError?: (error: any) => void;
 			scope?: Object;
-		}): Object;
-		filter(requestArgs: RequestArgs, arrayOfItems: Object[], findCallback: (item: Object) => void ): void;
-		getAttributes(item: Object): string[];
+		}): Item<T>;
+		filter(requestArgs: RequestArgs<T>, arrayOfItems: Item<T>[], findCallback: (item: Item<T>) => void ): void;
+		getAttributes(item: Item<T>): string[];
 		getFeatures(): { [feature: string]: boolean; };
-		getIdentity(item: Object): Object;
-		getIdentityAttributes(item: Object): string[];
-		getLabel(item: Object): string;
-		getLabelAttributes(item: Object): string[];
-		getValue(item: Object, attribute: string, defaultValue?: any): any;
-		getValues(item: Object, attribute: string): any[];
-		hasAttribute(item: Object, attribute: string): boolean;
+		getIdentity(item: Item<T>): any;
+		getIdentityAttributes(item: Item<T>): string[];
+		getLabel(item: Item<T>): string;
+		getLabelAttributes(item: Item<T>): string[];
+		getValue(item: Item<T>, attribute: string, defaultValue?: T): T;
+		getValues(item: Item<T>, attribute: string): T[];
+		hasAttribute(item: Item<T>, attribute: string): boolean;
 		isItem(something: Object): boolean;
 		isItemLoaded(something: Object): boolean;
 		loadItem(keywordArgs: {
-			item: Object;
-			onItem?: (item: Object) => void;
-			onError?: (error: Object) => void;
+			item: Item<T>;
+			onItem?: (item: Item<T>) => void;
+			onError?: (error: any) => void;
 			scope?: Object;
 		}): void;
 
 		// dojo/data/util/simpleFetch
-		fetch(keywordArgs: RequestArgs): Request;
+		fetch(keywordArgs: RequestArgs<T>): Request<T>;
 	}
 
 	// dojo/data/ItemFileWriteStore
 
-	class ItemFileWriteStore extends ItemFileReadStore
+	class ItemFileWriteStore<T> extends ItemFileReadStore<T>
 	{
 		referenceIntegrity: boolean;
 
-		deleteItem(item: Object): boolean;
-		isDirty(item: Object): boolean;
-		newItem(keywordArgs?: Object, parentInfo?: { parent: Object; attribute: string; }): Object;
+		deleteItem(item: Item<T>): boolean;
+		isDirty(item: Item<T>): boolean;
+		newItem<P>(keywordArgs?: Object, parentInfo?: { parent: Item<P>; attribute: string; }): Item<T>;
 		revert(): boolean;
 		save(keywordArgs: {
 			onComplete?: () => void;
-			onError?: (error: Object) => void;
+			onError?: (error: any) => void;
 			scope?: Object;
 		}): boolean;
-		setValue(item: Object, attribute: string, value: any): boolean;
-		setValues(item: Object, attribute: string, values: any[]): boolean;
-		unsetAttribute(item: Object, attribute: string): boolean;
+		setValue(item: Item<T>, attribute: string, value: T): boolean;
+		setValues(item: Item<T>, attribute: string, values: T[]): boolean;
+		unsetAttribute(item: Item<T>, attribute: string): boolean;
 	}
 
 	// dojo/data/ObjectStore
 
-	class ObjectStore extends dojo.Evented implements Util.SimpleFetch
+	class ObjectStore<T> extends dojo.Evented implements Util.SimpleFetch<T>
 	{
 		constructor(keywordParameters: {
 			url?: string;
@@ -124,73 +126,73 @@ declare module Dojo.Data
 		changing(object: Object, _deleting: boolean): void;
 
 		// Read
-		close(request: Request): void;
-		containsValue(item: Object, attribute: string, value: any): boolean;
+		close(request: Request<T>): void;
+		containsValue(item: Item<T>, attribute: string, value: T): boolean;
 		fetchItemByIdentity(keywordArgs: {
-			identity: Object;
-			onItem?: (item: Object) => void;
-			onError?: (error: Object) => void;
+			identity: any;
+			onItem?: (item: Item<T>) => void;
+			onError?: (error: any) => void;
 			scope?: Object;
-		}): Object;
-		filter(requestArgs: RequestArgs, arrayOfItems: Object[], findCallback: (item: Object) => void ): void;
-		getAttributes(item: Object): string[];
+		}): Item<T>;
+		filter(requestArgs: RequestArgs<T>, arrayOfItems: Item<T>[], findCallback: (item: Item<T>) => void ): void;
+		getAttributes(item: Item<T>): string[];
 		getFeatures(): { [feature: string]: boolean; };
-		getIdentity(item: Object): Object;
-		getIdentityAttributes(item: Object): string[];
-		getLabel(item: Object): string;
-		getLabelAttributes(item: Object): string[];
-		getValue(item: Object, attribute: string, defaultValue?: any): any;
-		getValues(item: Object, attribute: string): any[];
-		hasAttribute(item: Object, attribute: string): boolean;
+		getIdentity(item: Item<T>): any;
+		getIdentityAttributes(item: Item<T>): string[];
+		getLabel(item: Item<T>): string;
+		getLabelAttributes(item: Item<T>): string[];
+		getValue(item: Item<T>, attribute: string, defaultValue?: T): T;
+		getValues(item: Item<T>, attribute: string): T[];
+		hasAttribute(item: Item<T>, attribute: string): boolean;
 		isItem(something: Object): boolean;
 		isItemLoaded(something: Object): boolean;
 		loadItem(keywordArgs: {
-			item: Object;
-			onItem?: (item: Object) => void;
-			onError?: (error: Object) => void;
+			item: Item<T>;
+			onItem?: (item: Item<T>) => void;
+			onError?: (error: any) => void;
 			scope?: Object;
 		}): void;
 
 		// dojo/data/util/simpleFetch
-		fetch(keywordArgs: RequestArgs): Request;
+		fetch(keywordArgs: RequestArgs<T>): Request<T>;
 
 		// Write
-		deleteItem(item: Object): boolean;
-		isDirty(item: Object): boolean;
-		newItem(keywordArgs?: Object, parentInfo?: { parent: Object; attribute: string; }): Object;
+		deleteItem(item: Item<T>): boolean;
+		isDirty(item: Item<T>): boolean;
+		newItem<P>(keywordArgs?: Object, parentInfo?: { parent: Item<P>; attribute: string; }): Item<T>;
 		revert(): boolean;
 		save(keywordArgs: {
 			onComplete?: () => void;
-			onError?: (error: Object) => void;
+			onError?: (error: any) => void;
 			scope?: Object;
 		}): boolean;
-		setValue(item: Object, attribute: string, value: any): boolean;
-		setValues(item: Object, attribute: string, values: any[]): boolean;
-		unsetAttribute(item: Object, attribute: string): boolean;
+		setValue(item: Item<T>, attribute: string, value: T): boolean;
+		setValues(item: Item<T>, attribute: string, values: T[]): boolean;
+		unsetAttribute(item: Item<T>, attribute: string): boolean;
 
 		// Notification
-		onDelete(deletedItem: Object): void;
-		onNew(newItem: Object, parentInfo?: {
-			item: Object;
+		onDelete(deleteditem: Item<T>): void;
+		onNew<P>(newitem: Item<T>, parentInfo?: {
+			item: Item<P>;
 			attribute: string;
 			oldValue: any;
 			newValue: any;
 		}): void;
 		onFetch(results: Object): void;
-		onSet(item: Object, attribute: string, oldValue: any, newValue: any): void;
+		onSet(item: Item<T>, attribute: string, oldValue: any, newValue: any): void;
 	}
 
 	module Util
 	{
 		// dojo/data/util/simpleFetch
-		export interface SimpleFetch
+		interface SimpleFetch<T>
 		{
-			fetch(keywordArgs: RequestArgs): Request;
+			fetch(keywordArgs: RequestArgs<T>): Request<T>;
 		}
 
 		// dojo/data/util/filter
 
-		export interface Filter
+		interface Filter
 		{
 			patternToRegExp(pattern: string, ignoreCase?: boolean): RegExp;
 		}
@@ -200,7 +202,7 @@ declare module Dojo.Data
 		interface Sorter<T>
 		{
 			basicComparator: SortingFunction<T>;
-			createSortFunction(sortSpec: SortingArgs[], store: Store): SortingFunction<T>;
+			createSortFunction(sortSpec: SortingArgs[], store: Store<T>): SortingFunction<T>;
 		}
 	}
 }
@@ -208,16 +210,16 @@ declare module Dojo.Data
 
 declare module "dojo/data/ItemFileReadStore" 
 {
-	var ItemFileReadStore: Dojo.Data.ItemFileReadStore;
+	var ItemFileReadStore: typeof Dojo.Data.ItemFileReadStore;
 	export = ItemFileReadStore;
 }
 declare module "dojo/data/ItemFileWriteStore" 
 {
-	var ItemFileWriteStore: Dojo.Data.ItemFileWriteStore;
+	var ItemFileWriteStore: typeof Dojo.Data.ItemFileWriteStore;
 	export = ItemFileWriteStore;
 }
 declare module "dojo/data/ObjectStore" 
 {
-	var ObjectStore: Dojo.Data.ObjectStore
+	var ObjectStore: typeof Dojo.Data.ObjectStore
 	export = ObjectStore;
 }
