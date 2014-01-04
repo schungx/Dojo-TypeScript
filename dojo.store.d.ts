@@ -4,6 +4,8 @@
 
 /// <reference path="dojo.types.d.ts"/>
 
+interface _HTMLArray<T> extends Array<T> { }
+
 declare module Dojo
 {
 	module Store
@@ -96,7 +98,7 @@ declare module Dojo
 
 		// dojo/store/api/Store.QueryResults
 
-		interface QueryResults<T> extends Array<T>
+		interface QueryResults<T> extends _HTMLArray<T>
 		{
 			total: number;
 
