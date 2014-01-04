@@ -17,8 +17,8 @@ declare module Dojo
 {
 	// Dojo handles
 
-	interface Handle {}
-	interface RemovableHandle extends Handle	{ remove(): void; }
+	interface Handle { }
+	interface RemovableHandle extends Handle { remove(): void; }
 	interface CancellableHandle extends Handle { cancel(): void; }
 	interface PausableHandle extends RemovableHandle
 	{
@@ -34,7 +34,7 @@ declare module Dojo
 	interface Predicate { (...args: any[]): boolean; }
 	interface FunctionReturning<T> { (...args: any[]): T; }
 
-	interface ExtensionEvent { (node: HTMLElement, listener: EventListener): RemovableHandle; }
+	interface ExtensionEvent { (node: HTMLElement, listener: (ev: Event) => any): RemovableHandle; }
 	interface WatchCallback<T> { (prop: string, oldvalue: T, newvalue: T): void; }
 
 	module Fx
@@ -78,8 +78,8 @@ declare module Dojo
 		l: number;
 		t: number;
 	}
-	interface Rectangle extends Point, Size {}
-	interface Position extends Offset, Size {}
+	interface Rectangle extends Point, Size { }
+	interface Position extends Offset, Size { }
 	interface Box extends Position
 	{
 		r: number;
@@ -125,70 +125,70 @@ declare module dojo
 		emit(type: string, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 		emit(type: Dojo.ExtensionEvent, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 
-		on(type: string, listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "abort", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "afterprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "beforeprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "blur", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "canplay", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "canplaythrough", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "change", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "click", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "contextmenu", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dblclick", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "drag", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dragend", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dragenter", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dragleave", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dragover", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dragstart", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "drop", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "durationchange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "emptied", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "ended", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "focus", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "hashchange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "input", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "keydown", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "keypress", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "keyup", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "load", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "loadeddata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "loadedmetadata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "loadstart", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "message", listener: (ev: MessageEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mousedown", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mousemove", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mouseout", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mouseover", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mouseup", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "offline", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "online", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "pause", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "play", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "playing", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "progress", listener: (ev: any) => boolean): Dojo.RemovableHandle;
-		on(type: "ratechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "readystatechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "reset", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "resize", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "scroll", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "seeked", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "seeking", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "select", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "stalled", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "storage", listener: (ev: StorageEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "submit", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "suspend", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "timeupdate", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "unload", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "volumechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "waiting", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: Dojo.ExtensionEvent, listener: EventListener): Dojo.RemovableHandle;
+		on(type: "abort", listener: (ev: UIEvent) => any): Dojo.RemovableHandle;
+		on(type: "afterprint", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "beforeprint", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "beforeunload", listener: (ev: BeforeUnloadEvent) => any): Dojo.RemovableHandle;
+		on(type: "blur", listener: (ev: FocusEvent) => any): Dojo.RemovableHandle;
+		on(type: "canplay", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "canplaythrough", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "change", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "click", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "contextmenu", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "dblclick", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "drag", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "dragend", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "dragenter", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "dragleave", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "dragover", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "dragstart", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "drop", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "durationchange", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "emptied", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "ended", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "focus", listener: (ev: FocusEvent) => any): Dojo.RemovableHandle;
+		on(type: "hashchange", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "input", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "keydown", listener: (ev: KeyboardEvent) => any): Dojo.RemovableHandle;
+		on(type: "keypress", listener: (ev: KeyboardEvent) => any): Dojo.RemovableHandle;
+		on(type: "keyup", listener: (ev: KeyboardEvent) => any): Dojo.RemovableHandle;
+		on(type: "load", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "loadeddata", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "loadedmetadata", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "loadstart", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "message", listener: (ev: MessageEvent) => any): Dojo.RemovableHandle;
+		on(type: "mousedown", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "mousemove", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "mouseout", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "mouseover", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "mouseup", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "mousewheel", listener: (ev: MouseWheelEvent) => any): Dojo.RemovableHandle;
+		on(type: "offline", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "online", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "pause", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "play", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "playing", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "progress", listener: (ev: any) => any): Dojo.RemovableHandle;
+		on(type: "ratechange", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "readystatechange", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "reset", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "resize", listener: (ev: UIEvent) => any): Dojo.RemovableHandle;
+		on(type: "scroll", listener: (ev: UIEvent) => any): Dojo.RemovableHandle;
+		on(type: "seeked", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "seeking", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "select", listener: (ev: UIEvent) => any): Dojo.RemovableHandle;
+		on(type: "stalled", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "storage", listener: (ev: StorageEvent) => any): Dojo.RemovableHandle;
+		on(type: "submit", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "suspend", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "timeupdate", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "unload", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "volumechange", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "waiting", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: string, listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: Dojo.ExtensionEvent, listener: (ev: Event) => any): Dojo.RemovableHandle;
 	}
-	
+
 	// Stateful
 
 	class Stateful extends Dojo.DeclaredClass
@@ -206,17 +206,17 @@ declare module dojo
 	{
 		constructor();
 
-		always(callbackOrErrback?: (value: any) => void ): Promise<T>;
+		always(callbackOrErrback?: (value: any) => void): Promise<T>;
 		cancel(reason: any, strict?: boolean): void;
-		otherwise(errback?: (error: any) => void ): Promise<T>;
+		otherwise(errback?: (error: any) => void): Promise<T>;
 
 		isCanceled(): boolean;
 		isFulfilled(): boolean;
 		isRejected(): boolean;
 		isResolved(): boolean;
 
-		then<V>(callback?: (value: T) => Promise<V>, errback?: (error: any) => void , progback?: (progress: any) => void ): Promise<V>;
-		then<V>(callback?: (value: T) => V, errback?: (error: any) => void , progback?: (progress: any) => void ): Promise<V>;
+		then<V>(callback?: (value: T) => Promise<V>, errback?: (error: any) => void, progback?: (progress: any) => void): Promise<V>;
+		then<V>(callback?: (value: T) => V, errback?: (error: any) => void, progback?: (progress: any) => void): Promise<V>;
 
 		trace(): Promise<T>;
 		traceRejected(): Promise<T>;
@@ -227,7 +227,7 @@ declare module dojo
 	class Animation extends Evented
 	{
 		constructor(args?: Dojo.PropertiesMap);
-		
+
 		duration: number;
 		curve: any;
 		easing: Dojo.Fx.EasingFunction;
@@ -238,7 +238,7 @@ declare module dojo
 		play(delay?: number, goToStart?: boolean): Animation;
 		pause(): Animation;
 		gotoPercent(percent: number, andPlay?: boolean): Animation;
-		stop(goToEnd?:boolean): Animation;
+		stop(goToEnd?: boolean): Animation;
 		status(): string;
 	}
 }
@@ -247,13 +247,12 @@ declare module dojo
 
 // dojo/_base/declare
 
-declare module "dojo/_base/declare" 
+declare module "dojo/_base/declare"
 {
 	var declare: Dojo.Declare;
 
 	export = declare;
 }
-
 
 // Widgets
 
@@ -353,14 +352,13 @@ declare module dijit
 		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 
-
 		buildRendering(): void;
 
 		/* Deprecated
 				connect(obj: Object, event: string, method: string): Dojo.Handle;
 				connect(obj: Object, event: Dojo.ExtensionEvent, method: string): Dojo.Handle;
-				connect(obj: Object, event: string, method: EventListener): Dojo.Handle;
-				connect(obj: Object, event: Dojo.ExtensionEvent, method: EventListener): Dojo.Handle;
+				connect(obj: Object, event: string, method: (ev: Event) => any): Dojo.Handle;
+				connect(obj: Object, event: Dojo.ExtensionEvent, method: (ev: Event) => any): Dojo.Handle;
 
 				disconnect(handle: Dojo.Handle): void;
 		*/
@@ -383,67 +381,67 @@ declare module dijit
 		isLeftToRight(): boolean;
 		isValid(): boolean;
 
-		on(type: "abort", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "afterprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "beforeprint", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "beforeunload", listener: (ev: BeforeUnloadEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "blur", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "canplay", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "canplaythrough", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "change", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "click", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "contextmenu", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dblclick", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "drag", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dragend", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dragenter", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dragleave", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dragover", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "dragstart", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "drop", listener: (ev: DragEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "durationchange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "emptied", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "ended", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "focus", listener: (ev: FocusEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "hashchange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "input", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "keydown", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "keypress", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "keyup", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "load", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "loadeddata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "loadedmetadata", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "loadstart", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "message", listener: (ev: MessageEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mousedown", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mousemove", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mouseout", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mouseover", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mouseup", listener: (ev: MouseEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "mousewheel", listener: (ev: MouseWheelEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "offline", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "online", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "pause", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "play", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "playing", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "progress", listener: (ev: any) => boolean): Dojo.RemovableHandle;
-		on(type: "ratechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "readystatechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "reset", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "resize", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "scroll", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "seeked", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "seeking", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "select", listener: (ev: UIEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "stalled", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "storage", listener: (ev: StorageEvent) => boolean): Dojo.RemovableHandle;
-		on(type: "submit", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "suspend", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "timeupdate", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "unload", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "volumechange", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: "waiting", listener: (ev: Event) => boolean): Dojo.RemovableHandle;
-		on(type: string, listener: (ev: Event) => boolean): Dojo.RemovableHandle;
+		on(type: "abort", listener: (ev: UIEvent) => any): Dojo.RemovableHandle;
+		on(type: "afterprint", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "beforeprint", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "beforeunload", listener: (ev: BeforeUnloadEvent) => any): Dojo.RemovableHandle;
+		on(type: "blur", listener: (ev: FocusEvent) => any): Dojo.RemovableHandle;
+		on(type: "canplay", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "canplaythrough", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "change", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "click", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "contextmenu", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "dblclick", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "drag", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "dragend", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "dragenter", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "dragleave", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "dragover", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "dragstart", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "drop", listener: (ev: DragEvent) => any): Dojo.RemovableHandle;
+		on(type: "durationchange", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "emptied", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "ended", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "focus", listener: (ev: FocusEvent) => any): Dojo.RemovableHandle;
+		on(type: "hashchange", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "input", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "keydown", listener: (ev: KeyboardEvent) => any): Dojo.RemovableHandle;
+		on(type: "keypress", listener: (ev: KeyboardEvent) => any): Dojo.RemovableHandle;
+		on(type: "keyup", listener: (ev: KeyboardEvent) => any): Dojo.RemovableHandle;
+		on(type: "load", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "loadeddata", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "loadedmetadata", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "loadstart", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "message", listener: (ev: MessageEvent) => any): Dojo.RemovableHandle;
+		on(type: "mousedown", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "mousemove", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "mouseout", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "mouseover", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "mouseup", listener: (ev: MouseEvent) => any): Dojo.RemovableHandle;
+		on(type: "mousewheel", listener: (ev: MouseWheelEvent) => any): Dojo.RemovableHandle;
+		on(type: "offline", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "online", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "pause", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "play", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "playing", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "progress", listener: (ev: any) => any): Dojo.RemovableHandle;
+		on(type: "ratechange", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "readystatechange", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "reset", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "resize", listener: (ev: UIEvent) => any): Dojo.RemovableHandle;
+		on(type: "scroll", listener: (ev: UIEvent) => any): Dojo.RemovableHandle;
+		on(type: "seeked", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "seeking", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "select", listener: (ev: UIEvent) => any): Dojo.RemovableHandle;
+		on(type: "stalled", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "storage", listener: (ev: StorageEvent) => any): Dojo.RemovableHandle;
+		on(type: "submit", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "suspend", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "timeupdate", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "unload", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "volumechange", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: "waiting", listener: (ev: Event) => any): Dojo.RemovableHandle;
+		on(type: string, listener: (ev: Event) => any): Dojo.RemovableHandle;
 		on(type: Dojo.ExtensionEvent, func: Dojo.Action): Dojo.RemovableHandle;
 
 		own(handle: Dojo.RemovableHandle): Dojo.RemovableHandle[];
