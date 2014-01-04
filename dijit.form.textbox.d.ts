@@ -50,7 +50,6 @@ declare module dijit
 			watch(prop: "uppercase", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 
-
 			filter(val: string): any;
 			format(value: string, constraints: Object): string;
 			parse(value: string, constraints: Object): string;
@@ -206,22 +205,22 @@ declare module dijit
 			// Events
 			on(type: "Blur", listener: Dojo.Action): Dojo.RemovableHandle;
 			on(type: "Change", listener: (newValue: string) => void): Dojo.RemovableHandle;
-			on(type: "Click", listener: (ev: MouseEvent) => void): Dojo.RemovableHandle;
+			on(type: "Click", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
 			on(type: "Close", listener: Dojo.Action): Dojo.RemovableHandle;
-			on(type: "DblClick", listener: (ev: MouseEvent) => void): Dojo.RemovableHandle;
+			on(type: "DblClick", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
 			on(type: "Focus", listener: Dojo.Action): Dojo.RemovableHandle;
 			on(type: "Hide", listener: Dojo.Action): Dojo.RemovableHandle;
 			on(type: "Input", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
-			on(type: "KeyDown", listener: (ev: KeyboardEvent) => void): Dojo.RemovableHandle;
-			on(type: "KeyPress", listener: (ev: KeyboardEvent) => void): Dojo.RemovableHandle;
-			on(type: "KeyUp", listener: (ev: KeyboardEvent) => void): Dojo.RemovableHandle;
-			on(type: "MouseDown", listener: (ev: MouseEvent) => void): Dojo.RemovableHandle;
-			on(type: "MouseEnter", listener: (ev: MouseEvent) => void): Dojo.RemovableHandle;
-			on(type: "MouseLeave", listener: (ev: MouseEvent) => void): Dojo.RemovableHandle;
-			on(type: "MouseMove", listener: (ev: MouseEvent) => void): Dojo.RemovableHandle;
-			on(type: "MouseOut", listener: (ev: MouseEvent) => void): Dojo.RemovableHandle;
-			on(type: "MouseOver", listener: (ev: MouseEvent) => void): Dojo.RemovableHandle;
-			on(type: "MouseUp", listener: (ev: MouseEvent) => void): Dojo.RemovableHandle;
+			on(type: "KeyDown", listener: Dojo.EventListener<KeyboardEvent>): Dojo.RemovableHandle;
+			on(type: "KeyPress", listener: Dojo.EventListener<KeyboardEvent>): Dojo.RemovableHandle;
+			on(type: "KeyUp", listener: Dojo.EventListener<KeyboardEvent>): Dojo.RemovableHandle;
+			on(type: "MouseDown", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseEnter", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseLeave", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseMove", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseOut", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseOver", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseUp", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
 			on(type: "Show", listener: Dojo.Action): Dojo.RemovableHandle;
 			on(type: string, listener: Dojo.Action): Dojo.RemovableHandle;
 			on(type: string, listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
@@ -230,10 +229,9 @@ declare module dijit
 	}
 }
 
-
 // Module definitions
 
-declare module "dijit/form/TextBox" 
+declare module "dijit/form/TextBox"
 {
 	var TextBox: typeof dijit.form.TextBox;
 	export = TextBox;
