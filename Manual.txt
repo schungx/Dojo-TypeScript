@@ -1,4 +1,4 @@
-Using The Dojo Toolkit (AMD-style) with TypeScript 0.9.1
+Using The Dojo Toolkit (AMD-style) with TypeScript 0.9.5
 ========================================================
 
 
@@ -131,7 +131,7 @@ to use dojo/store, you must add another refernece:
 III. TypeScript setup
 ---------------------
 
-You MUST be using TypeScript version 0.9 or higher (with generics
+You MUST be using TypeScript version 0.9.5 or higher (with generics
 support).
 
 When using the command line compiler, use the "--module amd" flag
