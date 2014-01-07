@@ -1226,6 +1226,10 @@ declare module dojo
 		constructor(nodes: _HTMLNodeList);
 		constructor(nodes: dojo.NodeList);
 
+		// Make NodeList array-like
+		length: number;
+		[index: number]: HTMLElement;
+
 		addClass(className: string): dojo.NodeList;
 		addClass(classNames: string[]): dojo.NodeList;
 
@@ -1889,8 +1893,10 @@ declare module Dojo
 		interface All
 		{
 			<T>(promises: dojo.Promise<T>[]): dojo.Promise<T[]>;
+			<T>(promises: T[]): dojo.Promise<T[]>;
 			<T>(promises: Dojo.Dictionary<dojo.Promise<T>>): dojo.Promise<Dojo.Dictionary<T>>;
-			<T>(promises: any): dojo.Promise<T>;
+			(promises: Object): dojo.Promise<Object>;
+			(promises: any): dojo.Promise<any>;
 		}
 	}
 }
