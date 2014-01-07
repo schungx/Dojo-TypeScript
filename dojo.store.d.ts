@@ -50,14 +50,14 @@ declare module Dojo
 		{
 			add(object: T, directives?: PutDirectives<T, K>): dojo.Promise<K>;
 			get(id: K): dojo.Promise<T>;
-			getChildren<V>(parent: T, options?: QueryOptions): QueryResults<dojo.Promise<V>>;
+			getChildren<V>(parent: T, options?: QueryOptions): dojo.Promise<QueryResults<V>>;
 			getIdentity(object: T): dojo.Promise<K>;
 			getMetadata(object: T): dojo.Promise<Object>;
 			put(object: T, directives?: PutDirectives<T, K>): dojo.Promise<K>;
 
-			query(query: string, options?: QueryOptions): QueryResults<dojo.Promise<T>>;
-			query(query: AttributesMap, options?: QueryOptions): QueryResults<dojo.Promise<T>>;
-			query(query: (item: T) => boolean, options?: QueryOptions): QueryResults<dojo.Promise<T>>;
+			query(query: string, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
+			query(query: AttributesMap, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
+			query(query: (item: T) => boolean, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
 
 			remove(id: K): boolean;
 
@@ -99,7 +99,7 @@ declare module Dojo
 		// dojo/store/api/Store.QueryResults
 		// NOTE - QueryResults may be a simple array or a promise
 
-		interface QueryResults<T> extends _HTMLArray<T>, dojo.Promise<T>
+		interface QueryResults<T> extends _HTMLArray<T>
 		{
 			total: number;
 
