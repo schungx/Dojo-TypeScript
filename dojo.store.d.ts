@@ -29,18 +29,18 @@ declare module Dojo
 
 		class Store<T> extends _Store<T>
 		{
-			add(object: T, directives?: PutDirectives<T>): number;
-			get(id: number): T;
+			add(object: T, directives?: PutDirectives<T>): any;
+			get(id: any): T;
 			getChildren<V>(parent: T, options?: QueryOptions): QueryResults<V>;
-			getIdentity(object: T): number;
+			getIdentity(object: T): any;
 			getMetadata(object: T): { [metadata: string]: any; };
-			put(object: T, directives?: PutDirectives<T>): number;
+			put(object: T, directives?: PutDirectives<T>): any;
 
 			query(query: string, options?: QueryOptions): QueryResults<T>;
 			query(query: AttributesMap, options?: QueryOptions): QueryResults<T>;
 			query(query: (item: T) => boolean, options?: QueryOptions): QueryResults<T>;
 
-			remove(id: number): boolean;
+			remove(id: any): boolean;
 
 			transaction(): Transaction;
 			Transaction: new () => Transaction;
@@ -48,18 +48,18 @@ declare module Dojo
 
 		class StoreAsync<T> extends _Store<T>
 		{
-			add(object: T, directives?: PutDirectives<T>): dojo.Promise<number>;
-			get(id: number): dojo.Promise<T>;
+			add(object: T, directives?: PutDirectives<T>): dojo.Promise<any>;
+			get(id: any): dojo.Promise<T>;
 			getChildren<V>(parent: T, options?: QueryOptions): dojo.Promise<QueryResults<V>>;
-			getIdentity(object: T): dojo.Promise<number>;
+			getIdentity(object: T): dojo.Promise<any>;
 			getMetadata(object: T): dojo.Promise<Object>;
-			put(object: T, directives?: PutDirectives<T>): dojo.Promise<number>;
+			put(object: T, directives?: PutDirectives<T>): dojo.Promise<any>;
 
 			query(query: string, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
 			query(query: AttributesMap, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
 			query(query: (item: T) => boolean, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
 
-			remove(id: number): boolean;
+			remove(id: any): boolean;
 
 			transaction(): TransactionAsync;
 			Transaction: new () => TransactionAsync;
@@ -81,7 +81,7 @@ declare module Dojo
 
 		interface PutDirectives<T>
 		{
-			id?: number;
+			id?: any;
 			before?: T;
 			parent?: Object;
 			overwrite?: boolean;
@@ -103,7 +103,7 @@ declare module Dojo
 			total: number;
 
 			filter(callback: (item: T) => boolean, thisObject?: Object): QueryResults<T>;
-			forEach(callback: (item: T) => void , thisObject?: Object): QueryResults<T>;
+			forEach(callback: (item: T) => void, thisObject?: Object): QueryResults<T>;
 
 			map<V>(callback: (item: T) => V, thisObject?: Object): QueryResults<V>;
 			map<U>(callbackfn: (value: T, index: number, array: T[]) => U, thisArg?: any): U[];
@@ -111,7 +111,7 @@ declare module Dojo
 			then(callback: (items: T[]) => void, errorHandler: (error: any) => void): QueryResults<T>;
 
 			// Added by dojo/store/Observable
-			observe? (listener: (object: any, removedFrom: number, insertedInto: number) => void , includeAllUpdates?: boolean): Dojo.CancellableHandle;
+			observe? (listener: (object: any, removedFrom: number, insertedInto: number) => void, includeAllUpdates?: boolean): Dojo.CancellableHandle;
 		}
 
 		// dojo/store/api/Store.SortInformation
@@ -159,7 +159,7 @@ declare module Dojo
 				index: Dojo.Dictionary<number>;
 			}
 		}
-	
+
 		// dojo/store/DataStore
 
 		module DataStore
@@ -214,10 +214,9 @@ declare module Dojo
 	}
 }
 
-
 // Module definitions
 
-declare module "dojo/store/Memory" 
+declare module "dojo/store/Memory"
 {
 	var Memory: typeof Dojo.Store.Memory.Store;
 	export = Memory;
