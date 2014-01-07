@@ -3,14 +3,19 @@
 /************************************************************************/
 
 // AMD definitions
+// Note - the type of the callback functions is changed to Function to get around the clumpsy
+//        0.9.5 requirement of making parameters optional when using Dojo.FunctionReturning
 
 declare function require<T>(depends: string): T;
-declare function require<T>(depends: string[], callback: Dojo.FunctionReturning<T>): T;
-declare function require(obj: Object);
+//declare function require<T>(depends: string[], callback: Dojo.FunctionReturning<T>): T;
+declare function require<T>(depends: string[], callback: Function): T;
+declare function require(obj: Object): void;
 
-declare function define<T>(id: string, depends: string[], callback: Dojo.FunctionReturning<T>): T;
-declare function define<T>(depends: string[], callback: Dojo.FunctionReturning<T>): T;
-declare function define(obj: Object);
+//declare function define<T>(id: string, depends: string[], callback: Dojo.FunctionReturning<T>): T;
+declare function define<T>(id: string, depends: string[], callback: Function): T;
+//declare function define<T>(depends: string[], callback: Dojo.FunctionReturning<T>): T;
+declare function define<T>(depends: string[], callback: Function): T;
+declare function define(obj: Object): void;
 
 // Define the Dojo namespace
 
@@ -31,8 +36,7 @@ declare module Dojo
 	// Common callback function types
 
 	interface SimpleAction { (): void; }
-	interface Action { (...args: any[]): void; }
-	interface Predicate { (...args: any[]): boolean; }
+	interface Action extends Function { }
 	interface FunctionReturning<T> { (...args: any[]): T; }
 
 	interface EventListener<T> { (evt: T): void; }
