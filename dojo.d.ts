@@ -373,7 +373,7 @@ declare module "dojo/AdapterRegistry"
 		pairs: any[];
 		returnWrappers: boolean;
 
-		match(...args: Object[]): void;
+		match(...args: any[]): void;
 		register(name: string, check: Dojo.FunctionReturning<boolean>, wrap: Dojo.Action, directReturn?: boolean, override?: boolean): void;
 		unregister(name: string): boolean;
 	}
