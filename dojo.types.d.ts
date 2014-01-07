@@ -6,6 +6,7 @@
 
 declare function require<T>(depends: string): T;
 declare function require<T>(depends: string[], callback: Dojo.FunctionReturning<T>): T;
+declare function require(obj: Object);
 
 declare function define<T>(id: string, depends: string[], callback: Dojo.FunctionReturning<T>): T;
 declare function define<T>(depends: string[], callback: Dojo.FunctionReturning<T>): T;
