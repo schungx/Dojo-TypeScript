@@ -12,7 +12,7 @@ declare module Dojo
 	{
 		// dojo/store/api/Store
 
-		class _Store<T, K>
+		class _Store<T extends Object, K>
 		{
 			idProperty: string;
 
@@ -27,7 +27,7 @@ declare module Dojo
 			SortInformation: new () => SortInformation;
 		}
 
-		class Store<T, K> extends _Store<T, K>
+		class Store<T extends Object, K> extends _Store<T, K>
 		{
 			add(object: T, directives?: PutDirectives<T, K>): K;
 			get(id: K): T;
@@ -46,7 +46,7 @@ declare module Dojo
 			Transaction: new () => Transaction;
 		}
 
-		class StoreAsync<T, K> extends _Store<T, K>
+		class StoreAsync<T extends Object, K> extends _Store<T, K>
 		{
 			add(object: T, directives?: PutDirectives<T, K>): dojo.Promise<K>;
 			get(id: K): dojo.Promise<T>;
@@ -67,7 +67,7 @@ declare module Dojo
 
 		// Query Engine
 
-		interface QueryEngine<T>
+		interface QueryEngine<T extends Object>
 		{
 			(query: string, options?: QueryOptions): (data: T[]) => T[];
 			(query: AttributesMap, options?: QueryOptions): (data: T[]) => T[];
@@ -79,7 +79,7 @@ declare module Dojo
 
 		// dojo/store/api/Store.PutDirectives
 
-		interface PutDirectives<T, K>
+		interface PutDirectives<T extends Object, K>
 		{
 			id?: K;
 			before?: T;
@@ -99,7 +99,7 @@ declare module Dojo
 		// dojo/store/api/Store.QueryResults
 		// NOTE - QueryResults may be a simple array or a promise
 
-		interface QueryResults<T> extends _HTMLArray<T>
+		interface QueryResults<T extends Object> extends _HTMLArray<T>
 		{
 			total: number;
 
@@ -108,7 +108,7 @@ declare module Dojo
 			map<V>(callback: (item: T, index: number, array: T[]) => V, thisObject?: Object): QueryResults<V>;
 
 			// Added by dojo/store/Observable
-			observe? (listener: (object: any, removedFrom: number, insertedInto: number) => void, includeAllUpdates?: boolean): Dojo.CancellableHandle;
+			observe? (listener: (object: T, removedFrom: number, insertedInto: number) => void, includeAllUpdates?: boolean): Dojo.CancellableHandle;
 		}
 
 		// dojo/store/api/Store.SortInformation
@@ -143,16 +143,16 @@ declare module Dojo
 
 		module Memory
 		{
-			interface CreateOptions extends Dojo.Store.CreateOptions
+			interface CreateOptions<T extends Object> extends Dojo.Store.CreateOptions
 			{
-				data?: any[];
+				data?: T[];
 			}
-			class Store<T, K> extends Dojo.Store.Store<T, K> implements CreateOptions
+			class Store<T extends Object, K> extends Dojo.Store.Store<T, K> implements CreateOptions<T>
 			{
-				constructor(options: CreateOptions);
+				constructor(options: CreateOptions<T>);
 
 				idProperty: string;
-				data: any[];
+				data: T[];
 				index: Dojo.Dictionary<number>;
 			}
 		}
@@ -166,7 +166,7 @@ declare module Dojo
 				target?: string;
 				store?: Object;		// Should be DojoDataStore, but needs to pull in dojo_data.ts and dojo.ts, so don't do it
 			}
-			class Store<T, K> extends Dojo.Store.Store<T, K> implements CreateOptions
+			class Store<T extends Object, K> extends Dojo.Store.Store<T, K> implements CreateOptions
 			{
 				constructor(options: CreateOptions);
 
@@ -174,7 +174,7 @@ declare module Dojo
 				target: string;
 				store: Object;
 			}
-			class StoreAsync<T, K> extends Dojo.Store.StoreAsync<T, K> implements CreateOptions
+			class StoreAsync<T extends Object, K> extends Dojo.Store.StoreAsync<T, K> implements CreateOptions
 			{
 				constructor(options: CreateOptions);
 
@@ -196,7 +196,7 @@ declare module Dojo
 				descendingPrefix?: string;
 				headers?: { [header: string]: string; };
 			}
-			class Store<T, K> extends Dojo.Store.StoreAsync<T, K> implements CreateOptions
+			class Store<T extends Object, K> extends Dojo.Store.StoreAsync<T, K> implements CreateOptions
 			{
 				constructor(options: CreateOptions);
 
@@ -237,7 +237,7 @@ declare module Dojo
 	{
 		interface Observable
 		{
-			<V, K, S extends _Store<V, K>>(store: S): S;
+			<T extends Object, K, S extends _Store<T, K>>(store: S): S;
 		}
 	}
 }
@@ -255,7 +255,7 @@ declare module Dojo
 	{
 		interface Cache
 		{
-			<V, K, S extends _Store<V, K>>(masterStore: S, cachingStore: _Store<V, K>, options?: { isLoaded?: (item: V) => boolean; }): S;
+			<T extends Object, K, S extends _Store<T, K>>(masterStore: S, cachingStore: _Store<T, K>, options?: { isLoaded?: (item: T) => boolean; }): S;
 		}
 	}
 }
