@@ -1603,7 +1603,7 @@ declare module Dojo
 {
 	interface Number
 	{
-		format(value: string, options?: {
+		format(value: number, options?: {
 			pattern?: string;
 			type?: string;
 			locale?: string;
