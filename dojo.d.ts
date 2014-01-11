@@ -1849,6 +1849,8 @@ declare module "dojo/on"
 
 // dojo/parser
 
+interface _ArrayOrPromise<T> extends Array<T>, Dojo.PromiseLike<T> { }
+
 declare module Dojo
 {
 	interface _ParseOptions
@@ -1864,7 +1866,7 @@ declare module Dojo
 
 	interface Parser
 	{
-		parse(rootNode?: HTMLElement, options?: _ParseOptions): dijit._WidgetBase[];
+		parse(rootNode?: HTMLElement, options?: _ParseOptions): _ArrayOrPromise<dijit._WidgetBase>;
 		scan(root?: HTMLElement, options?: _ParseOptions): dojo.Promise<HTMLElement[]>;
 		instantiate(nodes: HTMLElement[], mixin?: PropertiesMap, options?: _ParseOptions): dijit._WidgetBase[];
 		construct(ctor: { (params?: Dijit.WidgetCreateOptions): dijit._WidgetBase; }, node: HTMLElement, mixin?: PropertiesMap, options?: _ParseOptions, scripts?: HTMLElement[], inherited?: Object): dijit._WidgetBase;
