@@ -120,6 +120,26 @@ declare module Dojo
 
 		destroy(): void;
 	}
+
+	// Promises
+
+	interface PromiseLike<T>
+	{
+		always(callbackOrErrback?: (value: any) => void): PromiseLike<T>;
+		cancel(reason: any, strict?: boolean): void;
+		otherwise(errback?: (error: any) => void): PromiseLike<T>;
+
+		isCanceled(): boolean;
+		isFulfilled(): boolean;
+		isRejected(): boolean;
+		isResolved(): boolean;
+
+		then<V>(callback?: (value: T) => PromiseLike<V>, errback?: (error: any) => void, progback?: (progress: any) => void): PromiseLike<V>;
+		then<V>(callback?: (value: T) => V, errback?: (error: any) => void, progback?: (progress: any) => void): PromiseLike<V>;
+
+		trace(): PromiseLike<T>;
+		traceRejected(): PromiseLike<T>;
+	}
 }
 
 declare module dojo
@@ -202,13 +222,13 @@ declare module dojo
 		get(name: string): any;
 		set(name: string, value: any, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
-		watch<T>(name: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
+		watch(name: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		_changeAttrValue(name: string, value: any): void;		// Helper functions are not flushed out with overload-by-constant
 	}
 
 	// Promise
 
-	class Promise<T>
+	class Promise<T> implements Dojo.PromiseLike<T>
 	{
 		constructor();
 
