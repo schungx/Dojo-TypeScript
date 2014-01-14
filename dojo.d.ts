@@ -1566,34 +1566,34 @@ declare module dojo
 }
 declare module "dojo/NodeList"
 {
-	var NodeList: dojo.NodeList;
+	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
 
 // dojo/NodeList-???
 
 declare module "dojo/NodeList-data" {
-	var NodeList: dojo.NodeList;
+	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
 declare module "dojo/NodeList-dom" {
-	var NodeList: dojo.NodeList;
+	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
 declare module "dojo/NodeList-fx" {
-	var NodeList: dojo.NodeList;
+	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
 declare module "dojo/NodeList-html" {
-	var NodeList: dojo.NodeList;
+	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
 declare module "dojo/NodeList-manipulate" {
-	var NodeList: dojo.NodeList;
+	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
 declare module "dojo/NodeList-traverse" {
-	var NodeList: dojo.NodeList;
+	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
 
