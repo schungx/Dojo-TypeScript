@@ -31,7 +31,7 @@ declare module Dojo
 		pause(): void;
 		resume(): void;
 	}
-	interface WatchHandle { unwatch(): void; }
+	interface WatchHandle extends RemovableHandle { unwatch(): void; }
 
 	// Common callback function types
 
