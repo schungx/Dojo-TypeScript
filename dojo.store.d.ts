@@ -105,7 +105,7 @@ declare module Dojo
 
 			filter(callback: (item: T, index: number, array: T[]) => boolean, thisObject?: Object): QueryResults<T>;
 			forEach(callback: (item: T, index: number, array: T[]) => void, thisObject?: Object): QueryResults<T>;
-			map<V>(callback: (item: T, index: number, array: T[]) => V, thisObject?: Object): QueryResults<V>;
+			map<V extends Object>(callback: (item: T, index: number, array: T[]) => V, thisObject?: Object): QueryResults<V>;
 
 			// Added by dojo/store/Observable
 			observe? (listener: (object: T, removedFrom: number, insertedInto: number) => void, includeAllUpdates?: boolean): Dojo.CancellableHandle;
