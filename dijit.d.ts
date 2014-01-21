@@ -1,4 +1,4 @@
-/************************************************************************/
+﻿/************************************************************************/
 /* Define Dojo widgets                                                  */
 /************************************************************************/
 
@@ -78,7 +78,6 @@ declare module dijit
 		watch(prop: "title", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
-
 
 		onClick(event: MouseEvent): void;
 		onDblClick(event: MouseEvent): void;
@@ -223,7 +222,7 @@ declare module dijit
 
 	interface _WidgetsInTemplateMixin extends Dijit._Mixin
 	{
-		//contextRequire: 
+		//contextRequire:
 		//widgetsInTemplate: boolean;
 
 		get(name: "widgetsInTemplate"): boolean;
@@ -244,7 +243,7 @@ declare module "dijit/_Widget"
 	var _Widget: typeof dijit._Widget;
 	export = _Widget;
 }
-declare module "dijit/_WidgetBase" 
+declare module "dijit/_WidgetBase"
 {
 	var _WidgetBase: typeof dijit._WidgetBase;
 	export = _WidgetBase;
@@ -254,7 +253,7 @@ declare module "dijit/_FocusMixin"
 	var _FocusMixin: dijit._FocusMixin;
 	export = _FocusMixin;
 }
-declare module "dijit/_Container" 
+declare module "dijit/_Container"
 {
 	var _Container: dijit._Container;
 	export = _Container;
@@ -264,7 +263,7 @@ declare module "dijit/_Contained"
 	var _Contained: dijit._Contained;
 	export = _Contained;
 }
-declare module "dijit/_AttachMixin" 
+declare module "dijit/_AttachMixin"
 {
 	var _AttachMixin: dijit._AttachMixin;
 	export = _AttachMixin;
@@ -274,7 +273,7 @@ declare module "dijit/_TemplatedMixin"
 	var _TemplatedMixin: dijit._TemplatedMixin;
 	export = _TemplatedMixin;
 }
-declare module "dijit/_KeyNavMixin" 
+declare module "dijit/_KeyNavMixin"
 {
 	var _KeyNavMixin: dijit._KeyNavMixin;
 	export = _KeyNavMixin;
@@ -284,7 +283,7 @@ declare module "dijit/_KeyNavContainer"
 	var _KeyNavContainer: dijit._KeyNavContainer;
 	export = _KeyNavContainer;
 }
-declare module "dijit/_CssStateMixin" 
+declare module "dijit/_CssStateMixin"
 {
 	var _CssStateMixin: dijit._CssStateMixin;
 	export = _CssStateMixin;
@@ -311,7 +310,7 @@ declare module Dijit
 		toArray(): dijit._WidgetBase[];
 	}
 }
-declare module "dijit/registry" 
+declare module "dijit/registry"
 {
 	var registry: Dijit.Registry;
 	export = registry;

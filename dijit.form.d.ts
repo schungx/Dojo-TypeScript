@@ -1,4 +1,4 @@
-/************************************************************************/
+﻿/************************************************************************/
 /* Define form widgets                                                  */
 /************************************************************************/
 
@@ -63,7 +63,6 @@ declare module dijit
 			watch(prop: "type", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 			watch(prop: "value", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
-
 
 			compare(val1: any, val2: any): number;
 			create(): void;
@@ -354,10 +353,9 @@ declare module dijit
 	}
 }
 
-
 // Module definitions
 
-declare module "dijit/form/_FormMixin" 
+declare module "dijit/form/_FormMixin"
 {
 	var _FormMixin: dijit.form._FormMixin;
 	export = _FormMixin;
@@ -375,13 +373,13 @@ declare module "dijit/form/_FormWidget"
 	export = _FormWidget;
 }
 
-declare module "dijit/form/_FormValueMixin" 
+declare module "dijit/form/_FormValueMixin"
 {
 	var _FormValueMixin: dijit.form._FormValueMixin;
 	export = _FormValueMixin;
 }
 
-declare module "dijit/form/_FormValueWidget" 
+declare module "dijit/form/_FormValueWidget"
 {
 	var _FormValueWidget: typeof dijit.form._FormValueWidget;
 	export = _FormValueWidget;

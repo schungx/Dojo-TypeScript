@@ -1,4 +1,4 @@
-/************************************************************************/
+﻿/************************************************************************/
 /* Define menu widgets                                                  */
 /************************************************************************/
 
@@ -55,7 +55,6 @@ declare module dijit
 		watch(prop: "style", callback: Dojo.WatchCallback<Dojo.StylesMap>): Dojo.WatchHandle;
 		watch(prop: "title", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
-
 
 		private activated: boolean;
 		private autoFocus: boolean;
@@ -152,7 +151,6 @@ declare module dijit
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<{ [attachPoint: string]: string; }>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
-
 
 		// get/set/watch master signatures
 		get(name: string): any;
@@ -258,7 +256,6 @@ declare module dijit
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<{ [attachPoint: string]: string; }>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
-
 		// get/set/watch master signatures
 		get(name: string): any;
 		set(name: string, value: any, raiseChangeEvent?: boolean): void;
@@ -363,7 +360,6 @@ declare module dijit
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<{ [attachPoint: string]: string; }>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
-
 		private contextMenuForWindow: boolean;
 		private currentTarget: HTMLElement;
 		private leftClickToOpen: boolean;
@@ -398,7 +394,6 @@ declare module dijit
 
 		unBindDomNode(nodeId: string): void;
 		unBindDomNode(node: HTMLElement): void;
-
 
 		// get/set/watch master signatures
 		get(name: string): any;
@@ -456,7 +451,6 @@ declare module dijit
 		watch(prop: "style", callback: Dojo.WatchCallback<Dojo.StylesMap>): Dojo.WatchHandle;
 		watch(prop: "title", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
-
 
 		private accelKey: string;
 		private disabled: boolean;
@@ -522,7 +516,6 @@ declare module dijit
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<{ [attachPoint: string]: string; }>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
-
 		// get/set/watch master signatures
 		get(name: string): any;
 		set(name: string, value: any, raiseChangeEvent?: boolean): void;
@@ -580,7 +573,6 @@ declare module dijit
 		watch(prop: "title", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 
-
 		// dijit/_TemplatedMixin
 		get(name: "attachScope"): Object;
 		get(name: "searchContainerNode"): boolean;
@@ -604,7 +596,6 @@ declare module dijit
 		getNextSibling(): _WidgetBase;
 		getPreviousSibling(): _WidgetBase;
 
-
 		// get/set/watch master signatures
 		get(name: string): any;
 		set(name: string, value: any, raiseChangeEvent?: boolean): void;
@@ -613,30 +604,29 @@ declare module dijit
 	}
 }
 
-
 // Module definitions
 
-declare module "dijit/MenuBase" 
+declare module "dijit/MenuBase"
 {
 	var MenuBase: typeof dijit.MenuBase;
 	export = MenuBase;
 }
-declare module "dijit/DropDownMenu" 
+declare module "dijit/DropDownMenu"
 {
 	var DropDownMenu: typeof dijit.DropDownMenu;
 	export = DropDownMenu;
 }
-declare module "dijit/Menu" 
+declare module "dijit/Menu"
 {
 	var Menu: typeof dijit.Menu;
 	export = Menu;
 }
-declare module "dijit/MenuItem" 
+declare module "dijit/MenuItem"
 {
 	var MenuItem: typeof dijit.MenuItem;
 	export = MenuItem;
 }
-declare module "dijit/MenuSeparator" 
+declare module "dijit/MenuSeparator"
 {
 	var MenuSeparator: typeof dijit.MenuSeparator;
 	export = MenuSeparator;
