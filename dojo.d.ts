@@ -6,10 +6,8 @@
 
 // dojo/ready
 
-declare module Dojo
-{
-	interface Ready
-	{
+declare module Dojo {
+	interface Ready {
 		(priority: number, context: Object, callback: SimpleAction): void;
 		(context: Object, callback: SimpleAction): void;
 		(callback: SimpleAction): void;
@@ -23,10 +21,8 @@ declare module "dojo/ready"
 
 // dojo/domReady
 
-declare module Dojo
-{
-	interface DomReady
-	{
+declare module Dojo {
+	interface DomReady {
 		(callback: SimpleAction): void;
 	}
 }
@@ -38,10 +34,8 @@ declare module "dojo/domReady"
 
 // dojo/_base/array
 
-declare module Dojo
-{
-	interface Array
-	{
+declare module Dojo {
+	interface Array {
 		indexOf<T>(array: T[], value: T, fromIndex?: number, findLast?: boolean): number;
 		lastIndexOf<T>(array: T[], value: T, fromIndex?: number, findLast?: boolean): number;
 
@@ -85,10 +79,8 @@ declare module "dojo/_base/browser"
 
 // dojo/_base/Color
 
-declare module Dojo
-{
-	class Color
-	{
+declare module Dojo {
+	class Color {
 		constructor();
 		constructor(colors: any[]);
 		constructor(color: string);
@@ -100,10 +92,8 @@ declare module Dojo
 		b: number;
 	}
 
-	module Color
-	{
-		interface NamedColors
-		{
+	module Color {
+		interface NamedColors {
 			"aliceblue": number[];
 			"antiquewhite": number[];
 			"aquamarine": number[];
@@ -244,8 +234,7 @@ declare module "dojo/_base/Color"
 {
 	class color extends Dojo.Color { }
 
-	module color
-	{
+	module color {
 		var named: Dojo.Color.NamedColors;
 	}
 
@@ -254,10 +243,8 @@ declare module "dojo/_base/Color"
 
 // dojo/_base/config
 
-declare module Dojo
-{
-	interface Config
-	{
+declare module Dojo {
+	interface Config {
 		addOnLoad: Object;	// TODO
 		afterOnLoad: string;
 		baseUrl: string;
@@ -289,22 +276,17 @@ declare module "dojo/_base/config"
 
 // dojo/_base/fx
 
-declare module Dojo
-{
-	module Fx
-	{
-		interface BaseCreateOptions
-		{
+declare module Dojo {
+	module Fx {
+		interface BaseCreateOptions {
 			node: any;
 			duration?: number;
 			easing?: EasingFunction;
 		}
-		interface CreateOptions extends BaseCreateOptions
-		{
+		interface CreateOptions extends BaseCreateOptions {
 			properties: StylesMap;
 		}
-		interface Base
-		{
+		interface Base {
 			anim(nodeId: string, properties: PropertiesMap, duration?: number, easing?: EasingFunction, onEnd?: SimpleAction, delay?: number): dojo.Animation;
 			anim(node: HTMLElement, properties: PropertiesMap, duration?: number, easing?: EasingFunction, onEnd?: SimpleAction, delay?: number): dojo.Animation;
 
@@ -323,10 +305,8 @@ declare module "dojo/_base/fx"
 
 // dojo/_base/lang
 
-declare module Dojo
-{
-	interface Lang
-	{
+declare module Dojo {
+	interface Lang {
 		clone<T>(obj: T): T;
 		delegate(obj: Object, props: PropertiesMap): Object;
 		exists(path: string, root?: Object): boolean;
@@ -366,8 +346,7 @@ declare module "dojo/_base/lang"
 
 declare module "dojo/AdapterRegistry"
 {
-	class DojoAdapterRegistry
-	{
+	class DojoAdapterRegistry {
 		constructor(returnWrappers?: boolean);
 
 		pairs: any[];
@@ -383,10 +362,8 @@ declare module "dojo/AdapterRegistry"
 
 // dojo/aspect
 
-declare module Dojo
-{
-	interface Aspect
-	{
+declare module Dojo {
+	interface Aspect {
 		after(target: Object, methodName: string, advice: (x: any) => any): RemovableHandle;
 		after(target: Object, methodName: string, advice: Function, receiveArguments: boolean): RemovableHandle;
 
@@ -402,17 +379,14 @@ declare module "dojo/aspect"
 
 // dojo/back
 
-declare module Dojo
-{
-	interface HistoryState
-	{
+declare module Dojo {
+	interface HistoryState {
 		back?: (direction: string) => void;
 		forward?: (direction: string) => void;
 		changeUrl?: any;
 	}
 
-	interface Back
-	{
+	interface Back {
 		init(): void;
 		addToHistory(args: HistoryState): void;
 		getHash(): any;
@@ -426,10 +400,8 @@ declare module "dojo/back"
 
 // dojo.cache
 
-declare module Dojo
-{
-	interface Cache
-	{
+declare module Dojo {
+	interface Cache {
 		<T>(url: string): T;
 		<T>(url: string, value: T): void;
 		<T>(module: string, url: string): T;
@@ -444,12 +416,9 @@ declare module "dojo/cache"
 
 // dojo/cldr/monetary
 
-declare module Dojo
-{
-	module Cldr
-	{
-		interface Monetary
-		{
+declare module Dojo {
+	module Cldr {
+		interface Monetary {
 			getData(code: string): string;
 		}
 	}
@@ -462,12 +431,9 @@ declare module "dojo/cldr/monetary"
 
 // dojo/cldr/supplemental
 
-declare module Dojo
-{
-	module Cldr
-	{
-		interface Supplemental
-		{
+declare module Dojo {
+	module Cldr {
+		interface Supplemental {
 			getFirstDayOfWeek(locale?: string): number;
 			getWeekend(locale?: string): { start: number; end: number; };
 		}
@@ -481,10 +447,8 @@ declare module "dojo/cldr/supplemental"
 
 // dojo/cookie
 
-declare module Dojo
-{
-	interface Cookie
-	{
+declare module Dojo {
+	interface Cookie {
 		(name: string): string;
 		(name: string, value: string, props?: {
 			expires?: any;
@@ -504,10 +468,8 @@ declare module "dojo/cookie"
 
 // dojo/currency
 
-declare module Dojo
-{
-	interface _CurrencyFormatOptions
-	{
+declare module Dojo {
+	interface _CurrencyFormatOptions {
 		currency?: string;
 		fractional?: boolean;
 		locale?: string;
@@ -518,8 +480,7 @@ declare module Dojo
 		type?: string;
 		strict?: boolean;
 	}
-	interface Currency
-	{
+	interface Currency {
 		format(value: number, options?: _CurrencyFormatOptions): string;
 		parse(expression: string, options?: _CurrencyFormatOptions): number;
 		regexp(options?: _CurrencyFormatOptions): RegExp;
@@ -535,12 +496,9 @@ declare module "dojo/currency"
 
 interface _HTMLDate extends Date { }
 
-declare module Dojo
-{
-	module Date
-	{
-		interface Base
-		{
+declare module Dojo {
+	module Date {
+		interface Base {
 			add(date: _HTMLDate, interval: string, amount: number): _HTMLDate;
 			compare(date1: _HTMLDate, date2?: _HTMLDate, portion?: string): number;
 			difference(date1: _HTMLDate, date2?: _HTMLDate, interval?: string): number;
@@ -558,12 +516,9 @@ declare module "dojo/date"
 
 // dojo/date/stamp
 
-declare module Dojo
-{
-	module Date
-	{
-		interface Stamp
-		{
+declare module Dojo {
+	module Date {
+		interface Stamp {
 			fromISOString(formattedString: string, defaultTime?: number): _HTMLDate;
 			toISOString(dateObject: _HTMLDate, options?: { selector?: string; zulu?: boolean; milliseconds?: number; }): string;
 		}
@@ -577,12 +532,9 @@ declare module "dojo/date/stamp"
 
 // dojo/date/locale
 
-declare module Dojo
-{
-	module Date
-	{
-		interface FormatOptions
-		{
+declare module Dojo {
+	module Date {
+		interface FormatOptions {
 			selector?: string;
 			formatLength?: string;
 			datePattern?: string;
@@ -594,8 +546,7 @@ declare module Dojo
 			strict?: boolean;
 		}
 
-		interface Locale
-		{
+		interface Locale {
 			addCustomFormats(packageName: string, bundleName: string): void;
 			format(dateObject: _HTMLDate, options?: FormatOptions): string;
 			getNames(item: string, type: string, context?: string, locale?: string): string[];
@@ -613,8 +564,7 @@ declare module "dojo/date/locale"
 
 // dojo/Deferred
 
-declare module dojo
-{
+declare module dojo {
 	class Deferred<T>
 	{
 		constructor(canceler?: (reason: any) => void);
@@ -644,11 +594,9 @@ declare module "dojo/Deferred"
 
 // dojo/dom
 
-declare module Dojo
-{
-	interface Dom
-	{
-		byId(node: HTMLElement): HTMLElement;
+declare module Dojo {
+	interface Dom {
+		byId<T extends HTMLElement>(node: T): T;
 		byId(id: string): HTMLElement;
 
 		isDescendant(id: string, ancestor: string): boolean;
@@ -668,10 +616,8 @@ declare module "dojo/dom"
 
 // dojo/dom-attr
 
-declare module Dojo
-{
-	interface DomAttr
-	{
+declare module Dojo {
+	interface DomAttr {
 		has(id: string, attr: string): boolean;
 		has(node: HTMLElement, attr: string): boolean;
 
@@ -698,10 +644,8 @@ declare module "dojo/dom-attr"
 
 // dojo/dom-class
 
-declare module Dojo
-{
-	interface DomClass
-	{
+declare module Dojo {
+	interface DomClass {
 		contains(node: string, className: string): boolean;
 		contains(node: HTMLElement, className: string): boolean;
 
@@ -738,25 +682,231 @@ declare module "dojo/dom-class"
 
 // dojo/dom-construct
 
-declare module Dojo
-{
-	interface DomConstruct
-	{
+declare module Dojo {
+	interface DomConstruct {
 		toDom(frag: string, doc?: HTMLDocument): HTMLElement;
 
 		place(id: string, refNodeId: string, pos?: string): HTMLElement;
-		place(node: HTMLElement, refNodeId: string, pos?: string): HTMLElement;
+		place<T extends HTMLElement>(node: T, refNodeId: string, pos?: string): T;
 		place(id: string, refNode: HTMLElement, pos?: string): HTMLElement;
-		place(node: HTMLElement, refNode: HTMLElement, pos?: string): HTMLElement;
+		place<T extends HTMLElement>(node: T, refNode: HTMLElement, pos?: string): T;
 		place(id: string, refNodeId: string, pos?: number): HTMLElement;
-		place(node: HTMLElement, refNodeId: string, pos?: number): HTMLElement;
+		place<T extends HTMLElement>(node: T, refNodeId: string, pos?: number): T;
 		place(id: string, refNode: HTMLElement, pos?: number): HTMLElement;
-		place(node: HTMLElement, refNode: HTMLElement, pos?: number): HTMLElement;
+		place<T extends HTMLElement>(node: T, refNode: HTMLElement, pos?: number): T;
 
+		create(id: "a", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLAnchorElement
+		create(id: "abbr", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "address", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "area", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLAreaElement
+		create(id: "article", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "aside", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "audio", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLAudioElement
+		create(id: "b", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "base", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLBaseElement
+		create(id: "bdi", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "bdo", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "blockquote", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLQuoteElement
+		create(id: "body", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLBodyElement
+		create(id: "br", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLBRElement
+		create(id: "button", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLButtonElement
+		create(id: "canvas", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLCanvasElement
+		create(id: "caption", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTableCaptionElement
+		create(id: "cite", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "code", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "col", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTableColElement
+		create(id: "colgroup", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTableColElement
+		create(id: "datalist", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLDataListElement
+		create(id: "dd", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "del", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLModElement
+		create(id: "dfn", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "div", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLDivElement
+		create(id: "dl", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLDListElement
+		create(id: "dt", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "em", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "embed", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLEmbedElement
+		create(id: "fieldset", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLFieldSetElement
+		create(id: "figcaption", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "figure", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "footer", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "form", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLFormElement
+		create(id: "h1", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLHeadingElement
+		create(id: "h2", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLHeadingElement
+		create(id: "h3", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLHeadingElement
+		create(id: "h4", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLHeadingElement
+		create(id: "h5", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLHeadingElement
+		create(id: "h6", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLHeadingElement
+		create(id: "head", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLHeadElement
+		create(id: "header", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "hgroup", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "hr", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLHRElement
+		create(id: "html", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLHtmlElement
+		create(id: "i", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "iframe", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLIFrameElement
+		create(id: "img", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLImageElement
+		create(id: "input", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLInputElement
+		create(id: "ins", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLModElement
+		create(id: "kbd", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "label", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLLabelElement
+		create(id: "legend", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLLegendElement
+		create(id: "li", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLLIElement
+		create(id: "link", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLLinkElement
+		create(id: "main", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "map", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLMapElement
+		create(id: "mark", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "menu", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLMenuElement
+		create(id: "meta", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLMetaElement
+		create(id: "nav", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "noscript", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "object", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLObjectElement
+		create(id: "ol", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLOListElement
+		create(id: "optgroup", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLOptGroupElement
+		create(id: "option", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLOptionElement
+		create(id: "p", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLParagraphElement
+		create(id: "param", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLParamElement
+		create(id: "pre", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLPreElement
+		create(id: "progress", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLProgressElement
+		create(id: "q", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLQuoteElement
+		create(id: "rp", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "rt", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "ruby", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "s", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "samp", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "script", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLScriptElement
+		create(id: "section", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "select", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLSelectElement
+		create(id: "small", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "source", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLSourceElement
+		create(id: "span", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLSpanElement
+		create(id: "strong", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "style", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLStyleElement
+		create(id: "sub", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "summary", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "sup", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "table", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTableElement
+		create(id: "tbody", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTableSectionElement
+		create(id: "td", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTableDataCellElement
+		create(id: "textarea", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTextAreaElement
+		create(id: "tfoot", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTableSectionElement
+		create(id: "th", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTableHeaderCellElement
+		create(id: "thead", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTableSectionElement
+		create(id: "title", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTitleElement
+		create(id: "tr", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTableRowElement
+		create(id: "track", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLTrackElement
+		create(id: "u", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "ul", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLUListElement
+		create(id: "var", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
+		create(id: "video", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLVideoElement
+		create(id: "wbr", attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement
 		create(id: string, attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement;
-		create(tag: HTMLElement, attrs?: AttributesMap, refNodeId?: string, pos?: string): HTMLElement;
+
+		create(id: "a", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLAnchorElement
+		create(id: "abbr", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "address", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "area", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLAreaElement
+		create(id: "article", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "aside", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "audio", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLAudioElement
+		create(id: "b", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "base", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLBaseElement
+		create(id: "bdi", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "bdo", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "blockquote", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLQuoteElement
+		create(id: "body", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLBodyElement
+		create(id: "br", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLBRElement
+		create(id: "button", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLButtonElement
+		create(id: "canvas", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLCanvasElement
+		create(id: "caption", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTableCaptionElement
+		create(id: "cite", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "code", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "col", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTableColElement
+		create(id: "colgroup", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTableColElement
+		create(id: "datalist", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLDataListElement
+		create(id: "dd", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "del", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLModElement
+		create(id: "dfn", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "div", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLDivElement
+		create(id: "dl", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLDListElement
+		create(id: "dt", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "em", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "embed", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLEmbedElement
+		create(id: "fieldset", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLFieldSetElement
+		create(id: "figcaption", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "figure", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "footer", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "form", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLFormElement
+		create(id: "h1", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLHeadingElement
+		create(id: "h2", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLHeadingElement
+		create(id: "h3", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLHeadingElement
+		create(id: "h4", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLHeadingElement
+		create(id: "h5", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLHeadingElement
+		create(id: "h6", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLHeadingElement
+		create(id: "head", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLHeadElement
+		create(id: "header", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "hgroup", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "hr", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLHRElement
+		create(id: "html", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLHtmlElement
+		create(id: "i", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "iframe", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLIFrameElement
+		create(id: "img", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLImageElement
+		create(id: "input", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLInputElement
+		create(id: "ins", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLModElement
+		create(id: "kbd", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "label", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLLabelElement
+		create(id: "legend", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLLegendElement
+		create(id: "li", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLLIElement
+		create(id: "link", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLLinkElement
+		create(id: "main", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "map", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLMapElement
+		create(id: "mark", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "menu", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLMenuElement
+		create(id: "meta", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLMetaElement
+		create(id: "nav", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "noscript", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "object", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLObjectElement
+		create(id: "ol", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLOListElement
+		create(id: "optgroup", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLOptGroupElement
+		create(id: "option", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLOptionElement
+		create(id: "p", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLParagraphElement
+		create(id: "param", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLParamElement
+		create(id: "pre", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLPreElement
+		create(id: "progress", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLProgressElement
+		create(id: "q", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLQuoteElement
+		create(id: "rp", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "rt", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "ruby", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "s", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "samp", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "script", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLScriptElement
+		create(id: "section", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "select", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLSelectElement
+		create(id: "small", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "source", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLSourceElement
+		create(id: "span", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLSpanElement
+		create(id: "strong", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "style", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLStyleElement
+		create(id: "sub", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "summary", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "sup", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "table", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTableElement
+		create(id: "tbody", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTableSectionElement
+		create(id: "td", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTableDataCellElement
+		create(id: "textarea", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTextAreaElement
+		create(id: "tfoot", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTableSectionElement
+		create(id: "th", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTableHeaderCellElement
+		create(id: "thead", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTableSectionElement
+		create(id: "title", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTitleElement
+		create(id: "tr", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTableRowElement
+		create(id: "track", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLTrackElement
+		create(id: "u", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "ul", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLUListElement
+		create(id: "var", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
+		create(id: "video", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLVideoElement
+		create(id: "wbr", attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement
 		create(id: string, attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement;
-		create(tag: HTMLElement, attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): HTMLElement;
+
+		create<T extends HTMLElement>(tag: T, attrs?: AttributesMap, refNodeId?: string, pos?: string): T;
+		create<T extends HTMLElement>(tag: T, attrs?: AttributesMap, refNode?: HTMLElement, pos?: string): T;
 
 		empty(id: string): void;
 		empty(node: HTMLElement): void;
@@ -773,10 +923,8 @@ declare module "dojo/dom-construct"
 
 // dojo/dom-form
 
-declare module Dojo
-{
-	interface DomForm
-	{
+declare module Dojo {
+	interface DomForm {
 		fieldToObject(inputNode: HTMLElement): any;
 		fieldToObject(inputNode: string): any;
 
@@ -798,10 +946,8 @@ declare module "dojo/dom-form"
 
 // dojo/dom-geometry
 
-declare module Dojo
-{
-	interface DomGeometry
-	{
+declare module Dojo {
+	interface DomGeometry {
 		boxModel: string;
 
 		docScroll(doc?: HTMLDocument): { node: HTMLElement; x: number; y: number; };
@@ -832,10 +978,8 @@ declare module "dojo/dom-geometry"
 
 // dojo/dom-prop
 
-declare module Dojo
-{
-	interface DomProp
-	{
+declare module Dojo {
+	interface DomProp {
 		get(id: string, attr: string): string;
 		get(node: HTMLElement, attr: string): string;
 
@@ -853,10 +997,8 @@ declare module "dojo/dom-prop"
 
 // dojo/dom-style
 
-declare module Dojo
-{
-	interface DomStyle
-	{
+declare module Dojo {
+	interface DomStyle {
 		getComputedStyle(node: HTMLElement): StylesMap;
 
 		get(id: string, style?: string): StylesMap;
@@ -884,22 +1026,17 @@ declare module "dojo/Evented"
 
 // dojo/fx
 
-declare module Dojo
-{
-	module Fx
-	{
-		interface SlideCreateOptions extends CreateOptions
-		{
+declare module Dojo {
+	module Fx {
+		interface SlideCreateOptions extends CreateOptions {
 			top: string;
 			left: string;
 		}
-		interface AutoSlideCreateOptions extends SlideCreateOptions
-		{
+		interface AutoSlideCreateOptions extends SlideCreateOptions {
 			auto: any;
 		}
 
-		interface Module
-		{
+		interface Module {
 			chain(animations: dojo.Animation[]): dojo.Animation;
 			combine(animations: dojo.Animation[]): dojo.Animation;
 			slideTo(args: SlideCreateOptions): dojo.Animation;
@@ -918,12 +1055,9 @@ declare module "dojo/fx"
 
 // dojo/fx/easing
 
-declare module Dojo
-{
-	module Fx
-	{
-		interface Easing
-		{
+declare module Dojo {
+	module Fx {
+		interface Easing {
 			backIn(n: number): number;
 			backInOut(n: number): number;
 			backOut(n: number): number;
@@ -968,12 +1102,9 @@ declare module "dojo/fx/easing"
 
 // dojo/fx/Toggler
 
-declare module Dojo
-{
-	module Fx
-	{
-		interface TogglerCreateOptions
-		{
+declare module Dojo {
+	module Fx {
+		interface TogglerCreateOptions {
 			node: any;
 			showDuration?: number;
 			showFunc?: (args: BaseCreateOptions) => dojo.Animation;
@@ -981,8 +1112,7 @@ declare module Dojo
 			hideFuc?: (args: BaseCreateOptions) => dojo.Animation;
 		}
 
-		class Toggler
-		{
+		class Toggler {
 			constructor(args: TogglerCreateOptions);
 
 			hideDuration: number;
@@ -1004,10 +1134,8 @@ declare module "dojo/fx/Toggler"
 
 // dojo/has
 
-declare module Dojo
-{
-	interface Has
-	{
+declare module Dojo {
+	interface Has {
 		(feature: string): boolean;
 		(feature: number): boolean;
 
@@ -1026,10 +1154,8 @@ declare module "dojo/has"
 
 // dojo/hash
 
-declare module Dojo
-{
-	interface Hash
-	{
+declare module Dojo {
+	interface Hash {
 		(hash?: string, replace?: boolean): string;
 	}
 }
@@ -1041,10 +1167,8 @@ declare module "dojo/hash"
 
 // dojo/html
 
-declare module Dojo
-{
-	interface _HtmlContentSetterOptions
-	{
+declare module Dojo {
+	interface _HtmlContentSetterOptions {
 		cleanContent?: boolean;
 		extractContent?: boolean;
 		parseContent?: boolean;
@@ -1056,8 +1180,7 @@ declare module Dojo
 		onEnd(): void;
 	}
 
-	interface Html
-	{
+	interface Html {
 		set(node: HTMLElement, content: string, params?: _HtmlContentSetterOptions): void;
 		set(node: HTMLElement, content: HTMLElement, params?: _HtmlContentSetterOptions): void;
 		set(node: HTMLElement, content: NodeList, params?: _HtmlContentSetterOptions): void;
@@ -1073,10 +1196,8 @@ declare module "dojo/html"
 
 // dojo/io-query
 
-declare module Dojo
-{
-	interface IOQuery
-	{
+declare module Dojo {
+	interface IOQuery {
 		objectToQuery(map: Dojo.Dictionary<any>): string;
 		queryToObject(str: string): Dojo.Dictionary<any>;
 	}
@@ -1089,10 +1210,8 @@ declare module "dojo/io-query"
 
 // dojo/keys
 
-declare module Dojo
-{
-	interface Keys
-	{
+declare module Dojo {
+	interface Keys {
 		BACKSPACE: number;
 		TAB: number;
 		CLEAR: number;
@@ -1163,10 +1282,8 @@ declare module "dojo/keys"
 
 // dojo/json
 
-declare module Dojo
-{
-	interface Json
-	{
+declare module Dojo {
+	interface Json {
 		parse(str: string, secured?: boolean): any;
 
 		stringify(obj: any, replacer?: any[], space?: boolean): string;
@@ -1181,10 +1298,8 @@ declare module "dojo/json"
 
 // dojo/mouse
 
-declare module Dojo
-{
-	interface Mouse
-	{
+declare module Dojo {
+	interface Mouse {
 		enter: ExtensionEvent;
 		leave: ExtensionEvent;
 
@@ -1203,24 +1318,18 @@ declare module "dojo/mouse"
 
 interface _HTMLNodeList extends NodeList { }
 
-declare module Dojo
-{
-	module Fx
-	{
-		interface AutoCreateOptions extends CreateOptions
-		{
+declare module Dojo {
+	module Fx {
+		interface AutoCreateOptions extends CreateOptions {
 			auto: any;
 		}
-		interface AutoBaseCreateOptions extends BaseCreateOptions
-		{
+		interface AutoBaseCreateOptions extends BaseCreateOptions {
 			auto: any;
 		}
 	}
 }
-declare module dojo
-{
-	class NodeList
-	{
+declare module dojo {
+	class NodeList {
 		constructor(node: HTMLElement);
 		constructor(nodes: HTMLElement[]);
 		constructor(nodes: _HTMLNodeList);
@@ -1599,10 +1708,8 @@ declare module "dojo/NodeList-traverse" {
 
 // dojo/number
 
-declare module Dojo
-{
-	interface Number
-	{
+declare module Dojo {
+	interface Number {
 		format(value: number, options?: {
 			pattern?: string;
 			type?: string;
@@ -1636,10 +1743,8 @@ declare module "dojo/number"
 
 // dojo/on
 
-declare module Dojo
-{
-	interface On
-	{
+declare module Dojo {
+	interface On {
 		(target: HTMLElement, type: "abort", listener: EventListener<UIEvent>, dontFix?: boolean): Dojo.RemovableHandle;
 		(target: HTMLElement, type: "afterprint", listener: EventListener<Event>, dontFix?: boolean): Dojo.RemovableHandle;
 		(target: HTMLElement, type: "beforeprint", listener: EventListener<Event>, dontFix?: boolean): Dojo.RemovableHandle;
@@ -1851,10 +1956,8 @@ declare module "dojo/on"
 
 interface _ArrayOrPromise<T> extends Array<T>, Dojo.PromiseLike<T> { }
 
-declare module Dojo
-{
-	interface _ParseOptions
-	{
+declare module Dojo {
+	interface _ParseOptions {
 		noStart?: boolean;
 		rootNode?: HTMLElement;
 		template?: boolean;
@@ -1864,8 +1967,7 @@ declare module Dojo
 		contextRequire?: Function;
 	}
 
-	interface Parser
-	{
+	interface Parser {
 		parse(rootNode?: HTMLElement, options?: _ParseOptions): _ArrayOrPromise<dijit._WidgetBase>;
 		scan(root?: HTMLElement, options?: _ParseOptions): dojo.Promise<HTMLElement[]>;
 		instantiate(nodes: HTMLElement[], mixin?: PropertiesMap, options?: _ParseOptions): dijit._WidgetBase[];
@@ -1888,12 +1990,9 @@ declare module "dojo/promise/Promise"
 
 // dojo/promise/all
 
-declare module Dojo
-{
-	module Promise
-	{
-		interface All
-		{
+declare module Dojo {
+	module Promise {
+		interface All {
 			<T>(promises: dojo.Promise<T>[]): dojo.Promise<T[]>;
 			<T>(promises: T[]): dojo.Promise<T[]>;
 			<T>(promises: Dojo.Dictionary<dojo.Promise<T>>): dojo.Promise<Dojo.Dictionary<T>>;
@@ -1910,12 +2009,9 @@ declare module "dojo/promise/all"
 
 // dojo/promise/first
 
-declare module Dojo
-{
-	module Promise
-	{
-		interface First
-		{
+declare module Dojo {
+	module Promise {
+		interface First {
 			<T>(promises: dojo.Promise<T>[]): dojo.Promise<T>;
 			<T>(promises: Dojo.Dictionary<dojo.Promise<T>>): dojo.Promise<T>;
 			<T>(promises: any): dojo.Promise<T>;
@@ -1930,10 +2026,8 @@ declare module "dojo/promise/first"
 
 // dojo/query
 
-declare module Dojo
-{
-	interface Query
-	{
+declare module Dojo {
+	interface Query {
 		(selector: string, contextId?: string): dojo.NodeList;
 		(selector: string, thisObject?: Object): dojo.NodeList;
 
@@ -1973,10 +2067,8 @@ declare module "dojo/query!acme"
 
 // dojo/regexp
 
-declare module Dojo
-{
-	interface RegExp
-	{
+declare module Dojo {
+	interface RegExp {
 		buildGroupRE(arr: any, re: (item: any) => RegExp, nonCapture?: boolean): RegExp;
 		buildGroupRE(arr: any[], re: (item: any) => RegExp, nonCapture?: boolean): RegExp;
 
@@ -1992,16 +2084,12 @@ declare module "dojo/regexp"
 
 // dojo/request
 
-declare module Dojo
-{
-	module Request
-	{
-		interface MethodOptions
-		{
+declare module Dojo {
+	module Request {
+		interface MethodOptions {
 			method: string;
 		}
-		interface BaseOptions
-		{
+		interface BaseOptions {
 			handleAs?: string;
 			headers?: { [header: string]: string; };
 			sync?: boolean;
@@ -2012,8 +2100,7 @@ declare module Dojo
 		}
 		interface Options extends BaseOptions, MethodOptions { }
 
-		interface RequestObject<T, BaseOptions, Options>
-		{
+		interface RequestObject<T, BaseOptions, Options> {
 			<T>(url: string, options?: Options): dojo.Promise<T>;
 			get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 			put<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -2023,12 +2110,9 @@ declare module Dojo
 	}
 }
 
-declare module Dojo
-{
-	module Request
-	{
-		interface Base
-		{
+declare module Dojo {
+	module Request {
+		interface Base {
 			<T>(url: string, options?: Options): dojo.Promise<T>;
 			get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 			put<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -2043,17 +2127,13 @@ declare module "dojo/request"
 	export = request;
 }
 
-declare module Dojo
-{
-	module Request
-	{
-		module Xhr
-		{
+declare module Dojo {
+	module Request {
+		module Xhr {
 			interface BaseOptions extends Request.BaseOptions { }
 			interface Options extends BaseOptions, MethodOptions { }
 
-			interface Base
-			{
+			interface Base {
 				<T>(url: string, options?: Options): dojo.Promise<T>;
 				get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 				put<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -2069,21 +2149,16 @@ declare module "dojo/request/xhr"
 	export = request;
 }
 
-declare module Dojo
-{
-	module Request
-	{
-		module Node
-		{
-			interface BaseOptions extends Request.BaseOptions
-			{
+declare module Dojo {
+	module Request {
+		module Node {
+			interface BaseOptions extends Request.BaseOptions {
 				user: string;
 				password: string;
 			}
 			interface Options extends BaseOptions, MethodOptions { }
 
-			interface Base
-			{
+			interface Base {
 				<T>(url: string, options?: Options): dojo.Promise<T>;
 				get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 				put<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -2099,20 +2174,15 @@ declare module "dojo/request/node"
 	export = request;
 }
 
-declare module Dojo
-{
-	module Request
-	{
-		module iFrame
-		{
-			interface BaseOptions extends Request.BaseOptions
-			{
+declare module Dojo {
+	module Request {
+		module iFrame {
+			interface BaseOptions extends Request.BaseOptions {
 				form?: HTMLElement;
 			}
 			interface Options extends BaseOptions, MethodOptions { }
 
-			interface Base
-			{
+			interface Base {
 				<T>(url: string, options?: Options): dojo.Promise<T>;
 				get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 				post<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -2126,22 +2196,17 @@ declare module "dojo/request/iframe"
 	export = request;
 }
 
-declare module Dojo
-{
-	module Request
-	{
-		module Script
-		{
-			interface BaseOptions extends Request.BaseOptions
-			{
+declare module Dojo {
+	module Request {
+		module Script {
+			interface BaseOptions extends Request.BaseOptions {
 				frameDoc?: HTMLDocument;
 				jsonp?: string;
 				checkString?: string;
 			}
 			interface Options extends BaseOptions, MethodOptions { }
 
-			interface Base
-			{
+			interface Base {
 				<T>(url: string, options?: Options): dojo.Promise<T>;
 				get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 				post<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -2155,12 +2220,9 @@ declare module "dojo/request/script"
 	export = request;
 }
 
-declare module Dojo
-{
-	module Request
-	{
-		interface Handlers
-		{
+declare module Dojo {
+	module Request {
+		interface Handlers {
 			register(name: string, handler: (response: any) => any): void;
 		}
 	}
@@ -2171,12 +2233,9 @@ declare module "dojo/request/handlers"
 	export = handlers;
 }
 
-declare module Dojo
-{
-	module Request
-	{
-		interface Notify
-		{
+declare module Dojo {
+	module Request {
+		interface Notify {
 			notify(type?: "start", listener?: SimpleAction): RemovableHandle;
 			notify(type?: "send", listener?: (response: any, cancel: () => void) => void): RemovableHandle;
 			notify(type?: "load", listener?: (response: any) => void): RemovableHandle;
@@ -2193,12 +2252,9 @@ declare module "dojo/request/notify"
 	export = notify;
 }
 
-declare module Dojo
-{
-	module Request
-	{
-		interface Registry
-		{
+declare module Dojo {
+	module Request {
+		interface Registry {
 			<T>(url: string, options?: Options): dojo.Promise<T>;
 
 			get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -2220,18 +2276,15 @@ declare module "dojo/request/registry"
 
 // dojo/router
 
-declare module Dojo
-{
-	interface RouterEvent
-	{
+declare module Dojo {
+	interface RouterEvent {
 		params: Dojo.Dictionary<string>;
 		oldPath: string;
 		newPath: string;
 		preventDefault: Dojo.SimpleAction;
 		stopImmediatePropagation: Dojo.SimpleAction;
 	}
-	interface Router
-	{
+	interface Router {
 		register(route: string, callback: EventListener<RouterEvent>): RemovableHandle;
 		register(route: RegExp, callback: EventListener<RouterEvent>): RemovableHandle;
 
@@ -2251,8 +2304,7 @@ declare module "dojo/router"
 
 // dojo/sniff
 
-declare module Dojo
-{
+declare module Dojo {
 	interface Sniff extends Has { }
 }
 declare module "dojo/sniff"
@@ -2269,10 +2321,8 @@ declare module "dojo/text"
 
 // dojo/topic
 
-declare module Dojo
-{
-	interface Topic
-	{
+declare module Dojo {
+	interface Topic {
 		subscribe(topic: string, listener: Action): RemovableHandle;
 		publish(topic: string, ...v_args: any[]): void;
 	}
@@ -2293,10 +2343,8 @@ declare module "dojo/Stateful"
 
 // dojo/string
 
-declare module Dojo
-{
-	interface String
-	{
+declare module Dojo {
+	interface String {
 		pad(text: string, size: number, ch?: string, end?: boolean): string;
 		rep(str: string, num: number): string;
 
@@ -2314,10 +2362,8 @@ declare module "dojo/string"
 
 // dojo/touch
 
-declare module Dojo
-{
-	interface Touch
-	{
+declare module Dojo {
+	interface Touch {
 		cancel(node: HTMLElement, listener: (ev: MouseEvent) => boolean): RemovableHandle;
 		enter(node: HTMLElement, listener: (ev: MouseEvent) => boolean): RemovableHandle;
 		leave(node: HTMLElement, listener: (ev: MouseEvent) => boolean): RemovableHandle;
@@ -2336,8 +2382,7 @@ declare module "dojo/touch"
 
 // dojo/uacss
 
-declare module Dojo
-{
+declare module Dojo {
 	interface Uacss extends Has { }
 }
 declare module "dojo/uacss"
@@ -2348,10 +2393,8 @@ declare module "dojo/uacss"
 
 // dojo/when
 
-declare module Dojo
-{
-	interface When
-	{
+declare module Dojo {
+	interface When {
 		<T>(value: T): dojo.Promise<T>;
 		<T, V>(value: T, callback: (value: T) => V, errback?: (error: any) => void, progback?: (update: any) => void): V;
 		<T>(promise: dojo.Promise<T>): dojo.Promise<T>;
@@ -2366,10 +2409,8 @@ declare module "dojo/when"
 
 // dojo/window
 
-declare module Dojo
-{
-	interface Window
-	{
+declare module Dojo {
+	interface Window {
 		get(doc: HTMLDocument): Window;
 		getBox(doc: HTMLDocument): Position;
 		scrollIntoView(node: HTMLElement, pos?: Object): void;
