@@ -2,6 +2,7 @@
 /* Define button widget                                                 */
 /************************************************************************/
 
+/// <reference path="dojo.d.ts"/>
 /// <reference path="dijit.d.ts"/>
 /// <reference path="dijit.form.d.ts"/>
 /// <reference path="dojo.store.d.ts"/>
@@ -361,7 +362,7 @@ declare module dijit {
 
 			closeDropDown(focus: boolean): void;
 			isLoaded(): boolean;
-			//isValid(isFocused: boolean): boolean;
+			isValid(isFocused?: boolean): boolean;
 			loadAndOpenDropDown(): Object;
 			loadDropDown(loadCallback: Function): void;
 			openDropDown(): any;
