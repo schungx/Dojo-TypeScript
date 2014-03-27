@@ -6,10 +6,8 @@
 
 interface _HTMLArray<T> extends Array<T> { }
 
-declare module Dojo
-{
-	module Store
-	{
+declare module Dojo {
+	module Store {
 		// dojo/store/api/Store
 
 		class _Store<T extends Object, K>
@@ -67,8 +65,7 @@ declare module Dojo
 
 		// Query Engine
 
-		interface QueryEngine<T extends Object>
-		{
+		interface QueryEngine<T extends Object> {
 			(query: string, options?: QueryOptions): (data: T[]) => T[];
 			(query: AttributesMap, options?: QueryOptions): (data: T[]) => T[];
 			(query: RegExp, options?: QueryOptions): (data: T[]) => T[];
@@ -79,8 +76,7 @@ declare module Dojo
 
 		// dojo/store/api/Store.PutDirectives
 
-		interface PutDirectives<T extends Object, K>
-		{
+		interface PutDirectives<T extends Object, K> {
 			id?: K;
 			before?: T;
 			parent?: Object;
@@ -89,8 +85,7 @@ declare module Dojo
 
 		// dojo/store/api/Store.QueryOptions
 
-		interface QueryOptions
-		{
+		interface QueryOptions {
 			start?: number;
 			count?: number;
 			sort?: SortInformation[];
@@ -99,8 +94,7 @@ declare module Dojo
 		// dojo/store/api/Store.QueryResults
 		// NOTE - QueryResults may be a simple array or a promise
 
-		interface QueryResults<T extends Object> extends _HTMLArray<T>
-		{
+		interface QueryResults<T extends Object> extends _HTMLArray<T> {
 			total: number;
 
 			filter(callback: (item: T, index: number, array: T[]) => boolean, thisObject?: Object): QueryResults<T>;
@@ -113,38 +107,32 @@ declare module Dojo
 
 		// dojo/store/api/Store.SortInformation
 
-		interface SortInformation
-		{
+		interface SortInformation {
 			attribute: string;
 			descending?: boolean;
 		}
 
 		// dojo/store/api/Store.Transaction
 
-		interface Transaction
-		{
+		interface Transaction {
 			abort(callback?: Function, thisObject?: Object): boolean;
 			commit(): boolean;
 		}
-		interface TransactionAsync
-		{
+		interface TransactionAsync {
 			abort(callback?: Function, thisObject?: Object): dojo.Promise<boolean>;
 			commit(): dojo.Promise<boolean>;
 		}
 
 		// Create options
 
-		interface CreateOptions
-		{
+		interface CreateOptions {
 			idProperty?: string;
 		}
 
 		// dojo/store/Memory
 
-		module Memory
-		{
-			interface CreateOptions<T extends Object> extends Dojo.Store.CreateOptions
-			{
+		module Memory {
+			interface CreateOptions<T extends Object> extends Dojo.Store.CreateOptions {
 				data?: T[];
 			}
 			class Store<T extends Object, K> extends Dojo.Store.Store<T, K> implements CreateOptions<T>
@@ -159,23 +147,19 @@ declare module Dojo
 
 		// dojo/store/DataStore
 
-		module DataStore
-		{
-			interface CreateOptions extends Dojo.Store.CreateOptions
-			{
+		module DataStore {
+			interface CreateOptions extends Dojo.Store.CreateOptions {
 				target?: string;
 				store?: Object;		// Should be DojoDataStore, but needs to pull in dojo_data.ts and dojo.ts, so don't do it
 			}
-			class Store<T extends Object, K> extends Dojo.Store.Store<T, K> implements CreateOptions
-			{
+			class Store<T extends Object, K> extends Dojo.Store.Store<T, K> implements CreateOptions {
 				constructor(options: CreateOptions);
 
 				idProperty: string;
 				target: string;
 				store: Object;
 			}
-			class StoreAsync<T extends Object, K> extends Dojo.Store.StoreAsync<T, K> implements CreateOptions
-			{
+			class StoreAsync<T extends Object, K> extends Dojo.Store.StoreAsync<T, K> implements CreateOptions {
 				constructor(options: CreateOptions);
 
 				idProperty: string;
@@ -186,18 +170,15 @@ declare module Dojo
 
 		// dojo/store/JsonRest
 
-		module JsonRest
-		{
-			interface CreateOptions extends Dojo.Store.CreateOptions
-			{
+		module JsonRest {
+			interface CreateOptions extends Dojo.Store.CreateOptions {
 				target?: string;
 				accepts?: string;
 				ascendingPrefix?: string;
 				descendingPrefix?: string;
 				headers?: { [header: string]: string; };
 			}
-			class Store<T extends Object, K> extends Dojo.Store.StoreAsync<T, K> implements CreateOptions
-			{
+			class Store<T extends Object, K> extends Dojo.Store.StoreAsync<T, K> implements CreateOptions {
 				constructor(options: CreateOptions);
 
 				idProperty: string;
@@ -231,13 +212,10 @@ declare module "dojo/store/JsonRest"
 
 // dojo/store/Observable
 
-declare module Dojo
-{
-	module Store
-	{
-		interface Observable
-		{
-			<T extends Object, K, S extends _Store<T, K>>(store: S): S;
+declare module Dojo {
+	module Store {
+		interface Observable {
+			<T extends Object, K>(store: _Store<T, K>): _Store<T, K>;
 		}
 	}
 }
@@ -249,13 +227,10 @@ declare module "dojo/store/Observable"
 
 // dojo/store/Cache
 
-declare module Dojo
-{
-	module Store
-	{
-		interface Cache
-		{
-			<T extends Object, K, S extends _Store<T, K>>(masterStore: S, cachingStore: _Store<T, K>, options?: { isLoaded?: (item: T) => boolean; }): S;
+declare module Dojo {
+	module Store {
+		interface Cache {
+			<T extends Object, K>(masterStore: _Store<T, K>, cachingStore: _Store<T, K>, options?: { isLoaded?: (item: T) => boolean; }): _Store<T, K>;
 		}
 	}
 }

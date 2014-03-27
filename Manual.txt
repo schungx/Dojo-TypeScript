@@ -237,12 +237,12 @@ To use this TypeScript module from another TypeScript module, simply
 For example:
 
 	foo.ts (your new module in TypeScript):
-    
+	
 		var retval = { ... };
 		export = retval;
-        
+		
 	bar.ts (which uses foo.ts):
-    
+	
 		import foo = require("foo");
 			:
 			:
@@ -254,7 +254,7 @@ foo.ts!  The two TypeScript files will compile into the following
 JavaScript files which, of course, work perfectly fine as well:
 
 	foo.js:
-    
+	
 		define(["require", "exports"], function(require, exports) {
 			var retval = { ... };
 			return retval;
@@ -328,6 +328,7 @@ The complete list of definition files is as follows:
 	dijit.form.d.ts      - dijit/form base definitions
 	dijit.form.button.d.ts   - dijit/form/Button
 	dijit.form.textbox.d.ts  - dijit/form/TextBox
+	dijit.form.select.d.ts   - dijit/form/Select
 
 
 VIII. Importing plugin's
