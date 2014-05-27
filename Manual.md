@@ -9,9 +9,9 @@ Using TypeScript with the Dojo Toolkit is easy with a few tricks to
 let the system do what you want.
 
 One of the tricky issues is the fact that all TypeScript files are
-compiled into AMD modules (when the "--module amd" option is set,
+compiled into AMD modules (when the `--module amd` option is set,
 which it should be in order to use TypeScript with Dojo). If you stay
-100% in TypeScript, how do you "bootstrap" the root module?  Turns out
+100% in TypeScript, how do you **bootstrap** the root module?  Turns out
 that you need at least *one* pure JavaScript file in order to do that.
 
 Another tricky issue is that of loading non-Dojo custom modules.
@@ -37,18 +37,18 @@ I. Prepare Dojo baseUrl and bootstrap
 In your main HTML file, your Dojo script tag should look like this:
 
 	<script type="text/javascript"
-		data-dojo-config="async:true, baseUrl:location.href.substring(0,location.href.lastIndexOf('/')+1)+'path/to/scripts/xyz.js'"
-		src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js">
+		data-dojo-config=async:true, baseUrl:location.href.substring(0,location.href.lastIndexOf('/')+1)+'path/to/scripts/xyz.js'
+		src=http://ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js>
 	</script>
 	
-The "baseUrl" setting in DojoConfig creates a path to a script file in
+The `baseUrl` setting in DojoConfig creates a path to a script file in
 your main scripts directory relative to the HTML file's location.  It
 overrides the default path for loading AMD modules (other than modules
 under dojo, dijit and dojox) by the Dojo AMD loader.
 
 Mind you that this is probably not the most typeical way to load custom
 Dojo modules -- the most typical way is to map a custom prefix (one that
-is other than "dojo", "dijit" and "dojox") to a path. However, TypeScript
+is other than `dojo`, `dijit` and `dojox`) to a path. However, TypeScript
 does not support looking for modules via prefix mapped to a path, so you
 must abandon that practice and use path-relative modules.
 
@@ -61,8 +61,8 @@ subdirectory is a copy of the module's TypeScript file. Otherwise,
 TypeScript will complain that it doesn't find your module (since it doesn't
 understand that you have "mapped" a path to its prefix).
 
-A simpler way is to generate a ".d.ts" type definition file for your
-module, and then use the "/// <reference path="..."/>" syntax to load it.
+A simpler way is to generate a `.d.ts` type definition file for your
+module, and then use the `/// <reference path="..."/>` syntax to load it.
 You will then be able to use that module in TypeScript and TypeScript will
 not attempt to locate that module file (which it won't find). This method,
 however, necessitates the regeneration of a lot of type definition files
@@ -71,39 +71,39 @@ changes.
 
 JavaScript files compiled from TypeScript source modules in your project
 look exactly like a regular Dojo AMD-style module and are loaded
-automatically when "required".
+automatically when `require`-d.
 
 If you stay completely within TypeScript and Visual Studio, however, you'll
 find that every TypeScript file is compiled into an AMD module (see
-"TypeScript setup" below) and there is no way to automatically load the
+*TypeScript setup* below) and there is no way to automatically load the
 top-most one (your root module).
 
-The way to "bootstrap" the entire tree of modules is either: (1) write a
-simple, vanilla JavaScript script that contains the "require" statement,
-or (2) put that "require" statement in a script tag inside your HTML
+The way to bootstrap the entire tree of modules is either: (1) write a
+simple, vanilla JavaScript script that contains the `require` statement,
+or (2) put that `require` statement in a script tag inside your HTML
 file. Option (1) is suitable where many pages must load the same scripts.
 Option (2) is simpler and suitable for one-page web apps because you
 avoid creating yet another JavaScript script file.
 
 Option (1):
 
-	bootstrap.js:  require(["main"]);
-	main.html:     <script type="text/javascript" src="bootstrap.js"></script>
+* `bootstrap.js`:  `require(["main"]);`
+* `main.html`:     `<script type="text/javascript" src="bootstrap.js"></script>`
 	
 Option (2):
 
-	main.html:     <script type="text/javascript">require(["main"]);</script>
+* `main.html`:     `<script type="text/javascript">require(["main"]);</script>`
 
 
 II. Dojo type definitions and referencing dojo.d.ts
 ---------------------------------------------------
 
-Common types used in Dojo are defined in the file "dojo.types.d.ts".
+Common types used in Dojo are defined in the file `dojo.types.d.ts`.
 You don't normally need to reference this file, since all other Dojo
 definition files reference it.  You need it only if you are writing
 your own module files to compile into Dojo-style modules.
 
-Basic Dojo modules are defined in the file "dojo.d.ts".  It contains most
+Basic Dojo modules are defined in the file `dojo.d.ts`.  It contains most
 of the core functionalities.
 
 To use Dojo, include the following reference in the first lines of your
@@ -134,12 +134,12 @@ III. TypeScript setup
 You MUST be using TypeScript version 0.9.5 or higher (with generics
 support).
 
-When using the command line compiler, use the "--module amd" flag
+When using the command line compiler, use the `--module amd` flag
 since Dojo works with AMD-style modules.
 
 Your TypeScript environment must be setup to compile using AMD-style
 modules.  In Visual Studio with Web Essentials, you *used* to be able
-to set "Use the AMD module" to true under Web Essentials-TypeScript.
+to set `Use the AMD module` to true under Web Essentials-TypeScript.
 
 New versions of Web Essentials no longer support TypeScript, and you
 must now find the settings under Tools-Options-Text Editor-TypeScript.
@@ -152,14 +152,14 @@ For example, you might want to target ES3 instead of ES5 and so must
 edit the project file for TypeScript to emit ES3 JavaScript.
 
 Visual Studio 2013 appears to have much better built-in support of
-TypeScript, including a "TypeScript" page in the main project
+TypeScript, including a `TypeScript` page in the main project
 configuration window.
 
 
 IV. Using Dojo modules
 ----------------------
 
-To use a Dojo module, just "import" it:
+To use a Dojo module, just `import` it:
 
 	/// <reference path="dojo.d.ts"/>
 	import array = require("dojo/_base/array");
@@ -224,49 +224,49 @@ compiles to:
 		return retval;
 	});
 
-The "export = ..." statement is necessary because TypeScript defaults
+The `export = ...` statement is necessary because TypeScript defaults
 to CommonJS-style AMD modules, which means attaching exported functions
-to the "exports" object but does not return it. This will cause errors
-when running the actual JavaScript with Dojo. Using "export = ..." 
+to the `exports` object but does not return it. This will cause errors
+when running the actual JavaScript with Dojo. Using `export = ...` 
 causes TypeScript to load the proper object type for the module as well
-as generate the necessary "return" statement to return the module object.
+as generate the necessary `return` statement to return the module object.
 
 To use this TypeScript module from another TypeScript module, simply
-"import" it just like any other Dojo/Dijit module!
+`import` it just like any other Dojo/Dijit module!
 
 For example:
 
-	foo.ts (your new module in TypeScript):
+`foo.ts` (your new module in TypeScript):
 	
-		var retval = { ... };
-		export = retval;
+	var retval = { ... };
+	export = retval;
 		
-	bar.ts (which uses foo.ts):
+`bar.ts` (which uses foo.ts):
 	
-		import foo = require("foo");
-			:
-			:
+	import foo = require("foo");
+		:
+		:
 
 Visual Studio will detect that you have a TypeScript file called
-"foo.ts" and, upon seeing the statement "import xyz = require("foo");",
+`foo.ts` and, upon seeing the statement `import xyz = require("foo");`,
 automatically loads the type definitions for the module defined in
 foo.ts!  The two TypeScript files will compile into the following
 JavaScript files which, of course, work perfectly fine as well:
 
-	foo.js:
+`foo.js`:
 	
-		define(["require", "exports"], function(require, exports) {
-			var retval = { ... };
-			return retval;
-		});
+	define(["require", "exports"], function(require, exports) {
+		var retval = { ... };
+		return retval;
+	});
 		
-	bar.js:
+`bar.js`:
 
-		define(["require", "exports", "foo"], function(require, exports, __foo__) {
-			var foo = __foo__;
-				:
-				:
-		});
+	define(["require", "exports", "foo"], function(require, exports, __foo__) {
+		var foo = __foo__;
+			:
+			:
+	});
 
 
 VI. Using dojo/NodeList
@@ -305,15 +305,15 @@ to hold it.
 VII. Other TypeScript definition files
 --------------------------------------
 
-The file "dojo.d.ts" contains definitions for most of Dojo, but some
+The file `dojo.d.ts` contains definitions for most of Dojo, but some
 subsystems are split into separate definition files in order to
 improve compilation speed and checking speed in Visual Studio.
 
-Similarly, "dijit.d.ts" only contains base widget definitions. Other
+Similarly, `dijit.d.ts` only contains base widget definitions. Other
 widgets are defined in separate, grouped definition files.
 
 When these other definitions are needed, you must put in additional
-"/// <reference path="..." />" lines to pull in the relevant
+`/// <reference path="..." />` lines to pull in the relevant
 definition files.
 
 The complete list of definition files is as follows:
@@ -335,7 +335,7 @@ VIII. Importing plugin's
 ------------------------
 
 For plugin modules, use the following undocumented feature to pull
-in the dependent module at the end of the "require" list without
+in the dependent module at the end of the `require` list without
 creating a variable:
 
 	/// <amd-dependency path="plugin1" />
@@ -348,7 +348,7 @@ These must be among the first lines of the program file.
 IX. dojo/text!...
 -----------------
 
-For dynamic plugin modules like "dojo/text" which accepts a resource
+For dynamic plugin modules like `dojo/text` which accepts a resource
 path and returns the resource at that path, Dojo creates a module
 with an dynamically-generated name that you cannot access directly.
 You won't be able to do:
