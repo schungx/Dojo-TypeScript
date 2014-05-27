@@ -424,7 +424,7 @@ An example of using "dojo/_base/array" without using TypeScript's
 	require(["dojo/_base/array"], function(array: Dojo.Array) { ... });
 
 Widgets defined under dijit, however, use the "dijit" namespace
-(note the lower-case "d") instead of "Dijit" bacause some programmers
+(note the lower-case "d") instead of "Dijit" because some programmers
 use them as base classes to declare new widgets -- a practice better
 avoided.
 
