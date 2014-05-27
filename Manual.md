@@ -318,17 +318,17 @@ definition files.
 
 The complete list of definition files is as follows:
 
-	dojo.types.d.ts      - Common type definitions for Dojo
-	dojo.d.ts            - Dojo Core
-	dojo.store.d.ts      - dojo/store modules
-	dojo.data.d.ts       - Legacy dojo/data modules
+* `dojo.types.d.ts`      - Common type definitions for Dojo
+* `dojo.d.ts`            - Dojo Core
+* `dojo.store.d.ts`      - `dojo/store` modules
+* `dojo.data.d.ts`       - Legacy dojo/data modules
 	
-	dijit.d.ts           - Basic widget definitions
-	dijit.menu.d.ts      - dijit/Menu modules
-	dijit.form.d.ts      - dijit/form base definitions
-	dijit.form.button.d.ts   - dijit/form/Button
-	dijit.form.textbox.d.ts  - dijit/form/TextBox
-	dijit.form.select.d.ts   - dijit/form/Select
+* `dijit.d.ts`           - Basic widget definitions
+* `dijit.menu.d.ts`      - `dijit/Menu` modules
+* `dijit.form.d.ts`      - `dijit/form` base definitions
+* `dijit.form.button.d.ts`   - `dijit/form/Button`
+* `dijit.form.textbox.d.ts`  - `dijit/form/TextBox`
+* `dijit.form.select.d.ts`   - `dijit/form/Select`
 
 
 VIII. Importing plugin's
