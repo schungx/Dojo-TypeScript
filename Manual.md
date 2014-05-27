@@ -375,15 +375,15 @@ It compiles to:
 			:
 	});
 
-However, for the extremely important case of "dojo/text", there
-is a short-cut which is to use "dojo/cache":
+However, for the extremely important case of `dojo/text`, there
+is a short-cut which is to use `dojo/cache`:
 
 	/// <amd-dependency path="dojo/text!foo/bar/baz.txt" />
 	
 	import cache = require("dojo/cache");
 	var baz = cache<string>("foo/bar/baz.txt");
 
-The dynamic plugin module "dojo/text" uses "dojo/cache" to cache
+The dynamic plugin module `dojo/text` uses `dojo/cache` to cache
 text content retrieved, with the URL path as key.
 
 
@@ -397,18 +397,18 @@ they reside in.
 
 Dojo namespaces and interfaces/types are proper-cased, for example:
 
-	dojo/html        ==> Dojo.Html
-	dojo/ready       ==> Dojo.Ready
-	dojo/dom-class   ==> Dojo.DomClass
+* `dojo/html`        ==> `Dojo.Html`
+* `dojo/ready`       ==> `Dojo.Ready`
+* `dojo/dom-class`   ==> `Dojo.DomClass`
 	
-Modules under "dojo/_base" are mapped under the Dojo namespace
-without the "_base" level, for example:
+Modules under `dojo/_base` are mapped under the Dojo namespace
+without the `_base` level, for example:
 
-	dojo/_base/array ==> Dojo.Array
-	dojo/_base/lang  ==> Dojo.Lang
+* `dojo/_base/array` ==> `Dojo.Array`
+* `dojo/_base/lang`  ==> `Dojo.Lang`
 	
-Some very common Dojo classes are put under the "dojo" namespace
-(notice the lower-case "d") so that they can be used directly in
+Some very common Dojo classes are put under the `dojo` namespace
+(notice the lower-case `d`) so that they can be used directly in
 TypeScript code which will compile stright to JavaScript code that
 works straight out with Dojo:
 
@@ -418,15 +418,15 @@ works straight out with Dojo:
 	dojo.Promise
 	dojo.Animation
 	
-An example of using "dojo/_base/array" without using TypeScript's
-"import" syntax is:
+An example of using `dojo/_base/array` without using TypeScript's
+`import` syntax is:
 
 	require(["dojo/_base/array"], function(array: Dojo.Array) { ... });
 
-Widgets defined under dijit, however, use the "dijit" namespace
-(note the lower-case "d") instead of "Dijit" because some programmers
+Widgets defined under dijit, however, use the `dijit` namespace
+(note the lower-case `d`) instead of `Dijit` because some programmers
 use them as base classes to declare new widgets -- a practice better
 avoided.
 
 TypeScript interface definitions for Dijit (i.e. not regular dijit
-classes) continue to use the "Dijit" namespace.
+classes) continue to use the `Dijit` namespace.
