@@ -321,7 +321,7 @@ The complete list of definition files is as follows:
 * `dojo.types.d.ts`      - Common type definitions for Dojo
 * `dojo.d.ts`            - Dojo Core
 * `dojo.store.d.ts`      - `dojo/store` modules
-* `dojo.data.d.ts`       - Legacy dojo/data modules
+* `dojo.data.d.ts`       - Legacy `dojo/data` modules
 	
 * `dijit.d.ts`           - Basic widget definitions
 * `dijit.menu.d.ts`      - `dijit/Menu` modules
