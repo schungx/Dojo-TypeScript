@@ -52,7 +52,7 @@ under dojo, dijit and dojox) by the Dojo AMD loader.
 *LOADING DOJO LOCALLY*
 
 The above works fine if you have a custom build of Dojo (`dojo.js`) that
-contain all the required functionalities, or if you only use Dojo Base.
+contains all the required functionalities, or if you only use Dojo Base.
 
 The above doesn't seem to work if you load Dojo (or a custom build)
 locally *if files are loaded dynamically*. For example, if you need to 
@@ -70,7 +70,7 @@ of these modules instead of remapping `baseUrl`:
 
 This example maps the prefix `xyz` to a subdirectory `xyz` under the home
 directory. All your modules must then be prefixed with `xyz` (e.g.
-`xyz.SomeClass`). You can create more than one prefix, but remember
+`xyz/SomeClass`). You can create more than one prefix, but remember
 the paths must be under the home directory for this to work. In other
 words, your abstract module namespace must match the physical directory
 structure.
