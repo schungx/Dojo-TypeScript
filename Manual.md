@@ -37,8 +37,8 @@ I. Prepare Dojo baseUrl and bootstrap
 In your main HTML file, your Dojo script tag should look like this:
 
 	<script type="text/javascript"
-		data-dojo-config=async:true, baseUrl:location.href.substring(0,location.href.lastIndexOf('/')+1)+'path/to/scripts/xyz.js'
-		src=http://ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js>
+		data-dojo-config="async:true, baseUrl:location.href.substring(0,location.href.lastIndexOf('/')+1)+'path/to/scripts/xyz.js'"
+		src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js">
 	</script>
 	
 The `baseUrl` setting in DojoConfig creates a path to a script file in

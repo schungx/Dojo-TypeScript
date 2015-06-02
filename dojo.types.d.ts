@@ -19,15 +19,13 @@ declare function define(obj: Object): void;
 
 // Define the Dojo namespace
 
-declare module Dojo
-{
+declare module Dojo {
 	// Dojo handles
 
 	interface Handle { }
 	interface RemovableHandle extends Handle { remove(): void; }
 	interface CancellableHandle extends Handle { cancel(): void; }
-	interface PausableHandle extends RemovableHandle
-	{
+	interface PausableHandle extends RemovableHandle {
 		pause(): void;
 		resume(): void;
 	}
@@ -35,84 +33,63 @@ declare module Dojo
 
 	// Common callback function types
 
-	interface SimpleAction { (): void; }
-	interface Action extends Function { }
+	type SimpleAction = () => void
+	type Action = Function
 	interface FunctionReturning<T> { (...args: any[]): T; }
 
 	interface EventListener<T> { (evt: T): void; }
-	interface ExtensionEvent { (node: HTMLElement, listener: Dojo.Action): RemovableHandle; }
+	type ExtensionEvent = { (node: HTMLElement, listener: Dojo.Action): RemovableHandle; }
 	interface WatchCallback<T> { (prop: string, oldvalue: T, newvalue: T): void; }
 
-	module Fx
-	{
+	module Fx {
 		interface EasingFunction { (value: number): number; }
 	}
 
 	// Dictionaries
 
-	interface Dictionary<T>
-	{
+	interface Dictionary<T> {
 		[key: string]: T;
 	}
-	interface PropertiesMap
-	{
-		[property: string]: any;
-	}
-	interface AttributesMap
-	{
-		[attribute: string]: any;
-	}
-	interface StylesMap
-	{
-		[style: string]: string;
-	}
+	type PropertiesMap ={ [property: string]: any; }
+	type AttributesMap = { [attribute: string]: any; }
+	type StylesMap = { [style: string]: string; }
 
 	// Common structures
 
-	interface Point
-	{
+	interface Point {
 		x: number;
 		y: number;
 	}
-	interface Size
-	{
+	interface Size {
 		w: number;
 		h: number;
 	}
-	interface Offset
-	{
+	interface Offset {
 		l: number;
 		t: number;
 	}
 	interface Rectangle extends Point, Size { }
 	interface Position extends Offset, Size { }
-	interface Box extends Position
-	{
+	interface Box extends Position {
 		r: number;
 		b: number;
 	}
 
 	// Declare
 
-	interface Declare
-	{
-		(className: string, superclass: DeclaredClass, props: DeclareOptions): DeclaredClass;
-		(className: string, superclasses: DeclaredClass[], props: DeclareOptions): DeclaredClass;
-		(superclass: DeclaredClass, props: DeclareOptions): DeclaredClass;
-		(superclasses: DeclaredClass[], props: DeclareOptions): DeclaredClass;
-
+	interface Declare {
+		(className: string, superclass: DeclaredClass | DeclaredClass[], props: DeclareOptions): DeclaredClass;
+		(superclass: DeclaredClass | DeclaredClass[], props: DeclareOptions): DeclaredClass;
 		safeMixin(dest: dijit._WidgetBase, ...sources: PropertiesMap[]): void;
 	}
 
-	interface DeclareOptions
-	{
+	interface DeclareOptions {
 		"constructor"?: Action;
 		destroy?: SimpleAction;
 	}
 
-	class DeclaredClass
-	{
-		constructor(...v_args: any[]);
+	class DeclaredClass {
+		constructor(...args: any[]);
 
 		inherited(args: IArguments): void;
 		inherited(args: any[]): void;
@@ -123,33 +100,25 @@ declare module Dojo
 
 	// Promises
 
-	interface PromiseLike<T>
-	{
+	interface PromiseLike<T> {
 		always(callbackOrErrback?: (value: any) => void): PromiseLike<T>;
 		cancel(reason: any, strict?: boolean): void;
 		otherwise(errback?: (error: any) => void): PromiseLike<T>;
-
 		isCanceled(): boolean;
 		isFulfilled(): boolean;
 		isRejected(): boolean;
 		isResolved(): boolean;
-
-		then<V>(callback?: (value: T) => PromiseLike<V>, errback?: (error: any) => void, progback?: (progress: any) => void): PromiseLike<V>;
-		then<V>(callback?: (value: T) => V, errback?: (error: any) => void, progback?: (progress: any) => void): PromiseLike<V>;
-
+		then<V>(callback?: (value: T) => V | PromiseLike<V>, errback?: (error: any) => void, progback?: (progress: any) => void): PromiseLike<V>;
 		trace(): PromiseLike<T>;
 		traceRejected(): PromiseLike<T>;
 	}
 }
 
-declare module dojo
-{
+declare module dojo {
 	// Evented
 
-	class Evented
-	{
-		emit(type: string, event: { bubbles?: boolean; cancelable?: boolean; }): void;
-		emit(type: Dojo.ExtensionEvent, event: { bubbles?: boolean; cancelable?: boolean; }): void;
+	class Evented {
+		emit(type: string | Dojo.ExtensionEvent, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 
 		on(type: "abort", listener: Dojo.EventListener<UIEvent>): Dojo.RemovableHandle;
 		on(type: "afterprint", listener: EventListener): Dojo.RemovableHandle;
@@ -217,8 +186,7 @@ declare module dojo
 
 	// Stateful
 
-	class Stateful extends Dojo.DeclaredClass
-	{
+	class Stateful extends Dojo.DeclaredClass {
 		get(name: string): any;
 		set(name: string, value: any, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
@@ -235,23 +203,18 @@ declare module dojo
 		always(callbackOrErrback?: (value: any) => void): Promise<T>;
 		cancel(reason: any, strict?: boolean): void;
 		otherwise(errback?: (error: any) => void): Promise<T>;
-
 		isCanceled(): boolean;
 		isFulfilled(): boolean;
 		isRejected(): boolean;
 		isResolved(): boolean;
-
-		then<V>(callback?: (value: T) => Promise<V>, errback?: (error: any) => void, progback?: (progress: any) => void): Promise<V>;
-		then<V>(callback?: (value: T) => V, errback?: (error: any) => void, progback?: (progress: any) => void): Promise<V>;
-
+		then<V>(callback?: (value: T) => V | Promise<V>, errback?: (error: any) => void, progback?: (progress: any) => void): Promise<V>;
 		trace(): Promise<T>;
 		traceRejected(): Promise<T>;
 	}
 
 	// Animation
 
-	class Animation extends Evented
-	{
+	class Animation extends Evented {
 		constructor(args?: Dojo.PropertiesMap);
 
 		duration: number;
@@ -282,10 +245,8 @@ declare module "dojo/_base/declare"
 
 // Widgets
 
-declare module Dijit
-{
-	interface WidgetCreateOptions extends Dojo.DeclareOptions
-	{
+declare module Dijit {
+	interface WidgetCreateOptions extends Dojo.DeclareOptions {
 		id?: string;
 		srcNodeRef?: HTMLElement;
 		domNode?: HTMLElement;
@@ -306,12 +267,9 @@ declare module Dijit
 	interface WidgetOrMixin { }
 }
 
-declare module dijit
-{
-	class _WidgetBase extends dojo.Stateful implements Dojo.DeclaredClass, Dijit.WidgetOrMixin
-	{
-		constructor(params?: Dijit.WidgetCreateOptions, srcNodeRef?: HTMLElement);
-		constructor(params?: Dijit.WidgetCreateOptions, srcNodeRefId?: string);
+declare module dijit {
+	class _WidgetBase extends dojo.Stateful implements Dojo.DeclaredClass, Dijit.WidgetOrMixin {
+		constructor(params?: Dijit.WidgetCreateOptions, srcNodeRef?: string | HTMLElement);
 
 		id: string;
 		baseClass: string;
@@ -394,7 +352,7 @@ declare module dijit
 		destroyDescendants(preserveDom?: boolean): void;
 		destroyRecursive(preserveDom?: boolean): void;
 		destroyRendering(preserveDom?: boolean): void;
-		emit(type: string, eventObj: Object, callbackArgs?: any[]): void;
+		emit(type: string | Dojo.ExtensionEvent, eventObj: Object, callbackArgs?: any[]): void;
 
 		getChildren(): _WidgetBase[];
 		getParent(): _WidgetBase;
@@ -471,14 +429,7 @@ declare module dijit
 		on(type: Dojo.ExtensionEvent, func: Dojo.Action): Dojo.RemovableHandle;
 
 		own(handle: Dojo.RemovableHandle): Dojo.RemovableHandle[];
-
-		placeAt(referenceId: string, position: string): _WidgetBase;
-		placeAt(referenceNode: HTMLElement, position: string): _WidgetBase;
-		placeAt(referenceWidget: _WidgetBase, position: string): _WidgetBase;
-		placeAt(referenceId: string, position: number): _WidgetBase;
-		placeAt(referenceNode: HTMLElement, position: number): _WidgetBase;
-		placeAt(referenceWidget: _WidgetBase, position: number): _WidgetBase;
-
+		placeAt(referenceNode: string | HTMLElement | _WidgetBase, position: string | number): _WidgetBase;
 		postCreate(): void;
 		startup(): void;
 		toString(): string;

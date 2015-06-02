@@ -5,12 +5,9 @@
 /// <reference path="dijit.d.ts"/>
 /// <reference path="dijit.form.d.ts"/>
 
-declare module dijit
-{
-	module form
-	{
-		interface _ButtonMixin extends Dijit._Mixin
-		{
+declare module dijit {
+	module form {
+		interface _ButtonMixin extends Dijit._Mixin {
 			//label: string;
 			//type: string;
 
@@ -27,8 +24,7 @@ declare module dijit
 			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		}
 
-		class Button extends _FormWidget implements _ButtonMixin
-		{
+		class Button extends _FormWidget implements _ButtonMixin {
 			// dijit/form/_FormWidget
 			get(name: "baseClass"): string;
 			get(name: "class"): string;
@@ -136,23 +132,23 @@ declare module dijit
 
 			// Events
 			on(type: "Blur", listener: Dojo.Action): Dojo.RemovableHandle;
-			on(type: "Change", listener: (newValue: any) => void ): Dojo.RemovableHandle;
-			on(type: "Click", listener: Dojo.EventListener<MouseEvent> ): Dojo.RemovableHandle;
+			on(type: "Change", listener: (newValue: any) => void): Dojo.RemovableHandle;
+			on(type: "Click", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
 			on(type: "Close", listener: Dojo.Action): Dojo.RemovableHandle;
-			on(type: "DblClick", listener: Dojo.EventListener<MouseEvent> ): Dojo.RemovableHandle;
+			on(type: "DblClick", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
 			on(type: "Focus", listener: Dojo.Action): Dojo.RemovableHandle;
 			on(type: "Hide", listener: Dojo.Action): Dojo.RemovableHandle;
 			on(type: "Input", listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;
-			on(type: "KeyDown", listener: Dojo.EventListener<KeyboardEvent> ): Dojo.RemovableHandle;
-			on(type: "KeyPress", listener: Dojo.EventListener<KeyboardEvent> ): Dojo.RemovableHandle;
-			on(type: "KeyUp", listener: Dojo.EventListener<KeyboardEvent> ): Dojo.RemovableHandle;
-			on(type: "MouseDown", listener: Dojo.EventListener<MouseEvent> ): Dojo.RemovableHandle;
-			on(type: "MouseEnter", listener: Dojo.EventListener<MouseEvent> ): Dojo.RemovableHandle;
-			on(type: "MouseLeave", listener: Dojo.EventListener<MouseEvent> ): Dojo.RemovableHandle;
-			on(type: "MouseMove", listener: Dojo.EventListener<MouseEvent> ): Dojo.RemovableHandle;
-			on(type: "MouseOut", listener: Dojo.EventListener<MouseEvent> ): Dojo.RemovableHandle;
-			on(type: "MouseOver", listener: Dojo.EventListener<MouseEvent> ): Dojo.RemovableHandle;
-			on(type: "MouseUp", listener: Dojo.EventListener<MouseEvent> ): Dojo.RemovableHandle;
+			on(type: "KeyDown", listener: Dojo.EventListener<KeyboardEvent>): Dojo.RemovableHandle;
+			on(type: "KeyPress", listener: Dojo.EventListener<KeyboardEvent>): Dojo.RemovableHandle;
+			on(type: "KeyUp", listener: Dojo.EventListener<KeyboardEvent>): Dojo.RemovableHandle;
+			on(type: "MouseDown", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseEnter", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseLeave", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseMove", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseOut", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseOver", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
+			on(type: "MouseUp", listener: Dojo.EventListener<MouseEvent>): Dojo.RemovableHandle;
 			on(type: "Show", listener: Dojo.Action): Dojo.RemovableHandle;
 			on(type: string, listener: Dojo.Action): Dojo.RemovableHandle;
 			on(type: string, listener: (ev: KeyboardEvent) => boolean): Dojo.RemovableHandle;

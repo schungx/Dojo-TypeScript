@@ -8,10 +8,8 @@
 
 declare module Dojo {
 	interface Declare {
-		(className: string, superclass: Dijit.WidgetOrMixin, props: DeclareOptions): dijit._WidgetBase;
-		(className: string, superclasses: Dijit.WidgetOrMixin[], props: DeclareOptions): dijit._WidgetBase;
-		(superclass: Dijit.WidgetOrMixin, props: DeclareOptions): dijit._WidgetBase;
-		(superclasses: Dijit.WidgetOrMixin[], props: DeclareOptions): dijit._WidgetBase;
+		(className: string, superclasses: Dijit.WidgetOrMixin | Dijit.WidgetOrMixin[], props: DeclareOptions): dijit._WidgetBase;
+		(superclasses: Dijit.WidgetOrMixin | Dijit.WidgetOrMixin[], props: DeclareOptions): dijit._WidgetBase;
 	}
 }
 
@@ -105,8 +103,7 @@ declare module dijit {
 		addChild(widget: _WidgetBase, insertIndex?: number): void;
 		getIndexOfChild(child: _WidgetBase): number;
 		hasChildren(): boolean;
-		removeChild(widget: _WidgetBase): void;
-		removeChild(widget: number): void;
+		removeChild(widget: _WidgetBase | number): void;
 	}
 
 	interface _Contained extends Dijit._Mixin {
@@ -347,9 +344,7 @@ declare module Dijit {
 	}
 
 	interface Place {
-		around(node: HTMLElement, anchor: HTMLElement, positions?: string[], leftToRight?: boolean, layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): _PlaceResult;
-		around(node: HTMLElement, anchor: Dojo.Rectangle, positions?: string[], leftToRight?: boolean, layoutNode?: (node, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): _PlaceResult;
-
+		around(node: HTMLElement, anchor: HTMLElement | Dojo.Rectangle, positions?: string[], leftToRight?: boolean, layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): _PlaceResult;
 		at(node: HTMLElement, pos: Dojo.Point, corners?: string[], layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): void;
 	}
 }

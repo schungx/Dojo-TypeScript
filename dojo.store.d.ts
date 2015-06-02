@@ -13,12 +13,7 @@ declare module Dojo {
 		class _Store<T extends Object, K>
 		{
 			idProperty: string;
-
-			queryEngine(query: string, options?: QueryOptions): QueryEngine<T>;
-			queryEngine(query: AttributesMap, options?: QueryOptions): QueryEngine<T>;
-			queryEngine(query: RegExp, options?: QueryOptions): QueryEngine<T>;
-			queryEngine(query: (item: T) => boolean, options?: QueryOptions): QueryEngine<T>;
-
+			queryEngine(query: string | AttributesMap | RegExp | ((item: T) => boolean), options?: QueryOptions): QueryEngine<T>;
 			PutDirectives: new () => PutDirectives<T, K>;
 			QueryOptions: new () => QueryOptions;
 			QueryResults: new () => QueryResults<T>;
@@ -33,13 +28,8 @@ declare module Dojo {
 			getIdentity(object: T): K;
 			getMetadata(object: T): { [metadata: string]: any; };
 			put(object: T, directives?: PutDirectives<T, K>): K;
-
-			query(query: string, options?: QueryOptions): QueryResults<T>;
-			query(query: AttributesMap, options?: QueryOptions): QueryResults<T>;
-			query(query: (item: T) => boolean, options?: QueryOptions): QueryResults<T>;
-
+			query(query: string | AttributesMap | ((item: T) => boolean), options?: QueryOptions): QueryResults<T>;
 			remove(id: K): boolean;
-
 			transaction(): Transaction;
 			Transaction: new () => Transaction;
 		}
@@ -52,13 +42,8 @@ declare module Dojo {
 			getIdentity(object: T): dojo.Promise<K>;
 			getMetadata(object: T): dojo.Promise<Object>;
 			put(object: T, directives?: PutDirectives<T, K>): dojo.Promise<K>;
-
-			query(query: string, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
-			query(query: AttributesMap, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
-			query(query: (item: T) => boolean, options?: QueryOptions): dojo.Promise<QueryResults<T>>;
-
+			query(query: string | AttributesMap | ((item: T) => boolean), options?: QueryOptions): dojo.Promise<QueryResults<T>>;
 			remove(id: K): boolean;
-
 			transaction(): TransactionAsync;
 			Transaction: new () => TransactionAsync;
 		}
@@ -66,11 +51,7 @@ declare module Dojo {
 		// Query Engine
 
 		interface QueryEngine<T extends Object> {
-			(query: string, options?: QueryOptions): (data: T[]) => T[];
-			(query: AttributesMap, options?: QueryOptions): (data: T[]) => T[];
-			(query: RegExp, options?: QueryOptions): (data: T[]) => T[];
-			(query: (item: T) => boolean, options?: QueryOptions): (data: T[]) => T[];
-
+			(query: string | AttributesMap | RegExp | ((item: T) => boolean), options?: QueryOptions): (data: T[]) => T[];
 			matches?: (data: T) => boolean;
 		}
 
@@ -102,7 +83,7 @@ declare module Dojo {
 			map<V extends Object>(callback: (item: T, index: number, array: T[]) => V, thisObject?: Object): QueryResults<V>;
 
 			// Added by dojo/store/Observable
-			observe? (listener: (object: T, removedFrom: number, insertedInto: number) => void, includeAllUpdates?: boolean): Dojo.CancellableHandle;
+			observe?(listener: (object: T, removedFrom: number, insertedInto: number) => void, includeAllUpdates?: boolean): Dojo.CancellableHandle;
 		}
 
 		// dojo/store/api/Store.SortInformation
