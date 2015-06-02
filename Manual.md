@@ -1,5 +1,5 @@
-Using The Dojo Toolkit (AMD-style) with TypeScript 0.9.5
-========================================================
+Using The Dojo Toolkit (AMD-style) with TypeScript
+==================================================
 
 
 Preamble
@@ -31,10 +31,13 @@ code files in different locations of the directory tree, or define
 type definition files for your modules.
 
 
-I. Prepare Dojo baseUrl and bootstrap
--------------------------------------
+I. Prepare Dojo baseUrl/modulePaths and bootstrap
+-------------------------------------------------
 
-In your main HTML file, your Dojo script tag should look like this:
+*LOADING DOJO FROM A CDN*
+
+If you load Dojo from a CDN, use the following script tag in your main
+HTML file:
 
 	<script type="text/javascript"
 		data-dojo-config="async:true, baseUrl:location.href.substring(0,location.href.lastIndexOf('/')+1)+'path/to/scripts/xyz.js'"
@@ -46,20 +49,51 @@ your main scripts directory relative to the HTML file's location.  It
 overrides the default path for loading AMD modules (other than modules
 under dojo, dijit and dojox) by the Dojo AMD loader.
 
-Mind you that this is probably not the most typeical way to load custom
+*LOADING DOJO LOCALLY*
+
+The above works fine if you have a custom build of Dojo (`dojo.js`) that
+contain all the required functionalities, or if you only use Dojo Base.
+
+The above doesn't seem to work if you load Dojo (or a custom build)
+locally *if files are loaded dynamically*. For example, if you need to 
+use functionalities outside of `Dojo Base`, Dojo will complain that
+script files cannot be found.
+
+In order to load Dojo locally, you must create a prefix for all your
+non-Dojo modules, then use the `modulePaths` setting to map the location
+of these modules instead of remapping `baseUrl`:
+
+	<script type="text/javascript"
+		data-dojo-config="async:true, modulePaths:{"xyz":location.href.substring(0,location.href.lastIndexOf('/')+1)+'path/to/scripts/xyz'}"
+		src="~/dojo/dojo.js">
+	</script>
+
+This example maps the prefix `xyz` to a subdirectory `xyz` under the home
+directory. All your modules must then be prefixed with `xyz` (e.g.
+`xyz.SomeClass`). You can create more than one prefix, but remember
+the paths must be under the home directory for this to work. In other
+words, your abstract module namespace must match the physical directory
+structure.
+
+*PROBLEM WITH MODULE PATHS*
+
+Mind you that this is probably not the most typical way to load custom
 Dojo modules -- the most typical way is to map a custom prefix (one that
-is other than `dojo`, `dijit` and `dojox`) to a path. However, TypeScript
+is other than `dojo`, `dijit` and `dojox`) to a path that may or may not
+be the same as the physical directory structure. However, TypeScript
 does not support looking for modules via prefix mapped to a path, so you
 must abandon that practice and use path-relative modules.
 
-If you do have a need to organize modules according to prefix, understand
+If you do have a need to organize modules according to prefix, but the
+namespace does not match the physical directory structure, understand
 that you'll have to duplicate a *lot* of code files. Essentially,
 everywhere you import a module, you have to make sure that a subdirectory
 exists, with the same name as the prefix of the module, at the same level
 of the TypeScript file that uses that module, and that inside this
 subdirectory is a copy of the module's TypeScript file. Otherwise,
 TypeScript will complain that it doesn't find your module (since it doesn't
-understand that you have "mapped" a path to its prefix).
+understand that you have "mapped" a different path to its prefix and it
+interprets a prefix literally as a directory under the home).
 
 A simpler way is to generate a `.d.ts` type definition file for your
 module, and then use the `/// <reference path="..."/>` syntax to load it.
@@ -69,6 +103,8 @@ however, necessitates the regeneration of a lot of type definition files
 (and remembering to do it!) every time the public API of your module
 changes.
 
+*BOOTSTRAPING*
+
 JavaScript files compiled from TypeScript source modules in your project
 look exactly like a regular Dojo AMD-style module and are loaded
 automatically when `require`-d.
@@ -76,7 +112,7 @@ automatically when `require`-d.
 If you stay completely within TypeScript and Visual Studio, however, you'll
 find that every TypeScript file is compiled into an AMD module (see
 *TypeScript setup* below) and there is no way to automatically load the
-top-most one (your root module).
+top-most one (your root module)!
 
 The way to bootstrap the entire tree of modules is either: (1) write a
 simple, vanilla JavaScript script that contains the `require` statement,
@@ -122,7 +158,7 @@ To use Dijits together with Dojo:
 	/// <reference path="dijit.d.ts"/>
 	
 Some modules are split into their own separate definition files.  For example,
-to use dojo/store, you must add another refernece:
+to use dojo/store, you must add another reference:
 
 	/// <reference path="dojo.d.ts"/>
 	/// <reference path="dojo.store.d.ts"/>
@@ -131,29 +167,14 @@ to use dojo/store, you must add another refernece:
 III. TypeScript setup
 ---------------------
 
-You MUST be using TypeScript version 0.9.5 or higher (with generics
-support).
+You MUST be using TypeScript version 1.5 or higher (with generics
+support and union type support).
 
 When using the command line compiler, use the `--module amd` flag
 since Dojo works with AMD-style modules.
 
 Your TypeScript environment must be setup to compile using AMD-style
-modules.  In Visual Studio with Web Essentials, you *used* to be able
-to set `Use the AMD module` to true under Web Essentials-TypeScript.
-
-New versions of Web Essentials no longer support TypeScript, and you
-must now find the settings under Tools-Options-Text Editor-TypeScript.
-There does not appear to be a place to change the module style
-(defaulted to AMD if you use the built-in TypeScript HTML Application
-project template), nor the JavaScript version to be emitted (defaulted
-to ES5 if you use the built-in template).  You must exit Visual Studio
-and manually edit the project file if these settings are incorrect.
-For example, you might want to target ES3 instead of ES5 and so must
-edit the project file for TypeScript to emit ES3 JavaScript.
-
-Visual Studio 2013 appears to have much better built-in support of
-TypeScript, including a `TypeScript` page in the main project
-configuration window.
+modules.  In Visual Studio, you can set this within the project settings.
 
 
 IV. Using Dojo modules
@@ -162,13 +183,12 @@ IV. Using Dojo modules
 To use a Dojo module, just `import` it:
 
 	/// <reference path="dojo.d.ts"/>
-	import array = require("dojo/_base/array");
+	import * as array from "dojo/_base/array";
 	array.forEach(...);
 
 compiles into:
 
-	define(["require", "exports", "dojo/_base/array"], function(require, exports, __array__) {
-		var array = __array__;
+	define(["require", "exports", "dojo/_base/array"], function(require, exports, array) {
 		array.forEach(...);
 	});
 
@@ -176,27 +196,38 @@ compiles into:
 Directly-callable Dojo modules are supported similarly.  For example:
 
 	/// <reference path="dojo.d.ts"/>
-	import ready = require("dojo/ready");
+	import * as ready from "dojo/ready";
 	ready(() => { ... });
 
 compiles into:
 
-	define(["require", "exports", "dojo/ready"], function(require, exports, __ready__) {
-		var ready = __ready__;
+	define(["require", "exports", "dojo/ready"], function(require, exports, ready) {
 		ready(function() { ... });
+	});
+
+
+Selectively importing certain methods are also supported:
+
+	/// <reference path="dojo.d.ts"/>
+	import { forEach } from "dojo/_base/array";
+	forEach(...);
+
+compiles into:
+
+	define(["require", "exports", "dojo/_base/array"], function(require, exports, dojo_base_array_1) {
+		dojo_base_array_1.forEach(...);
 	});
 
 
 Class-type Dojo modules are also supported.  For example:
 
 	/// <reference path="dojo.store.d.ts"/>
-	import Memory = require("dojo/store/Memory");
+	import * as Memory from "dojo/store/Memory";
 	var store = new Memory({ data: ... });
 
 compiles into:
 
-	define(["require", "exports", "dojo/store/Memory"], function(require, exports, __Memory__) {
-		var Memory = __Memory__;
+	define(["require", "exports", "dojo/store/Memory"], function(require, exports, Memory) {
 		var store = new Memory({ data: ... });
 	});
 
@@ -204,11 +235,11 @@ compiles into:
 V. Defining new modules in TypeScript
 -------------------------------------
 
-You can define modules to be used with Dojo in TypeScript.  For
-example, the following:
+You can define modules to be used with Dojo in TypeScript.  For example,
+the following:
 
 	/// <reference path="dojo.d.ts"/>
-	import array = require("dojo/_base/array");
+	import * as array from "dojo/_base/array";
 		:
 		:
 	var retval = { ... };
@@ -216,8 +247,7 @@ example, the following:
 
 compiles to:
 
-	define(["require", "exports", "dojo/_base/array"], function(require, exports, __array__) {
-		var array = __array__;
+	define(["require", "exports", "dojo/_base/array"], function(require, exports, array) {
 			:
 			:
 		var retval = { ... };
@@ -243,7 +273,13 @@ For example:
 		
 `bar.ts` (which uses foo.ts):
 	
-	import foo = require("foo");
+	import * as foo from "foo";
+		:
+		:
+
+or
+	
+	import { func1, func2 ... } from "foo";
 		:
 		:
 
@@ -262,8 +298,7 @@ JavaScript files which, of course, work perfectly fine as well:
 		
 `bar.js`:
 
-	define(["require", "exports", "foo"], function(require, exports, __foo__) {
-		var foo = __foo__;
+	define(["require", "exports", "foo"], function(require, exports, foo) {
 			:
 			:
 	});
@@ -283,17 +318,15 @@ As in the following, you can continue to use NodeList after mixing in
 other NodeList features:
 
 	/// <reference path="dojo.d.ts"/>
-	import NodeList = require("dojo/NodeList");
-	import NodeListDom = require("dojo/NodeList-dom");
+	import * as NodeList from "dojo/NodeList";
+	import * as NodeListDom from "dojo/NodeList-dom";
 		:
 	<< you can use methods defined in dojo/NodeList-dom on NodeList >>
 		:
 
 It compiles to:
 
-	define(["require", "exports", "dojo/NodeList", "dojo/NodeList-dom"], function(require, exports, __NodeList__, __NodeListDom__) {
-		var NodeList = __NodeList__
-		var NodeListDom = __NodeListDom__
+	define(["require", "exports", "dojo/NodeList", "dojo/NodeList-dom"], function(require, exports, NodeList, NodeListDom) {
 			:
 			:
 	});
@@ -357,34 +390,18 @@ You won't be able to do:
 
 	var baz = require<string>("dojo/text!foo/bar/baz.txt");      // Module not found
 	
-For generic dynamic plugin modules, you have to fudge it like this:
+You can fudge it like this:
 
-	declare module "dojo/blah!foo/bar/baz"
-	{
-		var retval: string;
-		export = retval;
-	}
+	/// <amd-dependency path="dojo/text!foo/bar/baz.txt" name="baz" />
 
-	import baz = require("dojo/blah!foo/bar/baz");
+	declare var baz: string;
 	
 It compiles to:
 
-	define(["require", "exports", "dojo/blah!foo/bar/baz"], function(require, exports, __baz__) {
-		var baz = __baz__;
+	define(["require", "exports", "dojo/blah!foo/bar/baz"], function(require, exports, baz) {
 			:
 			:
 	});
-
-However, for the extremely important case of `dojo/text`, there
-is a short-cut which is to use `dojo/cache`:
-
-	/// <amd-dependency path="dojo/text!foo/bar/baz.txt" />
-	
-	import cache = require("dojo/cache");
-	var baz = cache<string>("foo/bar/baz.txt");
-
-The dynamic plugin module `dojo/text` uses `dojo/cache` to cache
-text content retrieved, with the URL path as key.
 
 
 X. Namespaces and types
