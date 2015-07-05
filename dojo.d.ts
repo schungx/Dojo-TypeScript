@@ -86,7 +86,7 @@ declare module Dojo {
 		toRgb(): [number, number, number];
 		toRgba(): [number, number, number, number];
 		toHex(): string;
-		toCss(alpha: boolean): string;
+		toCss(alpha?: boolean): string;
 	}
 
 	module Color {

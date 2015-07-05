@@ -31,7 +31,7 @@ code files in different locations of the directory tree, or define
 type definition files for your modules.
 
 
-I. Prepare Dojo baseUrl/modulePaths and bootstrap
+I. Prepare Dojo baseUrl/packages and bootstrap
 -------------------------------------------------
 
 *LOADING DOJO FROM A CDN*
@@ -54,35 +54,41 @@ under dojo, dijit and dojox) by the Dojo AMD loader.
 The above works fine if you have a custom build of Dojo (`dojo.js`) that
 contains all the required functionalities, or if you only use Dojo Base.
 
-The above doesn't seem to work if you load Dojo (or a custom build)
-locally *if files are loaded dynamically*. For example, if you need to 
-use functionalities outside of `Dojo Base`, Dojo will complain that
-script files cannot be found.
+The above doesn't work if you load Dojo (or a custom build) locally 
+with asynchronous script loading. For example, if you need to 
+load functionalities outside of `Dojo Base` asynchronously, Dojo will
+complain that script files cannot be found. This can be expected because,
+as you override `baseUrl`, you also override the path where other Dojo
+modules can be found.
 
-In order to load Dojo locally, you must create a prefix for all your
-non-Dojo modules, then use the `modulePaths` setting to map the location
-of these modules instead of remapping `baseUrl`:
+In order to load Dojo from a local source asynchronously, you should use the
+`packages` setting (`modulePaths` in previous Dojo versions) in `dojoConfig`
+to re-map the locations for `dojo`, `dijit` and `dojox`:
 
-	<script type="text/javascript"
-		data-dojo-config="async:true, modulePaths:{"xyz":location.href.substring(0,location.href.lastIndexOf('/')+1)+'path/to/scripts/xyz'}"
-		src="~/dojo/dojo.js">
+	<script type="text/javascript">
+		dojoConfig = {
+			async: true,
+			baseUrl: location.href.substring(0, location.href.lastIndexOf('/') + 1) + 'path/to/scripts/xyz.js',
+			packages: [
+				{ name: 'dojo', location: '/path/to/dojo' },
+				{ name: 'dijit', location: '/path/to/dijit' },
+				{ name: 'dojox', location: '/path/to/dojox' }
+			]
+		};
 	</script>
+	<script type="text/javascript" src="/path/to/dojo/dojo.js"></script>
 
-This example maps the prefix `xyz` to a subdirectory `xyz` under the home
-directory. All your modules must then be prefixed with `xyz` (e.g.
-`xyz/SomeClass`). You can create more than one prefix, but remember
-the paths must be under the home directory for this to work. In other
-words, your abstract module namespace must match the physical directory
-structure.
+This is the exact *opposite* of what you would normally do. The typical way to
+load custom modules is to map it to a custom prefix (one that is other than
+`dojo`, `dijit` and `dojox`) and map that prefix to a path that may or may not
+be the same as the physical directory structure.
+
+However, TypeScript does not support looking for modules via prefix mapped to
+a path, so you must abandon that practice and use path-relative modules for all.
+Because of this, it is far easier to re-map the locations for `dojo`, `dijit`
+and `dojox` instead.
 
 *PROBLEM WITH MODULE PATHS*
-
-Mind you that this is probably not the most typical way to load custom
-Dojo modules -- the most typical way is to map a custom prefix (one that
-is other than `dojo`, `dijit` and `dojox`) to a path that may or may not
-be the same as the physical directory structure. However, TypeScript
-does not support looking for modules via prefix mapped to a path, so you
-must abandon that practice and use path-relative modules.
 
 If you do have a need to organize modules according to prefix, but the
 namespace does not match the physical directory structure, understand
@@ -214,8 +220,8 @@ Selectively importing certain methods are also supported:
 
 compiles into:
 
-	define(["require", "exports", "dojo/_base/array"], function(require, exports, dojo_base_array_1) {
-		dojo_base_array_1.forEach(...);
+	define(["require", "exports", "dojo/_base/array"], function(require, exports, array_1) {
+		array_1.forEach(...);
 	});
 
 
@@ -447,3 +453,34 @@ avoided.
 
 TypeScript interface definitions for Dijit (i.e. not regular dijit
 classes) continue to use the `Dijit` namespace.
+
+
+XI. Using Dojo Synchronously
+----------------------------
+
+The various TypeScript types described above can turn out to be
+very useful, especially when using Dojo synchronously together with 
+other third-party libraries without AMD.
+
+For example, when using AngularJS, it is sometimes clumbersome to use
+the `$location` service to parse query parameters. Why not use
+`dojo/io-query` from Dojo Base instead?
+
+`main.html` (Include Dojo Base):
+
+	<script type="text/javascript" src="angular.js"></script>
+	<script type="text/javascript" src="dojo.js"></script>
+
+`script.ts`:
+
+	/// <reference path="dojo.d.ts"/>
+	var query = <Dojo.IOQuery> require("dojo/io-query");
+	var params = query.queryToObject(document.location.search.substr(1));
+
+	angular.module(...)...
+
+In the above example, Dojo Base is included synchronously, which makes
+all its modules immediately available. When accessed via a `require` call,
+the reqested module is returned. As the `require` call is made with the
+appropriate Dojo TypeScript type, the returned object (in this case `query`)
+is automatically casted to the correct interface.
