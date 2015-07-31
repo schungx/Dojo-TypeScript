@@ -50,7 +50,7 @@ declare module Dojo {
 	interface Dictionary<T> {
 		[key: string]: T;
 	}
-	type PropertiesMap ={ [property: string]: any; }
+	type PropertiesMap = { [property: string]: any; }
 	type AttributesMap = { [attribute: string]: any; }
 	type StylesMap = { [style: string]: string; }
 

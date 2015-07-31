@@ -1,7 +1,6 @@
 Using The Dojo Toolkit (AMD-style) with TypeScript
 ==================================================
 
-
 Preamble
 --------
 
@@ -30,7 +29,6 @@ with using path-relative modules, or put duplicate copies of your
 code files in different locations of the directory tree, or define
 type definition files for your modules.
 
-
 I. Prepare Dojo baseUrl/packages and bootstrap
 -------------------------------------------------
 
@@ -43,7 +41,7 @@ HTML file:
 		data-dojo-config="async:true, baseUrl:location.href.substring(0,location.href.lastIndexOf('/')+1)+'path/to/scripts/xyz.js'"
 		src="http://ajax.googleapis.com/ajax/libs/dojo/1.9.0/dojo/dojo.js">
 	</script>
-	
+
 The `baseUrl` setting in DojoConfig creates a path to a script file in
 your main scripts directory relative to the HTML file's location.  It
 overrides the default path for loading AMD modules (other than modules
@@ -54,8 +52,8 @@ under dojo, dijit and dojox) by the Dojo AMD loader.
 The above works fine if you have a custom build of Dojo (`dojo.js`) that
 contains all the required functionalities, or if you only use Dojo Base.
 
-The above doesn't work if you load Dojo (or a custom build) locally 
-with asynchronous script loading. For example, if you need to 
+The above doesn't work if you load Dojo (or a custom build) locally
+with asynchronous script loading. For example, if you need to
 load functionalities outside of `Dojo Base` asynchronously, Dojo will
 complain that script files cannot be found. This can be expected because,
 as you override `baseUrl`, you also override the path where other Dojo
@@ -102,7 +100,7 @@ understand that you have "mapped" a different path to its prefix and it
 interprets a prefix literally as a directory under the home).
 
 A simpler way is to generate a `.d.ts` type definition file for your
-module, and then use the `/// <reference path="..."/>` syntax to load it.
+module, and then use the `/// <reference path="..." />` syntax to load it.
 You will then be able to use that module in TypeScript and TypeScript will
 not attempt to locate that module file (which it won't find). This method,
 however, necessitates the regeneration of a lot of type definition files
@@ -131,11 +129,10 @@ Option (1):
 
 * `bootstrap.js`:  `require(["main"]);`
 * `main.html`:     `<script type="text/javascript" src="bootstrap.js"></script>`
-	
+
 Option (2):
 
 * `main.html`:     `<script type="text/javascript">require(["main"]);</script>`
-
 
 II. Dojo type definitions and referencing dojo.d.ts
 ---------------------------------------------------
@@ -151,24 +148,23 @@ of the core functionalities.
 To use Dojo, include the following reference in the first lines of your
 TypeScript file:
 
-	/// <reference path="dojo.d.ts"/>
+	/// <reference path="dojo.d.ts" />
 
 To use Dijits, include the following reference in the first lines of your
 TypeScript file:
 
-	/// <reference path="dijit.d.ts"/>
+	/// <reference path="dijit.d.ts" />
 
 To use Dijits together with Dojo:
 
-	/// <reference path="dojo.d.ts"/>
-	/// <reference path="dijit.d.ts"/>
-	
+	/// <reference path="dojo.d.ts" />
+	/// <reference path="dijit.d.ts" />
+
 Some modules are split into their own separate definition files.  For example,
 to use dojo/store, you must add another reference:
 
-	/// <reference path="dojo.d.ts"/>
-	/// <reference path="dojo.store.d.ts"/>
-
+	/// <reference path="dojo.d.ts" />
+	/// <reference path="dojo.store.d.ts" />
 
 III. TypeScript setup
 ---------------------
@@ -182,13 +178,12 @@ since Dojo works with AMD-style modules.
 Your TypeScript environment must be setup to compile using AMD-style
 modules.  In Visual Studio, you can set this within the project settings.
 
-
 IV. Using Dojo modules
 ----------------------
 
 To use a Dojo module, just `import` it:
 
-	/// <reference path="dojo.d.ts"/>
+	/// <reference path="dojo.d.ts" />
 	import * as array from "dojo/_base/array";
 	array.forEach(...);
 
@@ -198,10 +193,9 @@ compiles into:
 		array.forEach(...);
 	});
 
-
 Directly-callable Dojo modules are supported similarly.  For example:
 
-	/// <reference path="dojo.d.ts"/>
+	/// <reference path="dojo.d.ts" />
 	import * as ready from "dojo/ready";
 	ready(() => { ... });
 
@@ -211,10 +205,9 @@ compiles into:
 		ready(function() { ... });
 	});
 
-
 Selectively importing certain methods are also supported:
 
-	/// <reference path="dojo.d.ts"/>
+	/// <reference path="dojo.d.ts" />
 	import { forEach } from "dojo/_base/array";
 	forEach(...);
 
@@ -224,10 +217,9 @@ compiles into:
 		array_1.forEach(...);
 	});
 
-
 Class-type Dojo modules are also supported.  For example:
 
-	/// <reference path="dojo.store.d.ts"/>
+	/// <reference path="dojo.store.d.ts" />
 	import * as Memory from "dojo/store/Memory";
 	var store = new Memory({ data: ... });
 
@@ -237,14 +229,13 @@ compiles into:
 		var store = new Memory({ data: ... });
 	});
 
-
 V. Defining new modules in TypeScript
 -------------------------------------
 
 You can define modules to be used with Dojo in TypeScript.  For example,
 the following:
 
-	/// <reference path="dojo.d.ts"/>
+	/// <reference path="dojo.d.ts" />
 	import * as array from "dojo/_base/array";
 		:
 		:
@@ -263,7 +254,7 @@ compiles to:
 The `export = ...` statement is necessary because TypeScript defaults
 to CommonJS-style AMD modules, which means attaching exported functions
 to the `exports` object but does not return it. This will cause errors
-when running the actual JavaScript with Dojo. Using `export = ...` 
+when running the actual JavaScript with Dojo. Using `export = ...`
 causes TypeScript to load the proper object type for the module as well
 as generate the necessary `return` statement to return the module object.
 
@@ -273,18 +264,18 @@ To use this TypeScript module from another TypeScript module, simply
 For example:
 
 `foo.ts` (your new module in TypeScript):
-	
+
 	var retval = { ... };
 	export = retval;
-		
+
 `bar.ts` (which uses foo.ts):
-	
+
 	import * as foo from "foo";
 		:
 		:
 
 or
-	
+
 	import { func1, func2 ... } from "foo";
 		:
 		:
@@ -296,19 +287,18 @@ foo.ts!  The two TypeScript files will compile into the following
 JavaScript files which, of course, work perfectly fine as well:
 
 `foo.js`:
-	
+
 	define(["require", "exports"], function(require, exports) {
 		var retval = { ... };
 		return retval;
 	});
-		
+
 `bar.js`:
 
 	define(["require", "exports", "foo"], function(require, exports, foo) {
 			:
 			:
 	});
-
 
 VI. Using dojo/NodeList
 -----------------------
@@ -323,7 +313,7 @@ definition itself.
 As in the following, you can continue to use NodeList after mixing in
 other NodeList features:
 
-	/// <reference path="dojo.d.ts"/>
+	/// <reference path="dojo.d.ts" />
 	import * as NodeList from "dojo/NodeList";
 	import * as NodeListDom from "dojo/NodeList-dom";
 		:
@@ -339,7 +329,6 @@ It compiles to:
 
 Unfortunately you cannot import a module without creating a variable
 to hold it.
-
 
 VII. Other TypeScript definition files
 --------------------------------------
@@ -361,14 +350,13 @@ The complete list of definition files is as follows:
 * `dojo.d.ts`            - Dojo Core
 * `dojo.store.d.ts`      - `dojo/store` modules
 * `dojo.data.d.ts`       - Legacy `dojo/data` modules
-	
+
 * `dijit.d.ts`           - Basic widget definitions
 * `dijit.menu.d.ts`      - `dijit/Menu` modules
 * `dijit.form.d.ts`      - `dijit/form` base definitions
 * `dijit.form.button.d.ts`   - `dijit/form/Button`
 * `dijit.form.textbox.d.ts`  - `dijit/form/TextBox`
 * `dijit.form.select.d.ts`   - `dijit/form/Select`
-
 
 VIII. Importing plugin's
 ------------------------
@@ -383,7 +371,6 @@ creating a variable:
 
 These must be among the first lines of the program file.
 
-
 IX. dojo/text!...
 -----------------
 
@@ -395,20 +382,19 @@ You won't be able to do:
 	/// <amd-dependency path="dojo/text!foo/bar/baz.txt" />
 
 	var baz = require<string>("dojo/text!foo/bar/baz.txt");      // Module not found
-	
+
 You can fudge it like this:
 
 	/// <amd-dependency path="dojo/text!foo/bar/baz.txt" name="baz" />
 
 	declare var baz: string;
-	
+
 It compiles to:
 
 	define(["require", "exports", "dojo/blah!foo/bar/baz"], function(require, exports, baz) {
 			:
 			:
 	});
-
 
 X. Namespaces and types
 -----------------------
@@ -423,13 +409,13 @@ Dojo namespaces and interfaces/types are proper-cased, for example:
 * `dojo/html`        ==> `Dojo.Html`
 * `dojo/ready`       ==> `Dojo.Ready`
 * `dojo/dom-class`   ==> `Dojo.DomClass`
-	
+
 Modules under `dojo/_base` are mapped under the Dojo namespace
 without the `_base` level, for example:
 
 * `dojo/_base/array` ==> `Dojo.Array`
 * `dojo/_base/lang`  ==> `Dojo.Lang`
-	
+
 Some very common Dojo classes are put under the `dojo` namespace
 (notice the lower-case `d`) so that they can be used directly in
 TypeScript code which will compile stright to JavaScript code that
@@ -440,7 +426,7 @@ works straight out with Dojo:
 	dojo.Deferred
 	dojo.Promise
 	dojo.Animation
-	
+
 An example of using `dojo/_base/array` without using TypeScript's
 `import` syntax is:
 
@@ -454,12 +440,11 @@ avoided.
 TypeScript interface definitions for Dijit (i.e. not regular dijit
 classes) continue to use the `Dijit` namespace.
 
-
 XI. Using Dojo Synchronously
 ----------------------------
 
 The various TypeScript types described above can turn out to be
-very useful, especially when using Dojo synchronously together with 
+very useful, especially when using Dojo synchronously together with
 other third-party libraries without AMD.
 
 For example, when using AngularJS, it is sometimes clumbersome to use
@@ -473,14 +458,13 @@ the `$location` service to parse query parameters. Why not use
 
 `script.ts`:
 
-	/// <reference path="dojo.d.ts"/>
-	var query = <Dojo.IOQuery> require("dojo/io-query");
-	var params = query.queryToObject(document.location.search.substr(1));
+	/// <reference path="dojo.d.ts" />
+	const query = require("dojo/io-query");
+	const params = query.queryToObject(document.location.search.substr(1));
 
 	angular.module(...)...
 
 In the above example, Dojo Base is included synchronously, which makes
 all its modules immediately available. When accessed via a `require` call,
-the reqested module is returned. As the `require` call is made with the
-appropriate Dojo TypeScript type, the returned object (in this case `query`)
+the reqested module is returned. The returned object (in this case `query`)
 is automatically casted to the correct interface.

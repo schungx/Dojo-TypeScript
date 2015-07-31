@@ -6,8 +6,10 @@
 
 // dojo/ready
 
-declare module Dojo {
-	interface Ready {
+declare module Dojo
+{
+	interface Ready
+	{
 		(priority: number, context: Object, callback: SimpleAction): void;
 		(context: Object, callback: SimpleAction): void;
 		(callback: SimpleAction): void;
@@ -18,11 +20,14 @@ declare module "dojo/ready"
 	var ready: Dojo.Ready;
 	export = ready;
 }
+declare function require(module: "dojo/ready"): Dojo.Ready;
 
 // dojo/domReady
 
-declare module Dojo {
-	interface DomReady {
+declare module Dojo
+{
+	interface DomReady
+	{
 		(callback: SimpleAction): void;
 	}
 }
@@ -31,11 +36,14 @@ declare module "dojo/domReady"
 	var domReady: Dojo.DomReady;
 	export = domReady;
 }
+declare function require(module: "dojo/domReady"): Dojo.DomReady;
 
 // dojo/_base/array
 
-declare module Dojo {
-	interface Array {
+declare module Dojo
+{
+	interface Array
+	{
 		indexOf<T>(array: T[], value: T, fromIndex?: number, findLast?: boolean): number;
 		lastIndexOf<T>(array: T[], value: T, fromIndex?: number, findLast?: boolean): number;
 
@@ -60,17 +68,21 @@ declare module "dojo/_base/array"
 	var array: Dojo.Array;
 	export = array;
 }
+declare function require(module: "dojo/_base/array"): Dojo.Array;
 
 // dojo/_base/browser
 
 declare module "dojo/_base/browser"
 {
 }
+declare function require(module: "dojo/_base/browser"): void;
 
 // dojo/_base/Color
 
-declare module Dojo {
-	class Color {
+declare module Dojo
+{
+	class Color
+	{
 		constructor();
 		constructor(colors: number[]);
 		constructor(colors: [number, number, number]);
@@ -89,8 +101,10 @@ declare module Dojo {
 		toCss(alpha?: boolean): string;
 	}
 
-	module Color {
-		interface NamedColors {
+	module Color
+	{
+		interface NamedColors
+		{
 			"aliceblue": [number, number, number];
 			"antiquewhite": [number, number, number];
 			"aquamarine": [number, number, number];
@@ -231,17 +245,21 @@ declare module "dojo/_base/Color"
 {
 	class color extends Dojo.Color { }
 
-	module color {
+	module color
+	{
 		var named: Dojo.Color.NamedColors;
 	}
 
 	export = color;
 }
+declare function require(module: "dojo/_base/Color"): Dojo.Color;
 
 // dojo/_base/config
 
-declare module Dojo {
-	interface Config {
+declare module Dojo
+{
+	interface Config
+	{
 		addOnLoad: Object;	// TODO
 		afterOnLoad: string;
 		baseUrl: string;
@@ -270,20 +288,26 @@ declare module "dojo/_base/config"
 	var config: Dojo.Config;
 	export = config;
 }
+declare function require(module: "dojo/_base/config"): Dojo.Config;
 
 // dojo/_base/fx
 
-declare module Dojo {
-	module Fx {
-		interface BaseCreateOptions {
+declare module Dojo
+{
+	module Fx
+	{
+		interface BaseCreateOptions
+		{
 			node: any;
 			duration?: number;
 			easing?: EasingFunction;
 		}
-		interface CreateOptions extends BaseCreateOptions {
+		interface CreateOptions extends BaseCreateOptions
+		{
 			properties: StylesMap;
 		}
-		interface Base {
+		interface Base
+		{
 			anim(nodeId: string | HTMLElement, properties: PropertiesMap, duration?: number, easing?: EasingFunction, onEnd?: SimpleAction, delay?: number): dojo.Animation;
 			animateProperty(args: CreateOptions): dojo.Animation;
 			fadeIn(args: BaseCreateOptions): dojo.Animation;
@@ -297,11 +321,14 @@ declare module "dojo/_base/fx"
 	var fx: Dojo.Fx.Base;
 	export = fx;
 }
+declare function require(module: "dojo/_base/fx"): Dojo.Fx.Base;
 
 // dojo/_base/lang
 
-declare module Dojo {
-	interface Lang {
+declare module Dojo
+{
+	interface Lang
+	{
 		clone<T>(obj: T): T;
 		delegate(obj: Object, props: PropertiesMap): Object;
 		exists(path: string, root?: Object): boolean;
@@ -328,29 +355,36 @@ declare module "dojo/_base/lang"
 	var lang: Dojo.Lang;
 	export = lang;
 }
+declare function require(module: "dojo/_base/lang"): Dojo.Lang;
 
 // dojo/AdapterRegistry
 
-declare module "dojo/AdapterRegistry"
+declare module Dojo
 {
-	class DojoAdapterRegistry {
+	class AdapterRegistry
+	{
 		constructor(returnWrappers?: boolean);
 
 		pairs: any[];
 		returnWrappers: boolean;
 
 		match(...args: any[]): void;
-		register(name: string, check: Dojo.FunctionReturning<boolean>, wrap: Dojo.Action, directReturn?: boolean, override?: boolean): void;
+		register(name: string, check: FunctionReturning<boolean>, wrap: Action, directReturn?: boolean, override?: boolean): void;
 		unregister(name: string): boolean;
 	}
-
-	export = DojoAdapterRegistry;
 }
+declare module "dojo/AdapterRegistry"
+{
+	export = Dojo.AdapterRegistry;
+}
+declare function require(module: "dojo/AdapterRegistry"): Dojo.AdapterRegistry;
 
 // dojo/aspect
 
-declare module Dojo {
-	interface Aspect {
+declare module Dojo
+{
+	interface Aspect
+	{
 		after(target: Object, methodName: string, advice: (x: any) => any): RemovableHandle;
 		after(target: Object, methodName: string, advice: Function, receiveArguments: boolean): RemovableHandle;
 
@@ -363,17 +397,21 @@ declare module "dojo/aspect"
 	var aspect: Dojo.Aspect;
 	export = aspect;
 }
+declare function require(module: "dojo/aspect"): Dojo.Aspect;
 
 // dojo/back
 
-declare module Dojo {
-	interface HistoryState {
+declare module Dojo
+{
+	interface HistoryState
+	{
 		back?: (direction: string) => void;
 		forward?: (direction: string) => void;
 		changeUrl?: any;
 	}
 
-	interface Back {
+	interface Back
+	{
 		init(): void;
 		addToHistory(args: HistoryState): void;
 		getHash(): any;
@@ -384,11 +422,14 @@ declare module "dojo/back"
 	var back: Dojo.Back;
 	export = back;
 }
+declare function require(module: "dojo/back"): Dojo.Back;
 
 // dojo.cache
 
-declare module Dojo {
-	interface Cache {
+declare module Dojo
+{
+	interface Cache
+	{
 		<T>(url: string): T;
 		<T>(url: string, value: T): void;
 		<T>(module: string, url: string): T;
@@ -400,12 +441,16 @@ declare module "dojo/cache"
 	var cache: Dojo.Cache;
 	export = cache;
 }
+declare function require(module: "dojo/cache"): Dojo.Cache;
 
 // dojo/cldr/monetary
 
-declare module Dojo {
-	module Cldr {
-		interface Monetary {
+declare module Dojo
+{
+	module Cldr
+	{
+		interface Monetary
+		{
 			getData(code: string): string;
 		}
 	}
@@ -415,12 +460,16 @@ declare module "dojo/cldr/monetary"
 	var monetary: Dojo.Cldr.Monetary;
 	export = monetary;
 }
+declare function require(module: "dojo/cldr/monetary"): Dojo.Cldr.Monetary;
 
 // dojo/cldr/supplemental
 
-declare module Dojo {
-	module Cldr {
-		interface Supplemental {
+declare module Dojo
+{
+	module Cldr
+	{
+		interface Supplemental
+		{
 			getFirstDayOfWeek(locale?: string): number;
 			getWeekend(locale?: string): { start: number; end: number; };
 		}
@@ -431,11 +480,14 @@ declare module "dojo/cldr/supplemental"
 	var supplemental: Dojo.Cldr.Supplemental;
 	export = supplemental;
 }
+declare function require(module: "dojo/cldr/supplemental"): Dojo.Cldr.Supplemental;
 
 // dojo/cookie
 
-declare module Dojo {
-	interface Cookie {
+declare module Dojo
+{
+	interface Cookie
+	{
 		(name: string): string;
 		(name: string, value: string, props?: {
 			expires?: any;
@@ -452,11 +504,14 @@ declare module "dojo/cookie"
 	var cookie: Dojo.Cookie;
 	export = cookie;
 }
+declare function require(module: "dojo/cookie"): Dojo.Cookie;
 
 // dojo/currency
 
-declare module Dojo {
-	interface _CurrencyFormatOptions {
+declare module Dojo
+{
+	interface _CurrencyFormatOptions
+	{
 		currency?: string;
 		fractional?: boolean;
 		locale?: string;
@@ -467,7 +522,8 @@ declare module Dojo {
 		type?: string;
 		strict?: boolean;
 	}
-	interface Currency {
+	interface Currency
+	{
 		format(value: number, options?: _CurrencyFormatOptions): string;
 		parse(expression: string, options?: _CurrencyFormatOptions): number;
 		regexp(options?: _CurrencyFormatOptions): RegExp;
@@ -478,14 +534,18 @@ declare module "dojo/currency"
 	var currency: Dojo.Currency;
 	export = currency;
 }
+declare function require(module: "dojo/currency"): Dojo.Currency;
 
 // dojo/date
 
 interface _HTMLDate extends Date { }
 
-declare module Dojo {
-	module Date {
-		interface Base {
+declare module Dojo
+{
+	module Date
+	{
+		interface Base
+		{
 			add(date: _HTMLDate, interval: string, amount: number): _HTMLDate;
 			compare(date1: _HTMLDate, date2?: _HTMLDate, portion?: string): number;
 			difference(date1: _HTMLDate, date2?: _HTMLDate, interval?: string): number;
@@ -500,12 +560,16 @@ declare module "dojo/date"
 	var date: Dojo.Date.Base;
 	export = date;
 }
+declare function require(module: "dojo/date"): Dojo.Date.Base;
 
 // dojo/date/stamp
 
-declare module Dojo {
-	module Date {
-		interface Stamp {
+declare module Dojo
+{
+	module Date
+	{
+		interface Stamp
+		{
 			fromISOString(formattedString: string, defaultTime?: number): _HTMLDate;
 			toISOString(dateObject: _HTMLDate, options?: { selector?: string; zulu?: boolean; milliseconds?: number; }): string;
 		}
@@ -516,12 +580,16 @@ declare module "dojo/date/stamp"
 	var stamp: Dojo.Date.Stamp;
 	export = stamp;
 }
+declare function require(module: "dojo/date/stamp"): Dojo.Date.Stamp;
 
 // dojo/date/locale
 
-declare module Dojo {
-	module Date {
-		interface FormatOptions {
+declare module Dojo
+{
+	module Date
+	{
+		interface FormatOptions
+		{
 			selector?: string;
 			formatLength?: string;
 			datePattern?: string;
@@ -533,7 +601,8 @@ declare module Dojo {
 			strict?: boolean;
 		}
 
-		interface Locale {
+		interface Locale
+		{
 			addCustomFormats(packageName: string, bundleName: string): void;
 			format(dateObject: _HTMLDate, options?: FormatOptions): string;
 			getNames(item: string, type: string, context?: string, locale?: string): string[];
@@ -548,10 +617,12 @@ declare module "dojo/date/locale"
 	var locale: Dojo.Date.Locale;
 	export = locale;
 }
+declare function require(module: "dojo/date/locale"): Dojo.Date.Locale;
 
 // dojo/Deferred
 
-declare module dojo {
+declare module dojo
+{
 	class Deferred<T>
 	{
 		constructor(canceler?: (reason: any) => void);
@@ -575,11 +646,14 @@ declare module "dojo/Deferred"
 	var Deferred: typeof dojo.Deferred;
 	export = Deferred;
 }
+declare function require<T>(depends: "dojo/Deferred"): dojo.Deferred<T>;
 
 // dojo/dom
 
-declare module Dojo {
-	interface Dom {
+declare module Dojo
+{
+	interface Dom
+	{
 		byId<T extends HTMLElement>(node: string | T): T;
 		isDescendant(nbode: string | HTMLElement, ancestor: string | HTMLElement): boolean;
 		setSelectable(node: string | HTMLElement, selectable: boolean): void;
@@ -590,11 +664,14 @@ declare module "dojo/dom"
 	var dom: Dojo.Dom;
 	export = dom;
 }
+declare function require(module: "dojo/dom"): Dojo.Dom;
 
 // dojo/dom-attr
 
-declare module Dojo {
-	interface DomAttr {
+declare module Dojo
+{
+	interface DomAttr
+	{
 		has(node: string | HTMLElement, attr: string): boolean;
 		get(node: string | HTMLElement, attr: string): string;
 		set(node: string | HTMLElement, attr: string, value: string): void;
@@ -608,11 +685,14 @@ declare module "dojo/dom-attr"
 	var domAttr: Dojo.DomAttr;
 	export = domAttr;
 }
+declare function require(module: "dojo/dom-attr"): Dojo.DomAttr;
 
 // dojo/dom-class
 
-declare module Dojo {
-	interface DomClass {
+declare module Dojo
+{
+	interface DomClass
+	{
 		contains(node: string | HTMLElement, className: string): boolean;
 		add(node: string | HTMLElement, classNames: string | string[]): void;
 		remove(node: string | HTMLElement, classNames?: string | string[]): void;
@@ -625,11 +705,14 @@ declare module "dojo/dom-class"
 	var domClass: Dojo.DomClass;
 	export = domClass;
 }
+declare function require(module: "dojo/dom-class"): Dojo.DomClass;
 
 // dojo/dom-construct
 
-declare module Dojo {
-	interface DomConstruct {
+declare module Dojo
+{
+	interface DomConstruct
+	{
 		toDom(frag: string, doc?: HTMLDocument): HTMLElement;
 		place<T extends HTMLElement>(node: string | T, refNode: string | HTMLElement, pos?: string | number): T;
 
@@ -748,11 +831,14 @@ declare module "dojo/dom-construct"
 	var domConstruct: Dojo.DomConstruct;
 	export = domConstruct;
 }
+declare function require(module: "dojo/dom-construct"): Dojo.DomConstruct;
 
 // dojo/dom-form
 
-declare module Dojo {
-	interface DomForm {
+declare module Dojo
+{
+	interface DomForm
+	{
 		fieldToObject(inputNode: string | HTMLElement): any;
 		toJson(formNode: string | HTMLElement, prettyPrint?: boolean): string;
 		toObject(formNode: string | HTMLElement): Object;
@@ -764,11 +850,14 @@ declare module "dojo/dom-form"
 	var domForm: Dojo.DomForm;
 	export = domForm;
 }
+declare function require(module: "dojo/dom-form"): Dojo.DomForm;
 
 // dojo/dom-geometry
 
-declare module Dojo {
-	interface DomGeometry {
+declare module Dojo
+{
+	interface DomGeometry
+	{
 		boxModel: string;
 
 		docScroll(doc?: HTMLDocument): { node: HTMLElement; x: number; y: number; };
@@ -793,11 +882,14 @@ declare module "dojo/dom-geometry"
 	var domGeometry: Dojo.DomGeometry;
 	export = domGeometry;
 }
+declare function require(module: "dojo/dom-geometry"): Dojo.DomGeometry;
 
 // dojo/dom-prop
 
-declare module Dojo {
-	interface DomProp {
+declare module Dojo
+{
+	interface DomProp
+	{
 		get(node: string | HTMLElement, attr: string): string;
 
 		set(node: string | HTMLElement, attr: string, value: string): void;
@@ -809,11 +901,14 @@ declare module "dojo/dom-prop"
 	var domProp: Dojo.DomProp;
 	export = domProp;
 }
+declare function require(module: "dojo/dom-prop"): Dojo.DomProp;
 
 // dojo/dom-style
 
-declare module Dojo {
-	interface DomStyle {
+declare module Dojo
+{
+	interface DomStyle
+	{
 		getComputedStyle(node: HTMLElement): StylesMap;
 
 		get(node: string | HTMLElement, style?: string): StylesMap;
@@ -827,6 +922,7 @@ declare module "dojo/dom-style"
 	var domStyle: Dojo.DomStyle;
 	export = domStyle;
 }
+declare function require(module: "dojo/dom-style"): Dojo.DomStyle;
 
 // dojo/Evented
 
@@ -835,20 +931,26 @@ declare module "dojo/Evented"
 	var Evented: dojo.Evented;
 	export = Evented;
 }
+declare function require(module: "dojo/Evented"): dojo.Evented;
 
 // dojo/fx
 
-declare module Dojo {
-	module Fx {
-		interface SlideCreateOptions extends CreateOptions {
+declare module Dojo
+{
+	module Fx
+	{
+		interface SlideCreateOptions extends CreateOptions
+		{
 			top: string;
 			left: string;
 		}
-		interface AutoSlideCreateOptions extends SlideCreateOptions {
+		interface AutoSlideCreateOptions extends SlideCreateOptions
+		{
 			auto: any;
 		}
 
-		interface Module {
+		interface Module
+		{
 			chain(animations: dojo.Animation[]): dojo.Animation;
 			combine(animations: dojo.Animation[]): dojo.Animation;
 			slideTo(args: SlideCreateOptions): dojo.Animation;
@@ -858,18 +960,21 @@ declare module Dojo {
 		}
 	}
 }
-
 declare module "dojo/fx"
 {
 	var fx: Dojo.Fx.Module;
 	export = fx;
 }
+declare function require(module: "dojo/fx"): Dojo.Fx.Module;
 
 // dojo/fx/easing
 
-declare module Dojo {
-	module Fx {
-		interface Easing {
+declare module Dojo
+{
+	module Fx
+	{
+		interface Easing
+		{
 			backIn(n: number): number;
 			backInOut(n: number): number;
 			backOut(n: number): number;
@@ -911,12 +1016,16 @@ declare module "dojo/fx/easing"
 	var easing: Dojo.Fx.Easing;
 	export = easing;
 }
+declare function require(module: "dojo/fx/easing"): Dojo.Fx.Easing;
 
 // dojo/fx/Toggler
 
-declare module Dojo {
-	module Fx {
-		interface TogglerCreateOptions {
+declare module Dojo
+{
+	module Fx
+	{
+		interface TogglerCreateOptions
+		{
 			node: any;
 			showDuration?: number;
 			showFunc?: (args: BaseCreateOptions) => dojo.Animation;
@@ -924,7 +1033,8 @@ declare module Dojo {
 			hideFuc?: (args: BaseCreateOptions) => dojo.Animation;
 		}
 
-		class Toggler {
+		class Toggler
+		{
 			constructor(args: TogglerCreateOptions);
 
 			hideDuration: number;
@@ -943,11 +1053,14 @@ declare module "dojo/fx/Toggler"
 	var Toggler: typeof Dojo.Fx.Toggler;
 	export = Toggler;
 }
+declare function require(module: "dojo/fx/Toggler"): Dojo.Fx.Toggler;
 
 // dojo/has
 
-declare module Dojo {
-	interface Has {
+declare module Dojo
+{
+	interface Has
+	{
 		(feature: string | number): boolean;
 
 		add(feature: string | number, test: (global: Object, doc: Document, element: Object) => boolean, now?: boolean, force?: boolean): void;
@@ -961,11 +1074,14 @@ declare module "dojo/has"
 	var has: Dojo.Has;
 	export = has;
 }
+declare function require(module: "dojo/has"): Dojo.Has;
 
 // dojo/hash
 
-declare module Dojo {
-	interface Hash {
+declare module Dojo
+{
+	interface Hash
+	{
 		(hash?: string, replace?: boolean): string;
 	}
 }
@@ -974,11 +1090,14 @@ declare module "dojo/hash"
 	var hash: Dojo.Hash;
 	export = hash;
 }
+declare function require(module: "dojo/hash"): Dojo.Hash;
 
 // dojo/html
 
-declare module Dojo {
-	interface _HtmlContentSetterOptions {
+declare module Dojo
+{
+	interface _HtmlContentSetterOptions
+	{
 		cleanContent?: boolean;
 		extractContent?: boolean;
 		parseContent?: boolean;
@@ -990,7 +1109,8 @@ declare module Dojo {
 		onEnd(): void;
 	}
 
-	interface Html {
+	interface Html
+	{
 		set(node: HTMLElement, content: string | HTMLElement | NodeList | dojo.NodeList | HTMLElement[], params?: _HtmlContentSetterOptions): void;
 	}
 }
@@ -999,11 +1119,14 @@ declare module "dojo/html"
 	var html: Dojo.Html;
 	export = html;
 }
+declare function require(module: "dojo/html"): Dojo.Html;
 
 // dojo/io-query
 
-declare module Dojo {
-	interface IOQuery {
+declare module Dojo
+{
+	interface IOQuery
+	{
 		objectToQuery(map: Dojo.Dictionary<any>): string;
 		queryToObject(str: string): Dojo.Dictionary<any>;
 	}
@@ -1013,11 +1136,14 @@ declare module "dojo/io-query"
 	var ioQuery: Dojo.IOQuery;
 	export = ioQuery;
 }
+declare function require(module: "dojo/io-query"): Dojo.IOQuery;
 
 // dojo/keys
 
-declare module Dojo {
-	interface Keys {
+declare module Dojo
+{
+	interface Keys
+	{
 		BACKSPACE: number;
 		TAB: number;
 		CLEAR: number;
@@ -1085,11 +1211,14 @@ declare module "dojo/keys"
 	var keys: Dojo.Keys;
 	export = keys;
 }
+declare function require(module: "dojo/keys"): Dojo.Keys;
 
 // dojo/json
 
-declare module Dojo {
-	interface Json {
+declare module Dojo
+{
+	interface Json
+	{
 		parse(str: string, secured?: boolean): any;
 		stringify(obj: any, replacer?: any[]| ((key: string, value: string) => any), space?: boolean): string;
 	}
@@ -1099,11 +1228,14 @@ declare module "dojo/json"
 	var json: Dojo.Json;
 	export = json;
 }
+declare function require(module: "dojo/json"): Dojo.Json;
 
 // dojo/mouse
 
-declare module Dojo {
-	interface Mouse {
+declare module Dojo
+{
+	interface Mouse
+	{
 		enter: ExtensionEvent;
 		leave: ExtensionEvent;
 
@@ -1117,25 +1249,32 @@ declare module "dojo/mouse"
 	var mouse: Dojo.Mouse;
 	export = mouse;
 }
+declare function require(module: "dojo/mouse"): Dojo.Mouse;
 
 // dojo/NodeList
 
 interface _HTMLNodeList extends NodeList { }
 
-declare module Dojo {
-	module Fx {
-		interface AutoCreateOptions extends CreateOptions {
+declare module Dojo
+{
+	module Fx
+	{
+		interface AutoCreateOptions extends CreateOptions
+		{
 			auto: any;
 		}
-		interface AutoBaseCreateOptions extends BaseCreateOptions {
+		interface AutoBaseCreateOptions extends BaseCreateOptions
+		{
 			auto: any;
 		}
 	}
 }
-declare module dojo {
+declare module dojo
+{
 	type NodesLike = HTMLElement | HTMLElement[]| _HTMLNodeList | dojo.NodeList;
 
-	class NodeList {
+	class NodeList
+	{
 		constructor(node: NodesLike);
 
 		// Make NodeList array-like
@@ -1373,6 +1512,7 @@ declare module "dojo/NodeList"
 	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
+declare function require(module: "dojo/NodeList"): dojo.NodeList;
 
 // dojo/NodeList-???
 
@@ -1380,31 +1520,39 @@ declare module "dojo/NodeList-data" {
 	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
+declare function require(module: "dojo/NodeList-data"): dojo.NodeList;
 declare module "dojo/NodeList-dom" {
 	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
+declare function require(module: "dojo/NodeList-dom"): dojo.NodeList;
 declare module "dojo/NodeList-fx" {
 	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
+declare function require(module: "dojo/NodeList-fx"): dojo.NodeList;
 declare module "dojo/NodeList-html" {
 	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
+declare function require(module: "dojo/NodeList-html"): dojo.NodeList;
 declare module "dojo/NodeList-manipulate" {
 	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
+declare function require(module: "dojo/NodeList-manipulate"): dojo.NodeList;
 declare module "dojo/NodeList-traverse" {
 	var NodeList: typeof dojo.NodeList;
 	export = NodeList;
 }
+declare function require(module: "dojo/NodeList-traverse"): dojo.NodeList;
 
 // dojo/number
 
-declare module Dojo {
-	interface Number {
+declare module Dojo
+{
+	interface Number
+	{
 		format(value: number, options?: {
 			pattern?: string;
 			type?: string;
@@ -1435,11 +1583,14 @@ declare module "dojo/number"
 	var num: Dojo.Number;
 	export = num;
 }
+declare function require(module: "dojo/number"): Dojo.Number;
 
 // dojo/on
 
-declare module Dojo {
-	interface On {
+declare module Dojo
+{
+	interface On
+	{
 		(target: HTMLElement, type: "abort", listener: EventListener<UIEvent>, dontFix?: boolean): Dojo.RemovableHandle;
 		(target: HTMLElement, type: "afterprint", listener: EventListener<Event>, dontFix?: boolean): Dojo.RemovableHandle;
 		(target: HTMLElement, type: "beforeprint", listener: EventListener<Event>, dontFix?: boolean): Dojo.RemovableHandle;
@@ -1639,13 +1790,16 @@ declare module "dojo/on"
 	var on: Dojo.On;
 	export = on;
 }
+declare function require(module: "dojo/on"): Dojo.On;
 
 // dojo/parser
 
 interface _ArrayOrPromise<T> extends Array<T>, Dojo.PromiseLike<T> { }
 
-declare module Dojo {
-	interface _ParseOptions {
+declare module Dojo
+{
+	interface _ParseOptions
+	{
 		noStart?: boolean;
 		rootNode?: HTMLElement;
 		template?: boolean;
@@ -1655,7 +1809,8 @@ declare module Dojo {
 		contextRequire?: Function;
 	}
 
-	interface Parser {
+	interface Parser
+	{
 		parse(rootNode?: HTMLElement, options?: _ParseOptions): _ArrayOrPromise<dijit._WidgetBase>;
 		scan(root?: HTMLElement, options?: _ParseOptions): dojo.Promise<HTMLElement[]>;
 		instantiate(nodes: HTMLElement[], mixin?: PropertiesMap, options?: _ParseOptions): dijit._WidgetBase[];
@@ -1667,6 +1822,7 @@ declare module "dojo/parser"
 	var parser: Dojo.Parser;
 	export = parser;
 }
+declare function require(module: "dojo/parser"): Dojo.Parser;
 
 // dojo/promise/Promise
 
@@ -1675,12 +1831,16 @@ declare module "dojo/promise/Promise"
 	var Promise: typeof dojo.Promise;
 	export = Promise;
 }
+declare function require<T>(module: "dojo/promise/promise"): dojo.Promise<T>;
 
 // dojo/promise/all
 
-declare module Dojo {
-	module Promise {
-		interface All {
+declare module Dojo
+{
+	module Promise
+	{
+		interface All
+		{
 			<T>(promises: T[]| dojo.Promise<T>[]): dojo.Promise<T[]>;
 			<T>(promises: Dojo.Dictionary<dojo.Promise<T>>): dojo.Promise<Dojo.Dictionary<T>>;
 			<T>(promises: T): dojo.Promise<T>;
@@ -1692,12 +1852,16 @@ declare module "dojo/promise/all"
 	var all: Dojo.Promise.All;
 	export = all;
 }
+declare function require(module: "dojo/promise/all"): Dojo.Promise.All;
 
 // dojo/promise/first
 
-declare module Dojo {
-	module Promise {
-		interface First {
+declare module Dojo
+{
+	module Promise
+	{
+		interface First
+		{
 			<T>(promises: T[]| dojo.Promise<T>[]| Dojo.Dictionary<dojo.Promise<T>>): dojo.Promise<T>;
 			<T>(promises: T): dojo.Promise<T>;
 		}
@@ -1708,11 +1872,14 @@ declare module "dojo/promise/first"
 	var first: Dojo.Promise.First;
 	export = first;
 }
+declare function require(module: "dojo/promise/first"): Dojo.Promise.First;
 
 // dojo/query
 
-declare module Dojo {
-	interface Query {
+declare module Dojo
+{
+	interface Query
+	{
 		(selector: string, context?: string | Object): dojo.NodeList;
 		NodeList: dojo.NodeList;
 	}
@@ -1722,36 +1889,44 @@ declare module "dojo/query"
 	var query: Dojo.Query;
 	export = query;
 }
+declare function require(module: "dojo/query"): Dojo.Query;
 declare module "dojo/query!css2"
 {
 	var query: Dojo.Query;
 	export = query;
 }
+declare function require(module: "dojo/query!css2"): Dojo.Query;
 declare module "dojo/query!lite"
 {
 	var query: Dojo.Query;
 	export = query;
 }
+declare function require(module: "dojo/query!lite"): Dojo.Query;
 declare module "dojo/query!css2.1"
 {
 	var query: Dojo.Query;
 	export = query;
 }
+declare function require(module: "dojo/query!css2.1"): Dojo.Query;
 declare module "dojo/query!css3"
 {
 	var query: Dojo.Query;
 	export = query;
 }
+declare function require(module: "dojo/query!css3"): Dojo.Query;
 declare module "dojo/query!acme"
 {
 	var query: Dojo.Query;
 	export = query;
 }
+declare function require(module: "dojo/query!acme"): Dojo.Query;
 
 // dojo/regexp
 
-declare module Dojo {
-	interface RegExp {
+declare module Dojo
+{
+	interface RegExp
+	{
 		buildGroupRE(arr: any | any[], re: (item: any) => RegExp, nonCapture?: boolean): RegExp;
 		escapeString(str: string, except?: string): string;
 		group(expression: string, nonCapture?: boolean): string;
@@ -1762,15 +1937,20 @@ declare module "dojo/regexp"
 	var regexp: Dojo.RegExp;
 	export = regexp;
 }
+declare function require(module: "dojo/regexp"): Dojo.RegExp;
 
 // dojo/request
 
-declare module Dojo {
-	module Request {
-		interface MethodOptions {
+declare module Dojo
+{
+	module Request
+	{
+		interface MethodOptions
+		{
 			method: string;
 		}
-		interface BaseOptions {
+		interface BaseOptions
+		{
 			handleAs?: string;
 			headers?: { [header: string]: string; };
 			sync?: boolean;
@@ -1782,7 +1962,8 @@ declare module Dojo {
 		}
 		interface Options extends BaseOptions, MethodOptions { }
 
-		interface RequestObject<T, BaseOptions, Options> {
+		interface RequestObject<T, BaseOptions, Options>
+		{
 			<T>(url: string, options?: Options): dojo.Promise<T>;
 			get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 			put<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -1791,10 +1972,12 @@ declare module Dojo {
 		}
 	}
 }
-
-declare module Dojo {
-	module Request {
-		interface Base {
+declare module Dojo
+{
+	module Request
+	{
+		interface Base
+		{
 			<T>(url: string, options?: Options): dojo.Promise<T>;
 			get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 			put<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -1808,14 +1991,19 @@ declare module "dojo/request"
 	var request: Dojo.Request.Base;
 	export = request;
 }
+declare function require(module: "dojo/request"): Dojo.Request.Base;
 
-declare module Dojo {
-	module Request {
-		module Xhr {
+declare module Dojo
+{
+	module Request
+	{
+		module Xhr
+		{
 			interface BaseOptions extends Request.BaseOptions { }
 			interface Options extends BaseOptions, MethodOptions { }
 
-			interface Base {
+			interface Base
+			{
 				<T>(url: string, options?: Options): dojo.Promise<T>;
 				get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 				put<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -1830,17 +2018,23 @@ declare module "dojo/request/xhr"
 	var request: Dojo.Request.Xhr.Base;
 	export = request;
 }
+declare function require(module: "dojo/request/xhr"): Dojo.Request.Xhr.Base;
 
-declare module Dojo {
-	module Request {
-		module Node {
-			interface BaseOptions extends Request.BaseOptions {
+declare module Dojo
+{
+	module Request
+	{
+		module Node
+		{
+			interface BaseOptions extends Request.BaseOptions
+			{
 				user: string;
 				password: string;
 			}
 			interface Options extends BaseOptions, MethodOptions { }
 
-			interface Base {
+			interface Base
+			{
 				<T>(url: string, options?: Options): dojo.Promise<T>;
 				get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 				put<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -1855,16 +2049,22 @@ declare module "dojo/request/node"
 	var request: Dojo.Request.Node.Base;
 	export = request;
 }
+declare function require(module: "dojo/request/node"): Dojo.Request.Node.Base;
 
-declare module Dojo {
-	module Request {
-		module iFrame {
-			interface BaseOptions extends Request.BaseOptions {
+declare module Dojo
+{
+	module Request
+	{
+		module iFrame
+		{
+			interface BaseOptions extends Request.BaseOptions
+			{
 				form?: HTMLElement;
 			}
 			interface Options extends BaseOptions, MethodOptions { }
 
-			interface Base {
+			interface Base
+			{
 				<T>(url: string, options?: Options): dojo.Promise<T>;
 				get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 				post<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -1877,18 +2077,24 @@ declare module "dojo/request/iframe"
 	var request: Dojo.Request.iFrame.Base;
 	export = request;
 }
+declare function require(module: "dojo/request/iframe"): Dojo.Request.iFrame.Base;
 
-declare module Dojo {
-	module Request {
-		module Script {
-			interface BaseOptions extends Request.BaseOptions {
+declare module Dojo
+{
+	module Request
+	{
+		module Script
+		{
+			interface BaseOptions extends Request.BaseOptions
+			{
 				frameDoc?: HTMLDocument;
 				jsonp?: string;
 				checkString?: string;
 			}
 			interface Options extends BaseOptions, MethodOptions { }
 
-			interface Base {
+			interface Base
+			{
 				<T>(url: string, options?: Options): dojo.Promise<T>;
 				get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
 				post<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -1901,10 +2107,14 @@ declare module "dojo/request/script"
 	var request: Dojo.Request.Script.Base;
 	export = request;
 }
+declare function require(module: "dojo/request/script"): Dojo.Request.Script.Base;
 
-declare module Dojo {
-	module Request {
-		interface Handlers {
+declare module Dojo
+{
+	module Request
+	{
+		interface Handlers
+		{
 			register(name: string, handler: (response: any) => any): void;
 		}
 	}
@@ -1914,10 +2124,14 @@ declare module "dojo/request/handlers"
 	var handlers: Dojo.Request.Handlers;
 	export = handlers;
 }
+declare function require(module: "dojo/request/handlers"): Dojo.Request.Handlers;
 
-declare module Dojo {
-	module Request {
-		interface Notify {
+declare module Dojo
+{
+	module Request
+	{
+		interface Notify
+		{
 			notify(type?: "start", listener?: SimpleAction): RemovableHandle;
 			notify(type?: "send", listener?: (response: any, cancel: () => void) => void): RemovableHandle;
 			notify(type?: "load", listener?: (response: any) => void): RemovableHandle;
@@ -1933,10 +2147,14 @@ declare module "dojo/request/notify"
 	var notify: Dojo.Request.Notify;
 	export = notify;
 }
+declare function require(module: "dojo/request/notify"): Dojo.Request.Notify;
 
-declare module Dojo {
-	module Request {
-		interface Registry {
+declare module Dojo
+{
+	module Request
+	{
+		interface Registry
+		{
 			<T>(url: string, options?: Options): dojo.Promise<T>;
 
 			get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
@@ -1952,18 +2170,22 @@ declare module "dojo/request/registry"
 	var registry: Dojo.Request.Registry;
 	export = registry;
 }
+declare function require(module: "dojo/request/registry"): Dojo.Request.Registry;
 
 // dojo/router
 
-declare module Dojo {
-	interface RouterEvent {
+declare module Dojo
+{
+	interface RouterEvent
+	{
 		params: Dojo.Dictionary<string>;
 		oldPath: string;
 		newPath: string;
 		preventDefault: Dojo.SimpleAction;
 		stopImmediatePropagation: Dojo.SimpleAction;
 	}
-	interface Router {
+	interface Router
+	{
 		register(route: string | RegExp, callback: EventListener<RouterEvent>): RemovableHandle;
 		registerBefore(route: string | RegExp, callback: EventListener<RouterEvent>): RemovableHandle;
 		startup(defaultPath?: string): void;
@@ -1976,10 +2198,12 @@ declare module "dojo/router"
 	var router: Dojo.Router;
 	export = router;
 }
+declare function require(module: "dojo/router"): Dojo.Router;
 
 // dojo/sniff
 
-declare module Dojo {
+declare module Dojo
+{
 	interface Sniff extends Has { }
 }
 declare module "dojo/sniff"
@@ -1987,17 +2211,21 @@ declare module "dojo/sniff"
 	var sniff: Dojo.Sniff;
 	export = sniff;
 }
+declare function require(module: "dojo/sniff"): Dojo.Sniff;
 
 // dojo/text
 
 declare module "dojo/text"
 {
 }
+declare function require(module: "dojo/text"): void;
 
 // dojo/topic
 
-declare module Dojo {
-	interface Topic {
+declare module Dojo
+{
+	interface Topic
+	{
 		subscribe(topic: string, listener: Action): RemovableHandle;
 		publish(topic: string, ...v_args: any[]): void;
 	}
@@ -2007,6 +2235,7 @@ declare module "dojo/topic"
 	var topic: Dojo.Topic;
 	export = topic;
 }
+declare function require(module: "dojo/topic"): Dojo.Topic;
 
 // dojo/Stateful
 
@@ -2015,11 +2244,14 @@ declare module "dojo/Stateful"
 	var Stateful: typeof dojo.Stateful;
 	export = Stateful;
 }
+declare function require(module: "dojo/Stateful"): dojo.Stateful;
 
 // dojo/string
 
-declare module Dojo {
-	interface String {
+declare module Dojo
+{
+	interface String
+	{
 		pad(text: string, size: number, ch?: string, end?: boolean): string;
 		rep(str: string, num: number): string;
 		substitute(template: string, map: string[]| { [text: string]: string; }, transform?: (value: any, key: string) => string, thisObject?: Object): string;
@@ -2031,11 +2263,14 @@ declare module "dojo/string"
 	var str: Dojo.String;
 	export = str;
 }
+declare function require(module: "dojo/string"): Dojo.String;
 
 // dojo/touch
 
-declare module Dojo {
-	interface Touch {
+declare module Dojo
+{
+	interface Touch
+	{
 		cancel(node: HTMLElement, listener: (ev: MouseEvent) => boolean): RemovableHandle;
 		enter(node: HTMLElement, listener: (ev: MouseEvent) => boolean): RemovableHandle;
 		leave(node: HTMLElement, listener: (ev: MouseEvent) => boolean): RemovableHandle;
@@ -2051,10 +2286,12 @@ declare module "dojo/touch"
 	var touch: Dojo.Touch;
 	export = touch;
 }
+declare function require(module: "dojo/touch"): Dojo.Touch;
 
 // dojo/uacss
 
-declare module Dojo {
+declare module Dojo
+{
 	interface Uacss extends Has { }
 }
 declare module "dojo/uacss"
@@ -2062,11 +2299,14 @@ declare module "dojo/uacss"
 	var uacss: Dojo.Uacss;
 	export = uacss;
 }
+declare function require(module: "dojo/uacss"): Dojo.Uacss;
 
 // dojo/when
 
-declare module Dojo {
-	interface When {
+declare module Dojo
+{
+	interface When
+	{
 		<T>(value: T, callback?: (value: T) => any, errback?: (error: any) => void, progback?: (update: any) => void): void;
 	}
 }
@@ -2075,11 +2315,14 @@ declare module "dojo/when"
 	var when: Dojo.When;
 	export = when;
 }
+declare function require(module: "dojo/when"): Dojo.When;
 
 // dojo/window
 
-declare module Dojo {
-	interface Window {
+declare module Dojo
+{
+	interface Window
+	{
 		get(doc: HTMLDocument): Window;
 		getBox(doc: HTMLDocument): Position;
 		scrollIntoView(node: HTMLElement, pos?: Object): void;
@@ -2090,3 +2333,4 @@ declare module "dojo/window"
 	var window: Dojo.Window;
 	export = window;
 }
+declare function require(module: "dojo/window"): Dojo.Window;
