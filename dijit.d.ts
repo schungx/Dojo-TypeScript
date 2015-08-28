@@ -330,11 +330,11 @@ declare module "dijit/_WidgetsInTemplateMixin"
 
 // dijit/registry
 
-		byId(id: string): dijit._WidgetBase;
 declare module Dijit
 {
 	interface Registry extends Array<dijit._WidgetBase>
 	{
+		byId<T extends dijit._WidgetBase>(id: string): T;
 		byNode(node: HTMLElement): dijit._WidgetBase;
 		findWidgets(root: HTMLElement, skipNode?: HTMLElement): dijit._WidgetBase[];
 		getEnclosingWidget(node: HTMLElement): dijit._WidgetBase;
