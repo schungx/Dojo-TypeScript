@@ -1061,7 +1061,7 @@ declare module Dojo
 {
 	interface Has
 	{
-		(feature: string | number): boolean;
+		(feature: string | number): any;
 
 		add(feature: string | number, test: (global: Object, doc: Document, element: Object) => boolean, now?: boolean, force?: boolean): void;
 		clearElement(element: Object): void;
