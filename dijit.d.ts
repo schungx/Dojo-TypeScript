@@ -6,8 +6,10 @@
 
 // Overload on declare
 
-declare module Dojo {
-	interface Declare {
+declare module Dojo
+{
+	interface Declare
+	{
 		(className: string, superclasses: Dijit.WidgetOrMixin | Dijit.WidgetOrMixin[], props: DeclareOptions): dijit._WidgetBase;
 		(superclasses: Dijit.WidgetOrMixin | Dijit.WidgetOrMixin[], props: DeclareOptions): dijit._WidgetBase;
 	}
@@ -15,13 +17,16 @@ declare module Dojo {
 
 // dijit
 
-declare module Dijit {
+declare module Dijit
+{
 	interface _Mixin extends Dijit.WidgetOrMixin { }
 }
-declare module dijit {
+declare module dijit
+{
 	// dijit/_Widget
 
-	class _Widget extends _WidgetBase implements _FocusMixin {
+	class _Widget extends _WidgetBase implements _FocusMixin
+	{
 		// dijit/_WidgetBase
 		get(name: "baseClass"): string;
 		get(name: "class"): string;
@@ -94,25 +99,29 @@ declare module dijit {
 
 	// Common widget mixin's
 
-	interface _FocusMixin extends Dijit._Mixin {
+	interface _FocusMixin extends Dijit._Mixin
+	{
 		onBlur(): void;
 		onFocus(): void;
 	}
 
-	interface _Container extends Dijit._Mixin {
+	interface _Container extends Dijit._Mixin
+	{
 		addChild(widget: _WidgetBase, insertIndex?: number): void;
 		getIndexOfChild(child: _WidgetBase): number;
 		hasChildren(): boolean;
 		removeChild(widget: _WidgetBase | number): void;
 	}
 
-	interface _Contained extends Dijit._Mixin {
+	interface _Contained extends Dijit._Mixin
+	{
 		getIndexInParent(): number;
 		getNextSibling(): _WidgetBase;
 		getPreviousSibling(): _WidgetBase;
 	}
 
-	interface _AttachMixin extends Dijit._Mixin {
+	interface _AttachMixin extends Dijit._Mixin
+	{
 		//attachScope: Object;
 		//searchContainerNode: boolean;
 
@@ -129,7 +138,8 @@ declare module dijit {
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
-	interface _TemplatedMixin extends _AttachMixin {
+	interface _TemplatedMixin extends _AttachMixin
+	{
 		//templatePath: string;
 		//templateString: string;
 
@@ -148,7 +158,8 @@ declare module dijit {
 		getCachedTemplate(templateString: string, alwaysUseString: boolean, doc?: HTMLDocument): any;
 	}
 
-	interface _KeyNavMixin extends _FocusMixin {
+	interface _KeyNavMixin extends _FocusMixin
+	{
 		//childSelector: Object;
 		//focusedChild: Object;
 		//multiCharSearchDuration: number;
@@ -180,10 +191,12 @@ declare module dijit {
 		onKeyboardSearch(item: _WidgetBase, event: Event, searchString: string, numMatches: number): void;
 	}
 
-	interface _KeyNavContainer extends _Container, _KeyNavMixin {
+	interface _KeyNavContainer extends _Container, _KeyNavMixin
+	{
 	}
 
-	interface _CssStateMixin extends Dijit._Mixin {
+	interface _CssStateMixin extends Dijit._Mixin
+	{
 		//active: boolean;
 		//cssStateNodes: { [attachPoint: string]: string; };
 		//hovering: boolean;
@@ -204,7 +217,8 @@ declare module dijit {
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
-	interface _WidgetsInTemplateMixin extends Dijit._Mixin {
+	interface _WidgetsInTemplateMixin extends Dijit._Mixin
+	{
 		//contextRequire:
 		//widgetsInTemplate: boolean;
 
@@ -218,7 +232,8 @@ declare module dijit {
 		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 	}
 
-	interface _HasDropDown extends Dijit._Mixin {
+	interface _HasDropDown extends Dijit._Mixin
+	{
 		//autoWidth: boolean;
 		//dropDown: _Widget;
 		//dropDownPosition: string[];
@@ -315,9 +330,11 @@ declare module "dijit/_WidgetsInTemplateMixin"
 
 // dijit/registry
 
-declare module Dijit {
-	interface Registry extends Array<dijit._WidgetBase> {
 		byId(id: string): dijit._WidgetBase;
+declare module Dijit
+{
+	interface Registry extends Array<dijit._WidgetBase>
+	{
 		byNode(node: HTMLElement): dijit._WidgetBase;
 		findWidgets(root: HTMLElement, skipNode?: HTMLElement): dijit._WidgetBase[];
 		getEnclosingWidget(node: HTMLElement): dijit._WidgetBase;
@@ -335,15 +352,18 @@ declare module "dijit/registry"
 
 // dijit/place
 
-declare module Dijit {
-	interface _PlaceResult extends Dojo.Rectangle {
+declare module Dijit
+{
+	interface _PlaceResult extends Dojo.Rectangle
+	{
 		corner: string;
 		aroundCorner: string;
 		overflow: number;
 		spaceAvailable: Dojo.Size;
 	}
 
-	interface Place {
+	interface Place
+	{
 		around(node: HTMLElement, anchor: HTMLElement | Dojo.Rectangle, positions?: string[], leftToRight?: boolean, layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): _PlaceResult;
 		at(node: HTMLElement, pos: Dojo.Point, corners?: string[], layoutNode?: (node: HTMLElement, aroundNodeCorner: string, nodeCorner: string, size: Dojo.Size) => number): void;
 	}

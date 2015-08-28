@@ -5,9 +5,12 @@
 /// <reference path="dijit.d.ts"/>
 /// <reference path="dijit.form.d.ts"/>
 
-declare module dijit {
-	module form {
-		interface _ButtonMixin extends Dijit._Mixin {
+declare module dijit
+{
+	module form
+	{
+		interface _ButtonMixin extends Dijit._Mixin
+		{
 			//label: string;
 			//type: string;
 
@@ -24,7 +27,8 @@ declare module dijit {
 			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		}
 
-		class Button extends _FormWidget implements _ButtonMixin {
+		class Button extends _FormWidget implements _ButtonMixin
+		{
 			// dijit/form/_FormWidget
 			get(name: "baseClass"): string;
 			get(name: "class"): string;

@@ -1379,7 +1379,7 @@ declare module dojo
 		fadeIn(args?: Dojo.Fx.AutoBaseCreateOptions | Dojo.Fx.BaseCreateOptions): dojo.NodeList;
 		fadeOut(args?: Dojo.Fx.AutoBaseCreateOptions | Dojo.Fx.BaseCreateOptions): dojo.NodeList;
 		filter(filter: string | ((item: HTMLElement, index: number, list: dojo.NodeList) => boolean)): dojo.NodeList;
-		first(): dojo.NodeList;
+		first(): HTMLElement;
 		forEach(callback: (item: HTMLElement, index: number, list: dojo.NodeList) => void, thisObject?: Object): dojo.NodeList;
 
 		html(): string;
@@ -1393,11 +1393,11 @@ declare module dojo
 		insertAfter(query: string): dojo.NodeList;
 		insertBefore(query: string): dojo.NodeList;
 		instantiate(declaredClass: string, properties?: Dojo.PropertiesMap): dojo.NodeList;
-		last(): dojo.NodeList;
+		last(): HTMLElement;
 		lastIndexOf(value: HTMLElement, fromIndex?: number): number;
 		map(func: (item: HTMLElement, index: number, list: dojo.NodeList) => HTMLElement, thisObject?: Object): dojo.NodeList;
 		marginBox(): Position;
-		next(query?: string): dojo.NodeList;
+		next(query?: string): HTMLElement;
 		nextAll(query?: string): dojo.NodeList;
 		odd(): dojo.NodeList;
 
@@ -1471,7 +1471,7 @@ declare module dojo
 		position(): Dojo.Rectangle;
 		prepend(content: string | Object | NodesLike): dojo.NodeList;
 		prependTo(query: string): dojo.NodeList;
-		prev(query?: string): dojo.NodeList;
+		prev(query?: string): HTMLElement;
 		prevAll(query?: string): dojo.NodeList;
 		query(query: string): dojo.NodeList;
 		remove(filter?: string): dojo.NodeList;
