@@ -4,10 +4,12 @@
 
 /// <reference path="dijit.d.ts"/>
 
-declare module dijit {
+declare module dijit
+{
 	// dijit/MenuBase
 
-	class MenuBase extends _Widget implements _TemplatedMixin, _KeyNavContainer, _CssStateMixin {
+	class MenuBase extends _Widget implements _TemplatedMixin, _KeyNavContainer, _CssStateMixin
+	{
 		// dijit/_Widget
 		get(name: "baseClass"): string;
 		get(name: "class"): string;
@@ -156,7 +158,8 @@ declare module dijit {
 
 	// dijit/DropDownMenu
 
-	class DropDownMenu extends MenuBase {
+	class DropDownMenu extends MenuBase
+	{
 		// MenuBase
 		get(name: "baseClass"): string;
 		get(name: "class"): string;
@@ -259,7 +262,8 @@ declare module dijit {
 
 	// dijit/Menu
 
-	class Menu extends DropDownMenu {
+	class Menu extends DropDownMenu
+	{
 		// DropDownMenu
 		get(name: "baseClass"): string;
 		get(name: "class"): string;
@@ -397,7 +401,8 @@ declare module dijit {
 
 	// dijit/MenuItem
 
-	class MenuItem extends _Widget implements _TemplatedMixin, _Container, _CssStateMixin {
+	class MenuItem extends _Widget implements _TemplatedMixin, _Container, _CssStateMixin
+	{
 		// dijit/_Widget
 		get(name: "baseClass"): string;
 		get(name: "class"): string;
@@ -516,7 +521,8 @@ declare module dijit {
 
 	// dijit/MenuSeparator
 
-	class MenuSeparator extends _WidgetBase implements _TemplatedMixin, _Contained {
+	class MenuSeparator extends _WidgetBase implements _TemplatedMixin, _Contained
+	{
 		// dijit/_WidgetBase
 		get(name: "baseClass"): string;
 		get(name: "class"): string;

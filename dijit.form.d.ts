@@ -4,9 +4,12 @@
 
 /// <reference path="dijit.d.ts"/>
 
-declare module dijit {
-	module form {
-		interface _FormMixin extends Dijit._Mixin {
+declare module dijit
+{
+	module form
+	{
+		interface _FormMixin extends Dijit._Mixin
+		{
 			//state: string;
 
 			get(name: "state"): string;
@@ -23,7 +26,8 @@ declare module dijit {
 			validate(): void;
 		}
 
-		interface _FormWidgetMixin extends Dijit._Mixin {
+		interface _FormWidgetMixin extends Dijit._Mixin
+		{
 			//alt: string;
 			//"aria-label": string
 
@@ -66,7 +70,8 @@ declare module dijit {
 			focus(): void;
 		}
 
-		interface _FormValueMixin extends _FormWidgetMixin {
+		interface _FormValueMixin extends _FormWidgetMixin
+		{
 			//readOnly: boolean;
 
 			get(name: "readOnly"): boolean;
@@ -112,7 +117,8 @@ declare module dijit {
 			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		}
 
-		class _FormWidget extends _Widget implements _TemplatedMixin, _CssStateMixin, _FormWidgetMixin {
+		class _FormWidget extends _Widget implements _TemplatedMixin, _CssStateMixin, _FormWidgetMixin
+		{
 			// dijit/_Widget
 			get(name: "baseClass"): string;
 			get(name: "class"): string;
@@ -233,7 +239,8 @@ declare module dijit {
 			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		}
 
-		class _FormValueWidget extends _FormWidget implements _FormValueMixin {
+		class _FormValueWidget extends _FormWidget implements _FormValueMixin
+		{
 			// dijit/form/_FormWidget
 			get(name: "baseClass"): string;
 			get(name: "class"): string;

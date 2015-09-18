@@ -7,16 +7,20 @@
 /// <reference path="dijit.form.d.ts"/>
 /// <reference path="dojo.store.d.ts"/>
 
-declare module dijit {
-	module form {
-		interface _SelectOption {
+declare module dijit
+{
+	module form
+	{
+		interface _SelectOption
+		{
 			label: string;
 			value?: string;
 			disabled?: boolean;
 			selected?: boolean;
 		}
 
-		class _FormSelectWidget extends _FormValueWidget {
+		class _FormSelectWidget extends _FormValueWidget
+		{
 			// dijit/form/_FormValueWidget
 			get(name: "baseClass"): string;
 			get(name: "class"): string;
@@ -209,7 +213,8 @@ declare module dijit {
 			on(type: Dojo.ExtensionEvent, func: Dojo.Action): Dojo.RemovableHandle;
 		}
 
-		class Select extends _FormSelectWidget implements _HasDropDown, _KeyNavMixin {
+		class Select extends _FormSelectWidget implements _HasDropDown, _KeyNavMixin
+		{
 			// dijit/form/_FormSelectWidget
 			get(name: "baseClass"): string;
 			get(name: "class"): string;

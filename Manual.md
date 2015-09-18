@@ -169,8 +169,7 @@ to use dojo/store, you must add another reference:
 III. TypeScript setup
 ---------------------
 
-You MUST be using TypeScript version 1.5 or higher (with generics
-support and union type support).
+You MUST be using TypeScript version 1.6 or higher.
 
 When using the command line compiler, use the `--module amd` flag
 since Dojo works with AMD-style modules.

@@ -19,13 +19,15 @@ declare function define(obj: Object): void;
 
 // Define the Dojo namespace
 
-declare module Dojo {
+declare module Dojo
+{
 	// Dojo handles
 
 	interface Handle { }
 	interface RemovableHandle extends Handle { remove(): void; }
 	interface CancellableHandle extends Handle { cancel(): void; }
-	interface PausableHandle extends RemovableHandle {
+	interface PausableHandle extends RemovableHandle
+	{
 		pause(): void;
 		resume(): void;
 	}
@@ -35,60 +37,50 @@ declare module Dojo {
 
 	type SimpleAction = () => void
 	type Action = Function
-	interface FunctionReturning<T> { (...args: any[]): T; }
+	type FunctionReturning<T> = (...args: any[]) => T
 
-	interface EventListener<T> { (evt: T): void; }
+	type EventListener<T> = (evt: T) => void
 	type ExtensionEvent = { (node: HTMLElement, listener: Dojo.Action): RemovableHandle; }
-	interface WatchCallback<T> { (prop: string, oldvalue: T, newvalue: T): void; }
+	type WatchCallback<T> = (prop: string, oldvalue: T, newvalue: T) => void
 
-	module Fx {
+	module Fx
+	{
 		interface EasingFunction { (value: number): number; }
 	}
 
 	// Dictionaries
 
-	interface Dictionary<T> {
-		[key: string]: T;
-	}
+	type Dictionary<T> = { [key: string]: T; }
 	type PropertiesMap = { [property: string]: any; }
 	type AttributesMap = { [attribute: string]: any; }
 	type StylesMap = { [style: string]: string; }
 
 	// Common structures
 
-	interface Point {
-		x: number;
-		y: number;
-	}
-	interface Size {
-		w: number;
-		h: number;
-	}
-	interface Offset {
-		l: number;
-		t: number;
-	}
+	interface Point { x: number; y: number; }
+	interface Size { w: number; h: number; }
+	interface Offset { l: number; t: number; }
 	interface Rectangle extends Point, Size { }
 	interface Position extends Offset, Size { }
-	interface Box extends Position {
-		r: number;
-		b: number;
-	}
+	interface Box extends Position { r: number; b: number; }
 
 	// Declare
 
-	interface Declare {
+	interface Declare
+	{
 		(className: string, superclass: DeclaredClass | DeclaredClass[], props: DeclareOptions): DeclaredClass;
 		(superclass: DeclaredClass | DeclaredClass[], props: DeclareOptions): DeclaredClass;
 		safeMixin(dest: dijit._WidgetBase, ...sources: PropertiesMap[]): void;
 	}
 
-	interface DeclareOptions {
+	interface DeclareOptions
+	{
 		"constructor"?: Action;
 		destroy?: SimpleAction;
 	}
 
-	class DeclaredClass {
+	class DeclaredClass
+	{
 		constructor(...args: any[]);
 
 		inherited(args: IArguments): void;
@@ -100,7 +92,8 @@ declare module Dojo {
 
 	// Promises
 
-	interface PromiseLike<T> {
+	interface PromiseLike<T>
+	{
 		always(callbackOrErrback?: (value: any) => void): PromiseLike<T>;
 		cancel(reason: any, strict?: boolean): void;
 		otherwise(errback?: (error: any) => void): PromiseLike<T>;
@@ -114,10 +107,12 @@ declare module Dojo {
 	}
 }
 
-declare module dojo {
+declare module dojo
+{
 	// Evented
 
-	class Evented {
+	class Evented
+	{
 		emit(type: string | Dojo.ExtensionEvent, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 
 		on(type: "abort", listener: Dojo.EventListener<UIEvent>): Dojo.RemovableHandle;
@@ -186,7 +181,8 @@ declare module dojo {
 
 	// Stateful
 
-	class Stateful extends Dojo.DeclaredClass {
+	class Stateful extends Dojo.DeclaredClass
+	{
 		get(name: string): any;
 		set(name: string, value: any, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
@@ -214,7 +210,8 @@ declare module dojo {
 
 	// Animation
 
-	class Animation extends Evented {
+	class Animation extends Evented
+	{
 		constructor(args?: Dojo.PropertiesMap);
 
 		duration: number;
@@ -245,8 +242,10 @@ declare module "dojo/_base/declare"
 
 // Widgets
 
-declare module Dijit {
-	interface WidgetCreateOptions extends Dojo.DeclareOptions {
+declare module Dijit
+{
+	interface WidgetCreateOptions extends Dojo.DeclareOptions
+	{
 		id?: string;
 		srcNodeRef?: HTMLElement;
 		domNode?: HTMLElement;
@@ -267,8 +266,10 @@ declare module Dijit {
 	interface WidgetOrMixin { }
 }
 
-declare module dijit {
-	class _WidgetBase extends dojo.Stateful implements Dojo.DeclaredClass, Dijit.WidgetOrMixin {
+declare module dijit
+{
+	class _WidgetBase extends dojo.Stateful implements Dojo.DeclaredClass, Dijit.WidgetOrMixin
+	{
 		constructor(params?: Dijit.WidgetCreateOptions, srcNodeRef?: string | HTMLElement);
 
 		id: string;

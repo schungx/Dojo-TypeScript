@@ -20,8 +20,8 @@ declare module Dojo.Data
 		query?: any;
 		queryOptions?: { ignoreCase?: boolean; deep?: boolean; };
 		onBegin?: (size: number, request: Request<T>) => void;
-		onItem?: (item: T, request: Request<T>) => void;
-		onComplete?: (items: T[], request: Request<T>) => void;
+		onItem?: (item: Item<T>, request: Request<T>) => void;
+		onComplete?: (items: Item<T>[], request: Request<T>) => void;
 		onError?: (errorData: any, request: Request<T>) => void;
 		scope?: Object;
 		start?: number;
@@ -67,15 +67,15 @@ declare module Dojo.Data
 			onError?: (error: any) => void;
 			scope?: Object;
 		}): Item<T>;
-		filter(requestArgs: RequestArgs<T>, arrayOfItems: Item<T>[], findCallback: (item: Item<T>) => void ): void;
+		filter(requestArgs: RequestArgs<T>, arrayOfItems: Item<T>[], findCallback: (item: Item<T>) => void): void;
 		getAttributes(item: Item<T>): string[];
 		getFeatures(): { [feature: string]: boolean; };
 		getIdentity(item: Item<T>): any;
 		getIdentityAttributes(item: Item<T>): string[];
 		getLabel(item: Item<T>): string;
 		getLabelAttributes(item: Item<T>): string[];
-		getValue(item: Item<T>, attribute: string, defaultValue?: T): T;
-		getValues(item: Item<T>, attribute: string): T[];
+		getValue<V>(item: Item<T>, attribute: string, defaultValue?: V): V;
+		getValues<V>(item: Item<T>, attribute: string): V[];
 		hasAttribute(item: Item<T>, attribute: string): boolean;
 		isItem(something: Object): boolean;
 		isItemLoaded(something: Object): boolean;
@@ -105,8 +105,8 @@ declare module Dojo.Data
 			onError?: (error: any) => void;
 			scope?: Object;
 		}): boolean;
-		setValue(item: Item<T>, attribute: string, value: T): boolean;
-		setValues(item: Item<T>, attribute: string, values: T[]): boolean;
+		setValue<V>(item: Item<T>, attribute: string, value: V): boolean;
+		setValues<V>(item: Item<T>, attribute: string, values: V[]): boolean;
 		unsetAttribute(item: Item<T>, attribute: string): boolean;
 	}
 
@@ -134,15 +134,15 @@ declare module Dojo.Data
 			onError?: (error: any) => void;
 			scope?: Object;
 		}): Item<T>;
-		filter(requestArgs: RequestArgs<T>, arrayOfItems: Item<T>[], findCallback: (item: Item<T>) => void ): void;
+		filter(requestArgs: RequestArgs<T>, arrayOfItems: Item<T>[], findCallback: (item: Item<T>) => void): void;
 		getAttributes(item: Item<T>): string[];
 		getFeatures(): { [feature: string]: boolean; };
 		getIdentity(item: Item<T>): any;
 		getIdentityAttributes(item: Item<T>): string[];
 		getLabel(item: Item<T>): string;
 		getLabelAttributes(item: Item<T>): string[];
-		getValue(item: Item<T>, attribute: string, defaultValue?: T): T;
-		getValues(item: Item<T>, attribute: string): T[];
+		getValue<V>(item: Item<T>, attribute: string, defaultValue?: V): V;
+		getValues<V>(item: Item<T>, attribute: string): V[];
 		hasAttribute(item: Item<T>, attribute: string): boolean;
 		isItem(something: Object): boolean;
 		isItemLoaded(something: Object): boolean;
@@ -166,11 +166,23 @@ declare module Dojo.Data
 			onError?: (error: any) => void;
 			scope?: Object;
 		}): boolean;
-		setValue(item: Item<T>, attribute: string, value: T): boolean;
-		setValues(item: Item<T>, attribute: string, values: T[]): boolean;
+		setValue<V>(item: Item<T>, attribute: string, value: V): boolean;
+		setValues<V>(item: Item<T>, attribute: string, values: V[]): boolean;
 		unsetAttribute(item: Item<T>, attribute: string): boolean;
 
 		// Notification
+		on(type: "Delete", listener: (deleteditem: Item<T>) => void): Dojo.RemovableHandle;
+		on<P>(type: "New", listener: (newitem: Item<T>, parentInfo?: {
+			item: Item<P>;
+			attribute: string;
+			oldValue: any;
+			newValue: any;
+		}) => void): Dojo.RemovableHandle;
+		on(type: "Fetch", listener: (results: Object) => void): Dojo.RemovableHandle;
+		on(type: "Set", listener: (item: Item<T>, attribute: string, oldValue: any, newValue: any) => void): Dojo.RemovableHandle;
+		on(type: string, listener: Dojo.Action): Dojo.RemovableHandle;
+		on(type: Dojo.ExtensionEvent, listener: Dojo.Action): Dojo.RemovableHandle;
+
 		onDelete(deleteditem: Item<T>): void;
 		onNew<P>(newitem: Item<T>, parentInfo?: {
 			item: Item<P>;
@@ -207,18 +219,17 @@ declare module Dojo.Data
 	}
 }
 
-
-declare module "dojo/data/ItemFileReadStore" 
+declare module "dojo/data/ItemFileReadStore"
 {
 	var ItemFileReadStore: typeof Dojo.Data.ItemFileReadStore;
 	export = ItemFileReadStore;
 }
-declare module "dojo/data/ItemFileWriteStore" 
+declare module "dojo/data/ItemFileWriteStore"
 {
 	var ItemFileWriteStore: typeof Dojo.Data.ItemFileWriteStore;
 	export = ItemFileWriteStore;
 }
-declare module "dojo/data/ObjectStore" 
+declare module "dojo/data/ObjectStore"
 {
 	var ObjectStore: typeof Dojo.Data.ObjectStore
 	export = ObjectStore;

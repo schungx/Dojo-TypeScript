@@ -338,7 +338,7 @@ declare module Dojo
 		hitch<F extends Function>(scope: Object, method: string | F): F;
 		mixin<T extends Object>(dest: T, ...sources: PropertiesMap[]): T;
 		partial<F extends Function>(method: string | F, ...v_args: any[]): F;
-		replace(tmpl: string, map: string[]| Dictionary<any> | ((matched: string, key: string, offset: number, template: string) => string), pattern?: string): string;
+		replace(tmpl: string, map: string[] | Dictionary<any> | ((matched: string, key: string, offset: number, template: string) => string), pattern?: string): string;
 		setObject(path: string, value: any, thisObject?: Object): Object;
 		trim(str: string): string;
 
@@ -1128,7 +1128,7 @@ declare module Dojo
 	interface IOQuery
 	{
 		objectToQuery(map: Dojo.Dictionary<any>): string;
-		queryToObject(str: string): Dojo.Dictionary<any>;
+		queryToObject(str: string): Dojo.Dictionary<string>;
 	}
 }
 declare module "dojo/io-query"
@@ -1220,7 +1220,7 @@ declare module Dojo
 	interface Json
 	{
 		parse(str: string, secured?: boolean): any;
-		stringify(obj: any, replacer?: any[]| ((key: string, value: string) => any), space?: boolean): string;
+		stringify(obj: any, replacer?: any[] | ((key: string, value: string) => any), space?: boolean): string;
 	}
 }
 declare module "dojo/json"
@@ -1271,7 +1271,7 @@ declare module Dojo
 }
 declare module dojo
 {
-	type NodesLike = HTMLElement | HTMLElement[]| _HTMLNodeList | dojo.NodeList;
+	type NodesLike = HTMLElement | HTMLElement[] | _HTMLNodeList | dojo.NodeList;
 
 	class NodeList
 	{
@@ -1379,7 +1379,7 @@ declare module dojo
 		fadeIn(args?: Dojo.Fx.AutoBaseCreateOptions | Dojo.Fx.BaseCreateOptions): dojo.NodeList;
 		fadeOut(args?: Dojo.Fx.AutoBaseCreateOptions | Dojo.Fx.BaseCreateOptions): dojo.NodeList;
 		filter(filter: string | ((item: HTMLElement, index: number, list: dojo.NodeList) => boolean)): dojo.NodeList;
-		first(): HTMLElement;
+		first(): dojo.NodeList;
 		forEach(callback: (item: HTMLElement, index: number, list: dojo.NodeList) => void, thisObject?: Object): dojo.NodeList;
 
 		html(): string;
@@ -1393,7 +1393,7 @@ declare module dojo
 		insertAfter(query: string): dojo.NodeList;
 		insertBefore(query: string): dojo.NodeList;
 		instantiate(declaredClass: string, properties?: Dojo.PropertiesMap): dojo.NodeList;
-		last(): HTMLElement;
+		last(): dojo.NodeList;
 		lastIndexOf(value: HTMLElement, fromIndex?: number): number;
 		map(func: (item: HTMLElement, index: number, list: dojo.NodeList) => HTMLElement, thisObject?: Object): dojo.NodeList;
 		marginBox(): Position;
@@ -1841,7 +1841,7 @@ declare module Dojo
 	{
 		interface All
 		{
-			<T>(promises: T[]| dojo.Promise<T>[]): dojo.Promise<T[]>;
+			<T>(promises: T[] | dojo.Promise<T>[]): dojo.Promise<T[]>;
 			<T>(promises: Dojo.Dictionary<dojo.Promise<T>>): dojo.Promise<Dojo.Dictionary<T>>;
 			<T>(promises: T): dojo.Promise<T>;
 		}
@@ -1862,7 +1862,7 @@ declare module Dojo
 	{
 		interface First
 		{
-			<T>(promises: T[]| dojo.Promise<T>[]| Dojo.Dictionary<dojo.Promise<T>>): dojo.Promise<T>;
+			<T>(promises: T[] | dojo.Promise<T>[] | Dojo.Dictionary<dojo.Promise<T>>): dojo.Promise<T>;
 			<T>(promises: T): dojo.Promise<T>;
 		}
 	}
@@ -2254,7 +2254,7 @@ declare module Dojo
 	{
 		pad(text: string, size: number, ch?: string, end?: boolean): string;
 		rep(str: string, num: number): string;
-		substitute(template: string, map: string[]| { [text: string]: string; }, transform?: (value: any, key: string) => string, thisObject?: Object): string;
+		substitute(template: string, map: string[] | { [text: string]: string; }, transform?: (value: any, key: string) => string, thisObject?: Object): string;
 		trim(str: string): string;
 	}
 }
