@@ -1999,16 +1999,17 @@ declare module Dojo
 	{
 		module Xhr
 		{
+			interface Error { status: number; responseText: string; }
 			interface BaseOptions extends Request.BaseOptions { }
 			interface Options extends BaseOptions, MethodOptions { }
 
 			interface Base
 			{
-				<T>(url: string, options?: Options): dojo.Promise<T>;
-				get<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
-				put<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
-				post<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
-				del<T>(url: string, options?: BaseOptions): dojo.Promise<T>;
+				<T>(url: string, options?: Options): dojo._PromiseBase<T, Error>;
+				get<T>(url: string, options?: BaseOptions): dojo._PromiseBase<T, Error>;
+				put<T>(url: string, options?: BaseOptions): dojo._PromiseBase<T, Error>;
+				post<T>(url: string, options?: BaseOptions): dojo._PromiseBase<T, Error>;
+				del<T>(url: string, options?: BaseOptions): dojo._PromiseBase<T, Error>;
 			}
 		}
 	}
