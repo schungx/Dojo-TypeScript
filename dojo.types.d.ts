@@ -196,21 +196,24 @@ declare module dojo
 
 	// Promise
 
-	class Promise<T> implements Dojo.PromiseLike<T>
+	abstract class _PromiseBase<T, E> implements Dojo._PromiseLikeBase<T, E>
 	{
 		constructor();
 
-		always(callbackOrErrback?: (value: any) => void): Promise<T>;
+		always<V, E2>(callbackOrErrback?: (value: T | E) => V): _PromiseBase<V, E2>;
 		cancel(reason: any, strict?: boolean): void;
-		otherwise(errback?: (error: any) => void): Promise<T>;
+		otherwise<V, E2>(errback?: (error: E) => V): _PromiseBase<V, E2>;
 		isCanceled(): boolean;
 		isFulfilled(): boolean;
 		isRejected(): boolean;
 		isResolved(): boolean;
-		then<V>(callback?: (value: T) => V | Promise<V>, errback?: (error: any) => void, progback?: (progress: any) => void): Promise<V>;
-		trace(): Promise<T>;
-		traceRejected(): Promise<T>;
+		then<V>(callback?: (value: T) => V | _PromiseBase<V, E>): _PromiseBase<V, E>;
+		then<V, E2>(callback: (value: T) => V | _PromiseBase<V, E2>, errback: (error: E) => V, progback?: (progress: any) => void): _PromiseBase<V, E2>;
+		trace(): _PromiseBase<T, E>;
+		traceRejected(): _PromiseBase<T, E>;
 	}
+
+	class Promise<T> extends _PromiseBase<T, any> { }
 
 	// Animation
 
