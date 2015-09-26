@@ -118,10 +118,11 @@ declare module Dojo.Data
 			url?: string;
 			data?: Object;
 			typeMap?: Object;
+			objectStore?: Object;		// Should be Dojo.Store.Store, but needs to pull in dojo.store.d.ts, so don't do it
 		});
 
 		labelProperty: string;
-		objectStore: Object;		// Should be DojoStore, but needs to pull in dojo_store.ts, so don't do it
+		objectStore: Object;		// Should be Dojo.Store.Store, but needs to pull in dojo.store.d.ts, so don't do it
 
 		changing(object: Object, _deleting: boolean): void;
 

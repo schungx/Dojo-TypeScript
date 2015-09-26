@@ -25,7 +25,7 @@ declare module dijit
 {
 	// dijit/_Widget
 
-	class _Widget extends _WidgetBase implements _FocusMixin
+	abstract class _Widget extends _WidgetBase implements _FocusMixin
 	{
 		// dijit/_WidgetBase
 		get(name: "baseClass"): string;
@@ -42,7 +42,7 @@ declare module dijit
 		get(name: "style"): Dojo.StylesMap;
 		get(name: "title"): string;
 		get(name: "tooltip"): string;
-		get(name: string): any;
+		get<T>(name: string): T;
 
 		set(name: "baseClass", value: string): void;
 		set(name: "class", value: string): void;
@@ -58,7 +58,7 @@ declare module dijit
 		set(name: "style", value: Dojo.StylesMap): void;
 		set(name: "title", value: string): void;
 		set(name: "tooltip", value: string): void;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
 
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -75,7 +75,7 @@ declare module dijit
 		watch(prop: "style", callback: Dojo.WatchCallback<Dojo.StylesMap>): Dojo.WatchHandle;
 		watch(prop: "title", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 		onClick(event: MouseEvent): void;
 		onDblClick(event: MouseEvent): void;
@@ -96,6 +96,8 @@ declare module dijit
 		onBlur(): void;
 		onFocus(): void;
 	}
+
+	class Widget extends _Widget { }
 
 	// Common widget mixin's
 
@@ -127,15 +129,15 @@ declare module dijit
 
 		get(name: "attachScope"): Object;
 		get(name: "searchContainerNode"): boolean;
-		get(name: string): any;
+		get<T>(name: string): T;
 
 		set(name: "attachScope", value: Object): void;
 		set(name: "searchContainerNode", value: boolean): void;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "attachScope", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
 		watch(prop: "searchContainerNode", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 	}
 
 	interface _TemplatedMixin extends _AttachMixin
@@ -145,15 +147,15 @@ declare module dijit
 
 		get(name: "templatePath"): string;
 		get(name: "templateString"): string;
-		get(name: string): any;
+		get<T>(name: string): T;
 
 		set(name: "templatePath", value: string): void;
 		set(name: "templateString", value: string): void;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "templatePath", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "templateString", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 		getCachedTemplate(templateString: string, alwaysUseString: boolean, doc?: HTMLDocument): any;
 	}
@@ -169,19 +171,19 @@ declare module dijit
 		get(name: "focusedChild"): Object;
 		get(name: "multiCharSearchDuration"): number;
 		get(name: "tabIndex"): string;
-		get(name: string): any;
+		get<T>(name: string): T;
 
 		set(name: "childSelector", value: Object): void;
 		set(name: "focusedChild", value: Object): void;
 		set(name: "multiCharSearchDuration", value: number): void;
 		set(name: "tabIndex", value: string): void;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "childSelector", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
 		watch(prop: "focusedChild", callback: Dojo.WatchCallback<Object>): Dojo.WatchHandle;
 		watch(prop: "multiCharSearchDuration", callback: Dojo.WatchCallback<number>): Dojo.WatchHandle;
 		watch(prop: "tabIndex", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 		focus(): void;
 		focusChild(widget: _WidgetBase, last: boolean): void;
@@ -204,17 +206,17 @@ declare module dijit
 		get(name: "active"): boolean;
 		get(name: "cssStateNodes"): { [attachPoint: string]: string; };
 		get(name: "hovering"): boolean;
-		get(name: string): any;
+		get<T>(name: string): T;
 
 		set(name: "active", value: boolean): void;
 		set(name: "cssStateNodes", value: { [attachPoint: string]: string; }): void;
 		set(name: "hovering", value: boolean): void;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "active", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "cssStateNodes", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 	}
 
 	interface _WidgetsInTemplateMixin extends Dijit._Mixin
@@ -223,13 +225,13 @@ declare module dijit
 		//widgetsInTemplate: boolean;
 
 		get(name: "widgetsInTemplate"): boolean;
-		get(name: string): any;
+		get<T>(name: string): T;
 
 		set(name: "widgetsInTemplate", value: boolean): void;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "widgetsInTemplate", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 	}
 
 	interface _HasDropDown extends Dijit._Mixin
@@ -245,21 +247,21 @@ declare module dijit
 		get(name: "dropDownPosition"): string[];
 		get(name: "forceWidth"): boolean;
 		get(name: "maxHeight"): number;
-		get(name: string): any;
+		get<T>(name: string): T;
 
 		set(name: "autoWidth", value: boolean): void;
 		set(name: "dropDown", value: _Widget): void;
 		set(name: "dropDownPosition", value: string[]): void;
 		set(name: "forceWidth", value: boolean): void;
 		set(name: "maxHeight", value: number): void;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 
 		watch(prop: "autoWidth", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "dropDown", callback: Dojo.WatchCallback<_Widget>): Dojo.WatchHandle;
 		watch(prop: "dropDownPosition", callback: Dojo.WatchCallback<string[]>): Dojo.WatchHandle;
 		watch(prop: "forceWidth", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 		watch(prop: "maxHeight", callback: Dojo.WatchCallback<number>): Dojo.WatchHandle;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 		closeDropDown(focus: boolean): void;
 		isLoaded(): boolean;

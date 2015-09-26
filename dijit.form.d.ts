@@ -13,13 +13,13 @@ declare module dijit
 			//state: string;
 
 			get(name: "state"): string;
-			get(name: string): any;
+			get<T>(name: string): T;
 
 			set(name: "state", value: string): void;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 
 			watch(prop: "state", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 			connectChildren(inStartup: boolean): void;
 			reset(): void;
@@ -40,7 +40,7 @@ declare module dijit
 			get(name: "tabIndex"): number;
 			get(name: "type"): string;
 			get(name: "value"): string;
-			get(name: string): any;
+			get<T>(name: string): T;
 
 			set(name: "alt", value: string): void;
 			set(name: "aria-label", value: string): void;
@@ -51,7 +51,7 @@ declare module dijit
 			set(name: "tabIndex", value: number): void;
 			set(name: "type", value: string): void;
 			set(name: "value", value: string): void;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 
 			watch(prop: "alt", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 			watch(prop: "aria-label", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -62,7 +62,7 @@ declare module dijit
 			watch(prop: "tabIndex", callback: Dojo.WatchCallback<number>): Dojo.WatchHandle;
 			watch(prop: "type", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 			watch(prop: "value", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 			compare(val1: any, val2: any): number;
 			create(): void;
@@ -92,7 +92,7 @@ declare module dijit
 			get(name: "tabIndex"): number;
 			get(name: "type"): string;
 			get(name: "value"): string;
-			get(name: string): any;
+			get<T>(name: string): T;
 
 			set(name: "alt", value: string): void;
 			set(name: "aria-label", value: string): void;
@@ -103,7 +103,7 @@ declare module dijit
 			set(name: "tabIndex", value: number): void;
 			set(name: "type", value: string): void;
 			set(name: "value", value: string): void;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 
 			watch(prop: "alt", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 			watch(prop: "aria-label", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -114,7 +114,7 @@ declare module dijit
 			watch(prop: "tabIndex", callback: Dojo.WatchCallback<number>): Dojo.WatchHandle;
 			watch(prop: "type", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 			watch(prop: "value", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 		}
 
 		class _FormWidget extends _Widget implements _TemplatedMixin, _CssStateMixin, _FormWidgetMixin
@@ -233,10 +233,10 @@ declare module dijit
 			focus(): void;
 
 			// get/set/watch master signatures
-			get(name: string): any;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			get<T>(name: string): T;
+			set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 			set(values: Dojo.PropertiesMap): void;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 		}
 
 		class _FormValueWidget extends _FormWidget implements _FormValueMixin
@@ -345,10 +345,10 @@ declare module dijit
 			undo(): void;
 
 			// get/set/watch master signatures
-			get(name: string): any;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			get<T>(name: string): T;
+			set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 			set(values: Dojo.PropertiesMap): void;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 		}
 	}
 }

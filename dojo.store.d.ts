@@ -118,6 +118,7 @@ declare module Dojo
 		interface CreateOptions
 		{
 			idProperty?: string;
+			[member: string]: any;
 		}
 
 		// dojo/store/Memory

@@ -40,6 +40,7 @@ declare module Dojo
 	type FunctionReturning<T> = (...args: any[]) => T
 
 	type EventListener<T> = (evt: T) => void
+	type DojoEventListener = Function;
 	type ExtensionEvent = { (node: HTMLElement, listener: Dojo.Action): RemovableHandle; }
 	type WatchCallback<T> = (prop: string, oldvalue: T, newvalue: T) => void
 
@@ -77,9 +78,10 @@ declare module Dojo
 	{
 		"constructor"?: Action;
 		destroy?: SimpleAction;
+		[member: string]: any;
 	}
 
-	class DeclaredClass
+	abstract class DeclaredClass
 	{
 		constructor(...args: any[]);
 
@@ -92,26 +94,28 @@ declare module Dojo
 
 	// Promises
 
-	interface PromiseLike<T>
+	interface _PromiseLikeBase<T, E>
 	{
-		always(callbackOrErrback?: (value: any) => void): PromiseLike<T>;
+		always<V, E2>(callbackOrErrback?: (value: T | E) => V): _PromiseLikeBase<V, E2>;
 		cancel(reason: any, strict?: boolean): void;
-		otherwise(errback?: (error: any) => void): PromiseLike<T>;
+		otherwise<V, E2>(errback?: (error: E) => V): _PromiseLikeBase<V, E2>;
 		isCanceled(): boolean;
 		isFulfilled(): boolean;
 		isRejected(): boolean;
 		isResolved(): boolean;
-		then<V>(callback?: (value: T) => V | PromiseLike<V>, errback?: (error: any) => void, progback?: (progress: any) => void): PromiseLike<V>;
-		trace(): PromiseLike<T>;
-		traceRejected(): PromiseLike<T>;
+		then<V, E2>(callback?: (value: T) => V | _PromiseLikeBase<V, E2>, errback?: (error: E) => V | _PromiseLikeBase<V, E2>, progback?: (progress: any) => void): _PromiseLikeBase<V, E2>;
+		trace(): _PromiseLikeBase<T, E>;
+		traceRejected(): _PromiseLikeBase<T, E>;
 	}
+
+	interface PromiseLike<T> extends _PromiseLikeBase<T, any> { }
 }
 
 declare module dojo
 {
 	// Evented
 
-	class Evented
+	abstract class Evented
 	{
 		emit(type: string | Dojo.ExtensionEvent, event: { bubbles?: boolean; cancelable?: boolean; }): void;
 
@@ -175,16 +179,16 @@ declare module dojo
 		on(type: "unload", listener: EventListener): Dojo.RemovableHandle;
 		on(type: "volumechange", listener: EventListener): Dojo.RemovableHandle;
 		on(type: "waiting", listener: EventListener): Dojo.RemovableHandle;
-		on(type: string, listener: EventListener): Dojo.RemovableHandle;
+		on(type: string, listener: Dojo.Action): Dojo.RemovableHandle;
 		on(type: Dojo.ExtensionEvent, listener: Dojo.Action): Dojo.RemovableHandle;
 	}
 
 	// Stateful
 
-	class Stateful extends Dojo.DeclaredClass
+	abstract class Stateful extends Dojo.DeclaredClass
 	{
-		get(name: string): any;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		get<T>(name: string): T;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
 		watch(name: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
 		_changeAttrValue(name: string, value: any): void;		// Helper functions are not flushed out with overload-by-constant
@@ -268,7 +272,7 @@ declare module Dijit
 
 declare module dijit
 {
-	class _WidgetBase extends dojo.Stateful implements Dojo.DeclaredClass, Dijit.WidgetOrMixin
+	abstract class _WidgetBase extends dojo.Stateful implements Dojo.DeclaredClass, Dijit.WidgetOrMixin
 	{
 		constructor(params?: Dijit.WidgetCreateOptions, srcNodeRef?: string | HTMLElement);
 
@@ -302,7 +306,7 @@ declare module dijit
 		get(name: "style"): Dojo.StylesMap;
 		get(name: "title"): string;
 		get(name: "tooltip"): string;
-		get(name: string): any;
+		get<T>(name: string): T;
 
 		set(name: "baseClass", value: string): void;
 		set(name: "class", value: string): void;
@@ -318,7 +322,7 @@ declare module dijit
 		set(name: "style", value: Dojo.StylesMap): void;
 		set(name: "title", value: string): void;
 		set(name: "tooltip", value: string): void;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		set<T>(name: string, value: any, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
 
 		watch(prop: "baseClass", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
@@ -335,7 +339,7 @@ declare module dijit
 		watch(prop: "style", callback: Dojo.WatchCallback<Dojo.StylesMap>): Dojo.WatchHandle;
 		watch(prop: "title", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 		watch(prop: "tooltip", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 		buildRendering(): void;
 
@@ -426,7 +430,7 @@ declare module dijit
 		on(type: "unload", listener: EventListener): Dojo.RemovableHandle;
 		on(type: "volumechange", listener: EventListener): Dojo.RemovableHandle;
 		on(type: "waiting", listener: EventListener): Dojo.RemovableHandle;
-		on(type: string, listener: EventListener): Dojo.RemovableHandle;
+		on(type: string, listener: Dojo.Action): Dojo.RemovableHandle;
 		on(type: Dojo.ExtensionEvent, func: Dojo.Action): Dojo.RemovableHandle;
 
 		own(handle: Dojo.RemovableHandle): Dojo.RemovableHandle[];

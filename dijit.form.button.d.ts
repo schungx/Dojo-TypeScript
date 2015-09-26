@@ -16,15 +16,15 @@ declare module dijit
 
 			get(name: "label"): string;
 			get(name: "type"): string;
-			get(name: string): any;
+			get<T>(name: string): T;
 
 			set(name: "label", value: string): void;
 			set(name: "type", value: string): void;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 
 			watch(prop: "label", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 			watch(prop: "type", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 		}
 
 		class Button extends _FormWidget implements _ButtonMixin
@@ -129,10 +129,10 @@ declare module dijit
 			watch(prop: "label", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 
 			// get/set/watch master signatures
-			get(name: string): any;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			get<T>(name: string): T;
+			set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 			set(values: Dojo.PropertiesMap): void;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 			// Events
 			on(type: "Blur", listener: Dojo.Action): Dojo.RemovableHandle;

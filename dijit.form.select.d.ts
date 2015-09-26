@@ -153,10 +153,10 @@ declare module dijit
 			watch<K>(prop: "store", callback: Dojo.WatchCallback<Dojo.Store._Store<Object, K>>): Dojo.WatchHandle;
 
 			// get/set/watch master signatures
-			get(name: string): any;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			get<T>(name: string): T;
+			set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 			set(values: Dojo.PropertiesMap): void;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 			addOption(option: _SelectOption): void;
 			addOption(option: _SelectOption[]): void;
@@ -415,10 +415,10 @@ declare module dijit
 			watch(prop: "tooltipPosition", callback: Dojo.WatchCallback<string[]>): Dojo.WatchHandle;
 
 			// get/set/watch master signatures
-			get(name: string): any;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			get<T>(name: string): T;
+			set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 			set(values: Dojo.PropertiesMap): void;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 			// Events
 			on(type: "Blur", listener: Dojo.Action): Dojo.RemovableHandle;

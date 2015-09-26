@@ -150,10 +150,10 @@ declare module dijit
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
 		// get/set/watch master signatures
-		get(name: string): any;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		get<T>(name: string): T;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 	}
 
 	// dijit/DropDownMenu
@@ -254,10 +254,10 @@ declare module dijit
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
 		// get/set/watch master signatures
-		get(name: string): any;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		get<T>(name: string): T;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 	}
 
 	// dijit/Menu
@@ -393,10 +393,10 @@ declare module dijit
 		unBindDomNode(node: HTMLElement): void;
 
 		// get/set/watch master signatures
-		get(name: string): any;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		get<T>(name: string): T;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 	}
 
 	// dijit/MenuItem
@@ -513,10 +513,10 @@ declare module dijit
 		watch(prop: "hovering", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 
 		// get/set/watch master signatures
-		get(name: string): any;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		get<T>(name: string): T;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 	}
 
 	// dijit/MenuSeparator
@@ -593,10 +593,10 @@ declare module dijit
 		getPreviousSibling(): _WidgetBase;
 
 		// get/set/watch master signatures
-		get(name: string): any;
-		set(name: string, value: any, raiseChangeEvent?: boolean): void;
+		get<T>(name: string): T;
+		set<T>(name: string, value: T, raiseChangeEvent?: boolean): void;
 		set(values: Dojo.PropertiesMap): void;
-		watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+		watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 	}
 }
 

@@ -28,7 +28,7 @@ declare module dijit
 			get(name: "selectOnClick"): boolean;
 			get(name: "trim"): boolean;
 			get(name: "uppercase"): boolean;
-			get(name: string): any;
+			get<T>(name: string): T;
 
 			set(name: "displayedValue", value: string): void;
 			set(name: "lowercase", value: boolean): void;
@@ -38,7 +38,7 @@ declare module dijit
 			set(name: "selectOnClick", value: boolean): void;
 			set(name: "trim", value: boolean): void;
 			set(name: "uppercase", value: boolean): void;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			set<T>(name: string, value: any, raiseChangeEvent?: boolean): void;
 
 			watch(prop: "displayedValue", callback: Dojo.WatchCallback<string>): Dojo.WatchHandle;
 			watch(prop: "lowercase", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
@@ -48,7 +48,7 @@ declare module dijit
 			watch(prop: "lowercaseselectOnClick", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 			watch(prop: "trim", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
 			watch(prop: "uppercase", callback: Dojo.WatchCallback<boolean>): Dojo.WatchHandle;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 			filter(val: string): any;
 			format(value: string, constraints: Object): string;
@@ -197,10 +197,10 @@ declare module dijit
 			onInput(event: KeyboardEvent): void;
 
 			// get/set/watch master signatures
-			get(name: string): any;
-			set(name: string, value: any, raiseChangeEvent?: boolean): void;
+			get<T>(name: string): T;
+			set<T>(name: string, value: any, raiseChangeEvent?: boolean): void;
 			set(values: Dojo.PropertiesMap): void;
-			watch(prop: string, callback: Dojo.WatchCallback<any>): Dojo.WatchHandle;
+			watch<T>(prop: string, callback: Dojo.WatchCallback<T>): Dojo.WatchHandle;
 
 			// Events
 			on(type: "Blur", listener: Dojo.Action): Dojo.RemovableHandle;
