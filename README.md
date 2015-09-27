@@ -3,7 +3,7 @@ Using Dojo (AMD-style) with TypeScript
 
 This project is an attempt to use the Dojo Toolkit
 (version 1.7 or higher, preferrably in AMD style) with
-Microsoft's TypeScript (version 1.5 and up).
+Microsoft's TypeScript (version 1.6 and up).
 
 Older-style (i.e. non-AMD) Dojo is not supported, as there are already
 projects converting the old Dojo API files to TypeScript
