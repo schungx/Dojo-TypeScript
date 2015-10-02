@@ -71,7 +71,7 @@ declare module Dojo
 	{
 		(className: string, superclass: DeclaredClass | DeclaredClass[], props: DeclareOptions): DeclaredClass;
 		(superclass: DeclaredClass | DeclaredClass[], props: DeclareOptions): DeclaredClass;
-		safeMixin(dest: dijit._WidgetBase, ...sources: PropertiesMap[]): void;
+		safeMixin(dest: DeclaredClass, source: PropertiesMap): void;
 	}
 
 	interface DeclareOptions
