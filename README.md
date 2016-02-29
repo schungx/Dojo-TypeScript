@@ -1,3 +1,8 @@
+NOTE: This repository is deprecated.
+====================================
+
+Use the official Dojo Typings at https://github.com/dojo/typings.
+
 Using Dojo (AMD-style) with TypeScript
 ======================================
 
